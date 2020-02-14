@@ -25,8 +25,12 @@ class RegistroEnfermedadController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
+        $enfermedad = $this->verifyCode('enfermedad', $request->enfermedad_codigo);
+        
         $registro = $this->registroEnfermedadRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'enfermedad_codigo' =>  $request->enfermedad_codigo,'fecha' =>  $request->fecha, 'active' => true]
+            ['codigo' => $code, 'animal_codigo' =>  $animal, 'enfermedad_codigo' =>  $enfermedad,'fecha' =>  $request->fecha, 'active' => true]
         );
         return response()->json($registro, 201); 
     }
@@ -65,5 +69,22 @@ class RegistroEnfermedadController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->registroEnfermedadRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->registroEnfermedadRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'registro_enfermedad']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

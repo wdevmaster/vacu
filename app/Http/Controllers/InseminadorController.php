@@ -30,8 +30,9 @@ class InseminadorController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
         $inseminador = $this->inseminadorRepository()->insert(
-            ['codigo' => $request->codigo, 'negocioId' =>  $request->negocioId, 'nombre' =>  $request->nombre, 'active' => true]
+            ['codigo' => $code, 'negocioId' =>  $request->negocioId, 'nombre' =>  $request->nombre, 'active' => true]
         );
         return response()->json($inseminador, 201); 
     }
@@ -71,5 +72,22 @@ class InseminadorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->inseminadorRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->inseminadorRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'inseminador']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

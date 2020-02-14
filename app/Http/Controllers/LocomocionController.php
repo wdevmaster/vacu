@@ -32,8 +32,9 @@ class LocomocionController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
         $locomocion = $this->locomocionRepository()->insert(
-            ['codigo' => $request->codigo, 'descripcion' =>  $request->descripcion, 'negocioId' =>  $request->negocioId,'nombre' =>  $request->nombre, 'active' => true]
+            ['codigo' => $code, 'descripcion' =>  $request->descripcion, 'negocioId' =>  $request->negocioId,'nombre' =>  $request->nombre, 'active' => true]
         );
         return response()->json($locomocion, 201); 
     }
@@ -72,5 +73,22 @@ class LocomocionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->locomocionRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->locomocionRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'locomocion']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

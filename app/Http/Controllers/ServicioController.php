@@ -25,8 +25,14 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animalInseminado = $this->verifyCode('animal', $request->animal_inseminado_codigo);
+        $animalInseminador = $this->verifyCode('animal', $request->animal_inseminador_codigo);
+        $personaInseminador = $this->verifyCode('inseminador', $request->persona_inseminador_codigo);
+        $semen = $this->verifyCode('semen', $request->semen_codigo);
+
         $servicio = $this->servicioRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_inseminado_codigo' =>  $request->animal_inseminado_codigo, 'animal_inseminador_codigo' =>  $request->animal_inseminador_codigo,'fecha' =>  $request->fecha, 'persona_inseminador_codigo' => $request->persona_inseminador_codigo, 'semen_codigo' => $request->semen_codigo, 'tipoId' => $request->tipoId, 'active' => true]
+            ['codigo' => $code, 'animal_inseminado_codigo' =>  $animalInseminado, 'animal_inseminador_codigo' =>  $animalInseminador,'fecha' =>  $request->fecha, 'persona_inseminador_codigo' => $personaInseminador, 'semen_codigo' => $semen, 'tipoId' => $request->tipoId, 'active' => true]
         );
         return response()->json($servicio, 201); 
     }
@@ -64,5 +70,22 @@ class ServicioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->servicioRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->servicioRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'servicio']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

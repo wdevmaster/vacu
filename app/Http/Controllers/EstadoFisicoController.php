@@ -38,8 +38,13 @@ class EstadoFisicoController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $condicion = $this->verifyCode('condicion_corporal', $request->condicion_corporal_codigo);
+        $locomocion = $this->verifyCode('locomocion', $request->locomocion_codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
+
         $estado = $this->estadoFisicoRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'condicion_corporal_codigo' =>  $request->condicion_corporal_codigo, 'fecha' =>  $request->fecha, 'locomocion_codigo' => $request->locomocion_codigo, 'active' => true]
+            ['codigo' =>  $code, 'animal_codigo' =>  $animal, 'condicion_corporal_codigo' =>  $condicion, 'fecha' =>  $request->fecha, 'locomocion_codigo' => $locomocion, 'active' => true]
         );
         return response()->json($estado, 201); 
     }
@@ -74,5 +79,22 @@ class EstadoFisicoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->estadoFisicoRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->estadoFisicoRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'estado_fisico']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

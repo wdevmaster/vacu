@@ -31,8 +31,11 @@ class MuerteController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
+
         $muerte = $this->muerteRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'fecha' =>  $request->fecha,'motivoId' =>  $request->motivoId]
+            ['codigo' => $code, 'animal_codigo' =>  $animal, 'fecha' =>  $request->fecha,'motivoId' =>  $request->motivoId]
         );
         return response()->json($muerte, 201); 
     }
@@ -62,5 +65,22 @@ class MuerteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->muerteRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->muerteRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'muerte']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

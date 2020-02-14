@@ -124,4 +124,20 @@ class Controller extends BaseController
     {
         return DB::table('venta');
     }
+
+    
+    public function verifyCode($tabla,$codigo)
+    {
+        if($this->sincronizacionRepository()->where('tabla', $tabla)->where('codigo_remoto', $codigo)->exists())
+        {
+            $aux = $this->sincronizacionRepository()->where('tabla', $tabla)->where('codigo_remoto', $codigo)->first();
+
+            return $aux->codigo_actual;
+        }
+        else
+        {
+            return $codigo;
+        }
+    }
+    
 }

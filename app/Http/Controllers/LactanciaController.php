@@ -37,8 +37,10 @@ class LactanciaController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
         $lactancia = $this->lactanciaRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'concentrado' =>  $request->concentrado,'fecha' =>  $request->fecha, 'leche' => $request->leche, 'peso' => $request->peso, 'active' => true]
+            ['codigo' => $code, 'animal_codigo' =>  $animal, 'concentrado' =>  $request->concentrado,'fecha' =>  $request->fecha, 'leche' => $request->leche, 'peso' => $request->peso, 'active' => true]
         );
         return response()->json($lactancia, 201); 
     }
@@ -76,5 +78,22 @@ class LactanciaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->lactanciaRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->lactanciaRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'lactancia']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

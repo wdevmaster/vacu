@@ -25,8 +25,9 @@ class RazaController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
         $raza = $this->razaRepository()->insert(
-            ['codigo' => $request->codigo, 'negocioId' =>  $request->negocioId, 'nombre' =>  $request->nombre, 'active' => true]
+            ['codigo' => $code, 'negocioId' =>  $request->negocioId, 'nombre' =>  $request->nombre, 'active' => true]
         );
         return response()->json($raza, 201); 
     }
@@ -64,5 +65,22 @@ class RazaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->razaRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->razaRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'raza']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

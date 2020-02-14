@@ -26,8 +26,12 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
+        $cliente = $this->verifyCode('cliente', $request->cliente_codigo);
+
         $venta = $this->ventaRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'cliente_codigo' =>  $request->cliente_codigo,'fecha' =>  $request->fecha, 'motivo' => $request->motivo, 'active' => true]
+            ['codigo' => $code, 'animal_codigo' =>  $animal, 'cliente_codigo' =>  $cliente,'fecha' =>  $request->fecha, 'motivo' => $request->motivo, 'active' => true]
         );
         return response()->json($venta, 201); 
     }
@@ -66,5 +70,22 @@ class VentaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->ventaRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->ventaRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'venta']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

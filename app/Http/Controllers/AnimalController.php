@@ -31,8 +31,13 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $madre = $this->verifyCode('animal', $request->madreCodigo);
+        $padre = $this->verifyCode('animal', $request->padreCodigo);
+        $raza = $this->verifyCode('raza', $request->raza_codigo);
+
         $animal = $this->animalRepository()->insert(
-            ['codigo' => $request->codigo, 'fecha_nacimiento' =>  $request->fecha_nacimiento, 'lote_actual_Id' =>  $request->lote_actual_Id,'lote_nacimientoId' =>  $request->lote_nacimientoId, 'madreCodigo' => $request->madreCodigo, 'padreCodigo' => $request->padreCodigo, 'raza_codigo' => $request->raza_codigo, 'sexo' => $request->sexo, 'active' => true]
+            ['codigo' => $code, 'fecha_nacimiento' =>  $request->fecha_nacimiento, 'lote_actual_Id' =>  $request->lote_actual_Id,'lote_nacimientoId' =>  $request->lote_nacimientoId, 'madreCodigo' => $madre, 'padreCodigo' => $padre, 'raza_codigo' => $raza, 'sexo' => $request->sexo, 'active' => true]
         );
         return response()->json($animal, 201); 
     }
@@ -72,4 +77,22 @@ class AnimalController extends Controller
     {
         //
     }
+
+    private function getCode($codigo)
+    {
+        if($this->animalRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->animalRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'animal']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
+    }
+
 }

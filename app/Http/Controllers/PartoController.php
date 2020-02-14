@@ -31,8 +31,13 @@ class PartoController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animalNacido = $this->verifyCode('animal', $request->animal_nacido);
+        $madre = $this->verifyCode('animal', $request->madre_codigo);
+        $raza = $this->verifyCode('raza', $request->raza_codigo);
+
         $parto = $this->partoRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_nacido' =>  $request->animal_nacido, 'fecha' =>  $request->fecha,'madre_codigo' =>  $request->madre_codigo, 'raza_codigo' => $request->raza_codigo, 'sexo' => $request->sexo, 'active' => true]
+            ['codigo' => $code, 'animal_nacido' =>  $animalNacido, 'fecha' =>  $request->fecha,'madre_codigo' =>  $madre, 'raza_codigo' => $raza, 'sexo' => $request->sexo, 'active' => true]
         );
         return response()->json($parto, 201); 
     }
@@ -73,5 +78,22 @@ class PartoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->partoRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->partoRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'parto']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

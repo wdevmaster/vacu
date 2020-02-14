@@ -26,8 +26,11 @@ class ProduccionController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
+
         $prod = $this->produccionRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'fecha' =>  $request->fecha,'peso' =>  $request->peso, 'active' => true]
+            ['codigo' => $code, 'animal_codigo' =>  $animal, 'fecha' =>  $request->fecha,'peso' =>  $request->peso, 'active' => true]
         );
         return response()->json($prod, 201); 
     }
@@ -66,5 +69,22 @@ class ProduccionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->produccionRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->produccionRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'produccion']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

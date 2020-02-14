@@ -32,8 +32,9 @@ class EnfermedadController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
         $enfermedad = $this->enfermedadRepository()->insert(
-            ['codigo' => $request->codigo, 'descripcion' =>  $request->descripcion, 'negocioId' =>  $request->negocioId,'nombre' =>  $request->nombre, 'active' => true]
+            ['codigo' => $code, 'descripcion' =>  $request->descripcion, 'negocioId' =>  $request->negocioId,'nombre' =>  $request->nombre, 'active' => true]
         );
         return response()->json($enfermedad, 201); 
     }
@@ -73,5 +74,22 @@ class EnfermedadController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->enfermedadRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->enfermedadRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'enfermedad']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }

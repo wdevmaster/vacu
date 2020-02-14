@@ -32,8 +32,11 @@ class IngresoController extends Controller
      */
     public function store(Request $request)
     {
+        $code = $this->getCode($request->codigo);
+        $animal = $this->verifyCode('animal', $request->animal_codigo);
+
         $ingreso = $this->ingresoRepository()->insert(
-            ['codigo' => $request->codigo, 'animal_codigo' =>  $request->animal_codigo, 'fecha' =>  $request->fecha,'loteId' =>  $request->loteId, 'active' => true]
+            ['codigo' =>  $code, 'animal_codigo' =>  $animal, 'fecha' =>  $request->fecha,'loteId' =>  $request->loteId, 'active' => true]
         );
         return response()->json($ingreso, 201); 
     }
@@ -73,5 +76,22 @@ class IngresoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getCode($codigo)
+    {
+        if($this->ingresoRepository()->where('codigo', $codigo)->exists())
+        {
+         $last = $this->ingresoRepository()->orderby('codigo','DESC')->first();
+         $new_code = $last->codigo + 1;
+         $this->sincronizacionRepository()->insert(
+            ['codigo_actual' => $new_code, 'codigo_remoto' =>  $codigo, 'tabla' =>  'ingreso']
+        );  
+            return $new_code;
+        }
+        else
+        {
+            return $codigo;
+        }
     }
 }
