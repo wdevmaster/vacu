@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller as BaseController;
+use JWTAuth;
 
 class Controller extends BaseController
 {
@@ -76,10 +77,6 @@ class Controller extends BaseController
     {
         return DB::table('parto');
     }
-    public function permisoRepository()
-    {
-        return DB::table('permiso');
-    }
     public function produccionRepository()
     {
         return DB::table('produccion');
@@ -111,21 +108,12 @@ class Controller extends BaseController
     public function tipoServicioRepository()
     {
         return DB::table('tipo_servicio');
-    }
-    public function usuarioRepository()
-    {
-        return DB::table('usuario');
-    }
-    public function usuarioPermisosRepository()
-    {
-        return DB::table('usuario_has_permiso');
-    }
+    }  
     public function ventaRepository()
     {
         return DB::table('venta');
     }
-
-    
+   
     public function verifyCode($tabla,$codigo)
     {
         if($this->sincronizacionRepository()->where('tabla', $tabla)->where('codigo_remoto', $codigo)->exists())
@@ -139,5 +127,76 @@ class Controller extends BaseController
             return $codigo;
         }
     }
+
+    public function Sincronizar($token){
+
+        $user = JWTAuth::authenticate($token);
+        $userId = $user->id;
+        
+        $user_sinc = $this->configuracionRepository()->where('clave', 'USER_SINC')->first();
+        $fecha_sinc = $this->configuracionRepository()->where('clave', 'DATE_SINC')->first();
+        
+        $tiempoEnMinutos = 0;
+        if($fecha_sinc->valor!=null){
+            $fechaIni = Carbon::parse($fecha_sinc->valor)->format('Y-m-d');
+            $fechafin = Carbon::now()->format('Y-m-d');
+            $tiempoEnMinutos = $fechaIni->diffInMinutes($fechafin);
+        }
+
+        if($user_sinc->valor===0 || $fecha_sinc->valor==null || $tiempoEnMinutos>15){
+
+            //modificar variables de configuracion
+            $this->configuracionRepository()
+            ->where('clave', 'USER_SINC')
+            ->update(['valor' =>  $userId]);
+            $this->configuracionRepository()
+            ->where('clave', 'DATE_SINC')
+            ->update(['valor' =>  Carbon::now()->format('Y-m-d')]);
+
+            $this->sincronizacionRepository()->delete(); //vaciar tabla sincronizacion
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function Desconectar()
+    {
+        $this->configuracionRepository()
+        ->where('clave', 'USER_SINC')
+        ->update(['valor' =>  0]);
+
+        $this->sincronizacionRepository()->delete(); //vaciar tabla sincronizacion
+
+        return true;
+    }
     
+    public function UserSincronizando($token)
+    {
+        $user = JWTAuth::authenticate($token);
+        $userId = $user->id;
+        if($this->configuracionRepository()->where('clave', 'USER_SINC')->where('valor', $userId)->exists())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function UserInRol($userRolId, $rol)
+    {
+        $query = $this->rolRepository()->where('nombre', $rol)->first();
+        $idRol = $query->idrol;
+        if($userRolId===$idRol){
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

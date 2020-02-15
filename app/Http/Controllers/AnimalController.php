@@ -12,7 +12,7 @@ class AnimalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $list = $this->animalRepository()->get();
         return response()->json($list, 200);
     }

@@ -17,6 +17,22 @@ class ConfiguracionController extends Controller
         return response()->json($list, 200);
     }
 
+    public function sincronizar(Request $request)
+    {
+        return response()->json($this->Sincronizar($request->token), 200);
+    }
+
+    public function desconectar()
+    {
+        return response()->json($this->Desconectar(), 200);
+    }
+
+    public function getRoles()
+    {
+        $list = $this->rolRepository()->get();
+        return response()->json($list, 200);
+    }
+
     public function findByKey($key)
     {
         $value = $this->configuracionRepository()->where('clave',$key)->value('valor');
