@@ -60,7 +60,7 @@ class LoteController extends Controller
         return response()->json($lote, 200); 
     }
 
-    public function desabilitar($id)
+    public function inactivar($id)
     {
         $lote = $this->loteRepository()
               ->where('idLote', $id)

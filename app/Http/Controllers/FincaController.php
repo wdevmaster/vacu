@@ -59,7 +59,7 @@ class FincaController extends Controller
         return response()->json($finca, 200); 
     }
 
-    public function desabilitar($id)
+    public function inactivar($id)
     {
         $finca = $this->fincaRepository()
               ->where('idfinca', $id)

@@ -51,7 +51,7 @@ class AnimalController extends Controller
         return response()->json($animal, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $animal = $this->animalRepository()
               ->where('codigo', $codigo)

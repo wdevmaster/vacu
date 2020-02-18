@@ -44,7 +44,7 @@ class RegistroEnfermedadController extends Controller
         return response()->json($registro, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $registro = $this->registroEnfermedadRepository()
               ->where('codigo', $codigo)

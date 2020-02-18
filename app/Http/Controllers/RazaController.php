@@ -37,7 +37,7 @@ class RazaController extends Controller
         return response()->json($raza, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $raza = $this->razaRepository()
               ->where('codigo', $codigo)

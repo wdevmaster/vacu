@@ -29,7 +29,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('animales/list/{negocio}','AnimalController@list');
     Route::get('animal/{codigo}','AnimalController@findByCode');
     Route::post('animales','AnimalController@store');
-    Route::put('animal/desabilitar/{codigo}','AnimalController@desabilitar');
+    Route::put('animal/inactivar/{codigo}','AnimalController@inactivar');
     Route::put('animal/{codigo}','AnimalController@update');
 
     // -----------------Rutas cliente-------------------
@@ -37,7 +37,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('clientes/list/{negocio}','ClienteController@list');
     Route::get('cliente/{codigo}','ClienteController@findByCode');
     Route::post('clientes','ClienteController@store');
-    Route::put('cliente/desabilitar/{codigo}','ClienteController@desabilitar');
+    Route::put('cliente/inactivar/{codigo}','ClienteController@inactivar');
     Route::put('cliente/{codigo}','ClienteController@update');
 
 
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('condiciones_corporales/list/{negocio}','CondicionCorporalController@list');
     Route::get('condicion/{codigo}','CondicionCorporalController@findByCode');
     Route::post('condiciones_corporales','CondicionCorporalController@store');
-    Route::put('condicion/desabilitar/{codigo}','CondicionCorporalController@desabilitar');
+    Route::put('condicion/inactivar/{codigo}','CondicionCorporalController@inactivar');
     Route::put('condicion/{codigo}','CondicionCorporalController@update');
 
 
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('enfermedades/list/{negocio}','EnfermedadController@list');
     Route::get('enfermedad/{codigo}','EnfermedadController@findByCode');
     Route::post('enfermedades','EnfermedadController@store');
-    Route::put('enfermedad/desabilitar/{codigo}','EnfermedadController@desabilitar');
+    Route::put('enfermedad/inactivar/{codigo}','EnfermedadController@inactivar');
     Route::put('enfermedad/{codigo}','EnfermedadController@update');
 
 
@@ -74,7 +74,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('estados_fisicos/list/{negocio}','EstadoFisicoController@list');
     Route::get('estado/{codigo}','EstadoFisicoController@findByCode');
     Route::post('estados_fisicos','EstadoFisicoController@store');
-    Route::put('estado/desabilitar/{codigo}','EstadoFisicoController@desabilitar');
+    Route::put('estado/inactivar/{codigo}','EstadoFisicoController@inactivar');
     Route::put('estado/{codigo}','EstadoFisicoController@update');
 
 
@@ -83,7 +83,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('fincas/list/{negocio}','FincaController@list');
     Route::get('finca/{id}','FincaController@findById');
     Route::post('fincas','FincaController@store');
-    Route::put('finca/desabilitar/{id}','FincaController@desabilitar');
+    Route::put('finca/inactivar/{id}','FincaController@inactivar');
     Route::put('finca/{id}','FincaController@update');
 
 
@@ -92,7 +92,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('ingreso/list/{negocio}','IngresoController@list');
     Route::get('ingreso/{codigo}','IngresoController@findByCode');
     Route::post('ingreso','IngresoController@store');
-    Route::put('ingreso/desabilitar/{codigo}','IngresoController@desabilitar');
+    Route::put('ingreso/inactivar/{codigo}','IngresoController@inactivar');
     Route::put('ingreso/{codigo}','IngresoController@update');
 
 
@@ -101,7 +101,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('inseminadores/list/{negocio}','InseminadorController@list');
     Route::get('inseminador/{codigo}','InseminadorController@findByCode');
     Route::post('inseminadores','InseminadorController@store');
-    Route::put('inseminador/desabilitar/{codigo}','InseminadorController@desabilitar');
+    Route::put('inseminador/inactivar/{codigo}','InseminadorController@inactivar');
     Route::put('inseminador/{codigo}','InseminadorController@update');
 
 
@@ -111,7 +111,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('lactancia/{codigo}','InseminadorController@findByCode');
     Route::get('lactancia/animal/{animal}','InseminadorController@lactanciaByAnimal');
     Route::post('lactancias','InseminadorController@store');
-    Route::put('lactancia/desabilitar/{codigo}','InseminadorController@desabilitar');
+    Route::put('lactancia/inactivar/{codigo}','InseminadorController@inactivar');
     Route::put('lactancia/{codigo}','InseminadorController@update');
 
 
@@ -120,7 +120,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('locomociones/list/{negocio}','LocomocionController@list');
     Route::get('locomocion/{codigo}','LocomocionController@findByCode');
     Route::post('locomociones','LocomocionController@store');
-    Route::put('locomocion/desabilitar/{codigo}','LocomocionController@desabilitar');
+    Route::put('locomocion/inactivar/{codigo}','LocomocionController@inactivar');
     Route::put('locomocion/{codigo}','LocomocionController@update');
 
 
@@ -130,7 +130,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('lotes/list/{negocio}','LoteController@list');
     Route::get('lote/{id}','LoteController@findById');
     Route::post('lotes','LoteController@store');
-    Route::put('lote/desabilitar/{id}','LoteController@desabilitar');
+    Route::put('lote/inactivar/{id}','LoteController@inactivar');
     Route::put('lote/{id}','LoteController@update');
 
     // -----------------Rutas muerte-------------------
@@ -153,7 +153,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('partos/list/{negocio}','PartoController@list');
     Route::get('parto/{codigo}','PartoController@findByCode');
     Route::post('partos','PartoController@store');
-    Route::put('parto/desabilitar/{codigo}','PartoController@desabilitar');
+    Route::put('parto/inactivar/{codigo}','PartoController@inactivar');
     Route::put('parto/{codigo}','PartoController@update');
 
 
@@ -161,7 +161,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('producciones','ProduccionController@index');
     Route::get('producciones/list/{negocio}','ProduccionController@list');
     Route::post('producciones','ProduccionController@store');
-    Route::put('produccion/desabilitar/{codigo}','ProduccionController@desabilitar');
+    Route::put('produccion/inactivar/{codigo}','ProduccionController@inactivar');
     Route::put('produccion/{codigo}','ProduccionController@update');
 
 
@@ -169,7 +169,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('razas','RazaController@index');
     Route::get('razas/list/{negocio}','RazaController@list');
     Route::post('razas','RazaController@store');
-    Route::put('raza/desabilitar/{codigo}','RazaController@desabilitar');
+    Route::put('raza/inactivar/{codigo}','RazaController@inactivar');
     Route::put('raza/{codigo}','RazaController@update');
 
 
@@ -177,14 +177,14 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('registros_enfermedades','RegistroEnfermedadController@index');
     Route::get('registros_enfermedades/list/{negocio}','RegistroEnfermedadController@list');
     Route::post('registros','RegistroEnfermedadController@store');
-    Route::put('registro/desabilitar/{codigo}','RegistroEnfermedadController@desabilitar');
+    Route::put('registro/inactivar/{codigo}','RegistroEnfermedadController@inactivar');
     Route::put('registro/{codigo}','RegistroEnfermedadController@update');
 
     // -----------------Rutas semen-------------------
     Route::get('semen','SemenController@index');
     Route::get('semen/list/{negocio}','SemenController@list');
     Route::post('semen','SemenController@store');
-    Route::put('semen/desabilitar/{codigo}','SemenController@desabilitar');
+    Route::put('semen/inactivar/{codigo}','SemenController@inactivar');
     Route::put('semen/{codigo}','SemenController@update');
 
 
@@ -192,7 +192,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('servicios','ServicioController@index');
     Route::get('servicios/list/{negocio}','ServicioController@list');
     Route::post('servicios','ServicioController@store');
-    Route::put('servicio/desabilitar/{codigo}','ServicioController@desabilitar');
+    Route::put('servicio/inactivar/{codigo}','ServicioController@inactivar');
     Route::put('servicio/{codigo}','ServicioController@update');
 
 
@@ -204,7 +204,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('ventas','VentaController@index');
     Route::get('ventas/list/{negocio}','VentaController@list');
     Route::post('ventas','VentaController@store');
-    Route::put('venta/desabilitar/{codigo}','VentaController@desabilitar');
+    Route::put('venta/inactivar/{codigo}','VentaController@inactivar');
     Route::put('venta/{codigo}','VentaController@update');
 
 

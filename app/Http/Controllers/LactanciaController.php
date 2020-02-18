@@ -54,7 +54,7 @@ class LactanciaController extends Controller
         return response()->json($lactancia, 201); 
     }
   
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $lactancia = $this->lactanciaRepository()
               ->where('codigo', $codigo)

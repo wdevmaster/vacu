@@ -45,7 +45,7 @@ class CondicionCorporalController extends Controller
         return response()->json($condicion, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $condicion = $this->condicionCorporalRepository()
               ->where('codigo', $codigo)

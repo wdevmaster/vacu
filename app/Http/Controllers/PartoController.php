@@ -51,7 +51,7 @@ class PartoController extends Controller
         return response()->json($parto, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $parto = $this->partoRepository()
               ->where('codigo', $codigo)

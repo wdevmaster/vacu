@@ -43,7 +43,7 @@ class InseminadorController extends Controller
         return response()->json($inseminador, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $inseminador = $this->inseminadorRepository()
               ->where('codigo', $codigo)

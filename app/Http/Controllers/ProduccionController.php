@@ -44,7 +44,7 @@ class ProduccionController extends Controller
         return response()->json($prod, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $prod = $this->produccionRepository()
               ->where('codigo', $codigo)

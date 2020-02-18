@@ -45,7 +45,7 @@ class LocomocionController extends Controller
         return response()->json($locomocion, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $locomocion = $this->locomocionRepository()
               ->where('codigo', $codigo)

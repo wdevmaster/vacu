@@ -46,7 +46,7 @@ class ServicioController extends Controller
         return response()->json($servicio, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $servicio = $this->servicioRepository()
               ->where('codigo', $codigo)

@@ -43,7 +43,7 @@ class SemenController extends Controller
         return response()->json($semen, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $semen = $this->semenRepository()
               ->where('codigo', $codigo)

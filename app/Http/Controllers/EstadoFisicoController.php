@@ -58,7 +58,7 @@ class EstadoFisicoController extends Controller
         return response()->json($estado, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $estado = $this->estadoFisicoRepository()
               ->where('codigo', $codigo)

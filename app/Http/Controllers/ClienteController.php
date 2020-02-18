@@ -45,7 +45,7 @@ class ClienteController extends Controller
         return response()->json($cliente, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $cliente = $this->clienteRepository()
               ->where('codigo', $codigo)

@@ -45,7 +45,7 @@ class VentaController extends Controller
         return response()->json($venta, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $venta = $this->ventaRepository()
               ->where('codigo', $codigo)

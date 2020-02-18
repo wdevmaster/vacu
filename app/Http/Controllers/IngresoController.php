@@ -50,7 +50,7 @@ class IngresoController extends Controller
         return response()->json($ingreso, 201); 
     }
 
-    public function desabilitar($codigo)
+    public function inactivar($codigo)
     {
         $ingreso = $this->ingresoRepository()
               ->where('codigo', $codigo)

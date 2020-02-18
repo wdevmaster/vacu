@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="#">Documentación</a>
+                    <a href="/documentacion/API documentacion.pdf" target="__blank">Documentación</a>
                 </div>
             </div>
         </div>
