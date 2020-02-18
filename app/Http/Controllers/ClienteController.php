@@ -17,6 +17,13 @@ class ClienteController extends Controller
         return response()->json($list, 200);
        
     }
+    public function list($negocio)
+    {        
+        $list = $this->clienteRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
+
     public function findByCode($codigo)
     {
         $cliente = $this->clienteRepository()->where('codigo',$codigo)->first();

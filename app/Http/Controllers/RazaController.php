@@ -16,7 +16,12 @@ class RazaController extends Controller
         $list = $this->razaRepository()->get();
         return response()->json($list, 200);     
     }
-
+    public function list($negocio)
+    {        
+        $list = $this->razaRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
     /**
      * Store a newly created resource in storage.
      *

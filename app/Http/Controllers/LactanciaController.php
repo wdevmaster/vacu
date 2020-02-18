@@ -14,9 +14,18 @@ class LactanciaController extends Controller
     public function index()
     {
         $list = $this->lactanciaRepository()->get();
-        return response()->json($list, 200);
-        
+        return response()->json($list, 200);        
     }
+    public function list($negocio)
+    {        
+        $list = $this->lactanciaRepository()
+        ->join('animal', 'lactancia.animal_codigo', '=', 'animal.codigo')
+        ->join('lote', 'animal.lote_actual_Id', '=', 'lote.idLote')
+        ->join('finca', 'lote.fincaId', '=', 'finca.idfinca')
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
+
     public function findByCode($codigo)
     {
         $lactancia = $this->lactanciaRepository()->where('codigo',$codigo)->first();

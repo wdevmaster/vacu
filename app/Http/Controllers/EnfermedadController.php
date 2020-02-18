@@ -17,6 +17,12 @@ class EnfermedadController extends Controller
         return response()->json($list, 200);
        
     }
+    public function list($negocio)
+    {        
+        $list = $this->enfermedadRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
     public function findByCode($codigo)
     {
         $enfermedad = $this->enfermedadRepository()->where('codigo',$codigo)->first();

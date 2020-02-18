@@ -17,6 +17,15 @@ class VentaController extends Controller
         return response()->json($list, 200);
     }
 
+    public function list($negocio)
+    {        
+        $list = $this->ventaRepository()
+        ->join('animal', 'venta.animal_codigo', '=', 'animal.codigo')
+        ->join('lote', 'animal.lote_actual_Id', '=', 'lote.idLote')
+        ->join('finca', 'lote.fincaId', '=', 'finca.idfinca')
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
 
     /**
      * Store a newly created resource in storage.

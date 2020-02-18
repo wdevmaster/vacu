@@ -16,7 +16,12 @@ class FincaController extends Controller
          $list = $this->fincaRepository()->get();
         return response()->json($list, 200);     
     }
-
+    public function list($negocio)
+    {        
+        $list = $this->fincaRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
     public function findById($id)
     {
         $finca = $this->fincaRepository()->where('idfinca',$id)->first();

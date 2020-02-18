@@ -16,6 +16,15 @@ class EstadoFisicoController extends Controller
         $list = $this->estadoFisicoRepository()->get();
         return response()->json($list, 200);
     }
+    public function list($negocio)
+    {        
+        $list = $this->estadoFisicoRepository()
+        ->join('animal', 'estado_fisico.animal_codigo', '=', 'animal.codigo')
+        ->join('lote', 'animal.lote_actual_Id', '=', 'lote.idLote')
+        ->join('finca', 'lote.fincaId', '=', 'finca.idfinca')
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
 
     public function findByCode($codigo)
     {

@@ -17,6 +17,12 @@ class CondicionCorporalController extends Controller
         return response()->json($list, 200);
        
     }
+    public function list($negocio)
+    {        
+        $list = $this->condicionCorporalRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
     public function findByCode($codigo)
     {
         $condicion = $this->condicionCorporalRepository()->where('codigo',$codigo)->first();

@@ -16,6 +16,12 @@ class InseminadorController extends Controller
         $list = $this->inseminadorRepository()->get();
         return response()->json($list, 200);
     }
+    public function list($negocio)
+    {        
+        $list = $this->inseminadorRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
     public function findByCode($codigo)
     {
         $inseminador = $this->inseminadorRepository()->where('codigo',$codigo)->first();

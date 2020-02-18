@@ -17,6 +17,12 @@ class LocomocionController extends Controller
         return response()->json($list, 200);
         
     }
+    public function list($negocio)
+    {        
+        $list = $this->locomocionRepository()
+        ->where('negocioId',$negocio)->where('active',true)->get();
+        return response()->json($list, 200);
+    }
     public function findByCode($codigo)
     {
         $locomocion = $this->locomocionRepository()->where('codigo',$codigo)->first();
