@@ -1,0 +1,13 @@
+{
+    "name": "Inseminador",
+    "alias": "inseminador",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Inseminador\\Providers\\InseminadorServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

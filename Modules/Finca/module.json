@@ -1,0 +1,13 @@
+{
+    "name": "Finca",
+    "alias": "finca",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Finca\\Providers\\FincaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
