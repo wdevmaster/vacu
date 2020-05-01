@@ -17,10 +17,10 @@ class ConfiguracionController extends Controller
         return response()->json($list, 200);
     }
 
-    public function sincronizar(Request $request)
-    {
-        return response()->json($this->Sincronizar($request->token), 200);
-    }
+//    public function sincronizar(Request $request)
+//    {
+//        return response()->json($this->Sincronizar($request->token), 200);
+//    }
 
     public function desconectar()
     {

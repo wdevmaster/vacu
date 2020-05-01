@@ -8,7 +8,7 @@ return [
         |--------------------------------------------------------------------------
         */
 
-        'title' => 'L5 Swagger UI',
+        'title' => 'Finca Swagger UI',
     ],
 
     'routes' => [
@@ -82,6 +82,7 @@ return [
 
         'annotations' => [
             base_path('app'),
+            base_path('Modules'),
         ],
 
         /*
@@ -188,7 +189,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'swagger_version' => env('SWAGGER_VERSION', '3.0'),
+    'swagger_version' => env('SWAGGER_VERSION', '2.0'),
 
     /*
     |--------------------------------------------------------------------------

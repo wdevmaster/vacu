@@ -13,7 +13,7 @@ return [
 
     'path' => [
 
-        'migration'         => base_path("Modules/$module/Database/migrations/"),
+        'migration'         => base_path("Modules/$module/Database/Migrations/"),
 
         'model'             => base_path("Modules/$module/Entities/"),
 

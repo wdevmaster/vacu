@@ -11,40 +11,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
 {
-    /**
-     * @OA\Post(
-     *      path="/login",
-     *      operationId="login",
-     *      tags={"Auth"},
-     *      summary="Login user",
-     *      description="Login User",
-     *      @OA\RequestBody(
-     *          required=true,
-     *
-     *          @OA\Property(
-     *             title="Name",
-     *             description="Name of the new project",
-     *             example="A nice project"
-     *           )
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     * )
-     */
+
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
