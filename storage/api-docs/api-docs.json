@@ -13,6 +13,316 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/usuario/auth/password/email": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Para solicitar un cambio de contrase\u00f1a del cliente.",
+                "description": "Para solicitar un cambio de contrase\u00f1a del cliente",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "description": "Correo que se utilizara para el proceso de cambio de contrase\u00f1a.",
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "email"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "description": "User email",
+                                    "type": "string",
+                                    "example": "cliente@gmail.com"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion exitosa",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
+        "/api/v1/usuario/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login para usuarios",
+                "description": "Login para usuarios",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Request with authentication data",
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "description": "User email",
+                                    "type": "string",
+                                    "example": "user@gmail.com"
+                                },
+                                "password": {
+                                    "description": "User password",
+                                    "type": "string",
+                                    "example": "password"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion exitosa",
+                        "schema": {
+                            "properties": {
+                                "token_type": {
+                                    "type": "string",
+                                    "example": "Bearer"
+                                },
+                                "expires_in": {
+                                    "type": "integer"
+                                },
+                                "access_token": {
+                                    "type": "string"
+                                },
+                                "refresh_token": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
+        "/api/v1/usuario/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registra un nuevo usuario.",
+                "description": "Registra un nuevo usuarion.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Datos del usuario que va a ser registrado.",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/RegisterUsuarioData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Operacion exitosa",
+                        "schema": {
+                            "properties": {
+                                "token_type": {
+                                    "type": "string",
+                                    "example": "Bearer"
+                                },
+                                "expires_in": {
+                                    "type": "integer"
+                                },
+                                "access_token": {
+                                    "type": "string"
+                                },
+                                "refresh_token": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    },
+                    "422": {
+                        "description": "Validation Errors"
+                    }
+                }
+            }
+        },
+        "/api/v1/usuario/auth/password/reset": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Para realizar el cambio de contrase\u00f1a solicitado por el cliente.",
+                "description": "Para realizar el cambio de contrase\u00f1a solicitado por el cliente.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Correo que se utilizara para el proceso de cambio de contrase\u00f1a.",
+                        "required": true,
+                        "schema": {
+                            "required": [
+                                "email",
+                                "token",
+                                "password",
+                                "password_confirmation"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "description": "User email",
+                                    "type": "string",
+                                    "example": "cliente@gmail.com"
+                                },
+                                "token": {
+                                    "description": "Token recibido por correo",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "description": "Nueva contrase\u00f1a",
+                                    "type": "string",
+                                    "example": "cliente"
+                                },
+                                "password_confirmation": {
+                                    "description": "Repetir nueva contrase\u00f1a",
+                                    "type": "string",
+                                    "example": "cliente"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion exitosa",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                }
+            }
+        },
+        "/api/v1/usuario/auth/email/resend": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Envia el correo de verificaci\u00f3n del cliente.",
+                "description": "Envia el correo de verificaci\u00f3n del cliente.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion exitosa",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/usuario/auth/email/verify/{id}/{hash}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Realiza la verificaci\u00f3n del correo del cliente.",
+                "description": "Realiza la verificaci\u00f3n del correo del cliente.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion exitosa",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized action."
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/usuario/usuarios": {
             "get": {
                 "tags": [
@@ -248,6 +558,42 @@
                     "description": "fincaId",
                     "type": "integer",
                     "format": "int32"
+                }
+            }
+        },
+        "RegisterUsuarioData": {
+            "required": [
+                "email",
+                "password",
+                "apellido_paterno",
+                "email",
+                "rol_id"
+            ],
+            "properties": {
+                "name": {
+                    "description": "name",
+                    "type": "string",
+                    "example": "name1"
+                },
+                "email": {
+                    "description": "email",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "password",
+                    "type": "string"
+                },
+                "password_confirmation": {
+                    "description": "password_confirmation",
+                    "type": "string"
+                },
+                "negocioId": {
+                    "description": "Negocio Id",
+                    "type": "integer"
+                },
+                "fincaId": {
+                    "description": "Finca Id",
+                    "type": "integer"
                 }
             }
         }

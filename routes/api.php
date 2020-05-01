@@ -18,12 +18,16 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::post('login', 'UserController@authenticate');
+//Route::post('login', 'UserController@authenticate');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     
-    Route::post('register', 'UserController@register');
-    Route::post('/logout', 'UserController@logout');
+//    Route::post('register', 'UserController@register');
+//    Route::post('/logout', 'UserController@logout');
+
+
+
+
 // -----------------Rutas animal-------------------
     Route::get('animales','AnimalController@index');
     Route::get('animales/list/{negocio}','AnimalController@list');

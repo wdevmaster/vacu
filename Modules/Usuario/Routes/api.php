@@ -13,14 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::prefix('v1/usuario')->group(function(){
-//    Route::post('/auth/login', 'LoginController@login')->name('login');
-//    Route::post('/auth/login/refresh', 'LoginController@refresh')->name('refresh');
-//});
+Route::prefix('v1/usuario')->group(function(){
+    Route::post('/auth/register', 'Auth\RegisterController@register')->name('auth.register');
+    Route::post('/auth/login', 'Auth\LoginController@login')->name('auth.login');
+
+
+    Route::post('/auth/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::post('/auth/password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
+
+    Route::get('/auth/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+    Route::get('/auth/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+});
 
 Route::prefix('v1/usuario')->group(function(){
-//    Route::get('/auth/logout', 'LoginController@logout')->name('user.logout');
-//    Route::get('/auth/logged_user', 'LoginController@loggedUser')->name('user.loggedUser');
 
     Route::prefix('/usuarios')->group(function(){
         Route::get('/', 'UserAPIController@index')->name('user.users.index');
