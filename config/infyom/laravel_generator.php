@@ -13,25 +13,25 @@ return [
 
     'path' => [
 
-        'migration'         => database_path("Modules/$module/Database/migrations/"),
+        'migration'         => base_path("Modules/$module/Database/migrations/"),
 
-        'model'             => app_path("Modules/$module/Entities/"),
+        'model'             => base_path("Modules/$module/Entities/"),
 
-        'datatables'        => app_path("Modules/$module/DataTables/"),
+        'datatables'        => base_path("Modules/$module/DataTables/"),
 
-        'repository'        => app_path("Modules/$module/Repositories/"),
+        'repository'        => base_path("Modules/$module/Repositories/"),
 
         'routes'            => base_path("Modules/$module/Routes/web.php"),
 
         'api_routes'        => base_path("Modules/$module/Routes/api.php"),
 
-        'request'           => app_path("Modules/$module/Http/Requests/"),
+        'request'           => base_path("Modules/$module/Http/Requests/"),
 
-        'api_request'       => app_path("Modules/$module/Http/Requests/"),
+        'api_request'       => base_path("Modules/$module/Http/Requests/"),
 
-        'controller'        => app_path("Modules/$module/Http/Controllers/"),
+        'controller'        => base_path("Modules/$module/Http/Controllers/"),
 
-        'api_controller'    => app_path("Modules/$module/Http/Controllers/"),
+        'api_controller'    => base_path("Modules/$module/Http/Controllers/"),
 
         'repository_test'   => base_path('tests/Repositories/'),
 
@@ -45,13 +45,13 @@ return [
 
         'templates_dir'     => resource_path('infyom/infyom-generator-templates/'),
 
-        'seeder'            => database_path('seeds/'),
+        'seeder'            => base_path('seeds/'),
 
         'database_seeder'   => database_path('seeds/DatabaseSeeder.php'),
 
         'modelJs'           => resource_path('assets/js/models/'),
 
-        'factory'           => database_path("Modules/$module/Database/factories/"),
+        'factory'           => base_path("Modules/$module/Database/factories/"),
 
         'view_provider'     => app_path('Providers/ViewServiceProvider.php'),
     ],
@@ -65,19 +65,19 @@ return [
 
     'namespace' => [
 
-        'model'             => 'App\Models',
+        'model'             => "Modules\\$module\\Entities",
 
-        'datatables'        => 'App\DataTables',
+        'datatables'        => "Modules\\$module\\DataTables",
 
-        'repository'        => 'App\Repositories',
+        'repository'        => "Modules\\$module\\Repositories",
 
-        'controller'        => 'App\Http\Controllers',
+        'controller'        => "Modules\\$module\\Http\\Controllers",
 
-        'api_controller'    => 'App\Http\Controllers\API',
+        'api_controller'    => "Modules\\$module\\Http\\Controllers",
 
-        'request'           => 'App\Http\Requests',
+        'request'           => "Modules\\$module\\Http\\Requests",
 
-        'api_request'       => 'App\Http\Requests\API',
+        'api_request'       => "Modules\\$module\\Http\\Requests",
 
         'repository_test'   => 'Tests\Repositories',
 
@@ -113,7 +113,7 @@ return [
 
     'api_prefix'  => 'api',
 
-    'api_version' => 'v1',
+    'api_version' => "v1/$module",
 
     /*
     |--------------------------------------------------------------------------
@@ -124,9 +124,9 @@ return [
 
     'options' => [
 
-        'softDelete' => true,
+        'softDelete' => false,
 
-        'save_schema_file' => true,
+        'save_schema_file' => false,
 
         'localized' => false,
 
@@ -164,7 +164,7 @@ return [
 
     'add_on' => [
 
-        'swagger'       => false,
+        'swagger'       => true,
 
         'tests'         => true,
 

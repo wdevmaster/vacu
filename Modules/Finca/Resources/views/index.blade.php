@@ -1,9 +1,0 @@
-@extends('finca::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('finca.name') !!}
-    </p>
-@endsection
