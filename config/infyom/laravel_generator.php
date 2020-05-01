@@ -1,5 +1,7 @@
 <?php
 
+$module = 'Usuario';
+
 return [
 
     /*
@@ -11,25 +13,25 @@ return [
 
     'path' => [
 
-        'migration'         => database_path('migrations/'),
+        'migration'         => database_path("Modules/$module/Database/migrations/"),
 
-        'model'             => app_path('Models/'),
+        'model'             => app_path("Modules/$module/Entities/"),
 
-        'datatables'        => app_path('DataTables/'),
+        'datatables'        => app_path("Modules/$module/DataTables/"),
 
-        'repository'        => app_path('Repositories/'),
+        'repository'        => app_path("Modules/$module/Repositories/"),
 
-        'routes'            => base_path('routes/web.php'),
+        'routes'            => base_path("Modules/$module/Routes/web.php"),
 
-        'api_routes'        => base_path('routes/api.php'),
+        'api_routes'        => base_path("Modules/$module/Routes/api.php"),
 
-        'request'           => app_path('Http/Requests/'),
+        'request'           => app_path("Modules/$module/Http/Requests/"),
 
-        'api_request'       => app_path('Http/Requests/API/'),
+        'api_request'       => app_path("Modules/$module/Http/Requests/"),
 
-        'controller'        => app_path('Http/Controllers/'),
+        'controller'        => app_path("Modules/$module/Http/Controllers/"),
 
-        'api_controller'    => app_path('Http/Controllers/API/'),
+        'api_controller'    => app_path("Modules/$module/Http/Controllers/"),
 
         'repository_test'   => base_path('tests/Repositories/'),
 
@@ -49,7 +51,7 @@ return [
 
         'modelJs'           => resource_path('assets/js/models/'),
 
-        'factory'           => database_path('factories/'),
+        'factory'           => database_path("Modules/$module/Database/factories/"),
 
         'view_provider'     => app_path('Providers/ViewServiceProvider.php'),
     ],
