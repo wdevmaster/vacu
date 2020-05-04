@@ -1,6 +1,6 @@
 <?php
 
-$module = 'RegistroEnfermedad';
+$module = 'Semen';
 
 return [
 
