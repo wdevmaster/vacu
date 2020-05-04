@@ -1,0 +1,13 @@
+{
+    "name": "Negocio",
+    "alias": "negocio",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Negocio\\Providers\\NegocioServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

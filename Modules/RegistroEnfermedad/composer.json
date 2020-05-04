@@ -1,0 +1,25 @@
+{
+    "name": "finca/registroenfermedad",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\RegistroEnfermedad\\Providers\\RegistroEnfermedadServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\RegistroEnfermedad\\": ""
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "RegistroEnfermedad",
+    "alias": "registroenfermedad",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\RegistroEnfermedad\\Providers\\RegistroEnfermedadServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,25 @@
+{
+    "name": "finca/locomocion",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Locomocion\\Providers\\LocomocionServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Locomocion\\": ""
+        }
+    }
+}

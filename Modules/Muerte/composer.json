@@ -1,0 +1,25 @@
+{
+    "name": "finca/muerte",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Muerte\\Providers\\MuerteServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Muerte\\": ""
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Raza",
+    "alias": "raza",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Raza\\Providers\\RazaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

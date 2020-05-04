@@ -1,0 +1,25 @@
+{
+    "name": "finca/produccion",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Produccion\\Providers\\ProduccionServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Produccion\\": ""
+        }
+    }
+}

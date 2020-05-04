@@ -1,0 +1,13 @@
+{
+    "name": "Parto",
+    "alias": "parto",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Parto\\Providers\\PartoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

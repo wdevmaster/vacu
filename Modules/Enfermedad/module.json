@@ -1,0 +1,13 @@
+{
+    "name": "Enfermedad",
+    "alias": "enfermedad",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Enfermedad\\Providers\\EnfermedadServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

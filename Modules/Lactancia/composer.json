@@ -1,0 +1,25 @@
+{
+    "name": "finca/lactancia",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Lactancia\\Providers\\LactanciaServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Lactancia\\": ""
+        }
+    }
+}

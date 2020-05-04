@@ -1,0 +1,13 @@
+{
+    "name": "Semen",
+    "alias": "semen",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Semen\\Providers\\SemenServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

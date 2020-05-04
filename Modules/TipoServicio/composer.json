@@ -1,0 +1,25 @@
+{
+    "name": "finca/tiposervicio",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\TipoServicio\\Providers\\TipoServicioServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\TipoServicio\\": ""
+        }
+    }
+}

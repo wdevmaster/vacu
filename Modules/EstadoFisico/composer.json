@@ -1,0 +1,25 @@
+{
+    "name": "finca/estadofisico",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\EstadoFisico\\Providers\\EstadoFisicoServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\EstadoFisico\\": ""
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "finca/enfermedad",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Enfermedad\\Providers\\EnfermedadServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Enfermedad\\": ""
+        }
+    }
+}

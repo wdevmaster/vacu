@@ -1,0 +1,13 @@
+{
+    "name": "Lote",
+    "alias": "lote",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Lote\\Providers\\LoteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

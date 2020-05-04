@@ -1,0 +1,13 @@
+{
+    "name": "Lactancia",
+    "alias": "lactancia",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Lactancia\\Providers\\LactanciaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

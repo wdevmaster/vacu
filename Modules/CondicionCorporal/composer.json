@@ -1,0 +1,25 @@
+{
+    "name": "finca/condicioncorporal",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\CondicionCorporal\\Providers\\CondicionCorporalServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\CondicionCorporal\\": ""
+        }
+    }
+}

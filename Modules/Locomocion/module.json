@@ -1,0 +1,13 @@
+{
+    "name": "Locomocion",
+    "alias": "locomocion",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Locomocion\\Providers\\LocomocionServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+    "name": "EstadoFisico",
+    "alias": "estadofisico",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\EstadoFisico\\Providers\\EstadoFisicoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

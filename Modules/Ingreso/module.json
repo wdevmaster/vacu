@@ -1,0 +1,13 @@
+{
+    "name": "Ingreso",
+    "alias": "ingreso",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Ingreso\\Providers\\IngresoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

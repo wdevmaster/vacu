@@ -1,0 +1,13 @@
+{
+    "name": "CondicionCorporal",
+    "alias": "condicioncorporal",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\CondicionCorporal\\Providers\\CondicionCorporalServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

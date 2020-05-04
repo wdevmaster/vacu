@@ -1,0 +1,13 @@
+{
+    "name": "Muerte",
+    "alias": "muerte",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Muerte\\Providers\\MuerteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
