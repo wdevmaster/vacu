@@ -2799,6 +2799,205 @@
                 }
             }
         },
+        "/partos": {
+            "get": {
+                "tags": [
+                    "Parto"
+                ],
+                "summary": "Get a listing of the Partos.",
+                "description": "Get all Partos",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Parto"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Parto"
+                ],
+                "summary": "Store a newly created Parto in storage",
+                "description": "Store Parto",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Parto that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Parto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Parto"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/partos/{id}": {
+            "get": {
+                "tags": [
+                    "Parto"
+                ],
+                "summary": "Display the specified Parto",
+                "description": "Get Parto",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Parto",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Parto"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Parto"
+                ],
+                "summary": "Update the specified Parto in storage",
+                "description": "Update Parto",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Parto",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Parto that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Parto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Parto"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Parto"
+                ],
+                "summary": "Remove the specified Parto from storage",
+                "description": "Delete Parto",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Parto",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -3975,6 +4174,59 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Parto": {
+            "required": [
+                "code",
+                "fecha",
+                "sexo",
+                "animal_nacido",
+                "madre_code",
+                "active",
+                "raza_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "code": {
+                    "description": "code",
+                    "type": "string"
+                },
+                "sexo": {
+                    "description": "sexo",
+                    "type": "string"
+                },
+                "animal_nacido": {
+                    "description": "animal_nacido",
+                    "type": "string"
+                },
+                "madre_code": {
+                    "description": "madre_code",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                },
+                "raza_id": {
+                    "description": "raza_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "created_at": {
                     "description": "created_at",
