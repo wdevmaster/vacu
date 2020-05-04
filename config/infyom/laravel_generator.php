@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Locomocion';
+$module = 'Lote';
 
 return [
 
