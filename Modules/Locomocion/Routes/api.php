@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/locomocion', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('locomocions', 'LocomocionAPIController');

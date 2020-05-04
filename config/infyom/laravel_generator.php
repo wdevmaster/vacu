@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Lactancia';
+$module = 'Locomocion';
 
 return [
 
