@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/raza', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('razas', 'RazaAPIController');
