@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Finca';
+$module = 'Ingreso';
 
 return [
 
