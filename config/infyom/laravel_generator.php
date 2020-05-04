@@ -1,6 +1,6 @@
 <?php
 
-$module = 'EstadoFisico';
+$module = 'Finca';
 
 return [
 

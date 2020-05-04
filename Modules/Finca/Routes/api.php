@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/finca', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('fincas', 'FincaAPIController');
