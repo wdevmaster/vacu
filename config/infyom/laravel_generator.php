@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Muerte';
+$module = 'Negocio';
 
 return [
 

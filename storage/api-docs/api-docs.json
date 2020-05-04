@@ -2600,6 +2600,205 @@
                 }
             }
         },
+        "/negocios": {
+            "get": {
+                "tags": [
+                    "Negocio"
+                ],
+                "summary": "Get a listing of the Negocios.",
+                "description": "Get all Negocios",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Negocio"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Negocio"
+                ],
+                "summary": "Store a newly created Negocio in storage",
+                "description": "Store Negocio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Negocio that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Negocio"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Negocio"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/negocios/{id}": {
+            "get": {
+                "tags": [
+                    "Negocio"
+                ],
+                "summary": "Display the specified Negocio",
+                "description": "Get Negocio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Negocio",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Negocio"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Negocio"
+                ],
+                "summary": "Update the specified Negocio in storage",
+                "description": "Update Negocio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Negocio",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Negocio that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Negocio"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Negocio"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Negocio"
+                ],
+                "summary": "Remove the specified Negocio from storage",
+                "description": "Delete Negocio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Negocio",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -3728,6 +3927,54 @@
                     "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Negocio": {
+            "required": [
+                "negocio_id",
+                "nombre",
+                "jefe",
+                "telefono",
+                "active"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nombre": {
+                    "description": "nombre",
+                    "type": "string"
+                },
+                "jefe": {
+                    "description": "jefe",
+                    "type": "string"
+                },
+                "telefono": {
+                    "description": "telefono",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
                 },
                 "created_at": {
                     "description": "created_at",
