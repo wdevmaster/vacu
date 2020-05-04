@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Parto';
+$module = 'Produccion';
 
 return [
 

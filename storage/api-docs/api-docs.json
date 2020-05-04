@@ -2998,6 +2998,205 @@
                 }
             }
         },
+        "/produccions": {
+            "get": {
+                "tags": [
+                    "Produccion"
+                ],
+                "summary": "Get a listing of the Produccions.",
+                "description": "Get all Produccions",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Produccion"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Produccion"
+                ],
+                "summary": "Store a newly created Produccion in storage",
+                "description": "Store Produccion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Produccion that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Produccion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Produccion"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/produccions/{id}": {
+            "get": {
+                "tags": [
+                    "Produccion"
+                ],
+                "summary": "Display the specified Produccion",
+                "description": "Get Produccion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Produccion",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Produccion"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Produccion"
+                ],
+                "summary": "Update the specified Produccion in storage",
+                "description": "Update Produccion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Produccion",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Produccion that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Produccion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Produccion"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Produccion"
+                ],
+                "summary": "Remove the specified Produccion from storage",
+                "description": "Delete Produccion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Produccion",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -4225,6 +4424,49 @@
                 },
                 "raza_id": {
                     "description": "raza_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Produccion": {
+            "required": [
+                "code",
+                "fecha",
+                "peso",
+                "active",
+                "animal_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "code": {
+                    "description": "code",
+                    "type": "string"
+                },
+                "peso": {
+                    "description": "peso",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                },
+                "animal_id": {
+                    "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
                 },
