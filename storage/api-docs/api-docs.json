@@ -3794,6 +3794,205 @@
                 }
             }
         },
+        "/servicios": {
+            "get": {
+                "tags": [
+                    "Servicio"
+                ],
+                "summary": "Get a listing of the Servicios.",
+                "description": "Get all Servicios",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Servicio"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Servicio"
+                ],
+                "summary": "Store a newly created Servicio in storage",
+                "description": "Store Servicio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Servicio that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Servicio"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Servicio"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/servicios/{id}": {
+            "get": {
+                "tags": [
+                    "Servicio"
+                ],
+                "summary": "Display the specified Servicio",
+                "description": "Get Servicio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Servicio",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Servicio"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Servicio"
+                ],
+                "summary": "Update the specified Servicio in storage",
+                "description": "Update Servicio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Servicio",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Servicio that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Servicio"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Servicio"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Servicio"
+                ],
+                "summary": "Remove the specified Servicio from storage",
+                "description": "Delete Servicio",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Servicio",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -5188,6 +5387,67 @@
                 },
                 "id_animal": {
                     "description": "id_animal",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Servicio": {
+            "required": [
+                "code",
+                "fecha",
+                "animal_inceminado",
+                "animal_inseminador",
+                "semen_id",
+                "personal_inseminador",
+                "active",
+                "tipo_servicio_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "code": {
+                    "description": "code",
+                    "type": "string"
+                },
+                "animal_inceminado": {
+                    "description": "animal_inceminado",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "animal_inseminador": {
+                    "description": "animal_inseminador",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "semen_id": {
+                    "description": "semen_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "personal_inseminador": {
+                    "description": "personal_inseminador",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                },
+                "tipo_servicio_id": {
+                    "description": "tipo_servicio_id",
                     "type": "integer",
                     "format": "int32"
                 },
