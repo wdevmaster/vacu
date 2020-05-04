@@ -2401,6 +2401,205 @@
                 }
             }
         },
+        "/muertes": {
+            "get": {
+                "tags": [
+                    "Muerte"
+                ],
+                "summary": "Get a listing of the Muertes.",
+                "description": "Get all Muertes",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Muerte"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Muerte"
+                ],
+                "summary": "Store a newly created Muerte in storage",
+                "description": "Store Muerte",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Muerte that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Muerte"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Muerte"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/muertes/{id}": {
+            "get": {
+                "tags": [
+                    "Muerte"
+                ],
+                "summary": "Display the specified Muerte",
+                "description": "Get Muerte",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Muerte",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Muerte"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Muerte"
+                ],
+                "summary": "Update the specified Muerte in storage",
+                "description": "Update Muerte",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Muerte",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Muerte that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Muerte"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Muerte"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Muerte"
+                ],
+                "summary": "Remove the specified Muerte from storage",
+                "description": "Delete Muerte",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Muerte",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -3488,6 +3687,45 @@
                 },
                 "finca_id": {
                     "description": "finca_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Muerte": {
+            "required": [
+                "code",
+                "fecha",
+                "motivo_id",
+                "animal_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "code": {
+                    "description": "code",
+                    "type": "string"
+                },
+                "motivo_id": {
+                    "description": "motivo_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "animal_id": {
+                    "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
                 },
