@@ -1406,6 +1406,404 @@
                 }
             }
         },
+        "/ingresos": {
+            "get": {
+                "tags": [
+                    "Ingreso"
+                ],
+                "summary": "Get a listing of the Ingresos.",
+                "description": "Get all Ingresos",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Ingreso"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Ingreso"
+                ],
+                "summary": "Store a newly created Ingreso in storage",
+                "description": "Store Ingreso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Ingreso that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Ingreso"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Ingreso"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/ingresos/{id}": {
+            "get": {
+                "tags": [
+                    "Ingreso"
+                ],
+                "summary": "Display the specified Ingreso",
+                "description": "Get Ingreso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Ingreso",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Ingreso"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Ingreso"
+                ],
+                "summary": "Update the specified Ingreso in storage",
+                "description": "Update Ingreso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Ingreso",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Ingreso that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Ingreso"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Ingreso"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Ingreso"
+                ],
+                "summary": "Remove the specified Ingreso from storage",
+                "description": "Delete Ingreso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Ingreso",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/inseminadors": {
+            "get": {
+                "tags": [
+                    "Inseminador"
+                ],
+                "summary": "Get a listing of the Inseminadors.",
+                "description": "Get all Inseminadors",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Inseminador"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Inseminador"
+                ],
+                "summary": "Store a newly created Inseminador in storage",
+                "description": "Store Inseminador",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Inseminador that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Inseminador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Inseminador"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/inseminadors/{id}": {
+            "get": {
+                "tags": [
+                    "Inseminador"
+                ],
+                "summary": "Display the specified Inseminador",
+                "description": "Get Inseminador",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Inseminador",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Inseminador"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Inseminador"
+                ],
+                "summary": "Update the specified Inseminador in storage",
+                "description": "Update Inseminador",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Inseminador",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Inseminador that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Inseminador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Inseminador"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Inseminador"
+                ],
+                "summary": "Remove the specified Inseminador from storage",
+                "description": "Delete Inseminador",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Inseminador",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -2265,6 +2663,92 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Ingreso": {
+            "required": [
+                "code",
+                "fecha",
+                "active",
+                "animal_id",
+                "lote_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "code": {
+                    "description": "code",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                },
+                "animal_id": {
+                    "description": "animal_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "lote_id": {
+                    "description": "lote_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Inseminador": {
+            "required": [
+                "codigo",
+                "nombre",
+                "active",
+                "negocio_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "codigo": {
+                    "description": "codigo",
+                    "type": "string"
+                },
+                "nombre": {
+                    "description": "nombre",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "created_at": {
                     "description": "created_at",
