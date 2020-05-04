@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/lactancia', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('lactancias', 'LactanciaAPIController');

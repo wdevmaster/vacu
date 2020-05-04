@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Inseminador';
+$module = 'Lactancia';
 
 return [
 
