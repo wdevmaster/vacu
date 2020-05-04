@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Servicio';
+$module = 'TipoServicio';
 
 return [
 
