@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Raza';
+$module = 'RegistroEnfermedad';
 
 return [
 

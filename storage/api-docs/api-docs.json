@@ -3396,6 +3396,205 @@
                 }
             }
         },
+        "/registroEnfermedads": {
+            "get": {
+                "tags": [
+                    "RegistroEnfermedad"
+                ],
+                "summary": "Get a listing of the RegistroEnfermedads.",
+                "description": "Get all RegistroEnfermedads",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/RegistroEnfermedad"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "RegistroEnfermedad"
+                ],
+                "summary": "Store a newly created RegistroEnfermedad in storage",
+                "description": "Store RegistroEnfermedad",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "RegistroEnfermedad that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/RegistroEnfermedad"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/RegistroEnfermedad"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/registroEnfermedads/{id}": {
+            "get": {
+                "tags": [
+                    "RegistroEnfermedad"
+                ],
+                "summary": "Display the specified RegistroEnfermedad",
+                "description": "Get RegistroEnfermedad",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of RegistroEnfermedad",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/RegistroEnfermedad"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "RegistroEnfermedad"
+                ],
+                "summary": "Update the specified RegistroEnfermedad in storage",
+                "description": "Update RegistroEnfermedad",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of RegistroEnfermedad",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "RegistroEnfermedad that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/RegistroEnfermedad"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/RegistroEnfermedad"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "RegistroEnfermedad"
+                ],
+                "summary": "Remove the specified RegistroEnfermedad from storage",
+                "description": "Delete RegistroEnfermedad",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of RegistroEnfermedad",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/usuario/auth/password/email": {
             "post": {
                 "tags": [
@@ -4708,6 +4907,51 @@
                 },
                 "negocio_id": {
                     "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "RegistroEnfermedad": {
+            "required": [
+                "code",
+                "fecha_enfermedad",
+                "fecha",
+                "active",
+                "id_animal",
+                "id_enfermedad"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "code": {
+                    "description": "code",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                },
+                "id_animal": {
+                    "description": "id_animal",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id_enfermedad": {
+                    "description": "id_enfermedad",
                     "type": "integer",
                     "format": "int32"
                 },
