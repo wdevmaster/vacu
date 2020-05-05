@@ -24,6 +24,8 @@ class CreateAnimalsTable extends Migration
             $table->string('raza_codigo');
             $table->integer('lote_actual_id');
             $table->string('locomocion_code');
+            $table->string('temporal_id');
+            $table->string('inventario_id');
             $table->timestamps();
         });
     }
