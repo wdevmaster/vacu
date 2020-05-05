@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Venta';
+$module = 'Evento';
 
 return [
 

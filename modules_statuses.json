@@ -28,5 +28,6 @@
     "Semen": true,
     "Servicio": true,
     "TipoServicio": true,
-    "CondicionCorporal": true
+    "CondicionCorporal": true,
+    "Evento": true
 }
