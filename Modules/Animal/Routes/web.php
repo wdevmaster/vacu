@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('animal')->group(function() {
-    Route::get('/', 'AnimalController@index');
-});
+//
+//Route::prefix('animal')->group(function() {
+//    Route::get('/', 'AnimalController@index');
+//});

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Cliente\Http\Controllers\Auth;
+namespace Modules\Usuario\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

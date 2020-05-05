@@ -2,7 +2,7 @@
 
 namespace Modules\Configuracion\Entities;
 
-use Eloquent as Model;
+use App\Models\Eloquent as Model;
 
 /**
  * @SWG\Definition(

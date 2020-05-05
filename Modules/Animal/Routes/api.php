@@ -20,12 +20,12 @@ Route::middleware('auth:api')->get('/animal', function (Request $request) {
 
 Route::prefix('v1/animal')->group(function(){
 
-    Route::get('animales','AnimalController@index');
-    Route::get('animales/list/{negocio}','AnimalController@list');
-    Route::get('animal/{codigo}','AnimalController@findByCode');
-    Route::post('animales','AnimalController@store');
-    Route::put('animal/inactivar/{codigo}','AnimalController@inactivar');
-    Route::put('animal/{codigo}','AnimalController@update');
+//    Route::get('animales','AnimalController@index');
+//    Route::get('animales/list/{negocio}','AnimalController@list');
+//    Route::get('animal/{codigo}','AnimalController@findByCode');
+//    Route::post('animales','AnimalController@store');
+//    Route::put('animal/inactivar/{codigo}','AnimalController@inactivar');
+//    Route::put('animal/{codigo}','AnimalController@update');
 
 });
 

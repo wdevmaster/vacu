@@ -41,3 +41,4 @@ Route::prefix('v1/usuario')->group(function(){
 //        Route::get('/', 'RolController@index')->name('user.roles.index');
 //    });
 });
+
