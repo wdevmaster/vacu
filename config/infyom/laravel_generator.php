@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Evento';
+$module = 'Sincronizacion';
 
 return [
 
