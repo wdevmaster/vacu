@@ -10,6 +10,7 @@ namespace Modules\Sincronizacion\Services;
 
 
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
+use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 
 class SyncDataService implements SyncDataServiceInterface
@@ -17,12 +18,13 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $syncronizacionRepository;
 
-    private $configuracionRepository;
+    private $configuracionResolver;
 
-    public function __construct(SyncronizacionRepository $syncronizacionRepository, ConfiguracionRepository $configuracionRepository)
+    public function __construct(SyncronizacionRepository $syncronizacionRepository,
+                                SyncConfiguracionResolverInterface $configuracionResolver)
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
-        $this->configuracionRepository = $configuracionRepository;
+        $this->configuracionResolver = $configuracionResolver;
     }
 
     public function executeService()
@@ -35,28 +37,7 @@ class SyncDataService implements SyncDataServiceInterface
                 foreach ($sincronizaciones as $sincronizacion) {
                     switch ($sincronizacion->tabla) {
                         case 'configuraciones':
-                            $accion = $sincronizacion->accion;
-                            switch ($accion) {
-                                case 'INSERT':
-                                    $data = json_decode($sincronizacion->data,true);
-                                    $data['user_id'] = $sincronizacion->user_id;
-                                    $this->configuracionRepository->create($data);
-                                    break;
-                                case 'UPDATE':
-                                    $data = json_decode($sincronizacion->data, true);
-                                    $configuracion = $this->configuracionRepository->all()
-                                        ->where('clave', '=', $data['clave'])
-                                        ->first();
-                                    $this->configuracionRepository->update($data, $configuracion->id);
-                                    break;
-                                case 'DELETE':
-                                    $data = json_decode($sincronizacion->data,true);
-                                    $configuracion = $this->configuracionRepository->all()
-                                        ->where('clave', '=', $data['clave'])
-                                        ->first();
-                                    $this->configuracionRepository->delete($configuracion->id);
-                                    break;
-                            }
+                            $this->configuracionResolver->handle($sincronizacion);
                             break;
                     }
                 }

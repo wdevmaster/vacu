@@ -4,6 +4,8 @@ namespace Modules\Configuracion\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Configuracion\Resolvers\SyncConfiguracionResolver;
+use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
 
 class ConfiguracionServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class ConfiguracionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(SyncConfiguracionResolverInterface::class, SyncConfiguracionResolver::class);
     }
 
     /**
