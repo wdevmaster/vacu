@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        if ($this->command->confirm('Do you wish to fresh migration before seeding, it will clear all old data ?')) {
+            // Call the php artisan migrate:refresh
+            $this->command->call('migrate:fresh');
+            $this->command->warn("Data cleared, starting from blank database.");
+        }
+        Model::unguard();
         // $this->call(UsersTableSeeder::class);
     }
 }

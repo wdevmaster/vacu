@@ -16,7 +16,7 @@ class CreateIngresosTable extends Migration
         Schema::create('ingresos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->datatime('fecha');
+            $table->dateTime('fecha');
             $table->boolean('active');
             $table->integer('animal_id');
             $table->integer('lote_id');

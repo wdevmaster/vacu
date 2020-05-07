@@ -16,7 +16,7 @@ class CreateProduccionsTable extends Migration
         Schema::create('produccions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->datatime('fecha');
+            $table->dateTime('fecha');
             $table->string('peso');
             $table->boolean('active');
             $table->integer('animal_id');

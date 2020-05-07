@@ -13,12 +13,14 @@ class CreateConfiguracionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('configuracions', function (Blueprint $table) {
+        Schema::create('configuraciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('configuracion_id');
             $table->string('clave');
-            $table->string('description');
+            $table->string('descripcion');
             $table->string('valor');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateConfiguracionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('configuracions');
+        Schema::drop('configuraciones');
     }
 }

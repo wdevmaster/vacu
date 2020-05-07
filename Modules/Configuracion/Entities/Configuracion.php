@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Configuracion",
- *      required={"configuracion_id", "clave", "description", "valor"},
+ *      required={ "clave", "descripcion", "valor"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -15,51 +15,33 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="configuracion_id",
- *          description="configuracion_id",
- *          type="string"
- *      ),
- *      @SWG\Property(
  *          property="clave",
  *          description="clave",
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="description",
- *          description="description",
+ *          property="descripcion",
+ *          description="descripcion",
  *          type="string"
  *      ),
  *      @SWG\Property(
  *          property="valor",
  *          description="valor",
  *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
 class Configuracion extends Model
 {
 
-    public $table = 'configuracions';
+    public $table = 'configuraciones';
     
 
 
 
     public $fillable = [
-        'configuracion_id',
         'clave',
-        'description',
+        'descripcion',
         'valor'
     ];
 
@@ -70,9 +52,8 @@ class Configuracion extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'configuracion_id' => 'string',
         'clave' => 'string',
-        'description' => 'string',
+        'descripcion' => 'string',
         'valor' => 'string'
     ];
 
@@ -82,9 +63,8 @@ class Configuracion extends Model
      * @var array
      */
     public static $rules = [
-        'configuracion_id' => 'required',
         'clave' => 'required',
-        'description' => 'required',
+        'descripcion' => 'required',
         'valor' => 'required'
     ];
 

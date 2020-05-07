@@ -16,7 +16,7 @@ class CreatePartosTable extends Migration
         Schema::create('partos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->datatime('fecha');
+            $table->dateTime('fecha');
             $table->string('sexo');
             $table->string('animal_nacido');
             $table->string('madre_code');

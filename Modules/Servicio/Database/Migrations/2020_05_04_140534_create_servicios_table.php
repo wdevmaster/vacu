@@ -16,7 +16,7 @@ class CreateServiciosTable extends Migration
         Schema::create('servicios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->datatime('fecha');
+            $table->dateTime('fecha');
             $table->integer('animal_inceminado');
             $table->integer('animal_inseminador');
             $table->integer('semen_id');

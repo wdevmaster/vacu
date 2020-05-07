@@ -16,7 +16,7 @@ class CreateMuertesTable extends Migration
         Schema::create('muertes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->datatime('fecha');
+            $table->dateTime('fecha');
             $table->integer('motivo_id');
             $table->integer('animal_id');
             $table->timestamps();
