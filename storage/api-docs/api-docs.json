@@ -6251,8 +6251,8 @@
                 "user_id"
             ],
             "properties": {
-                "table": {
-                    "description": "table",
+                "tabla": {
+                    "description": "tabla",
                     "type": "string",
                     "example": "animales"
                 },
@@ -6262,20 +6262,9 @@
                     "example": "INSERT,UPDATE,DELETE"
                 },
                 "data": {
-                    "description": "data",
-                    "type": "array",
-                    "items": {
-                        "properties": {
-                            "key": {
-                                "description": "Nombre del campo que se va a modificar o insertar",
-                                "example": "id"
-                            },
-                            "value": {
-                                "description": "Valor del campo asociado",
-                                "example": 1
-                            }
-                        }
-                    }
+                    "description": "data exactamente igual a la que se tiene que insertar en cualquier tabla en formato json",
+                    "type": "string",
+                    "format": "json"
                 },
                 "user_id": {
                     "description": "user_id",

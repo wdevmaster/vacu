@@ -23,22 +23,9 @@ use App\Models\Eloquent as Model;
  *      ),
  *      @SWG\Property(
  *          property="data",
- *          description="data",
- *          type="array",
- *          @SWG\Items(
- *              @SWG\Property(
-                    property="key",
- *                  description="Nombre del campo que se va a modificar o insertar",
- *                  example="id"
- *              ),
- *             @SWG\Property(
- *                  property="value",
- *                  description="Valor del campo asociado",
- *                  example=1
- *              ),
- *
- *          )
- *
+ *          description="data exactamente igual a la que se tiene que insertar en cualquier tabla en formato json",
+ *          type="string",
+ *          format="json",
  *      ),
  *      @SWG\Property(
  *          property="user_id",

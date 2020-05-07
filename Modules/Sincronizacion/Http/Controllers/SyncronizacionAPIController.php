@@ -10,7 +10,6 @@ use Modules\Sincronizacion\Http\Requests\CreateSyncronizacionAPIRequest;
 use Modules\Sincronizacion\Http\Requests\UpdateSyncronizacionAPIRequest;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 use Modules\Sincronizacion\Services\SyncDataServiceInterface;
-use Modules\Sincronizacion\Services\SyncDataService;
 
 /**
  * Class SyncronizacionController
