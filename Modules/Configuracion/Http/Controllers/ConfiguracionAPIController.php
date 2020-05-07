@@ -2,19 +2,19 @@
 
 namespace Modules\Configuracion\Http\Controllers;
 
+use App\Http\Controllers\AppBaseController;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Http\Requests\CreateConfiguracionAPIRequest;
 use Modules\Configuracion\Http\Requests\UpdateConfiguracionAPIRequest;
-use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class ConfiguracionController
  * @package Modules\Configuracion\Http\Controllers
  */
-
 class ConfiguracionAPIController extends AppBaseController
 {
     /** @var  ConfiguracionRepository */
@@ -27,10 +27,10 @@ class ConfiguracionAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/configuracions",
+     *      path="/api/v1/configuracion/configuraciones",
      *      summary="Get a listing of the Configuracions.",
      *      tags={"Configuracion"},
      *      description="Get all Configuracions",
@@ -59,21 +59,38 @@ class ConfiguracionAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $configuracions = $this->configuracionRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
+            $configuraciones = $this->configuracionRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
 
-        return $this->sendResponse($configuracions->toArray(), 'Configuracions retrieved successfully');
+            return response()->json([
+                'message' => __('comun::msgs.la_model_updated_successfully', [
+                    'model' => trans_choice('configuracion::msgs.label_configuracion', 1)
+                ]),
+                'success' => true,
+                'data' => $configuraciones
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => __('comun::msgs.la_model_not_found', ['model' => trans_choice('usuario::msgs.label_usuario', 1)]),
+                'success' => false], 404);
+        } catch
+        (\Exception $e) {
+            return response()->json([
+                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                'success' => false
+            ], 500);
+        }
     }
 
     /**
      * @param CreateConfiguracionAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/configuracions",
+     *      path="/api/v1/configuracion/configuraciones",
      *      summary="Store a newly created Configuracion in storage",
      *      tags={"Configuracion"},
      *      description="Store Configuracion",
@@ -108,70 +125,40 @@ class ConfiguracionAPIController extends AppBaseController
      */
     public function store(CreateConfiguracionAPIRequest $request)
     {
-        $input = $request->all();
+        try{
+            $input = $request->all();
 
-        $configuracion = $this->configuracionRepository->create($input);
+            $configuracion = $this->configuracionRepository->create($input);
 
-        return $this->sendResponse($configuracion->toArray(), 'Configuracion saved successfully');
-    }
-
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/configuracions/{id}",
-     *      summary="Display the specified Configuracion",
-     *      tags={"Configuracion"},
-     *      description="Get Configuracion",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Configuracion",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Configuracion"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id)
-    {
-        /** @var Configuracion $configuracion */
-        $configuracion = $this->configuracionRepository->find($id);
-
-        if (empty($configuracion)) {
-            return $this->sendError('Configuracion not found');
+            return response()->json([
+                'message' => __('comun::msgs.la_model_saved_successfully', [
+                    'model' => trans_choice('configuracion::msgs.label_configuracion', 1)
+                ]),
+                'success' => true,
+                'data' => $configuracion
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => __('comun::msgs.la_model_not_found', [
+                    'model' => trans_choice('usuario::msgs.label_configuracion', 1)
+                ]),
+                'success' => false
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                'success' => false
+            ], 500);
         }
-
-        return $this->sendResponse($configuracion->toArray(), 'Configuracion retrieved successfully');
     }
 
     /**
      * @param int $id
      * @param UpdateConfiguracionAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/configuracions/{id}",
+     *      path="/api/v1/configuracion/configuraciones/{id}",
      *      summary="Update the specified Configuracion in storage",
      *      tags={"Configuracion"},
      *      description="Update Configuracion",
@@ -213,26 +200,46 @@ class ConfiguracionAPIController extends AppBaseController
      */
     public function update($id, UpdateConfiguracionAPIRequest $request)
     {
-        $input = $request->all();
+        try{
+            $input = $request->all();
 
-        /** @var Configuracion $configuracion */
-        $configuracion = $this->configuracionRepository->find($id);
+            /** @var Configuracion $configuracion */
+            $configuracion = $this->configuracionRepository->find($id);
 
-        if (empty($configuracion)) {
-            return $this->sendError('Configuracion not found');
+            if (empty($configuracion)) {
+                return $this->sendError('User not found');
+            }
+
+            $configuracion = $this->configuracionRepository->update($input, $id);
+
+            return response()->json([
+                'message' => __('comun::msgs.la_model_updated_successfully', [
+                    'model' => trans_choice('usuario::msgs.label_configuracion', 1)
+                ]),
+                'success' => true,
+                'data' => $configuracion
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => __('comun::msgs.la_model_not_found', [
+                    'model' => trans_choice('usuario::msgs.configuracion', 1)
+                ]),
+                'success' => false
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                'success' => false
+            ], 500);
         }
-
-        $configuracion = $this->configuracionRepository->update($input, $id);
-
-        return $this->sendResponse($configuracion->toArray(), 'Configuracion updated successfully');
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Delete(
-     *      path="/configuracions/{id}",
+     *      path="/api/v1/configuracion/configuraciones/{id}",
      *      summary="Remove the specified Configuracion from storage",
      *      tags={"Configuracion"},
      *      description="Delete Configuracion",
@@ -264,18 +271,39 @@ class ConfiguracionAPIController extends AppBaseController
      *          )
      *      )
      * )
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        /** @var Configuracion $configuracion */
-        $configuracion = $this->configuracionRepository->find($id);
+        try{
+            /** @var Configuracion $configuracion */
+            $configuracion = $this->configuracionRepository->find($id);
 
-        if (empty($configuracion)) {
-            return $this->sendError('Configuracion not found');
+            if (empty($configuracion)) {
+                return $this->sendError('User not found');
+            }
+
+            $configuracion->delete();
+
+            return response()->json([
+                'message' => __('comun::msgs.la_model_deleted_successfully', [
+                    'model' => trans_choice('usuario::msgs.label_configuracion', 1)
+                ]),
+                'success' => true,
+                'data' => $configuracion
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => __('comun::msgs.la_model_not_found', [
+                    'model' => trans_choice('usuario::msgs.label_configuracion', 1)
+                ]),
+                'success' => false
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                'success' => false
+            ], 500);
         }
-
-        $configuracion->delete();
-
-        return $this->sendSuccess('Configuracion deleted successfully');
     }
 }

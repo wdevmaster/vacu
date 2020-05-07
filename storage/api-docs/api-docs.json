@@ -610,7 +610,7 @@
                 }
             }
         },
-        "/configuracions": {
+        "/api/v1/configuracion/configuraciones": {
             "get": {
                 "tags": [
                     "Configuracion"
@@ -684,45 +684,7 @@
                 }
             }
         },
-        "/configuracions/{id}": {
-            "get": {
-                "tags": [
-                    "Configuracion"
-                ],
-                "summary": "Display the specified Configuracion",
-                "description": "Get Configuracion",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Configuracion",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Configuracion"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/configuracion/configuraciones/{id}": {
             "put": {
                 "tags": [
                     "Configuracion"
@@ -5470,9 +5432,8 @@
         },
         "Configuracion": {
             "required": [
-                "configuracion_id",
                 "clave",
-                "description",
+                "descripcion",
                 "valor"
             ],
             "properties": {
@@ -5481,31 +5442,17 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "configuracion_id": {
-                    "description": "configuracion_id",
-                    "type": "string"
-                },
                 "clave": {
                     "description": "clave",
                     "type": "string"
                 },
-                "description": {
-                    "description": "description",
+                "descripcion": {
+                    "description": "descripcion",
                     "type": "string"
                 },
                 "valor": {
                     "description": "valor",
                     "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },

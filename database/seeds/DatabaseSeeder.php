@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
             $this->command->warn("Data cleared, starting from blank database.");
         }
         Model::unguard();
-        // $this->call(UsersTableSeeder::class);
+       $this->call(\Modules\Usuario\Database\Seeders\UsuarioDatabaseSeeder::class);
     }
 }
