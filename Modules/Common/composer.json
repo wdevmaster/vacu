@@ -1,0 +1,25 @@
+{
+    "name": "finca/common",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Common\\Providers\\CommonServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Common\\": ""
+        }
+    }
+}
