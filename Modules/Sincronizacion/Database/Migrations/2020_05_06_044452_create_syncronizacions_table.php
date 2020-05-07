@@ -13,9 +13,9 @@ class CreateSyncronizacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('syncronizacions', function (Blueprint $table) {
+        Schema::create('sincronizaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('table');
+            $table->string('tabla');
             $table->string('accion');
             $table->string('data');
             $table->integer('user_id');
@@ -30,6 +30,6 @@ class CreateSyncronizacionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('syncronizacions');
+        Schema::drop('sincronizaciones');
     }
 }

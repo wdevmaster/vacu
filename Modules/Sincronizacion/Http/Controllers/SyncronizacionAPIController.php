@@ -2,27 +2,34 @@
 
 namespace Modules\Sincronizacion\Http\Controllers;
 
+use App\Http\Controllers\AppBaseController;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Sincronizacion\Entities\Syncronizacion;
 use Modules\Sincronizacion\Http\Requests\CreateSyncronizacionAPIRequest;
 use Modules\Sincronizacion\Http\Requests\UpdateSyncronizacionAPIRequest;
-use Modules\Sincronizacion\Entities\Syncronizacion;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
+use Modules\Sincronizacion\Services\SyncDataServiceInterface;
+use Modules\Sincronizacion\Services\SyncDataService;
 
 /**
  * Class SyncronizacionController
  * @package Modules\Sincronizacion\Http\Controllers
  */
-
 class SyncronizacionAPIController extends AppBaseController
 {
     /** @var  SyncronizacionRepository */
     private $syncronizacionRepository;
 
-    public function __construct(SyncronizacionRepository $syncronizacionRepo)
+    /**
+     * @var SyncDataServiceInterface
+     */
+    private $syncDataService;
+
+    public function __construct(SyncronizacionRepository $syncronizacionRepo, SyncDataServiceInterface $syncDataService)
     {
         $this->syncronizacionRepository = $syncronizacionRepo;
+        $this->syncDataService = $syncDataService;
     }
 
     /**
@@ -277,5 +284,9 @@ class SyncronizacionAPIController extends AppBaseController
         $syncronizacion->delete();
 
         return $this->sendSuccess('Syncronizacion deleted successfully');
+    }
+
+    public function startSync(){
+        $this->syncDataService->executeService();
     }
 }

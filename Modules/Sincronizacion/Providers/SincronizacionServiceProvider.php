@@ -4,6 +4,8 @@ namespace Modules\Sincronizacion\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Sincronizacion\Services\SyncDataServiceInterface;
+use Modules\Sincronizacion\Services\SyncDataService;
 
 class SincronizacionServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class SincronizacionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(SyncDataServiceInterface::class, SyncDataService::class);
     }
 
     /**

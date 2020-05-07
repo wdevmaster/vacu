@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/sincronizacion', function (Request $request
 });
 
 Route::resource('syncronizacions', 'SyncronizacionAPIController');
+Route::post('/sync', 'SyncronizacionAPIController@startSync')->name('sync.data');

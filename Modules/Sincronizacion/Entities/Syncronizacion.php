@@ -10,8 +10,8 @@ use App\Models\Eloquent as Model;
  *      required={"table", "accion", "data", "user_id"},
  *
  *      @SWG\Property(
- *          property="table",
- *          description="table",
+ *          property="tabla",
+ *          description="tabla",
  *          type="string",
  *          example="animales"
  *      ),
@@ -51,13 +51,13 @@ use App\Models\Eloquent as Model;
 class Syncronizacion extends Model
 {
 
-    public $table = 'syncronizacions';
+    public $table = 'sincronizaciones';
     
 
 
 
     public $fillable = [
-        'table',
+        'tabla',
         'accion',
         'data',
         'user_id'
@@ -70,7 +70,7 @@ class Syncronizacion extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'table' => 'string',
+        'tabla' => 'string',
         'accion' => 'string',
         'data' => 'string',
         'user_id' => 'integer'
@@ -82,7 +82,7 @@ class Syncronizacion extends Model
      * @var array
      */
     public static $rules = [
-        'table' => 'required',
+        'tabla' => 'required',
         'accion' => 'required',
         'data' => 'required',
         'user_id' => 'required'
