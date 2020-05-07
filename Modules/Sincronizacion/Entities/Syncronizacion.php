@@ -2,32 +2,43 @@
 
 namespace Modules\Sincronizacion\Entities;
 
-use Eloquent as Model;
+use App\Models\Eloquent as Model;
 
 /**
  * @SWG\Definition(
  *      definition="Syncronizacion",
  *      required={"table", "accion", "data", "user_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="table",
  *          description="table",
- *          type="string"
+ *          type="string",
+ *          example="animales"
  *      ),
  *      @SWG\Property(
  *          property="accion",
  *          description="accion",
- *          type="string"
+ *          type="string",
+ *          example="INSERT,UPDATE,DELETE"
  *      ),
  *      @SWG\Property(
  *          property="data",
  *          description="data",
- *          type="string"
+ *          type="array",
+ *          @SWG\Items(
+ *              @SWG\Property(
+                    property="key",
+ *                  description="Nombre del campo que se va a modificar o insertar",
+ *                  example="id"
+ *              ),
+ *             @SWG\Property(
+ *                  property="value",
+ *                  description="Valor del campo asociado",
+ *                  example=1
+ *              ),
+ *
+ *          )
+ *
  *      ),
  *      @SWG\Property(
  *          property="user_id",
@@ -35,18 +46,6 @@ use Eloquent as Model;
  *          type="integer",
  *          format="int32"
  *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
- *      )
  * )
  */
 class Syncronizacion extends Model

@@ -2,13 +2,13 @@
 
 namespace Modules\Sincronizacion\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Modules\Sincronizacion\Http\Requests\CreateSyncronizacionAPIRequest;
 use Modules\Sincronizacion\Http\Requests\UpdateSyncronizacionAPIRequest;
 use Modules\Sincronizacion\Entities\Syncronizacion;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class SyncronizacionController

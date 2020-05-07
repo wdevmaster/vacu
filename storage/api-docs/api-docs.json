@@ -4192,6 +4192,205 @@
                 }
             }
         },
+        "/syncronizacions": {
+            "get": {
+                "tags": [
+                    "Syncronizacion"
+                ],
+                "summary": "Get a listing of the Syncronizacions.",
+                "description": "Get all Syncronizacions",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Syncronizacion"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Syncronizacion"
+                ],
+                "summary": "Store a newly created Syncronizacion in storage",
+                "description": "Store Syncronizacion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Syncronizacion that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Syncronizacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Syncronizacion"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/syncronizacions/{id}": {
+            "get": {
+                "tags": [
+                    "Syncronizacion"
+                ],
+                "summary": "Display the specified Syncronizacion",
+                "description": "Get Syncronizacion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Syncronizacion",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Syncronizacion"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Syncronizacion"
+                ],
+                "summary": "Update the specified Syncronizacion in storage",
+                "description": "Update Syncronizacion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Syncronizacion",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Syncronizacion that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Syncronizacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Syncronizacion"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Syncronizacion"
+                ],
+                "summary": "Remove the specified Syncronizacion from storage",
+                "description": "Delete Syncronizacion",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Syncronizacion",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/tipoServicios": {
             "get": {
                 "tags": [
@@ -6094,6 +6293,47 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "Syncronizacion": {
+            "required": [
+                "table",
+                "accion",
+                "data",
+                "user_id"
+            ],
+            "properties": {
+                "table": {
+                    "description": "table",
+                    "type": "string",
+                    "example": "animales"
+                },
+                "accion": {
+                    "description": "accion",
+                    "type": "string",
+                    "example": "INSERT,UPDATE,DELETE"
+                },
+                "data": {
+                    "description": "data",
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "description": "Nombre del campo que se va a modificar o insertar",
+                                "example": "id"
+                            },
+                            "value": {
+                                "description": "Valor del campo asociado",
+                                "example": 1
+                            }
+                        }
+                    }
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "integer",
+                    "format": "int32"
                 }
             }
         },
