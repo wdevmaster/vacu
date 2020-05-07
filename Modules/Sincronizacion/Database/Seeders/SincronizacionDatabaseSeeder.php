@@ -4,6 +4,7 @@ namespace Modules\Sincronizacion\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Sincronizacion\Entities\Syncronizacion;
 
 class SincronizacionDatabaseSeeder extends Seeder
 {
@@ -16,6 +17,6 @@ class SincronizacionDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $sincronizaciones = factory(Syncronizacion::class, 10)->create();
     }
 }

@@ -8,10 +8,10 @@ use Faker\Generator as Faker;
 $factory->define(Syncronizacion::class, function (Faker $faker) {
 
     return [
-        'table' => $faker->word,
-        'accion' => $faker->word,
-        'data' => $faker->word,
-        'user_id' => $faker->randomDigitNotNull,
+        'table' => 'configuraciones',
+        'accion' => $faker->randomElement(['INSERT','UPDATE', 'DELETE']),
+        'data' => $faker->randomElement(['[{ "key": "clave", "value": "clave1" }, { "key": "descripcion", "value": "descripcion1" }, { "key": "valor", "value": "valor1" } ]']),
+        'user_id' => $faker->numberBetween(1,2),
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

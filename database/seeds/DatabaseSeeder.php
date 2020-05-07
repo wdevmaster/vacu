@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Modules\Sincronizacion\Database\Seeders\SincronizacionDatabaseSeeder;
+use Modules\Usuario\Database\Seeders\UsuarioDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +21,8 @@ class DatabaseSeeder extends Seeder
             $this->command->warn("Data cleared, starting from blank database.");
         }
         Model::unguard();
-       $this->call(\Modules\Usuario\Database\Seeders\UsuarioDatabaseSeeder::class);
+
+       $this->call(UsuarioDatabaseSeeder::class);
+       $this->call(SincronizacionDatabaseSeeder::class);
     }
 }

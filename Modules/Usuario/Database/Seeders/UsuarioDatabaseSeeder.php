@@ -16,6 +16,6 @@ class UsuarioDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $users = factory(User::class, 3)->create();
+        $users = factory(User::class, 11)->create();
     }
 }
