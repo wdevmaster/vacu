@@ -38,6 +38,7 @@ class SyncDataService implements SyncDataServiceInterface
                     switch ($sincronizacion->tabla) {
                         case 'configuraciones':
                             $this->configuracionResolver->handle($sincronizacion);
+                            $this->syncronizacionRepository->delete($sincronizacion->id);
                             break;
                     }
                 }

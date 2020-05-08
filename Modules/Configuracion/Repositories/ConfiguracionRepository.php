@@ -40,4 +40,15 @@ class ConfiguracionRepository extends BaseRepository
     {
         return Configuracion::class;
     }
+
+    public function validateCode($code){
+
+        $configuracion = $this->all()->where('clave', '=', $code)->first();
+
+        if ($configuracion)
+            return true;
+
+        return false;
+
+    }
 }

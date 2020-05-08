@@ -4,6 +4,8 @@ namespace Modules\Common\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Common\Resolvers\GenerateCodeResolver;
+use Modules\Common\Resolvers\GenerateCodeResolverInterface;
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class CommonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(GenerateCodeResolverInterface::class, GenerateCodeResolver::class);
     }
 
     /**
