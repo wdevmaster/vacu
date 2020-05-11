@@ -4,6 +4,7 @@ namespace Modules\Sincronizacion\Http\Controllers;
 
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Modules\Sincronizacion\Http\Requests\CreateSyncronizacionAPIRequest;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
@@ -97,8 +98,63 @@ class SyncronizacionAPIController extends AppBaseController
     }
 
 
+    /**
+     * @param CreateSyncronizacionAPIRequest $request
+     * @return JsonResponse
+     *
+     * @SWG\Get(
+     *      path="/api/v1/sincronizacion/sincronizaciones/start",
+     *      summary="Start syncronization ",
+     *      tags={"Syncronizacion"},
+     *      description="Store Syncronizacion",
+     *      produces={"application/json"},
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                       @SWG\Property(
+     *                           property="tabla",
+     *                           type="string",
+     *                           example="data_configuraciones"
+     *                      )
+     *                )
+     *              ),
+     *
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
     public function startSync()
     {
-        $this->syncDataService->executeService();
+        try {
+            $results = $this->syncDataService->executeService();
+
+            return response()->json([
+                'message' => __('comun::msgs.la_model_sync_successfully', [
+                    'model' => trans_choice('configuracion::msgs.label_sincronizacion', 1)
+                ]),
+                'success' => true,
+                'data' => $results
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                'success' => false
+            ], 500);
+        }
     }
 }

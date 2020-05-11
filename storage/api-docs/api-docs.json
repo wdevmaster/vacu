@@ -4196,6 +4196,45 @@
                 }
             }
         },
+        "/api/v1/sincronizacion/sincronizaciones/start": {
+            "get": {
+                "tags": [
+                    "Syncronizacion"
+                ],
+                "summary": "Start syncronization ",
+                "description": "Store Syncronizacion",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "tabla": {
+                                                "type": "string",
+                                                "example": "data_configuraciones"
+                                            }
+                                        }
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/tipoServicios": {
             "get": {
                 "tags": [
@@ -6083,6 +6122,24 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "SincronizacionData": {
+            "required": [
+                "tabla",
+                "data"
+            ],
+            "properties": {
+                "tabla": {
+                    "description": "tabla",
+                    "type": "string",
+                    "example": "animales"
+                },
+                "data": {
+                    "description": "data exactamente igual a la que se tiene que insertar en cualquier tabla en formato json",
+                    "type": "string",
+                    "format": "json"
                 }
             }
         },
