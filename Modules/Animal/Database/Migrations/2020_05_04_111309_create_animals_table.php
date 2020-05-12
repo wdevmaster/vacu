@@ -13,7 +13,7 @@ class CreateAnimalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('animals', function (Blueprint $table) {
+        Schema::create('animales', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('code');
             $table->datetime('fecha_nacimiento');
@@ -26,6 +26,7 @@ class CreateAnimalsTable extends Migration
             $table->string('locomocion_code');
             $table->string('temporal_id');
             $table->string('inventario_id');
+            $table->boolean('active');
             $table->timestamps();
         });
     }
@@ -37,6 +38,6 @@ class CreateAnimalsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('animals');
+        Schema::drop('animales');
     }
 }

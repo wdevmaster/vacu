@@ -45,4 +45,15 @@ class AnimalRepository extends BaseRepository
     {
         return Animal::class;
     }
+
+    public function validateCode($code){
+
+        $animal = $this->all()->where('code', '=', $code)->first();
+
+        if ($animal)
+            return true;
+
+        return false;
+
+    }
 }

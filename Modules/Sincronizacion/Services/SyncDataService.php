@@ -9,6 +9,8 @@
 namespace Modules\Sincronizacion\Services;
 
 
+use Modules\Animal\Repositories\AnimalRepository;
+use Modules\Animal\Resolvers\SyncAnimalesResolverInterface;
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
 use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
@@ -31,15 +33,32 @@ class SyncDataService implements SyncDataServiceInterface
      */
     private $configuracionRepository;
 
+    /**
+     * @var SyncAnimalesResolverInterface
+     */
+    private $syncAnimalesResolver;
+
+    /**
+     * @var AnimalRepository
+     */
+    private $animalRepository;
+
 
 
     public function __construct(SyncronizacionRepository $syncronizacionRepository,
                                 SyncConfiguracionResolverInterface $configuracionResolver,
-                                ConfiguracionRepository $configuracionRepository)
+                                ConfiguracionRepository $configuracionRepository,
+                                SyncAnimalesResolverInterface $syncAnimalesResolver,
+                                AnimalRepository $animalRepository)
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
+
         $this->configuracionResolver = $configuracionResolver;
         $this->configuracionRepository = $configuracionRepository;
+
+        $this->syncAnimalesResolver = $syncAnimalesResolver;
+        $this->animalRepository = $animalRepository;
+
     }
 
     public function executeService() :array
@@ -56,6 +75,11 @@ class SyncDataService implements SyncDataServiceInterface
                             $this->configuracionResolver->handle($sincronizacion);
                             $this->syncronizacionRepository->delete($sincronizacion->id);
                             $results['configuraciones'] = $this->configuracionRepository->all();
+                            break;
+                        case 'animales':
+                            $this->syncAnimalesResolver->handle($sincronizacion);
+                            $this->syncronizacionRepository->delete($sincronizacion->id);
+                            $results['animales'] = $this->animalRepository->all();
                             break;
                     }
                 }
