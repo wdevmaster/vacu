@@ -52,7 +52,7 @@ use App\Models\Eloquent as Model;
 class Produccion extends Model
 {
 
-    public $table = 'produccions';
+    public $table = 'producciones';
     
 
 

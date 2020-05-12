@@ -13,7 +13,7 @@ class CreateLocomocionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locomocions', function (Blueprint $table) {
+        Schema::create('locomociones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->string('nombre');

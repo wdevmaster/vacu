@@ -13,7 +13,7 @@ class CreateProduccionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('produccions', function (Blueprint $table) {
+        Schema::create('producciones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->dateTime('fecha');
@@ -31,6 +31,6 @@ class CreateProduccionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('produccions');
+        Schema::drop('producciones');
     }
 }

@@ -65,7 +65,7 @@ use App\Models\Eloquent as Model;
 class EstadoFisico extends Model
 {
 
-    public $table = 'estado_fisicos';
+    public $table = 'estados_fisicos';
     
 
 

@@ -57,7 +57,7 @@ use App\Models\Eloquent as Model;
 class Enfermedad extends Model
 {
 
-    public $table = 'enfermedads';
+    public $table = 'enfermedades';
     
 
 

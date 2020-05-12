@@ -13,7 +13,7 @@ class CreateRegistroEnfermedadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('registro_enfermedads', function (Blueprint $table) {
+        Schema::create('registros_enfermedades', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->dateTime('fecha_enfermedad');
@@ -32,6 +32,6 @@ class CreateRegistroEnfermedadsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('registro_enfermedads');
+        Schema::drop('registros_enfermedades');
     }
 }

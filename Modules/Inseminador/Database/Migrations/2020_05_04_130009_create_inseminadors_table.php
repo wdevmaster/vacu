@@ -13,7 +13,7 @@ class CreateInseminadorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inseminadors', function (Blueprint $table) {
+        Schema::create('inseminadores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('codigo');
             $table->string('nombre');
@@ -30,6 +30,6 @@ class CreateInseminadorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('inseminadors');
+        Schema::drop('inseminadores');
     }
 }

@@ -52,7 +52,7 @@ use App\Models\Eloquent as Model;
 class Inseminador extends Model
 {
 
-    public $table = 'inseminadors';
+    public $table = 'inseminadores';
     
 
 

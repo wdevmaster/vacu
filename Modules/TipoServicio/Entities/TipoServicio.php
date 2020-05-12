@@ -47,7 +47,7 @@ use App\Models\Eloquent as Model;
 class TipoServicio extends Model
 {
 
-    public $table = 'tipo_servicios';
+    public $table = 'tipos_servicios';
     
 
 

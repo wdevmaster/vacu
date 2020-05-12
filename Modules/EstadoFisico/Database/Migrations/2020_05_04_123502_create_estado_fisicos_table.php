@@ -13,7 +13,7 @@ class CreateEstadoFisicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('estado_fisicos', function (Blueprint $table) {
+        Schema::create('estados_fisicos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->datetime('fecha');
@@ -32,6 +32,6 @@ class CreateEstadoFisicosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('estado_fisicos');
+        Schema::drop('estados_fisicos');
     }
 }

@@ -57,7 +57,7 @@ use App\Models\Eloquent as Model;
 class Locomocion extends Model
 {
 
-    public $table = 'locomocions';
+    public $table = 'locomociones';
     
 
 
