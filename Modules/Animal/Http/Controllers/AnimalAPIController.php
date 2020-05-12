@@ -136,7 +136,7 @@ class AnimalAPIController extends CommonController
         $animal = $this->animalRepository->create($input);
 
             return $this->sendResponse($animal->toArray(),
-                'comun::msgs.la_model_list_successfully',
+                'comun::msgs.la_model_saved_successfully',
                 'animal::msgs.label_animal',
                 true,
                 201);
@@ -275,16 +275,33 @@ class AnimalAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Animal $animal */
         $animal = $this->animalRepository->find($id);
-
-        if (empty($animal)) {
-            return $this->sendError('Animal not found');
-        }
 
         $animal->active = false;
         $result = $this->animalRepository->update($animal->toArray(), $animal->id);
 
-        return $this->sendSuccess('Animal deleted successfully');
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                'animal::msgs.label_animal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_animal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.label_animal',
+                false,
+                500);
+        }
     }
 }
