@@ -133,7 +133,6 @@ abstract class BaseRepository
     public function create($input)
     {
         $model = $this->model->newInstance($input);
-        $model->user_id = 1;
 
         $model->save();
 

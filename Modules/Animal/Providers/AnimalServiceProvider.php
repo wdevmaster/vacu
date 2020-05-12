@@ -4,6 +4,8 @@ namespace Modules\Animal\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Animal\Resolvers\SynAnimalesResolver;
+use Modules\Animal\Resolvers\SyncAnimalesResolverInterface;
 
 class AnimalServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class AnimalServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(SyncAnimalesResolverInterface::class, SynAnimalesResolver::class);
     }
 
     /**

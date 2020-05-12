@@ -140,7 +140,7 @@ class ConfiguracionAPIController extends AppBaseController
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'message' => __('comun::msgs.la_model_not_found', [
-                    'model' => trans_choice('usuario::msgs.label_configuracion', 1)
+                    'model' => trans_choice('configuracion::msgs.label_configuracion', 1)
                 ]),
                 'success' => false
             ], 404);

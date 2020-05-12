@@ -8,12 +8,7 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Animal",
  *      required={"code", "fecha_nacimiento", "sexo", "lote_nacimiento_id", "madre_codigo", "padre_codigo", "raza_codigo", "lote_actual_id", "locomocion_code", "active"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
@@ -24,7 +19,8 @@ use App\Models\Eloquent as Model;
  *          property="fecha_nacimiento",
  *          description="fecha_nacimiento",
  *          type="string",
- *          format="date-time"
+ *          format="date-time",
+ *          example="2020-05-12 14:37:39"
  *      ),
  *      @SWG\Property(
  *          property="sexo",
@@ -64,21 +60,19 @@ use App\Models\Eloquent as Model;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="inventario_id",
+ *          description="inventario_id",
+ *          type="integer"
+ *      ),
+ *      @SWG\Property(
+ *          property="temporal_id",
+ *          description="temporal_id",
+ *          type="integer"
+ *      ),
+ *      @SWG\Property(
  *          property="active",
  *          description="active",
  *          type="boolean"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -100,6 +94,8 @@ class Animal extends Model
         'raza_codigo',
         'lote_actual_id',
         'locomocion_code',
+        'inventario_id',
+        'temporal_id',
         'active'
     ];
 
@@ -119,6 +115,8 @@ class Animal extends Model
         'raza_codigo' => 'string',
         'lote_actual_id' => 'integer',
         'locomocion_code' => 'string',
+        'inventario_id' => 'integer',
+        'temporal_id' => 'integer',
         'active' => 'boolean'
     ];
 
@@ -137,6 +135,8 @@ class Animal extends Model
         'raza_codigo' => 'required',
         'lote_actual_id' => 'required',
         'locomocion_code' => 'required',
+        'inventario_id' => 'required',
+        'temporal_id' => 'required',
         'active' => 'required'
     ];
 

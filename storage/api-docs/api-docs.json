@@ -13,7 +13,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/animals": {
+        "/api/v1/animal/animales": {
             "get": {
                 "tags": [
                     "Animal"
@@ -87,45 +87,7 @@
                 }
             }
         },
-        "/animals/{id}": {
-            "get": {
-                "tags": [
-                    "Animal"
-                ],
-                "summary": "Display the specified Animal",
-                "description": "Get Animal",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Animal",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Animal"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/animal/animales/{id}": {
             "put": {
                 "tags": [
                     "Animal"
@@ -5154,14 +5116,10 @@
                 "padre_codigo",
                 "raza_codigo",
                 "lote_actual_id",
-                "locomocion_code"
+                "locomocion_code",
+                "active"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
                     "type": "integer",
@@ -5170,7 +5128,8 @@
                 "fecha_nacimiento": {
                     "description": "fecha_nacimiento",
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "example": "2020-05-12 14:37:39"
                 },
                 "sexo": {
                     "description": "sexo",
@@ -5202,15 +5161,17 @@
                     "description": "locomocion_code",
                     "type": "string"
                 },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
+                "inventario_id": {
+                    "description": "inventario_id",
+                    "type": "integer"
                 },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
+                "temporal_id": {
+                    "description": "temporal_id",
+                    "type": "integer"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
                 }
             }
         },

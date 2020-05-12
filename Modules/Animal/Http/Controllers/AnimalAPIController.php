@@ -2,20 +2,20 @@
 
 namespace Modules\Animal\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Modules\Animal\Entities\Animal;
 use Modules\Animal\Http\Requests\CreateAnimalAPIRequest;
 use Modules\Animal\Http\Requests\UpdateAnimalAPIRequest;
-use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+use Modules\Common\Http\Controllers\CommonController;
 
 /**
  * Class AnimalController
  * @package Modules\Animal\Http\Controllers
  */
-
-class AnimalAPIController extends AppBaseController
+class AnimalAPIController extends CommonController
 {
     /** @var  AnimalRepository */
     private $animalRepository;
@@ -30,7 +30,7 @@ class AnimalAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/animals",
+     *      path="/api/v1/animal/animales",
      *      summary="Get a listing of the Animals.",
      *      tags={"Animal"},
      *      description="Get all Animals",
@@ -59,13 +59,35 @@ class AnimalAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $animals = $this->animalRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
+            $animals = $this->animalRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
 
-        return $this->sendResponse($animals->toArray(), 'Animals retrieved successfully');
+            return $this->sendResponse($animals->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'animal::msgs.label_animal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_animal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.label_animal',
+                false,
+                500);
+        }
+
     }
 
     /**
@@ -73,7 +95,7 @@ class AnimalAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/animals",
+     *      path="/api/v1/animal/animales",
      *      summary="Store a newly created Animal in storage",
      *      tags={"Animal"},
      *      description="Store Animal",
@@ -108,62 +130,34 @@ class AnimalAPIController extends AppBaseController
      */
     public function store(CreateAnimalAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $animal = $this->animalRepository->create($input);
 
-        return $this->sendResponse($animal->toArray(), 'Animal saved successfully');
-    }
+            return $this->sendResponse($animal->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'animal::msgs.label_animal',
+                true,
+                201);
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/animals/{id}",
-     *      summary="Display the specified Animal",
-     *      tags={"Animal"},
-     *      description="Get Animal",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Animal",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Animal"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id)
-    {
-        /** @var Animal $animal */
-        $animal = $this->animalRepository->find($id);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_animal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
 
-        if (empty($animal)) {
-            return $this->sendError('Animal not found');
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.label_animal',
+                false,
+                500);
         }
-
-        return $this->sendResponse($animal->toArray(), 'Animal retrieved successfully');
     }
+
 
     /**
      * @param int $id
@@ -171,7 +165,7 @@ class AnimalAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/animals/{id}",
+     *      path="/api/v1/animal/animales/{id}",
      *      summary="Update the specified Animal in storage",
      *      tags={"Animal"},
      *      description="Update Animal",
@@ -213,18 +207,32 @@ class AnimalAPIController extends AppBaseController
      */
     public function update($id, UpdateAnimalAPIRequest $request)
     {
+        try{
         $input = $request->all();
-
-        /** @var Animal $animal */
-        $animal = $this->animalRepository->find($id);
-
-        if (empty($animal)) {
-            return $this->sendError('Animal not found');
-        }
 
         $animal = $this->animalRepository->update($input, $id);
 
-        return $this->sendResponse($animal->toArray(), 'Animal updated successfully');
+            return $this->sendResponse($animal->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                'animal::msgs.label_animal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_animal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.label_animal',
+                false,
+                500);
+        }
     }
 
     /**
@@ -232,7 +240,7 @@ class AnimalAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/animals/{id}",
+     *      path="/api/v1/animal/animales/{id}",
      *      summary="Remove the specified Animal from storage",
      *      tags={"Animal"},
      *      description="Delete Animal",
@@ -274,7 +282,8 @@ class AnimalAPIController extends AppBaseController
             return $this->sendError('Animal not found');
         }
 
-        $animal->delete();
+        $animal->active = false;
+        $result = $this->animalRepository->update($animal->toArray(), $animal->id);
 
         return $this->sendSuccess('Animal deleted successfully');
     }

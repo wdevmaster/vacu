@@ -13,24 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/animal', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('/v1/animal/')->group(function () {
 
-
-Route::prefix('v1/animal')->group(function(){
-
-//    Route::get('animales','AnimalController@index');
-//    Route::get('animales/list/{negocio}','AnimalController@list');
-//    Route::get('animal/{codigo}','AnimalController@findByCode');
-//    Route::post('animales','AnimalController@store');
-//    Route::put('animal/inactivar/{codigo}','AnimalController@inactivar');
-//    Route::put('animal/{codigo}','AnimalController@update');
+    Route::prefix('animales')->group(function () {
+        Route::get('/', 'AnimalAPIController@index')->name('animal.animales.index');
+        Route::post('/', 'AnimalAPIController@store')->name('animal.animales.store');
+        Route::put('/{id}', 'AnimalAPIController@update')->name('animal.animales.update');
+        Route::delete('/{id}', 'AnimalAPIController@destroy')->name('animal.animales.destroy');
+    });
 
 });
 
-
-// -----------------Rutas animal-------------------
-
-
-Route::resource('animals', 'AnimalAPIController');
