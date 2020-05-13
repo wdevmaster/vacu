@@ -12,11 +12,12 @@ namespace Modules\Animal\Resolvers;
 
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
+use Modules\Common\Resolvers\BaseResolver;
 use Modules\Common\Resolvers\GenerateCodeResolverInterface;
 use Modules\Sincronizacion\Entities\Syncronizacion;
 use Modules\Sincronizacion\Repositories\TraductorRepository;
 
-class SynAnimalesResolver implements SyncAnimalesResolverInterface
+class SynAnimalesResolver extends BaseResolver implements SyncAnimalesResolverInterface
 {
 
     /**
@@ -24,23 +25,14 @@ class SynAnimalesResolver implements SyncAnimalesResolverInterface
      */
     private $animalRepository;
 
-    /**
-     * @var GenerateCodeResolverInterface
-     */
-    private $generateCodeResolver;
-
-    /**
-     * @var TraductorRepository
-     */
-    private $traductorRepository;
 
     public function __construct(AnimalRepository $animalRepository,
                                 GenerateCodeResolverInterface $generateCodeResolver,
                                 TraductorRepository $traductorRepository)
     {
+        parent::__construct($traductorRepository, $generateCodeResolver);
         $this->animalRepository = $animalRepository;
-        $this->generateCodeResolver = $generateCodeResolver;
-        $this->traductorRepository = $traductorRepository;
+
     }
 
     public function handle(Syncronizacion $sincronizacion)
@@ -81,11 +73,10 @@ class SynAnimalesResolver implements SyncAnimalesResolverInterface
                  * @var Animal $animal
                  */
                 $animal = $this->animalRepository->all()
-                    ->where('code', '=', $data['code'])
+                    ->where('code', '=', $code)
                     ->first();
                 if ($animal) {
-                    $animal->active = false;
-                    $this->animalRepository->update($animal->toArray(), $animal->id);
+                    $this->animalRepository->delete($animal->id);
                 }
 
                 break;

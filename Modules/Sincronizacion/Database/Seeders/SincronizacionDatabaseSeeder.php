@@ -17,6 +17,6 @@ class SincronizacionDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $sincronizaciones = factory(Syncronizacion::class, 10)->create();
+        $sincronizaciones = factory(Syncronizacion::class, 20)->create();
     }
 }

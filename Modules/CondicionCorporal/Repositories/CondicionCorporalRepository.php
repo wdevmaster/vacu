@@ -41,4 +41,17 @@ class CondicionCorporalRepository extends BaseRepository
     {
         return CondicionCorporal::class;
     }
+
+    public function delete($id)
+    {
+       $condicion_corporal = $this->find($id);
+
+       if ($condicion_corporal){
+           $condicion_corporal->active = false;
+           $this->update($condicion_corporal->toArray(), $id);
+       }
+       return $condicion_corporal;
+    }
+
+
 }

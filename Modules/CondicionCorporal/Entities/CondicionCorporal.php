@@ -57,7 +57,7 @@ use App\Models\Eloquent as Model;
 class CondicionCorporal extends Model
 {
 
-    public $table = 'condicion_corporals';
+    public $table = 'condiciones_corporales';
     
 
 
@@ -97,5 +97,6 @@ class CondicionCorporal extends Model
         'negocio_id' => 'required'
     ];
 
+    public static $tableName = 'condiciones_corporales';
     
 }

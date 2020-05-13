@@ -4,6 +4,8 @@ namespace Modules\CondicionCorporal\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\CondicionCorporal\Resolvers\SynCondicionCorporalResolver;
+use Modules\CondicionCorporal\Resolvers\SynCondicionCorporalResolverInterface;
 
 class CondicionCorporalServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class CondicionCorporalServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(SynCondicionCorporalResolverInterface::class, SynCondicionCorporalResolver::class);
     }
 
     /**

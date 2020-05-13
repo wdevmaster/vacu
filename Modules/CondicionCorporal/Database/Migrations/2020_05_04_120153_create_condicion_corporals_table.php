@@ -13,7 +13,7 @@ class CreateCondicionCorporalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('condicion_corporals', function (Blueprint $table) {
+        Schema::create('condiciones_corporales', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->string('nombre');
@@ -31,6 +31,6 @@ class CreateCondicionCorporalsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('condicion_corporals');
+        Schema::drop('condiciones_corporales');
     }
 }

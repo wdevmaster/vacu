@@ -46,14 +46,19 @@ class AnimalRepository extends BaseRepository
         return Animal::class;
     }
 
-    public function validateCode($code){
+    /**
+     * @param int $id
+     * @return bool|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
+     */
+    public function delete($id)
+    {
+        $animal = $this->find($id);
 
-        $animal = $this->all()->where('code', '=', $code)->first();
-
-        if ($animal)
-            return true;
-
-        return false;
-
+        if ($animal){
+            $animal->active = false;
+            $this->update($animal->toArray(), $id);
+        }
+        return $animal;
     }
+
 }

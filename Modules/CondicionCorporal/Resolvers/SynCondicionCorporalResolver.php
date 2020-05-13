@@ -2,37 +2,35 @@
 /**
  * Created by IntelliJ IDEA.
  * User: nerox
- * Date: 7/05/20
- * Time: 12:33
+ * Date: 12/05/20
+ * Time: 22:14
  */
 
-namespace Modules\Configuracion\Resolvers;
+namespace Modules\CondicionCorporal\Resolvers;
 
 
 use Modules\Common\Resolvers\BaseResolver;
 use Modules\Common\Resolvers\GenerateCodeResolverInterface;
-use Modules\Configuracion\Entities\Configuracion;
-use Modules\Configuracion\Repositories\ConfiguracionRepository;
+use Modules\CondicionCorporal\Entities\CondicionCorporal;
+use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
 use Modules\Sincronizacion\Entities\Syncronizacion;
 use Modules\Sincronizacion\Repositories\TraductorRepository;
 
-class SyncConfiguracionResolver extends BaseResolver implements SyncConfiguracionResolverInterface
+class SynCondicionCorporalResolver extends BaseResolver implements SynCondicionCorporalResolverInterface
 {
-    /**
-     * @var ConfiguracionRepository
-     */
-    private $configuracionRepository;
 
+    private $condicionCorporalRepository;
 
-    public function __construct(ConfiguracionRepository $configuracionRepository,
-                                GenerateCodeResolverInterface $generateCodeResolver,
-                                TraductorRepository $traductorRepository)
+    public function __construct(TraductorRepository $traductorRepository, GenerateCodeResolverInterface $generateCodeResolver, CondicionCorporalRepository $condicionCorporalRepository)
     {
         parent::__construct($traductorRepository, $generateCodeResolver);
-        $this->configuracionRepository = $configuracionRepository;
-
+        $this->condicionCorporalRepository = $condicionCorporalRepository;
     }
 
+    /**
+     * @param Syncronizacion $sincronizacion
+     * @throws \Exception
+     */
     public function handle(Syncronizacion $sincronizacion)
     {
         $accion = $sincronizacion->accion;
@@ -46,36 +44,35 @@ class SyncConfiguracionResolver extends BaseResolver implements SyncConfiguracio
         switch ($accion) {
             case 'INSERT':
                 $data['user_id'] = $sincronizacion->user_id;
-                $data['active'] = true;
-                $validateCode = $this->configuracionRepository->validateCode($code);
+                $validateCode = $this->condicionCorporalRepository->validateCode($code);
 
                 if ($validateCode)
                     $code = $this->generateCodeResolver->handle($code, $sincronizacion->tabla);
 
                 $data['code'] = $code;
-                $this->configuracionRepository->create($data);
+                $this->condicionCorporalRepository->create($data);
                 break;
 
             case 'UPDATE':
-                $configuracion = $this->configuracionRepository->all()
+                $condicion_corporal = $this->condicionCorporalRepository->all()
                     ->where('code', '=', $code)
                     ->first();
 
-                if ($configuracion)
-                    $this->configuracionRepository->update($data, $configuracion->id);
+                if ($condicion_corporal)
+                    $this->condicionCorporalRepository->update($data, $condicion_corporal->id);
 
                 break;
 
             case 'DELETE':
 
                 /**
-                 * @var Configuracion $configuracion
+                 * @var CondicionCorporal $condicion_corporal
                  */
-                $configuracion = $this->configuracionRepository->all()
+                $condicion_corporal = $this->condicionCorporalRepository->all()
                     ->where('code', '=', $code)
                     ->first();
-                if ($configuracion) {
-                    $this->configuracionRepository->delete($configuracion->id);
+                if ($condicion_corporal) {
+                    $this->condicionCorporalRepository->delete( $condicion_corporal->id);
                 }
 
                 break;

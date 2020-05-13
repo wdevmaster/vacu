@@ -190,4 +190,19 @@ abstract class BaseRepository
 
         return $model->delete();
     }
+
+    /**
+     * @param $code
+     * @return bool
+     */
+    public function validateCode($code){
+
+        $model = $this->all()->where('code', '=', $code)->first();
+
+        if ($model)
+            return true;
+
+        return false;
+
+    }
 }

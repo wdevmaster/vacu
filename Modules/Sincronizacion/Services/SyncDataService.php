@@ -12,6 +12,9 @@ namespace Modules\Sincronizacion\Services;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
 use Modules\Animal\Resolvers\SyncAnimalesResolverInterface;
+use Modules\CondicionCorporal\Entities\CondicionCorporal;
+use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
+use Modules\CondicionCorporal\Resolvers\SynCondicionCorporalResolverInterface;
 use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
 use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
@@ -45,13 +48,24 @@ class SyncDataService implements SyncDataServiceInterface
      */
     private $animalRepository;
 
+    /**
+     * @var SynCondicionCorporalResolverInterface
+     */
+    private $syncCondicionCorporalResolver;
+
+    /**
+     * @var CondicionCorporalRepository
+     */
+    private $condicionCorporalRepository;
 
 
     public function __construct(SyncronizacionRepository $syncronizacionRepository,
                                 SyncConfiguracionResolverInterface $configuracionResolver,
                                 ConfiguracionRepository $configuracionRepository,
                                 SyncAnimalesResolverInterface $syncAnimalesResolver,
-                                AnimalRepository $animalRepository)
+                                AnimalRepository $animalRepository,
+                                SynCondicionCorporalResolverInterface $syncCondicionCorporalResolver,
+                                CondicionCorporalRepository $condicionCorporalRepository)
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
 
@@ -61,39 +75,44 @@ class SyncDataService implements SyncDataServiceInterface
         $this->syncAnimalesResolver = $syncAnimalesResolver;
         $this->animalRepository = $animalRepository;
 
+        $this->syncCondicionCorporalResolver = $syncCondicionCorporalResolver;
+        $this->condicionCorporalRepository = $condicionCorporalRepository;
+
     }
 
-    public function executeService() :array
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function executeService(): array
     {
-        try {
-            $sincronizaciones = $this->syncronizacionRepository->all();
-            $results = array();
 
-            if ($sincronizaciones) {
+        $sincronizaciones = $this->syncronizacionRepository->all();
+        $results = array();
 
-                foreach ($sincronizaciones as $sincronizacion) {
-                    switch ($sincronizacion->tabla) {
-                        case Configuracion::$tableName:
-                            $this->configuracionResolver->handle($sincronizacion);
-                            $this->syncronizacionRepository->delete($sincronizacion->id);
-                            break;
-                        case Animal::$tableName:
-                            $this->syncAnimalesResolver->handle($sincronizacion);
-                            $this->syncronizacionRepository->delete($sincronizacion->id);
-                            break;
-                    }
+        if ($sincronizaciones) {
+
+            foreach ($sincronizaciones as $sincronizacion) {
+                switch ($sincronizacion->tabla) {
+                    case Configuracion::$tableName:
+                        $this->configuracionResolver->handle($sincronizacion);
+
+                        break;
+                    case Animal::$tableName:
+                        $this->syncAnimalesResolver->handle($sincronizacion);
+                        break;
+                    case CondicionCorporal::$tableName:
+                        $this->syncCondicionCorporalResolver->handle($sincronizacion);
+                        break;
                 }
+                $this->syncronizacionRepository->delete($sincronizacion->id);
             }
-            $results['configuraciones'] = $this->configuracionRepository->all();
-            $results['animales'] = $this->animalRepository->all();
-
-            return $results;
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
-                'success' => false
-            ], 500);
         }
+        $results['configuraciones'] = $this->configuracionRepository->all();
+        $results['animales'] = $this->animalRepository->all();
+        $results['condiciones_corporales'] = $this->condicionCorporalRepository->all();
+
+        return $results;
 
 
     }
