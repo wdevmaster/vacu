@@ -4,6 +4,8 @@ namespace Modules\Enfermedad\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Enfermedad\Resolvers\SyncEnfermedadesResolverInterface;
+use Modules\Enfermedad\Resolvers\SynEnfermedadesResolver;
 
 class EnfermedadServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class EnfermedadServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(SyncEnfermedadesResolverInterface::class, SynEnfermedadesResolver::class);
     }
 
     /**

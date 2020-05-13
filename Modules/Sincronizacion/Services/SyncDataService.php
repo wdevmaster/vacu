@@ -18,6 +18,9 @@ use Modules\CondicionCorporal\Resolvers\SynCondicionCorporalResolverInterface;
 use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
 use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
+use Modules\Enfermedad\Entities\Enfermedad;
+use Modules\Enfermedad\Repositories\EnfermedadRepository;
+use Modules\Enfermedad\Resolvers\SyncEnfermedadesResolverInterface;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 
 class SyncDataService implements SyncDataServiceInterface
@@ -58,6 +61,16 @@ class SyncDataService implements SyncDataServiceInterface
      */
     private $condicionCorporalRepository;
 
+    /**
+     * @var SyncEnfermedadesResolverInterface
+     */
+    private $enfermedadesResolver;
+
+    /**
+     * @var EnfermedadRepository
+     */
+    private $enfermedadRepository;
+
 
     public function __construct(SyncronizacionRepository $syncronizacionRepository,
                                 SyncConfiguracionResolverInterface $configuracionResolver,
@@ -65,7 +78,9 @@ class SyncDataService implements SyncDataServiceInterface
                                 SyncAnimalesResolverInterface $syncAnimalesResolver,
                                 AnimalRepository $animalRepository,
                                 SynCondicionCorporalResolverInterface $syncCondicionCorporalResolver,
-                                CondicionCorporalRepository $condicionCorporalRepository)
+                                CondicionCorporalRepository $condicionCorporalRepository,
+                                SyncEnfermedadesResolverInterface $enfermedadesResolver,
+                                EnfermedadRepository $enfermedadRepository)
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
 
@@ -77,6 +92,9 @@ class SyncDataService implements SyncDataServiceInterface
 
         $this->syncCondicionCorporalResolver = $syncCondicionCorporalResolver;
         $this->condicionCorporalRepository = $condicionCorporalRepository;
+
+        $this->enfermedadesResolver = $enfermedadesResolver;
+        $this->enfermedadRepository = $enfermedadRepository;
 
     }
 
@@ -104,6 +122,9 @@ class SyncDataService implements SyncDataServiceInterface
                     case CondicionCorporal::$tableName:
                         $this->syncCondicionCorporalResolver->handle($sincronizacion);
                         break;
+                    case Enfermedad::$tableName:
+                        $this->enfermedadesResolver->handle($sincronizacion);
+                        break;
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
             }
@@ -111,6 +132,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['configuraciones'] = $this->configuracionRepository->all();
         $results['animales'] = $this->animalRepository->all();
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all();
+        $results['enfermedades'] = $this->enfermedadRepository->all();
 
         return $results;
 

@@ -97,5 +97,6 @@ class Enfermedad extends Model
         'negocio_id' => 'required'
     ];
 
+    public static $tableName = 'enfermedades';
     
 }
