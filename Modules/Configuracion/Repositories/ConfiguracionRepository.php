@@ -66,7 +66,5 @@ class ConfiguracionRepository extends BaseRepository
 
        return $configuracion;
 
-
-
     }
 }

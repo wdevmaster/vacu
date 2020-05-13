@@ -140,5 +140,7 @@ class Animal extends Model
         'active' => 'required'
     ];
 
+    public static $tableName = 'animales';
+
     
 }

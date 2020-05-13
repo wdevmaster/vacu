@@ -9,8 +9,10 @@
 namespace Modules\Sincronizacion\Services;
 
 
+use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
 use Modules\Animal\Resolvers\SyncAnimalesResolverInterface;
+use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
 use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
@@ -71,19 +73,19 @@ class SyncDataService implements SyncDataServiceInterface
 
                 foreach ($sincronizaciones as $sincronizacion) {
                     switch ($sincronizacion->tabla) {
-                        case 'configuraciones':
+                        case Configuracion::$tableName:
                             $this->configuracionResolver->handle($sincronizacion);
                             $this->syncronizacionRepository->delete($sincronizacion->id);
-                            $results['configuraciones'] = $this->configuracionRepository->all();
                             break;
-                        case 'animales':
+                        case Animal::$tableName:
                             $this->syncAnimalesResolver->handle($sincronizacion);
                             $this->syncronizacionRepository->delete($sincronizacion->id);
-                            $results['animales'] = $this->animalRepository->all();
                             break;
                     }
                 }
             }
+            $results['configuraciones'] = $this->configuracionRepository->all();
+            $results['animales'] = $this->animalRepository->all();
 
             return $results;
         } catch (\Exception $e) {

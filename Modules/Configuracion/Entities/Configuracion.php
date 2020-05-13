@@ -77,5 +77,6 @@ class Configuracion extends Model
 
     ];
 
-    
+    public static $tableName = 'configuraciones';
+
 }
