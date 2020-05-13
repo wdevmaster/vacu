@@ -112,16 +112,19 @@ class SyncDataService implements SyncDataServiceInterface
 
             foreach ($sincronizaciones as $sincronizacion) {
                 switch ($sincronizacion->tabla) {
+
                     case Configuracion::$tableName:
                         $this->configuracionResolver->handle($sincronizacion);
-
                         break;
+
                     case Animal::$tableName:
                         $this->syncAnimalesResolver->handle($sincronizacion);
                         break;
+
                     case CondicionCorporal::$tableName:
                         $this->syncCondicionCorporalResolver->handle($sincronizacion);
                         break;
+
                     case Enfermedad::$tableName:
                         $this->enfermedadesResolver->handle($sincronizacion);
                         break;
