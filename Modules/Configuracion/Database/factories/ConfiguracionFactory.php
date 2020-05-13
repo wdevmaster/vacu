@@ -8,8 +8,8 @@ use Faker\Generator as Faker;
 $factory->define(Configuracion::class, function (Faker $faker) {
 
     return [
-        'code' => $faker->word,
-        'description' => $faker->word,
+        'code' => 123,
+        'descripcion' => $faker->word,
         'valor' => $faker->word,
         'active' => true,
         'created_at' => $faker->date('Y-m-d H:i:s'),

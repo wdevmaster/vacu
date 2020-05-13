@@ -17,10 +17,11 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
 
     switch ($tabla) {
         case \Modules\Configuracion\Entities\Configuracion::$tableName:
+            $data = factory(\Modules\Configuracion\Entities\Configuracion::class,1)->make();
             return [
                 'tabla' => $tabla,
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
-                'data' => $faker->randomElement(['{ "code": 1 , "descripcion": "descripcion1" , "valor": "valor1" }']),
+                'data' => $data->get(0)->toJson(),
                 'user_id' => $faker->numberBetween(1, 2),
                 'created_at' => $faker->date('Y-m-d H:i:s'),
                 'updated_at' => $faker->date('Y-m-d H:i:s')
@@ -28,20 +29,11 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
             break;
 
         case \Modules\Animal\Entities\Animal::$tableName:
+            $data = factory(\Modules\Animal\Entities\Animal::class,1)->make();
             return [
                 'tabla' => $tabla,
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
-                'data' => '{
-                  "code": 12,
-                  "fecha_nacimiento": "2020-05-12 14:37:39",
-                  "sexo": "M", "lote_nacimiento_id": 1,
-                  "madre_codigo": 1, "padre_codigo":12,
-                  "raza_codigo":12, "lote_actual_id":12,
-                  "locomocion_code":12,
-                  "temporal_id":12,
-                  "inventario_id":12,
-                  "active":true
-                  }' ,
+                'data' => $data->get(0)->toJson(),
                 'user_id' => $faker->numberBetween(1, 2),
                 'created_at' => $faker->date('Y-m-d H:i:s'),
                 'updated_at' => $faker->date('Y-m-d H:i:s')
@@ -49,16 +41,11 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
             break;
 
         case \Modules\CondicionCorporal\Entities\CondicionCorporal::$tableName:
+            $data = factory(\Modules\CondicionCorporal\Entities\CondicionCorporal::class,1)->make();
             return [
                 'tabla' => $tabla,
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
-                'data' => '{
-                  "code": 123,
-                  "nombre": "nombre1",
-                  "descripcion": "descripcion",
-                  "active":true,
-                  "negocio_id":1
-                  }' ,
+                'data' => $data->get(0)->toJson(),
                 'user_id' => $faker->numberBetween(1, 2),
                 'created_at' => $faker->date('Y-m-d H:i:s'),
                 'updated_at' => $faker->date('Y-m-d H:i:s')
