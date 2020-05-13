@@ -43,12 +43,30 @@ class ConfiguracionRepository extends BaseRepository
 
     public function validateCode($code){
 
-        $configuracion = $this->all()->where('clave', '=', $code)->first();
+        $configuracion = $this->all()->where('code', '=', $code)->first();
 
         if ($configuracion)
             return true;
 
         return false;
+
+    }
+
+    /**
+     * @param int $id
+     * @return bool|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
+     */
+    public function delete($id)
+    {
+       $configuracion  = $this->find($id);
+       if ($configuracion){
+           $configuracion->active = false;
+           $this->update($configuracion->toArray(), $configuracion->id);
+       }
+
+       return $configuracion;
+
+
 
     }
 }

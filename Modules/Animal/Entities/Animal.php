@@ -36,17 +36,17 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="madre_codigo",
  *          description="madre_codigo",
- *          type="string"
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="padre_codigo",
  *          description="padre_codigo",
- *          type="string"
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="raza_codigo",
  *          description="raza_codigo",
- *          type="string"
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="lote_actual_id",
@@ -57,7 +57,7 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="locomocion_code",
  *          description="locomocion_code",
- *          type="string"
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="inventario_id",
@@ -110,11 +110,11 @@ class Animal extends Model
         'fecha_nacimiento' => 'datetime',
         'sexo' => 'string',
         'lote_nacimiento_id' => 'integer',
-        'madre_codigo' => 'string',
-        'padre_codigo' => 'string',
-        'raza_codigo' => 'string',
+        'madre_codigo' => 'integer',
+        'padre_codigo' => 'integer',
+        'raza_codigo' => 'integer',
         'lote_actual_id' => 'integer',
-        'locomocion_code' => 'string',
+        'locomocion_code' => 'integer',
         'inventario_id' => 'integer',
         'temporal_id' => 'integer',
         'active' => 'boolean'

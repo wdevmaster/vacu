@@ -15,9 +15,9 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="clave",
- *          description="clave",
- *          type="string"
+ *          property="code",
+ *          description="code",
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="descripcion",
@@ -28,6 +28,11 @@ use App\Models\Eloquent as Model;
  *          property="valor",
  *          description="valor",
  *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="active",
+ *          description="Active",
+ *          type="boolean"
  *      )
  * )
  */
@@ -40,9 +45,10 @@ class Configuracion extends Model
 
 
     public $fillable = [
-        'clave',
+        'code',
         'descripcion',
-        'valor'
+        'valor',
+        'active',
     ];
 
     /**
@@ -52,9 +58,10 @@ class Configuracion extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'clave' => 'string',
+        'code' => 'integer',
         'descripcion' => 'string',
-        'valor' => 'string'
+        'valor' => 'string',
+        'active' => 'boolean',
     ];
 
     /**
@@ -63,9 +70,11 @@ class Configuracion extends Model
      * @var array
      */
     public static $rules = [
-        'clave' => 'required',
+        'code' => 'required',
         'descripcion' => 'required',
-        'valor' => 'required'
+        'valor' => 'required',
+        'active' => 'required',
+
     ];
 
     

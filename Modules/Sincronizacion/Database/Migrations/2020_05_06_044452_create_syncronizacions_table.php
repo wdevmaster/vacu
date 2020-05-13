@@ -17,7 +17,7 @@ class CreateSyncronizacionsTable extends Migration
             $table->increments('id');
             $table->string('tabla');
             $table->string('accion');
-            $table->string('data');
+            $table->json('data');
             $table->integer('user_id');
             $table->timestamps();
         });

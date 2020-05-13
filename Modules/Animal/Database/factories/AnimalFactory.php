@@ -12,11 +12,13 @@ $factory->define(Animal::class, function (Faker $faker) {
         'fecha_nacimiento' => $faker->date('Y-m-d H:i:s'),
         'sexo' => $faker->word,
         'lote_nacimiento_id' => $faker->randomDigitNotNull,
-        'madre_codigo' => $faker->word,
-        'padre_codigo' => $faker->word,
-        'raza_codigo' => $faker->word,
+        'madre_codigo' => $faker->randomDigitNotNull,
+        'padre_codigo' => $faker->randomDigitNotNull,
+        'raza_codigo' => $faker->randomDigitNotNull,
         'lote_actual_id' => $faker->randomDigitNotNull,
-        'locomocion_code' => $faker->word,
+        'locomocion_code' => $faker->randomDigitNotNull,
+        'temporal_id' => $faker->randomDigitNotNull,
+        'inventario_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

@@ -8,10 +8,10 @@ use Faker\Generator as Faker;
 $factory->define(Configuracion::class, function (Faker $faker) {
 
     return [
-        'configuracion_id' => $faker->word,
-        'clave' => $faker->word,
+        'code' => $faker->word,
         'description' => $faker->word,
         'valor' => $faker->word,
+        'active' => true,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

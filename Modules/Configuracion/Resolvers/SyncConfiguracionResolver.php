@@ -40,21 +40,22 @@ class SyncConfiguracionResolver implements SyncConfiguracionResolverInterface
             case 'INSERT':
                 $data = json_decode($sincronizacion->data,true);
                 $data['user_id'] = $sincronizacion->user_id;
-                $code = $data['clave'];
+                $code = $data['code'];
 
                 $validateCode = $this->configuracionRepository->validateCode($code);
 
                 if ($validateCode)
                     $code = $this->generateCodeResolver->handle($code, $sincronizacion->tabla);
 
-                $data['clave'] = $code;
+                $data['code'] = $code;
+                $data['active'] = true;
 
                 $this->configuracionRepository->create($data);
                 break;
             case 'UPDATE':
                 $data = json_decode($sincronizacion->data, true);
                 $configuracion = $this->configuracionRepository->all()
-                    ->where('clave', '=', $data['clave'])
+                    ->where('code', '=', $data['code'])
                     ->first();
                 if ($configuracion)
                 $this->configuracionRepository->update($data, $configuracion->id);
@@ -62,7 +63,7 @@ class SyncConfiguracionResolver implements SyncConfiguracionResolverInterface
             case 'DELETE':
                 $data = json_decode($sincronizacion->data,true);
                 $configuracion = $this->configuracionRepository->all()
-                    ->where('clave', '=', $data['clave'])
+                    ->where('code', '=', $data['code'])
                     ->first();
                 if ($configuracion)
                 $this->configuracionRepository->delete($configuracion->id);

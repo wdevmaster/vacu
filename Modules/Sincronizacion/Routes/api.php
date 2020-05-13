@@ -19,7 +19,7 @@ Route::prefix('v1/sincronizacion')->group(function(){
 
     Route::prefix('sincronizaciones')->group(function () {
         Route::post('/', 'SyncronizacionAPIController@store')->name('configuracion.store');
-        Route::post('/start', 'SyncronizacionAPIController@startSync')->name('sync.data');
+        Route::get('/start', 'SyncronizacionAPIController@startSync')->name('sync.data');
 
     });
 

@@ -5142,15 +5142,15 @@
                 },
                 "madre_codigo": {
                     "description": "madre_codigo",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "padre_codigo": {
                     "description": "padre_codigo",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "raza_codigo": {
                     "description": "raza_codigo",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "lote_actual_id": {
                     "description": "lote_actual_id",
@@ -5159,7 +5159,7 @@
                 },
                 "locomocion_code": {
                     "description": "locomocion_code",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "inventario_id": {
                     "description": "inventario_id",
@@ -5285,9 +5285,9 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "clave": {
-                    "description": "clave",
-                    "type": "string"
+                "code": {
+                    "description": "code",
+                    "type": "integer"
                 },
                 "descripcion": {
                     "description": "descripcion",
@@ -5296,6 +5296,10 @@
                 "valor": {
                     "description": "valor",
                     "type": "string"
+                },
+                "active": {
+                    "description": "Active",
+                    "type": "boolean"
                 }
             }
         },
