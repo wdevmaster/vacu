@@ -2,20 +2,20 @@
 
 namespace Modules\Negocio\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Negocio\Entities\Negocio;
 use Modules\Negocio\Http\Requests\CreateNegocioAPIRequest;
 use Modules\Negocio\Http\Requests\UpdateNegocioAPIRequest;
-use Modules\Negocio\Entities\Negocio;
 use Modules\Negocio\Repositories\NegocioRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class NegocioController
  * @package Modules\Negocio\Http\Controllers
  */
-
-class NegocioAPIController extends AppBaseController
+class NegocioAPIController extends CommonController
 {
     /** @var  NegocioRepository */
     private $negocioRepository;
@@ -27,10 +27,10 @@ class NegocioAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/negocios",
+     *      path="/api/v1/negocio/negocios",
      *      summary="Get a listing of the Negocios.",
      *      tags={"Negocio"},
      *      description="Get all Negocios",
@@ -59,21 +59,43 @@ class NegocioAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $negocios = $this->negocioRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
 
-        return $this->sendResponse($negocios->toArray(), 'Negocios retrieved successfully');
+            $negocios = $this->negocioRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+
+            return $this->sendResponse($negocios->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'animal::msgs.label_animal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_negocio',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.label_negocio',
+                false,
+                500);
+        }
     }
 
     /**
      * @param CreateNegocioAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/negocios",
+     *      path="/api/v1/negocio/negocios",
      *      summary="Store a newly created Negocio in storage",
      *      tags={"Negocio"},
      *      description="Store Negocio",
@@ -108,70 +130,43 @@ class NegocioAPIController extends AppBaseController
      */
     public function store(CreateNegocioAPIRequest $request)
     {
+
+        try{
         $input = $request->all();
 
         $negocio = $this->negocioRepository->create($input);
 
-        return $this->sendResponse($negocio->toArray(), 'Negocio saved successfully');
-    }
+            return $this->sendResponse($negocio->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                'animal::msgs.label_negocio',
+                true,
+                201);
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/negocios/{id}",
-     *      summary="Display the specified Negocio",
-     *      tags={"Negocio"},
-     *      description="Get Negocio",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Negocio",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Negocio"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id)
-    {
-        /** @var Negocio $negocio */
-        $negocio = $this->negocioRepository->find($id);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_negocio',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
 
-        if (empty($negocio)) {
-            return $this->sendError('Negocio not found');
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.negocio',
+                false,
+                500);
         }
-
-        return $this->sendResponse($negocio->toArray(), 'Negocio retrieved successfully');
     }
+
 
     /**
      * @param int $id
      * @param UpdateNegocioAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/negocios/{id}",
+     *      path="/api/v1/negocio/negocios/{id}",
      *      summary="Update the specified Negocio in storage",
      *      tags={"Negocio"},
      *      description="Update Negocio",
@@ -213,26 +208,40 @@ class NegocioAPIController extends AppBaseController
      */
     public function update($id, UpdateNegocioAPIRequest $request)
     {
+        try{
         $input = $request->all();
-
-        /** @var Negocio $negocio */
-        $negocio = $this->negocioRepository->find($id);
-
-        if (empty($negocio)) {
-            return $this->sendError('Negocio not found');
-        }
 
         $negocio = $this->negocioRepository->update($input, $id);
 
-        return $this->sendResponse($negocio->toArray(), 'Negocio updated successfully');
+            return $this->sendResponse($negocio->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                'animal::msgs.label_negocio',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_negocio',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.label_negocio',
+                false,
+                500);
+        }
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Delete(
-     *      path="/negocios/{id}",
+     *      path="/api/v1/negocio/negocios/{id}",
      *      summary="Remove the specified Negocio from storage",
      *      tags={"Negocio"},
      *      description="Delete Negocio",
@@ -267,15 +276,33 @@ class NegocioAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var Negocio $negocio */
-        $negocio = $this->negocioRepository->find($id);
+        try{
+            /** @var Negocio $negocio */
+            $negocio = $this->negocioRepository->find($id);
 
-        if (empty($negocio)) {
-            return $this->sendError('Negocio not found');
+            $negocio->active = false;
+            $result = $this->negocioRepository->update($negocio->toArray(), $id);
+
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                'animal::msgs.label_negocio',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'animal::msgs.label_negocio',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'animal::msgs.negocio',
+                false,
+                500);
         }
-
-        $negocio->delete();
-
-        return $this->sendSuccess('Negocio deleted successfully');
     }
 }

@@ -2723,7 +2723,7 @@
                 }
             }
         },
-        "/negocios": {
+        "/api/v1/negocio/negocios": {
             "get": {
                 "tags": [
                     "Negocio"
@@ -2797,45 +2797,7 @@
                 }
             }
         },
-        "/negocios/{id}": {
-            "get": {
-                "tags": [
-                    "Negocio"
-                ],
-                "summary": "Display the specified Negocio",
-                "description": "Get Negocio",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Negocio",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Negocio"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/negocio/negocios/{id}": {
             "put": {
                 "tags": [
                     "Negocio"

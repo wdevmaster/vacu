@@ -13,8 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/negocio', function (Request $request) {
-    return $request->user();
+
+Route::prefix('v1/negocio')->group(function (){
+    Route::prefix('/negocios')->group(function (){
+        Route::get('/', 'NegocioAPIController@index')->name('negocio.negocios.index');
+        Route::post('/', 'NegocioAPIController@store')->name('negocio.negocios.store');
+        Route::put('/{id}', 'NegocioAPIController@update')->name('negocio.negocios.update');
+        Route::delete('/{id}', 'NegocioAPIController@delete')->name('negocio.negocios.delete');
+    });
+
 });
 
-Route::resource('negocios', 'NegocioAPIController');
