@@ -8,11 +8,11 @@ use Faker\Generator as Faker;
 $factory->define(Negocio::class, function (Faker $faker) {
 
     return [
-        'negocio_id' => $faker->randomDigitNotNull,
+        'code' => 12345,
         'nombre' => $faker->word,
         'jefe' => $faker->word,
         'telefono' => $faker->randomDigitNotNull,
-        'active' => $faker->word,
+        'active' => true,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

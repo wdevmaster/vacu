@@ -41,4 +41,13 @@ class NegocioRepository extends BaseRepository
     {
         return Negocio::class;
     }
+
+    public function delete($id)
+    {
+       $negocio = $this->find($id);
+       if ($negocio){
+           $negocio->active = false;
+           $this->update($negocio->toArray(), $id);
+       }
+    }
 }

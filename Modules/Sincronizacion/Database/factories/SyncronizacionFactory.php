@@ -13,7 +13,8 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
             \Modules\Configuracion\Entities\Configuracion::$tableName,
             \Modules\Animal\Entities\Animal::$tableName,
             \Modules\CondicionCorporal\Entities\CondicionCorporal::$tableName,
-            \Modules\Enfermedad\Entities\Enfermedad::$tableName
+            \Modules\Enfermedad\Entities\Enfermedad::$tableName,
+            \Modules\Negocio\Entities\Negocio::$tableName
         ]);
 
     switch ($tabla) {
@@ -54,6 +55,18 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
             break;
         case \Modules\Enfermedad\Entities\Enfermedad::$tableName:
             $data = factory(\Modules\Enfermedad\Entities\Enfermedad::class, 1)->make();
+            return [
+                'tabla' => $tabla,
+                'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
+                'data' => $data->get(0)->toJson(),
+                'user_id' => $faker->numberBetween(1, 2),
+                'created_at' => $faker->date('Y-m-d H:i:s'),
+                'updated_at' => $faker->date('Y-m-d H:i:s')
+            ];
+            break;
+
+        case \Modules\Negocio\Entities\Negocio::$tableName:
+            $data = factory(\Modules\Negocio\Entities\Negocio::class, 1)->make();
             return [
                 'tabla' => $tabla,
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),

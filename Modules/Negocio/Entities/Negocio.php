@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Negocio",
- *      required={"negocio_id", "nombre", "jefe", "telefono", "active"},
+ *      required={"code", "nombre", "jefe", "telefono", "active"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -15,8 +15,8 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="negocio_id",
- *          description="negocio_id",
+ *          property="code",
+ *          description="code",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -64,7 +64,7 @@ class Negocio extends Model
 
 
     public $fillable = [
-        'negocio_id',
+        'code',
         'nombre',
         'jefe',
         'telefono',
@@ -78,7 +78,7 @@ class Negocio extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'negocio_id' => 'integer',
+        'code' => 'integer',
         'nombre' => 'string',
         'jefe' => 'string',
         'telefono' => 'integer',
@@ -91,12 +91,14 @@ class Negocio extends Model
      * @var array
      */
     public static $rules = [
-        'negocio_id' => 'required',
+        'code' => 'required',
         'nombre' => 'required',
         'jefe' => 'required',
         'telefono' => 'required',
         'active' => 'required'
     ];
+
+    public static $tableName = 'negocios';
 
     
 }

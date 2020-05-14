@@ -4,6 +4,8 @@ namespace Modules\Negocio\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Negocio\Resolvers\SyncNegocioResolver;
+use Modules\Negocio\Resolvers\SyncNegocioResolverInterface;
 
 class NegocioServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class NegocioServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(SyncNegocioResolverInterface::class, SyncNegocioResolver::class);
     }
 
     /**
