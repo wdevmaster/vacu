@@ -30,14 +30,14 @@ use App\Models\Eloquent as Model;
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="negocioId",
- *          description="negocioId",
+ *          property="negocio_id",
+ *          description="negocio_id",
  *          type="integer",
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="fincaId",
- *          description="fincaId",
+ *          property="finca_id",
+ *          description="finca_id",
  *          type="integer",
  *          format="int32"
  *      )
@@ -56,8 +56,8 @@ class User extends Model
         'name',
         'email',
         'password',
-        'negocioId',
-        'fincaId'
+        'negocio_id',
+        'finca_id'
     ];
 
     /**
@@ -70,8 +70,8 @@ class User extends Model
         'name' => 'string',
         'email' => 'string',
         'password' => 'string',
-        'negocioId' => 'integer',
-        'fincaId' => 'integer'
+        'negocio_id' => 'integer',
+        'finca_id' => 'integer'
     ];
 
     /**
@@ -83,9 +83,8 @@ class User extends Model
         'name' => 'required',
         'email' => 'email',
         'password' => 'required',
-        'negocioId' => 'required',
-        'fincaId' => 'required'
+        'negocio_id' => 'required',
+        'finca_id' => 'required'
     ];
 
-    
 }

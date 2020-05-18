@@ -130,10 +130,10 @@ class UserAPIController extends AppBaseController
      */
     public function store(CreateUserAPIRequest $request)
     {
-        try{
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $user = $this->userRepository->create($input);
+            $user = $this->userRepository->create($input);
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_saved_successfully', [
@@ -159,22 +159,67 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param Request $request
      * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/api/v1/usuario/usuarios/{id}",
-     *      summary="Display the specified User",
+     *      path="/api/v1/usuario/usuarios/filter/all",
+     * *      summary="Obtiene los datos de los usuarios , filtrados y paginados.",
      *      tags={"User"},
-     *      description="Get User",
+     *      description="Obtiene los datos de los usuarios , filtrados y paginados.",
      *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of User",
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
      *          type="integer",
-     *          required=true,
-     *          in="path"
+     *          description="Numero de items en cada pagina.",
+     *          default="10",
      *      ),
+     *      @SWG\Parameter(
+     *          name="ordenado_por",
+     *          in="query",
+     *          type="string",
+     *          description="Campo por el que vamos a ordenar.",
+     *          default="created_at"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="direccion",
+     *          in="query",
+     *          type="string",
+     *          description="Direccion en la que vamos a ordenar. Posibles valores (DESC o ASC)",
+     *          default="ASC"
+     *       ),
+     *      @SWG\Parameter(
+     *          name="filter",
+     *          in="query",
+     *          type="array",
+     *          description="Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>
+    <b>campo</b>(string): uno de los siguientes valores ('<b>negocio_id</b>'). Id del negocio a filtrar <br>
+    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>
+    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''negocio_id'',''='',''1'']] <br><br>
+    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
+     *          @SWG\Items(
+     *              type="array",
+     *              @SWG\Items(
+     *                  @SWG\Property(
+     *                       property="campo",
+     *                       description="Campo para agregar al criterio de busqueda. Uno de los siguientes valores ('<b>negocio_id</b>').",
+     *                       type="string"
+     *                  ),
+     *                  @SWG\Property(
+     *                       property="operador",
+     *                       description="Los posibles operadores son: '=', '!=', 'like',  '>', '<'.",
+     *                       type="string",
+     *                       example="'='",
+     *                  ),
+     *                  @SWG\Property(
+     *                       property="valor",
+     *                       description="Valor para comparar en la busqueda.",
+     *                       type="string"
+     *                  )
+     *              )
+     *          )
+     *       ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -186,7 +231,8 @@ class UserAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/User"
+     *                  type="array",
+     *                  @SWG\Items(ref="#/definitions/User")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -196,22 +242,32 @@ class UserAPIController extends AppBaseController
      *      )
      * )
      */
-    public function show($id)
+    public function filter(Request $request)
     {
-        try{
-        /** @var User $user */
-        $user = $this->userRepository->find($id);
+        try {
 
-        if (empty($user)) {
-            return $this->sendError('User not found');
-        }
+            $filter = $request->filter ? json_decode($request->filter) : [];
+            $orderBy = $request->ordenado_por ? $request->ordenado_por : 'created_at';
+            $direction = $request->direccion ? $request->direccion : 'ASC';
+            $paginate = 10;
+
+            if (!empty($request['paginado']) && $request['paginado'] != null)
+                $paginate = $request['paginado'];
+
+
+            $paginados = $this->userRepository->filterByNegocioId($filter, $orderBy, $direction, $paginate);
+            $results = [];
+
+            foreach ($paginados->items() as $user){
+                $results [] = $user;
+            }
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_show_successfully', [
                     'model' => trans_choice('usuario::msgs.label_usuario', 1)
                 ]),
                 'success' => true,
-                'data' => $user
+                'data' => $results
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
@@ -276,17 +332,17 @@ class UserAPIController extends AppBaseController
      */
     public function update($id, UpdateUserAPIRequest $request)
     {
-        try{
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var User $user */
-        $user = $this->userRepository->find($id);
+            /** @var User $user */
+            $user = $this->userRepository->find($id);
 
-        if (empty($user)) {
-            return $this->sendError('User not found');
-        }
+            if (empty($user)) {
+                return $this->sendError('User not found');
+            }
 
-        $user = $this->userRepository->update($input, $id);
+            $user = $this->userRepository->update($input, $id);
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_updated_successfully', [
@@ -351,15 +407,15 @@ class UserAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        try{
-        /** @var User $user */
-        $user = $this->userRepository->find($id);
+        try {
+            /** @var User $user */
+            $user = $this->userRepository->find($id);
 
-        if (empty($user)) {
-            return $this->sendError('User not found');
-        }
+            if (empty($user)) {
+                return $this->sendError('User not found');
+            }
 
-        $user->delete();
+            $user->delete();
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_deleted_successfully', [

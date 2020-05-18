@@ -11,8 +11,8 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->word,
         'email' => $faker->word,
         'password' => $faker->word,
-        'negocioId' => $faker->randomDigitNotNull,
-        'fincaId' => $faker->randomDigitNotNull,
+        'negocio_id' => $faker->randomDigitNotNull,
+        'finca_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

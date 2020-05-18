@@ -4742,23 +4742,63 @@
                 }
             }
         },
-        "/api/v1/usuario/usuarios/{id}": {
+        "/api/v1/usuario/usuarios/filter/all": {
             "get": {
                 "tags": [
                     "User"
                 ],
-                "summary": "Display the specified User",
-                "description": "Get User",
+                "summary": "Obtiene los datos de las solicitudes de Tx en tiempo real , filtrados y paginados.",
+                "description": "Obtiene los datos de las solicitudes de Tx en tiempo real , filtrados y paginados.",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of User",
-                        "required": true,
-                        "type": "integer"
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Numero de items en cada pagina.",
+                        "type": "integer",
+                        "default": "10"
+                    },
+                    {
+                        "name": "ordenado_por",
+                        "in": "query",
+                        "description": "Campo por el que vamos a ordenar.",
+                        "type": "string",
+                        "default": "created_at"
+                    },
+                    {
+                        "name": "direccion",
+                        "in": "query",
+                        "description": "Direccion en la que vamos a ordenar. Posibles valores (DESC o ASC)",
+                        "type": "string",
+                        "default": "ASC"
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\n    <b>campo</b>(string): uno de los siguientes valores ('<b>id</b>'). Id del negocio a filtrar <br>\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''id'',''='',''1'']] <br><br>\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "campo": {
+                                        "description": "Campo para agregar al criterio de busqueda. Uno de los siguientes valores ('<b>id</b>').",
+                                        "type": "string"
+                                    },
+                                    "operador": {
+                                        "description": "Los posibles operadores son: '=', '!=', 'like',  '>', '<'.",
+                                        "type": "string",
+                                        "example": "'='"
+                                    },
+                                    "valor": {
+                                        "description": "Valor para comparar en la busqueda.",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -4770,7 +4810,10 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/User"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/User"
+                                    }
                                 },
                                 "message": {
                                     "type": "string"
@@ -4780,7 +4823,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/v1/usuario/usuarios/{id}": {
             "put": {
                 "tags": [
                     "User"
@@ -5725,7 +5770,7 @@
         },
         "Negocio": {
             "required": [
-                "negocio_id",
+                "code",
                 "nombre",
                 "jefe",
                 "telefono",
@@ -5737,8 +5782,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "negocio_id": {
-                    "description": "negocio_id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
