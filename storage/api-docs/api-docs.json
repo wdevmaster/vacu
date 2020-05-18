@@ -4747,8 +4747,8 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "Obtiene los datos de las solicitudes de Tx en tiempo real , filtrados y paginados.",
-                "description": "Obtiene los datos de las solicitudes de Tx en tiempo real , filtrados y paginados.",
+                "summary": "Obtiene los datos de los usuarios , filtrados y paginados.",
+                "description": "Obtiene los datos de los usuarios , filtrados y paginados.",
                 "produces": [
                     "application/json"
                 ],
@@ -4777,14 +4777,14 @@
                     {
                         "name": "filter",
                         "in": "query",
-                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\n    <b>campo</b>(string): uno de los siguientes valores ('<b>id</b>'). Id del negocio a filtrar <br>\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''id'',''='',''1'']] <br><br>\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
+                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\n    <b>campo</b>(string): uno de los siguientes valores ('<b>negocio_id</b>'). Id del negocio a filtrar <br>\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''negocio_id'',''='',''1'']] <br><br>\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
                         "type": "array",
                         "items": {
                             "type": "array",
                             "items": {
                                 "properties": {
                                     "campo": {
-                                        "description": "Campo para agregar al criterio de busqueda. Uno de los siguientes valores ('<b>id</b>').",
+                                        "description": "Campo para agregar al criterio de busqueda. Uno de los siguientes valores ('<b>negocio_id</b>').",
                                         "type": "string"
                                     },
                                     "operador": {
@@ -6248,13 +6248,13 @@
                     "description": "password",
                     "type": "string"
                 },
-                "negocioId": {
-                    "description": "negocioId",
+                "negocio_id": {
+                    "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
                 },
-                "fincaId": {
-                    "description": "fincaId",
+                "finca_id": {
+                    "description": "finca_id",
                     "type": "integer",
                     "format": "int32"
                 }
