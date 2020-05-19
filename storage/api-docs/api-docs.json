@@ -657,7 +657,7 @@
                 }
             }
         },
-        "/enfermedads": {
+        "/api/v1/enfermedad/enfermedades": {
             "get": {
                 "tags": [
                     "Enfermedad"
@@ -731,45 +731,7 @@
                 }
             }
         },
-        "/enfermedads/{id}": {
-            "get": {
-                "tags": [
-                    "Enfermedad"
-                ],
-                "summary": "Display the specified Enfermedad",
-                "description": "Get Enfermedad",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Enfermedad",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Enfermedad"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/enfermedades/{id}": {
             "put": {
                 "tags": [
                     "Enfermedad"
@@ -816,7 +778,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/v1/enfermedad/enfermedades/{id}": {
             "delete": {
                 "tags": [
                     "Enfermedad"

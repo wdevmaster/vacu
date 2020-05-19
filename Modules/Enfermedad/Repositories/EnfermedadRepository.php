@@ -2,15 +2,14 @@
 
 namespace Modules\Enfermedad\Repositories;
 
-use Modules\Enfermedad\Entities\Enfermedad;
 use App\Repositories\BaseRepository;
+use Modules\Enfermedad\Entities\Enfermedad;
 
 /**
  * Class EnfermedadRepository
  * @package Modules\Enfermedad\Repositories
  * @version May 4, 2020, 12:11 pm UTC
-*/
-
+ */
 class EnfermedadRepository extends BaseRepository
 {
     /**
@@ -40,5 +39,15 @@ class EnfermedadRepository extends BaseRepository
     public function model()
     {
         return Enfermedad::class;
+    }
+
+    public function delete($id)
+    {
+        $enfermedad = Enfermedad::find($id);
+        if ($enfermedad) {
+           $enfermedad->active = false;
+           $this->update($enfermedad->toArray(), $id);
+        }
+        return $enfermedad;
     }
 }

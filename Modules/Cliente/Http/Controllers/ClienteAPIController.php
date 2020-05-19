@@ -10,7 +10,6 @@ use Modules\Cliente\Http\Requests\CreateClienteAPIRequest;
 use Modules\Cliente\Http\Requests\UpdateClienteAPIRequest;
 use Modules\Cliente\Repositories\ClienteRepository;
 use Modules\Common\Http\Controllers\CommonController;
-use Response;
 
 /**
  * Class ClienteController

@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/enfermedad', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/enfermedad')->group(function (){
+    Route::prefix('/enfermedades')->group(function (){
+        Route::get('/', 'EnfermedadAPIController@index')->name('enfermedad.enfermedades.index');
+        Route::post('/', 'EnfermedadAPIController@store')->name('enfermedad.enfermedades.store');
+        Route::put('/{id}', 'EnfermedadAPIController@update')->name('enfermedad.enfermedades.update');
+        Route::delete('/{id}', 'EnfermedadAPIController@destroy')->name('enfermedad.enfermedades.destroy');
+    });
 });
-
-Route::resource('enfermedads', 'EnfermedadAPIController');

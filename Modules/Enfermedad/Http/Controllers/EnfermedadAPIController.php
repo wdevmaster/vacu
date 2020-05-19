@@ -2,20 +2,20 @@
 
 namespace Modules\Enfermedad\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Enfermedad\Entities\Enfermedad;
 use Modules\Enfermedad\Http\Requests\CreateEnfermedadAPIRequest;
 use Modules\Enfermedad\Http\Requests\UpdateEnfermedadAPIRequest;
-use Modules\Enfermedad\Entities\Enfermedad;
 use Modules\Enfermedad\Repositories\EnfermedadRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class EnfermedadController
  * @package Modules\Enfermedad\Http\Controllers
  */
-
-class EnfermedadAPIController extends AppBaseController
+class EnfermedadAPIController extends CommonController
 {
     /** @var  EnfermedadRepository */
     private $enfermedadRepository;
@@ -27,10 +27,10 @@ class EnfermedadAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/enfermedads",
+     *      path="/api/v1/enfermedad/enfermedades",
      *      summary="Get a listing of the Enfermedads.",
      *      tags={"Enfermedad"},
      *      description="Get all Enfermedads",
@@ -59,21 +59,42 @@ class EnfermedadAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $enfermedads = $this->enfermedadRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
+            $enfermedads = $this->enfermedadRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
 
-        return $this->sendResponse($enfermedads->toArray(), 'Enfermedads retrieved successfully');
+            return $this->sendResponse($enfermedads->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'enfermedad::msgs.label_enfermedad',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                500);
+        }
     }
 
     /**
      * @param CreateEnfermedadAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/enfermedads",
+     *      path="/api/v1/enfermedad/enfermedades",
      *      summary="Store a newly created Enfermedad in storage",
      *      tags={"Enfermedad"},
      *      description="Store Enfermedad",
@@ -108,70 +129,42 @@ class EnfermedadAPIController extends AppBaseController
      */
     public function store(CreateEnfermedadAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $enfermedad = $this->enfermedadRepository->create($input);
+            $enfermedad = $this->enfermedadRepository->create($input);
 
-        return $this->sendResponse($enfermedad->toArray(), 'Enfermedad saved successfully');
-    }
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/enfermedads/{id}",
-     *      summary="Display the specified Enfermedad",
-     *      tags={"Enfermedad"},
-     *      description="Get Enfermedad",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Enfermedad",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Enfermedad"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id)
-    {
-        /** @var Enfermedad $enfermedad */
-        $enfermedad = $this->enfermedadRepository->find($id);
+            return $this->sendResponse($enfermedad->toArray(),
+                'comun::msgs.la_model_created_successfully',
+                'enfermedad::msgs.label_enfermedad',
+                true,
+                200);
 
-        if (empty($enfermedad)) {
-            return $this->sendError('Enfermedad not found');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                500);
         }
-
-        return $this->sendResponse($enfermedad->toArray(), 'Enfermedad retrieved successfully');
     }
 
     /**
      * @param int $id
      * @param UpdateEnfermedadAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/enfermedads/{id}",
+     *      path="/api/v1/enfermedades/{id}",
      *      summary="Update the specified Enfermedad in storage",
      *      tags={"Enfermedad"},
      *      description="Update Enfermedad",
@@ -213,26 +206,45 @@ class EnfermedadAPIController extends AppBaseController
      */
     public function update($id, UpdateEnfermedadAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var Enfermedad $enfermedad */
-        $enfermedad = $this->enfermedadRepository->find($id);
+            /** @var Enfermedad $enfermedad */
+            $enfermedad = $this->enfermedadRepository->find($id);
 
-        if (empty($enfermedad)) {
-            return $this->sendError('Enfermedad not found');
+
+            $enfermedad = $this->enfermedadRepository->update($input, $id);
+
+
+            return $this->sendResponse($enfermedad->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                'enfermedad::msgs.label_enfermedad',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                500);
         }
-
-        $enfermedad = $this->enfermedadRepository->update($input, $id);
-
-        return $this->sendResponse($enfermedad->toArray(), 'Enfermedad updated successfully');
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Delete(
-     *      path="/enfermedads/{id}",
+     *      path="/api/v1/enfermedad/enfermedades/{id}",
      *      summary="Remove the specified Enfermedad from storage",
      *      tags={"Enfermedad"},
      *      description="Delete Enfermedad",
@@ -267,15 +279,30 @@ class EnfermedadAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var Enfermedad $enfermedad */
-        $enfermedad = $this->enfermedadRepository->find($id);
+        try {
+            /** @var Enfermedad $enfermedad */
+            $enfermedad = $this->enfermedadRepository->delete($id);
 
-        if (empty($enfermedad)) {
-            return $this->sendError('Enfermedad not found');
+            return $this->sendResponse($enfermedad->toArray(),
+                'comun::msgs.la_model_disabled_successfully',
+                'enfermedad::msgs.label_enfermedad',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'enfermedad::msgs.label_enfermedad',
+                false,
+                500);
         }
-
-        $enfermedad->delete();
-
-        return $this->sendSuccess('Enfermedad deleted successfully');
     }
 }
