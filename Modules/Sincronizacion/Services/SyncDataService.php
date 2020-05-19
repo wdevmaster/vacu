@@ -24,9 +24,37 @@ use Modules\Evento\Entities\Evento;
 use Modules\Evento\Repositories\EventoRepository;
 use Modules\Finca\Entities\Finca;
 use Modules\Finca\Repositories\FincaRepository;
+use Modules\Ingreso\Entities\Ingreso;
+use Modules\Ingreso\Repositories\IngresoRepository;
+use Modules\Inseminador\Entities\Inseminador;
+use Modules\Inseminador\Repositories\InseminadorRepository;
+use Modules\Lactancia\Entities\Lactancia;
+use Modules\Lactancia\Repositories\LactanciaRepository;
+use Modules\Locomocion\Entities\Locomocion;
+use Modules\Locomocion\Repositories\LocomocionRepository;
+use Modules\Lote\Entities\Lote;
+use Modules\Lote\Repositories\LoteRepository;
+use Modules\Muerte\Entities\Muerte;
+use Modules\Muerte\Repositories\MuerteRepository;
 use Modules\Negocio\Entities\Negocio;
 use Modules\Negocio\Repositories\NegocioRepository;
+use Modules\Parto\Entities\Parto;
+use Modules\Parto\Repositories\PartoRepository;
+use Modules\Produccion\Entities\Produccion;
+use Modules\Produccion\Repositories\ProduccionRepository;
+use Modules\Raza\Entities\Raza;
+use Modules\Raza\Repositories\RazaRepository;
+use Modules\RegistroEnfermedad\Entities\RegistroEnfermedad;
+use Modules\RegistroEnfermedad\Repositories\RegistroEnfermedadRepository;
+use Modules\Semen\Entities\Semen;
+use Modules\Semen\Repositories\SemenRepository;
+use Modules\Servicio\Entities\Servicio;
+use Modules\Servicio\Repositories\ServicioRepository;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
+use Modules\TipoServicio\Entities\TipoServicio;
+use Modules\TipoServicio\Repositories\TipoServicioRepository;
+use Modules\Venta\Entities\Venta;
+use Modules\Venta\Repositories\VentaRepository;
 
 class SyncDataService implements SyncDataServiceInterface
 {
@@ -80,6 +108,34 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $fincaRepository;
 
+    private $ingresoRepository;
+
+    private $inseminadorRepository;
+
+    private $lactanciaRepository;
+
+    private $locomocionRepository;
+
+    private $loteRepository;
+
+    private $muerteRepository;
+
+    private $partoRepository;
+
+    private $produccionRepository;
+
+    private $razaRepository;
+
+    private $registroEnfermedadRepository;
+
+    private $semenRepository;
+
+    private $servicioRepository;
+
+    private $tipoServicioRepository;
+
+    private $ventaRepository;
+
     private $baseResolver;
 
 
@@ -92,34 +148,46 @@ class SyncDataService implements SyncDataServiceInterface
                                 EstadoFisicoRepository $estadoFisicoRepository,
                                 EventoRepository $eventoRepository,
                                 FincaRepository $fincaRepository,
+                                IngresoRepository $ingresoRepository,
+                                InseminadorRepository $inseminadorRepository,
+                                LactanciaRepository $lactanciaRepository,
+                                LocomocionRepository $locomocionRepository,
+                                LoteRepository $loteRepository,
+                                MuerteRepository $muerteRepository,
+                                PartoRepository $partoRepository,
+                                ProduccionRepository $produccionRepository,
+                                RazaRepository $razaRepository,
+                                RegistroEnfermedadRepository $registroEnfermedadRepository,
+                                SemenRepository $semenRepository,
+                                ServicioRepository $servicioRepository,
+                                TipoServicioRepository $tipoServicioRepository,
+                                VentaRepository $ventaRepository,
                                 BaseResolver $baseResolver
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
-
-
         $this->configuracionRepository = $configuracionRepository;
-
-
         $this->animalRepository = $animalRepository;
-
-
         $this->condicionCorporalRepository = $condicionCorporalRepository;
-
-
         $this->enfermedadRepository = $enfermedadRepository;
-
-
         $this->negocioRepository = $negocioRepository;
-
-
         $this->estadoFisicoRepository = $estadoFisicoRepository;
-
-
         $this->eventoRepository = $eventoRepository;
-
-
         $this->fincaRepository = $fincaRepository;
+        $this->ingresoRepository = $ingresoRepository;
+        $this->inseminadorRepository = $inseminadorRepository;
+        $this->lactanciaRepository = $lactanciaRepository;
+        $this->locomocionRepository = $locomocionRepository;
+        $this->loteRepository = $loteRepository;
+        $this->muerteRepository = $muerteRepository;
+        $this->partoRepository = $partoRepository;
+        $this->produccionRepository = $produccionRepository;
+        $this->razaRepository = $razaRepository;
+        $this->registroEnfermedadRepository = $registroEnfermedadRepository;
+        $this->semenRepository = $semenRepository;
+        $this->servicioRepository = $servicioRepository;
+        $this->tipoServicioRepository = $tipoServicioRepository;
+        $this->ventaRepository = $ventaRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -172,60 +240,60 @@ class SyncDataService implements SyncDataServiceInterface
                         $this->baseResolver->handle($sincronizacion, $this->fincaRepository);
                         break;
 
-//                    case Ingreso::$tableName:
-//                        $this->syncIngresoResolver->handle($sincronizacion);
-//                        break;
-//                    case Inseminador::$tableName:
-//                        $this->syncInseminadorResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Lactancia::$tableName:
-//                        $this->syncLactanciaResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Locomocion::$tableName:
-//                        $this->syncLocomocionResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Lote::$tableName:
-//                        $this->syncLoteResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Muerte::$tableName:
-//                        $this->syncMuerteResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Parto::$tableName:
-//                        $this->syncPartoResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Produccion::$tableName:
-//                        $this->syncProduccionResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Raza::$tableName:
-//                        $this->syncRazaResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case RegistroEnfermedad::$tableName:
-//                        $this->syncNegocioResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Semen::$tableName:
-//                        $this->syncSemenResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Servicio::$tableName:
-//                        $this->syncServicioResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case TipoServicio::$tableName:
-//                        $this->syncTipoServicioResolver->handle($sincronizacion);
-//                        break;
-//
-//                    case Venta::$tableName:
-//                        $this->syncVentaResolver->handle($sincronizacion);
-//                        break;
+                    case Ingreso::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->ingresoRepository);
+                        break;
+                    case Inseminador::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->inseminadorRepository);
+                        break;
+
+                    case Lactancia::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->lactanciaRepository);
+                        break;
+
+                    case Locomocion::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->locomocionRepository);
+                        break;
+
+                    case Lote::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->loteRepository);
+                        break;
+
+                    case Muerte::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->muerteRepository);
+                        break;
+
+                    case Parto::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->partoRepository);
+                        break;
+
+                    case Produccion::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->produccionRepository);
+                        break;
+
+                    case Raza::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->razaRepository);
+                        break;
+
+                    case RegistroEnfermedad::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->registroEnfermedadRepository);
+                        break;
+
+                    case Semen::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->semenRepository);
+                        break;
+
+                    case Servicio::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->servicioRepository);
+                        break;
+
+                    case TipoServicio::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->tipoServicioRepository);
+                        break;
+
+                    case Venta::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->ventaRepository);
+                        break;
 
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
@@ -238,7 +306,22 @@ class SyncDataService implements SyncDataServiceInterface
         $results['negocios'] = $this->negocioRepository->all();
         $results['estados_fisicos'] = $this->estadoFisicoRepository->all();
         $results['eventos'] = $this->eventoRepository->all();
-        $results['fincas'] = $this->eventoRepository->all();
+        $results['fincas'] = $this->fincaRepository->all();
+        $results['ingresos'] = $this->ingresoRepository->all();
+        $results['inseminadores'] = $this->inseminadorRepository->all();
+        $results['lactancias'] = $this->lactanciaRepository->all();
+        $results['locomociones'] = $this->locomocionRepository->all();
+        $results['lotes'] = $this->loteRepository->all();
+        $results['muertes'] = $this->muerteRepository->all();
+        $results['partos'] = $this->partoRepository->all();
+        $results['producciones'] = $this->produccionRepository->all();
+        $results['razas'] = $this->razaRepository->all();
+        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();
+        $results['semens'] = $this->semenRepository->all();
+        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();
+        $results['servicios'] = $this->servicioRepository->all();
+        $results['tipos_servicios'] = $this->tipoServicioRepository->all();
+        $results['ventas'] = $this->ventaRepository->all();
 
         return $results;
 

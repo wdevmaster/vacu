@@ -107,5 +107,7 @@ class Parto extends Model
         'raza_id' => 'required'
     ];
 
+    public static $tableName = 'partos';
+
     
 }

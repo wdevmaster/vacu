@@ -81,5 +81,7 @@ class TipoServicio extends Model
         'descripcion' => 'required'
     ];
 
+    public static $tableName = 'tipos_servicios';
+
     
 }

@@ -99,5 +99,5 @@ class Lote extends Model
         'finca_id' => 'required'
     ];
 
-    
+    public static $tableName = 'lotes';
 }

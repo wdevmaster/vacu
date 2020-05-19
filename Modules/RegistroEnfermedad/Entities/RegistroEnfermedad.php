@@ -93,6 +93,7 @@ class RegistroEnfermedad extends Model
         'id_animal' => 'required',
         'id_enfermedad' => 'required'
     ];
+    public static $tableName = 'registros_enfermedades';
 
     
 }

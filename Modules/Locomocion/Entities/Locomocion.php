@@ -97,5 +97,7 @@ class Locomocion extends Model
         'negocio_id' => 'required'
     ];
 
+    public static $tableName = 'locomociones';
+
     
 }

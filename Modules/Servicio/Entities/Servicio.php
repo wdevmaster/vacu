@@ -118,5 +118,5 @@ class Servicio extends Model
         'tipo_servicio_id' => 'required'
     ];
 
-    
+    public static $tableName = 'servicios';
 }

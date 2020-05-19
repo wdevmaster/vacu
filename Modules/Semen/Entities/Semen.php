@@ -81,5 +81,7 @@ class Semen extends Model
         'id_animal' => 'required'
     ];
 
+    public static $tableName = 'semens';
+
     
 }

@@ -100,5 +100,7 @@ class Venta extends Model
         'cliente_id' => 'required'
     ];
 
+    public static $tableName = 'ventas';
+
     
 }

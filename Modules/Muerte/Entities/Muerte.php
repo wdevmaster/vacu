@@ -84,5 +84,6 @@ class Muerte extends Model
         'animal_id' => 'required'
     ];
 
+    public static $tableName = 'muertes';
     
 }

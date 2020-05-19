@@ -89,5 +89,7 @@ class Inseminador extends Model
         'negocio_id' => 'required'
     ];
 
+    public static $tableName = 'inseminadores';
+
     
 }

@@ -99,5 +99,7 @@ class Lactancia extends Model
         'animal_id' => 'required'
     ];
 
+    public static $tableName = 'lactancias';
+
     
 }

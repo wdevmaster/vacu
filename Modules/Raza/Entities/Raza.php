@@ -89,5 +89,6 @@ class Raza extends Model
         'negocio_id' => 'required'
     ];
 
+    public static $tableName = 'razas';
     
 }
