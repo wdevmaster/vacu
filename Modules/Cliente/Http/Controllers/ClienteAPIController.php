@@ -2,20 +2,21 @@
 
 namespace Modules\Cliente\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Cliente\Entities\Cliente;
 use Modules\Cliente\Http\Requests\CreateClienteAPIRequest;
 use Modules\Cliente\Http\Requests\UpdateClienteAPIRequest;
-use Modules\Cliente\Entities\Cliente;
 use Modules\Cliente\Repositories\ClienteRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
+use Modules\Common\Http\Controllers\CommonController;
 use Response;
 
 /**
  * Class ClienteController
  * @package Modules\Cliente\Http\Controllers
  */
-
-class ClienteAPIController extends AppBaseController
+class ClienteAPIController extends CommonController
 {
     /** @var  ClienteRepository */
     private $clienteRepository;
@@ -27,10 +28,10 @@ class ClienteAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/clientes",
+     *      path="/api/v1/cliente/clientes",
      *      summary="Get a listing of the Clientes.",
      *      tags={"Cliente"},
      *      description="Get all Clientes",
@@ -59,21 +60,41 @@ class ClienteAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $clientes = $this->clienteRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try {
+            $clientes = $this->clienteRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+            return $this->sendResponse($clientes->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'cliente::msgs.label_cliente',
+                true,
+                200);
 
-        return $this->sendResponse($clientes->toArray(), 'Clientes retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'cliente::msgs.label_cliente',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'cliente::msgs.label_cliente',
+                false,
+                500);
+        }
     }
 
     /**
      * @param CreateClienteAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/clientes",
+     *      path="/api/v1/cliente/clientes",
      *      summary="Store a newly created Cliente in storage",
      *      tags={"Cliente"},
      *      description="Store Cliente",
@@ -108,70 +129,42 @@ class ClienteAPIController extends AppBaseController
      */
     public function store(CreateClienteAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $cliente = $this->clienteRepository->create($input);
+            $cliente = $this->clienteRepository->create($input);
 
-        return $this->sendResponse($cliente->toArray(), 'Cliente saved successfully');
-    }
+            return $this->sendResponse($cliente->toArray(),
+                'comun::msgs.la_model_created_successfully',
+                'cliente::msgs.label_cliente',
+                true,
+                200);
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/clientes/{id}",
-     *      summary="Display the specified Cliente",
-     *      tags={"Cliente"},
-     *      description="Get Cliente",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of Cliente",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/Cliente"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id)
-    {
-        /** @var Cliente $cliente */
-        $cliente = $this->clienteRepository->find($id);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'cliente::msgs.label_cliente',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
 
-        if (empty($cliente)) {
-            return $this->sendError('Cliente not found');
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'cliente::msgs.label_cliente',
+                false,
+                500);
         }
-
-        return $this->sendResponse($cliente->toArray(), 'Cliente retrieved successfully');
     }
+
 
     /**
      * @param int $id
      * @param UpdateClienteAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/clientes/{id}",
+     *      path="/api/v1/cliente/clientes/{id}",
      *      summary="Update the specified Cliente in storage",
      *      tags={"Cliente"},
      *      description="Update Cliente",
@@ -213,26 +206,44 @@ class ClienteAPIController extends AppBaseController
      */
     public function update($id, UpdateClienteAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var Cliente $cliente */
-        $cliente = $this->clienteRepository->find($id);
+            /** @var Cliente $cliente */
+            $cliente = $this->clienteRepository->find($id);
 
-        if (empty($cliente)) {
-            return $this->sendError('Cliente not found');
+
+            $cliente = $this->clienteRepository->update($input, $id);
+
+            return $this->sendResponse($cliente->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                'cliente::msgs.label_cliente',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'cliente::msgs.label_cliente',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'cliente::msgs.label_cliente',
+                false,
+                500);
         }
-
-        $cliente = $this->clienteRepository->update($input, $id);
-
-        return $this->sendResponse($cliente->toArray(), 'Cliente updated successfully');
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Delete(
-     *      path="/clientes/{id}",
+     *      path="/api/v1/cliente/clientes/{id}",
      *      summary="Remove the specified Cliente from storage",
      *      tags={"Cliente"},
      *      description="Delete Cliente",
@@ -267,15 +278,33 @@ class ClienteAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var Cliente $cliente */
-        $cliente = $this->clienteRepository->find($id);
+        try {
+            /** @var Cliente $cliente */
+            $cliente = $this->clienteRepository->find($id);
 
-        if (empty($cliente)) {
-            return $this->sendError('Cliente not found');
+
+            $cliente->delete();
+
+            return $this->sendResponse($cliente->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                'cliente::msgs.label_cliente',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'cliente::msgs.label_cliente',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'cliente::msgs.label_cliente',
+                false,
+                500);
         }
-
-        $cliente->delete();
-
-        return $this->sendSuccess('Cliente deleted successfully');
     }
 }

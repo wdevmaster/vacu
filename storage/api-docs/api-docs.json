@@ -174,7 +174,7 @@
                 }
             }
         },
-        "/clientes": {
+        "/api/v1/cliente/clientes": {
             "get": {
                 "tags": [
                     "Cliente"
@@ -248,45 +248,7 @@
                 }
             }
         },
-        "/clientes/{id}": {
-            "get": {
-                "tags": [
-                    "Cliente"
-                ],
-                "summary": "Display the specified Cliente",
-                "description": "Get Cliente",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Cliente",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Cliente"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/cliente/clientes/{id}": {
             "put": {
                 "tags": [
                     "Cliente"

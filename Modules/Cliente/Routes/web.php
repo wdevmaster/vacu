@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('cliente')->group(function() {
-    Route::get('/', 'ClienteController@index');
-});
