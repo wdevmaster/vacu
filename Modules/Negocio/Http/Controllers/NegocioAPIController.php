@@ -69,14 +69,14 @@ class NegocioAPIController extends CommonController
 
             return $this->sendResponse($negocios->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'animal::msgs.label_animal',
+                'negocio::msgs.label_animal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'animal::msgs.label_negocio',
+                'negocio::msgs.label_negocio',
                 false,
                 404);
         } catch
@@ -84,7 +84,7 @@ class NegocioAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'animal::msgs.label_negocio',
+                'negocio::msgs.label_negocio',
                 false,
                 500);
         }
@@ -285,14 +285,14 @@ class NegocioAPIController extends CommonController
 
             return $this->sendResponse($result->toArray(),
                 'comun::msgs.la_model_desactivated_successfully',
-                'animal::msgs.label_negocio',
+                'negocio::msgs.label_negocio',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'animal::msgs.label_negocio',
+                'negocio::msgs.label_negocio',
                 false,
                 404);
         } catch
@@ -300,7 +300,7 @@ class NegocioAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'animal::msgs.negocio',
+                'negocio::msgs.negocio',
                 false,
                 500);
         }

@@ -373,7 +373,7 @@
                 }
             }
         },
-        "/condicionCorporals": {
+        "/api/v1/condicion_corporal/condiciones_corporales": {
             "get": {
                 "tags": [
                     "CondicionCorporal"
@@ -447,45 +447,7 @@
                 }
             }
         },
-        "/condicionCorporals/{id}": {
-            "get": {
-                "tags": [
-                    "CondicionCorporal"
-                ],
-                "summary": "Display the specified CondicionCorporal",
-                "description": "Get CondicionCorporal",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of CondicionCorporal",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/CondicionCorporal"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/condicion_corporal/condiciones_corporales/{id}": {
             "put": {
                 "tags": [
                     "CondicionCorporal"

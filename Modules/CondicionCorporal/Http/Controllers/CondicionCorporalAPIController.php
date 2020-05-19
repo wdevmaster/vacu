@@ -2,20 +2,21 @@
 
 namespace Modules\CondicionCorporal\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\CondicionCorporal\Http\Requests\CreateCondicionCorporalAPIRequest;
 use Modules\CondicionCorporal\Http\Requests\UpdateCondicionCorporalAPIRequest;
 use Modules\CondicionCorporal\Entities\CondicionCorporal;
 use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class CondicionCorporalController
  * @package Modules\CondicionCorporal\Http\Controllers
  */
 
-class CondicionCorporalAPIController extends AppBaseController
+class CondicionCorporalAPIController extends CommonController
 {
     /** @var  CondicionCorporalRepository */
     private $condicionCorporalRepository;
@@ -27,10 +28,10 @@ class CondicionCorporalAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/condicionCorporals",
+     *      path="/api/v1/condicion_corporal/condiciones_corporales",
      *      summary="Get a listing of the CondicionCorporals.",
      *      tags={"CondicionCorporal"},
      *      description="Get all CondicionCorporals",
@@ -59,21 +60,43 @@ class CondicionCorporalAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $condicionCorporals = $this->condicionCorporalRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        try{
+            $condicionCorporals = $this->condicionCorporalRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
 
-        return $this->sendResponse($condicionCorporals->toArray(), 'Condicion Corporals retrieved successfully');
+            return $this->sendResponse($condicionCorporals->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                500);
+        }
+
     }
 
     /**
      * @param CreateCondicionCorporalAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/condicionCorporals",
+     *      path="/api/v1/condicion_corporal/condiciones_corporales",
      *      summary="Store a newly created CondicionCorporal in storage",
      *      tags={"CondicionCorporal"},
      *      description="Store CondicionCorporal",
@@ -108,70 +131,40 @@ class CondicionCorporalAPIController extends AppBaseController
      */
     public function store(CreateCondicionCorporalAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $condicionCorporal = $this->condicionCorporalRepository->create($input);
+            return $this->sendResponse($condicionCorporal->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                true,
+                200);
 
-        return $this->sendResponse($condicionCorporal->toArray(), 'Condicion Corporal saved successfully');
-    }
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
 
-    /**
-     * @param int $id
-     * @return Response
-     *
-     * @SWG\Get(
-     *      path="/condicionCorporals/{id}",
-     *      summary="Display the specified CondicionCorporal",
-     *      tags={"CondicionCorporal"},
-     *      description="Get CondicionCorporal",
-     *      produces={"application/json"},
-     *      @SWG\Parameter(
-     *          name="id",
-     *          description="id of CondicionCorporal",
-     *          type="integer",
-     *          required=true,
-     *          in="path"
-     *      ),
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  ref="#/definitions/CondicionCorporal"
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function show($id)
-    {
-        /** @var CondicionCorporal $condicionCorporal */
-        $condicionCorporal = $this->condicionCorporalRepository->find($id);
-
-        if (empty($condicionCorporal)) {
-            return $this->sendError('Condicion Corporal not found');
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                500);
         }
-
-        return $this->sendResponse($condicionCorporal->toArray(), 'Condicion Corporal retrieved successfully');
     }
 
     /**
      * @param int $id
      * @param UpdateCondicionCorporalAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/condicionCorporals/{id}",
+     *      path="/api/v1/condicion_corporal/condiciones_corporales/{id}",
      *      summary="Update the specified CondicionCorporal in storage",
      *      tags={"CondicionCorporal"},
      *      description="Update CondicionCorporal",
@@ -213,26 +206,44 @@ class CondicionCorporalAPIController extends AppBaseController
      */
     public function update($id, UpdateCondicionCorporalAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var CondicionCorporal $condicionCorporal */
         $condicionCorporal = $this->condicionCorporalRepository->find($id);
 
-        if (empty($condicionCorporal)) {
-            return $this->sendError('Condicion Corporal not found');
-        }
 
         $condicionCorporal = $this->condicionCorporalRepository->update($input, $id);
 
-        return $this->sendResponse($condicionCorporal->toArray(), 'CondicionCorporal updated successfully');
+            return $this->sendResponse($condicionCorporal->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                500);
+        }
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Delete(
-     *      path="/condicionCorporals/{id}",
+     *      path="/api/v1/condicion_corporal/condiciones_corporales/{id}",
      *      summary="Remove the specified CondicionCorporal from storage",
      *      tags={"CondicionCorporal"},
      *      description="Delete CondicionCorporal",
@@ -264,9 +275,11 @@ class CondicionCorporalAPIController extends AppBaseController
      *          )
      *      )
      * )
+     * @throws \Exception
      */
     public function destroy($id)
     {
+        try{
         /** @var CondicionCorporal $condicionCorporal */
         $condicionCorporal = $this->condicionCorporalRepository->find($id);
 
@@ -276,6 +289,26 @@ class CondicionCorporalAPIController extends AppBaseController
 
         $condicionCorporal->delete();
 
-        return $this->sendSuccess('Condicion Corporal deleted successfully');
+            return $this->sendResponse($condicionCorporal->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                'condicion_corporal::msgs.label_condicion_corporal',
+                false,
+                500);
+        }
     }
 }

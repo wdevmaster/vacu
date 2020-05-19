@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,8 +11,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/condicioncorporal', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/condicion_corporal')->group(function () {
+    Route::prefix('/condiciones_corporales')->group(function () {
+        Route::get('/', 'CondicionCorporalAPIController@index')->name('condicion_coporal.condiciones_corporales.index');
+        Route::post('/', 'CondicionCorporalAPIController@store')->name('condicion_coporal.condiciones_corporales.store');
+        Route::put('/{id}', 'CondicionCorporalAPIController@update')->name('condicion_coporal.condiciones_corporales.update');
+        Route::delete('/{id}', 'CondicionCorporalAPIController@destroy')->name('condicion_coporal.condiciones_corporales.destroy');
+    });
 });
-
-Route::resource('condicion_corporals', 'CondicionCorporalAPIController');
