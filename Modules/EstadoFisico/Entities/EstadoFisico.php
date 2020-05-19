@@ -108,5 +108,7 @@ class EstadoFisico extends Model
         'locomocion_id' => 'required'
     ];
 
+    public static $tableName = 'estados_fisicos';
+
     
 }

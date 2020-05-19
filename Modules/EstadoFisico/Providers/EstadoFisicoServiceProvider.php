@@ -4,6 +4,8 @@ namespace Modules\EstadoFisico\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\EstadoFisico\Resolvers\SyncEstadoFisicoResolverInterface;
+use Modules\EstadoFisico\Resolvers\SynEstadoFisicoResolver;
 
 class EstadoFisicoServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,7 @@ class EstadoFisicoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind(SyncEstadoFisicoResolverInterface::class, SynEstadoFisicoResolver::class);
     }
 
     /**
