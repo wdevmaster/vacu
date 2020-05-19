@@ -42,7 +42,7 @@ class AnimalServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
 
-        $this->app->bind(SyncAnimalesResolverInterface::class, SynAnimalesResolver::class);
+
     }
 
     /**

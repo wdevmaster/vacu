@@ -99,5 +99,7 @@ class Finca extends Model
         'active' => 'required'
     ];
 
+    public static $tableName = 'fincas';
+
     
 }

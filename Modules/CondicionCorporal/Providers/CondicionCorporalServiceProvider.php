@@ -42,7 +42,7 @@ class CondicionCorporalServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
 
-        $this->app->bind(SynCondicionCorporalResolverInterface::class, SynCondicionCorporalResolver::class);
+
     }
 
     /**

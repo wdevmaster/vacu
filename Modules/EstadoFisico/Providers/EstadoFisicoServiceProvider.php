@@ -41,7 +41,7 @@ class EstadoFisicoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(SyncEstadoFisicoResolverInterface::class, SynEstadoFisicoResolver::class);
+
     }
 
     /**

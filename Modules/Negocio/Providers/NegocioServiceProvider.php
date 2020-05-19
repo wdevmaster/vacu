@@ -42,7 +42,7 @@ class NegocioServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
 
-        $this->app->bind(SyncNegocioResolverInterface::class, SyncNegocioResolver::class);
+
     }
 
     /**

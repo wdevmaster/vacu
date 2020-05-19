@@ -42,7 +42,7 @@ class ConfiguracionServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
 
-        $this->app->bind(SyncConfiguracionResolverInterface::class, SyncConfiguracionResolver::class);
+
     }
 
     /**

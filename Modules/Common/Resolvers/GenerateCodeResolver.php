@@ -25,7 +25,7 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
     public function handle($user_code, $tabla)
     {
         try {
-            $generate_code = random_int(1,1000).$user_code.random_int(1,1000);
+            $generate_code = random_int(1,1000);
             /**
              * @var Traductor $traduccion
              */

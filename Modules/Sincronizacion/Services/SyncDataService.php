@@ -11,19 +11,21 @@ namespace Modules\Sincronizacion\Services;
 
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
-use Modules\Animal\Resolvers\SyncAnimalesResolverInterface;
+use Modules\Common\Resolvers\BaseResolver;
 use Modules\CondicionCorporal\Entities\CondicionCorporal;
 use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
-use Modules\CondicionCorporal\Resolvers\SynCondicionCorporalResolverInterface;
 use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Repositories\ConfiguracionRepository;
-use Modules\Configuracion\Resolvers\SyncConfiguracionResolverInterface;
 use Modules\Enfermedad\Entities\Enfermedad;
 use Modules\Enfermedad\Repositories\EnfermedadRepository;
-use Modules\Enfermedad\Resolvers\SyncEnfermedadesResolverInterface;
+use Modules\EstadoFisico\Entities\EstadoFisico;
+use Modules\EstadoFisico\Repositories\EstadoFisicoRepository;
+use Modules\Evento\Entities\Evento;
+use Modules\Evento\Repositories\EventoRepository;
+use Modules\Finca\Entities\Finca;
+use Modules\Finca\Repositories\FincaRepository;
 use Modules\Negocio\Entities\Negocio;
 use Modules\Negocio\Repositories\NegocioRepository;
-use Modules\Negocio\Resolvers\SyncNegocioResolverInterface;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 
 class SyncDataService implements SyncDataServiceInterface
@@ -35,49 +37,28 @@ class SyncDataService implements SyncDataServiceInterface
     private $syncronizacionRepository;
 
     /**
-     * @var SyncConfiguracionResolverInterface
-     */
-    private $configuracionResolver;
-
-    /**
      * @var ConfiguracionRepository
      */
     private $configuracionRepository;
 
-    /**
-     * @var SyncAnimalesResolverInterface
-     */
-    private $syncAnimalesResolver;
 
     /**
      * @var AnimalRepository
      */
     private $animalRepository;
 
-    /**
-     * @var SynCondicionCorporalResolverInterface
-     */
-    private $syncCondicionCorporalResolver;
 
     /**
      * @var CondicionCorporalRepository
      */
     private $condicionCorporalRepository;
 
-    /**
-     * @var SyncEnfermedadesResolverInterface
-     */
-    private $enfermedadesResolver;
 
     /**
      * @var EnfermedadRepository
      */
     private $enfermedadRepository;
 
-    /**
-     * @var SyncNegocioResolverInterface
-     */
-    private $syncNegocioResolver;
 
     /**
      * @var NegocioRepository
@@ -85,29 +66,62 @@ class SyncDataService implements SyncDataServiceInterface
     private $negocioRepository;
 
 
+    /**
+     * @var EstadoFisicoRepository
+     */
+    private $estadoFisicoRepository;
+
+
+    /**
+     * @var EventoRepository
+     */
+    private $eventoRepository;
+
+
+    private $fincaRepository;
+
+    private $baseResolver;
+
+
     public function __construct(SyncronizacionRepository $syncronizacionRepository,
-                                SyncConfiguracionResolverInterface $configuracionResolver, ConfiguracionRepository $configuracionRepository,
-                                SyncAnimalesResolverInterface $syncAnimalesResolver, AnimalRepository $animalRepository,
-                                SynCondicionCorporalResolverInterface $syncCondicionCorporalResolver, CondicionCorporalRepository $condicionCorporalRepository,
-                                SyncEnfermedadesResolverInterface $enfermedadesResolver, EnfermedadRepository $enfermedadRepository,
-                                SyncNegocioResolverInterface $syncNegocioResolver, NegocioRepository $negocioRepository)
+                                ConfiguracionRepository $configuracionRepository,
+                                AnimalRepository $animalRepository,
+                                CondicionCorporalRepository $condicionCorporalRepository,
+                                EnfermedadRepository $enfermedadRepository,
+                                NegocioRepository $negocioRepository,
+                                EstadoFisicoRepository $estadoFisicoRepository,
+                                EventoRepository $eventoRepository,
+                                FincaRepository $fincaRepository,
+                                BaseResolver $baseResolver
+    )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
 
-        $this->configuracionResolver = $configuracionResolver;
+
         $this->configuracionRepository = $configuracionRepository;
 
-        $this->syncAnimalesResolver = $syncAnimalesResolver;
+
         $this->animalRepository = $animalRepository;
 
-        $this->syncCondicionCorporalResolver = $syncCondicionCorporalResolver;
+
         $this->condicionCorporalRepository = $condicionCorporalRepository;
 
-        $this->enfermedadesResolver = $enfermedadesResolver;
+
         $this->enfermedadRepository = $enfermedadRepository;
 
-        $this->syncNegocioResolver = $syncNegocioResolver;
+
         $this->negocioRepository = $negocioRepository;
+
+
+        $this->estadoFisicoRepository = $estadoFisicoRepository;
+
+
+        $this->eventoRepository = $eventoRepository;
+
+
+        $this->fincaRepository = $fincaRepository;
+
+        $this->baseResolver = $baseResolver;
 
     }
 
@@ -127,24 +141,92 @@ class SyncDataService implements SyncDataServiceInterface
                 switch ($sincronizacion->tabla) {
 
                     case Configuracion::$tableName:
-                        $this->configuracionResolver->handle($sincronizacion);
+                        $this->baseResolver->handle($sincronizacion, $this->configuracionRepository);
                         break;
 
                     case Animal::$tableName:
-                        $this->syncAnimalesResolver->handle($sincronizacion);
+                        $this->baseResolver->handle($sincronizacion, $this->animalRepository);
                         break;
 
                     case CondicionCorporal::$tableName:
-                        $this->syncCondicionCorporalResolver->handle($sincronizacion);
+                        $this->baseResolver->handle($sincronizacion, $this->condicionCorporalRepository);
                         break;
 
                     case Enfermedad::$tableName:
-                        $this->enfermedadesResolver->handle($sincronizacion);
+                        $this->baseResolver->handle($sincronizacion, $this->enfermedadRepository);
                         break;
 
                     case Negocio::$tableName:
-                        $this->syncNegocioResolver->handle($sincronizacion);
+                        $this->baseResolver->handle($sincronizacion, $this->negocioRepository);
                         break;
+
+                    case EstadoFisico::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->estadoFisicoRepository);
+                        break;
+
+                    case Evento::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->eventoRepository);
+                        break;
+
+                    case Finca::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->fincaRepository);
+                        break;
+
+//                    case Ingreso::$tableName:
+//                        $this->syncIngresoResolver->handle($sincronizacion);
+//                        break;
+//                    case Inseminador::$tableName:
+//                        $this->syncInseminadorResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Lactancia::$tableName:
+//                        $this->syncLactanciaResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Locomocion::$tableName:
+//                        $this->syncLocomocionResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Lote::$tableName:
+//                        $this->syncLoteResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Muerte::$tableName:
+//                        $this->syncMuerteResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Parto::$tableName:
+//                        $this->syncPartoResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Produccion::$tableName:
+//                        $this->syncProduccionResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Raza::$tableName:
+//                        $this->syncRazaResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case RegistroEnfermedad::$tableName:
+//                        $this->syncNegocioResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Semen::$tableName:
+//                        $this->syncSemenResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Servicio::$tableName:
+//                        $this->syncServicioResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case TipoServicio::$tableName:
+//                        $this->syncTipoServicioResolver->handle($sincronizacion);
+//                        break;
+//
+//                    case Venta::$tableName:
+//                        $this->syncVentaResolver->handle($sincronizacion);
+//                        break;
+
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
             }
@@ -154,6 +236,9 @@ class SyncDataService implements SyncDataServiceInterface
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all();
         $results['enfermedades'] = $this->enfermedadRepository->all();
         $results['negocios'] = $this->negocioRepository->all();
+        $results['estados_fisicos'] = $this->estadoFisicoRepository->all();
+        $results['eventos'] = $this->eventoRepository->all();
+        $results['fincas'] = $this->eventoRepository->all();
 
         return $results;
 

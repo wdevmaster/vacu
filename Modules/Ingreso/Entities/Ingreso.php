@@ -92,5 +92,7 @@ class Ingreso extends Model
         'lote_id' => 'required'
     ];
 
+    public static $tableName = 'ingresos';
+
     
 }

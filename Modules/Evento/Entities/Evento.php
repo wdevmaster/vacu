@@ -82,5 +82,7 @@ class Evento extends Model
         'tipo_evento' => 'required'
     ];
 
+    public static $tableName = 'eventos';
+
     
 }

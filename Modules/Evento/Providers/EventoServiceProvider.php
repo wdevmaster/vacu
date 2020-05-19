@@ -4,6 +4,8 @@ namespace Modules\Evento\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\EstadoFisico\Resolvers\SyncEstadoFisicoResolverInterface;
+use Modules\Evento\Resolvers\SyncEventoResolver;
 
 class EventoServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,7 @@ class EventoServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
     }
 
     /**

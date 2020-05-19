@@ -4,6 +4,8 @@ namespace Modules\Finca\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Finca\Resolvers\SyncFincaResolverInterface;
+use Modules\Finca\Resolvers\SynFincaResolver;
 
 class FincaServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class FincaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+
     }
 
     /**

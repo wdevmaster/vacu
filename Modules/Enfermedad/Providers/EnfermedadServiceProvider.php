@@ -42,7 +42,7 @@ class EnfermedadServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
 
-        $this->app->bind(SyncEnfermedadesResolverInterface::class, SynEnfermedadesResolver::class);
+
     }
 
     /**
