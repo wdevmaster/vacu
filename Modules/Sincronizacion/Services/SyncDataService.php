@@ -200,6 +200,7 @@ class SyncDataService implements SyncDataServiceInterface
     public function executeService(): array
     {
 
+        //TODO:Validaar aca que sean solo las del user logueadas.
         $sincronizaciones = $this->syncronizacionRepository->all();
         $results = array();
 

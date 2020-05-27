@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
-            $table->integer('negocio_id');
-            $table->integer('finca_id');
+            $table->integer('negocio_id')->nullable();
+            $table->integer('finca_id')->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@
 namespace Modules\Common\Resolvers;
 
 
+use Illuminate\Support\Facades\DB;
 use Modules\Sincronizacion\Entities\Traductor;
 use Modules\Sincronizacion\Repositories\TraductorRepository;
 
@@ -25,7 +26,8 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
     public function handle($user_code, $tabla)
     {
         try {
-            $generate_code = random_int(1,1000);
+            $last_code = DB::select('select '.$tabla.'.code');
+            $generate_code = random_int(1,1000);//TODO logica para generar el nuevo codigo
             /**
              * @var Traductor $traduccion
              */

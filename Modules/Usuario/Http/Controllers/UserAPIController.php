@@ -335,12 +335,6 @@ class UserAPIController extends AppBaseController
         try {
             $input = $request->all();
 
-            /** @var User $user */
-            $user = $this->userRepository->find($id);
-
-            if (empty($user)) {
-                return $this->sendError('User not found');
-            }
 
             $user = $this->userRepository->update($input, $id);
 
@@ -410,10 +404,6 @@ class UserAPIController extends AppBaseController
         try {
             /** @var User $user */
             $user = $this->userRepository->find($id);
-
-            if (empty($user)) {
-                return $this->sendError('User not found');
-            }
 
             $user->delete();
 
