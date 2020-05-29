@@ -327,7 +327,10 @@ class UserAPIController extends AppBaseController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *       {"Bearer": {}}
+     *      }
      * )
      */
     public function update($id, UpdateUserAPIRequest $request)
