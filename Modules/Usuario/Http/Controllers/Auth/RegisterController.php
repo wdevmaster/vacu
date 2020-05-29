@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Client;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
+use Modules\Usuario\Entities\User;
 use Modules\Usuario\Repositories\UserRepository;
 
 class RegisterController extends Controller
@@ -144,31 +145,20 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $input = $request->all();
-        $this->validator($input)->validate();
-
         try {
-            $user = $this->userRepository->create($input);
-            $user->assignRole('Cliente');
-
-            $input['user_id'] = $user->id;
-
-            $request->request->add([
-                'grant_type' => 'password',
-                'client_id' => $this->cliente->id,
-                'client_secret' => $this->cliente->secret,
-                'username' => $request['email'],
-                'password' => $request['password'],
-                'provider' => 'api'
+            $request->validate([
+                'name'     => 'required|string',
+                'email'    => 'required|string|email|unique:users',
+                'password' => 'required|string|confirmed',
             ]);
-
-            // Fire off the internal request.
-            $proxy = Request::create(
-                'oauth/token',
-                'POST'
-            );
-
-            return Route::dispatch($proxy);
+            $user = new User([
+                'name'     => $request->name,
+                'email'    => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+            $user->save();
+            return response()->json([
+                'message' => 'Successfully created user!'], 201);
         } catch (Exception $e) {
             return response()->json([
                 'message' => __('comun::msgs.msg_error_contact_the_administrator'),

@@ -2,7 +2,7 @@
 
 namespace Modules\Usuario\Entities;
 
-use App\Models\Eloquent as Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -47,7 +47,7 @@ use Spatie\Permission\Traits\HasRoles;
  *      )
  * )
  */
-class User extends Model
+class User extends Authenticatable
 {
 
     use HasApiTokens, Notifiable, HasRoles;
