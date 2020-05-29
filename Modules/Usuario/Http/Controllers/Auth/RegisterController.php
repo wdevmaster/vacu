@@ -97,7 +97,7 @@ class RegisterController extends Controller
      * )
      *
      * @SWG\Post(
-     *      path="/api/v1/usuario/auth/register",
+     *      path="/api/v1/auth/register",
      *      summary="Registra un nuevo usuario.",
      *      tags={"Auth"},
      *      description="Registra un nuevo usuarion.",
@@ -157,6 +157,7 @@ class RegisterController extends Controller
                 'password' => bcrypt($request->password),
             ]);
             $user->save();
+            $user->assignRole('Client');
             return response()->json([
                 'message' => 'Successfully created user!'], 201);
         } catch (Exception $e) {

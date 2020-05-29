@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 
-Route::prefix('v1/negocio')->group(function (){
+Route::prefix('v1/negocio')->middleware('auth:api')->group(function (){
     Route::prefix('/negocios')->group(function (){
         Route::get('/', 'NegocioAPIController@index')->name('negocio.negocios.index');
         Route::post('/', 'NegocioAPIController@store')->name('negocio.negocios.store');

@@ -4298,7 +4298,7 @@
                 }
             }
         },
-        "/api/v1/usuario/auth/login": {
+        "/api/v1/auth/login": {
             "post": {
                 "tags": [
                     "Auth"
@@ -4363,7 +4363,7 @@
                 }
             }
         },
-        "/api/v1/usuario/auth/register": {
+        "/api/v1/auth/register": {
             "post": {
                 "tags": [
                     "Auth"

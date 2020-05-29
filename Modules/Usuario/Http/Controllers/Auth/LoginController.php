@@ -47,7 +47,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      *
      * @SWG\Post(
-     *      path="/api/v1/usuario/auth/login",
+     *      path="/api/v1/auth/login",
      *      summary="Login para usuarios",
      *      tags={"Auth"},
      *      description="Login para usuarios",
