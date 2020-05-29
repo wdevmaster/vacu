@@ -2,8 +2,9 @@
 
 namespace Modules\Negocio\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+use Modules\Negocio\Entities\Negocio;
 
 class NegocioDatabaseSeeder extends Seeder
 {
@@ -16,6 +17,6 @@ class NegocioDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $negocios = factory(Negocio::class, 20)->create();
     }
 }

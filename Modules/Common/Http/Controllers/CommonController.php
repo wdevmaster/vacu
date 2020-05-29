@@ -15,11 +15,11 @@ class CommonController extends AppBaseController
         ], $status);
     }
 
-    public function sendError($message){
+    public function sendError($message, $status){
         return response()->json([
             'message' => $message,
             'success' => false,
-        ], 422);
+        ], $status);
     }
 
     public function sendSuccess($message){

@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
         }
         Model::unguard();
 
-       $this->call(UsuarioDatabaseSeeder::class);
-       $this->call(SincronizacionDatabaseSeeder::class);
+        $this->call(\Modules\Negocio\Database\Seeders\NegocioDatabaseSeeder::class);
+        $this->call(UsuarioDatabaseSeeder::class);
+        $this->call(SincronizacionDatabaseSeeder::class);
+
     }
 }
