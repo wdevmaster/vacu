@@ -21,3 +21,11 @@ http://localhost:8000/api/documentation
 
 Aqui se pueden ver todos los endpoint con sus datos de entrada y salida asi como todas las entidades 
 que maneja la api con las descripciones de cada uno de sus parametros.
+
+
+Comandos para correr montar env de la api
+
+php artisan passport:install
+
+
+
