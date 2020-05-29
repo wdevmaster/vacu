@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -115,48 +116,31 @@ class LoginController extends Controller
         }
 
         try {
-            $user = User::all()->where('email', $request->email)->first();
-
-            if (!$user) {
+            $request->validate([
+                'email'       => 'required|string|email',
+                'password'    => 'required|string',
+                'remember_me' => 'boolean',
+            ]);
+            $credentials = request(['email', 'password']);
+            if (!Auth::attempt($credentials)) {
                 return response()->json([
-                    'errors' => [
-                        [__('comun::msgs.login_error')]
-                    ]
-                ], 422);
+                    'message' => 'Unauthorized'], 401);
             }
-
-            if (!Hash::check($request->password, $user->password)) {
-                return response()->json([
-                    'errors' => [
-                        [__('comun::msgs.login_password_error')]
-                    ]
-                ], 422);
+            $user = $request->user();
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+            if ($request->remember_me) {
+                $token->expires_at = Carbon::now()->addWeeks(1);
             }
-
-            if (!$user->activacion) {
-                return response()->json([
-                    'errors' => [
-                        [__('usuario::msgs.msg_user_block')]
-                    ]
-                ], 422);
-            }
-
-            $request->request->add([
-                'grant_type' => 'password',
-                'client_id' => $this->cliente->id,
-                'client_secret' => $this->cliente->secret,
-                'username' => $request['email'],
-                'password' => $request['password'],
-                'provider' => 'api',
+            $token->save();
+            return response()->json([
+                'access_token' => $tokenResult->accessToken,
+                'token_type'   => 'Bearer',
+                'expires_at'   => Carbon::parse(
+                    $tokenResult->token->expires_at)
+                    ->toDateTimeString(),
             ]);
 
-            // Fire off the internal request.
-            $proxy = Request::create(
-                'oauth/token',
-                'POST'
-            );
-
-            return Route::dispatch($proxy);
         } catch (Exception $e) {
             return response()->json([
                 'message' => __('comun::msgs.msg_error_contact_the_administrator'),

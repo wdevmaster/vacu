@@ -4,6 +4,7 @@ namespace Modules\Usuario\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Modules\Usuario\Entities\User;
 
 class UsuarioDatabaseSeeder extends Seeder
@@ -17,13 +18,11 @@ class UsuarioDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $admin = User::create(
-            [
-                'name' => 'Admin',
-                'email' => 'admin@vacusoftware.com',
-                'password' => '777crew',
-            ]
-        );
+        $administradorUser = User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' =>  Hash::make('777crew')
+        ]);
 
         $users = factory(User::class, 11)->create();
     }

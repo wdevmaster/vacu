@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Sincronizacion';
+$module = 'Usuario';
 
 return [
 

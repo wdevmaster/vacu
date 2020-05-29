@@ -1,28 +1,28 @@
 <?php
 
-namespace Modules\Venta\Http\Controllers;
+namespace Modules\Usuario\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
-use Modules\Venta\Http\Requests\CreateVentaAPIRequest;
-use Modules\Venta\Http\Requests\UpdateVentaAPIRequest;
-use Modules\Venta\Entities\Venta;
-use Modules\Venta\Repositories\VentaRepository;
+use Modules\Usuario\Http\Requests\CreateClienteNegocioAPIRequest;
+use Modules\Usuario\Http\Requests\UpdateClienteNegocioAPIRequest;
+use Modules\Usuario\Entities\ClienteNegocio;
+use Modules\Usuario\Repositories\ClienteNegocioRepository;
 use Illuminate\Http\Request;
 
 /**
- * Class VentaController
- * @package Modules\Venta\Http\Controllers
+ * Class ClienteNegocioController
+ * @package Modules\Usuario\Http\Controllers
  */
 
-class VentaAPIController extends CommonController
+class ClienteNegocioAPIController extends CommonController
 {
-    /** @var  VentaRepository */
-    private $ventaRepository;
+    /** @var  ClienteNegocioRepository */
+    private $clienteNegocioRepository;
 
-    public function __construct(VentaRepository $ventaRepo)
+    public function __construct(ClienteNegocioRepository $clienteNegocioRepo)
     {
-        $this->ventaRepository = $ventaRepo;
+        $this->clienteNegocioRepository = $clienteNegocioRepo;
     }
 
     /**
@@ -30,10 +30,10 @@ class VentaAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/ventas",
-     *      summary="Get a listing of the Ventas.",
-     *      tags={"Venta"},
-     *      description="Get all Ventas",
+     *      path="/api/v1/usuario/clientes_negocios",
+     *      summary="Get a listing of the ClienteNegocios.",
+     *      tags={"User"},
+     *      description="Get all ClienteNegocios",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -47,7 +47,7 @@ class VentaAPIController extends CommonController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/Venta")
+     *                  @SWG\Items(ref="#/definitions/ClienteNegocio")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -59,31 +59,31 @@ class VentaAPIController extends CommonController
      */
     public function index(Request $request)
     {
-        $ventas = $this->ventaRepository->all(
+        $clienteNegocios = $this->clienteNegocioRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($ventas->toArray(), 'Ventas retrieved successfully');
+        return $this->sendResponse($clienteNegocios->toArray(), 'Cliente Negocios retrieved successfully');
     }
 
     /**
-     * @param CreateVentaAPIRequest $request
+     * @param CreateClienteNegocioAPIRequest $request
      * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/ventas",
-     *      summary="Store a newly created Venta in storage",
-     *      tags={"Venta"},
-     *      description="Store Venta",
+     *      path="/api/v1/usuario/clientes_negocios",
+     *      summary="Store a newly created ClienteNegocio in storage",
+     *      tags={"User"},
+     *      description="Store ClienteNegocio",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Venta that should be stored",
+     *          description="ClienteNegocio that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Venta")
+     *          @SWG\Schema(ref="#/definitions/ClienteNegocio")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -96,7 +96,7 @@ class VentaAPIController extends CommonController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Venta"
+     *                  ref="#/definitions/ClienteNegocio"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -106,13 +106,13 @@ class VentaAPIController extends CommonController
      *      )
      * )
      */
-    public function store(CreateVentaAPIRequest $request)
+    public function store(CreateClienteNegocioAPIRequest $request)
     {
         $input = $request->all();
 
-        $venta = $this->ventaRepository->create($input);
+        $clienteNegocio = $this->clienteNegocioRepository->create($input);
 
-        return $this->sendResponse($venta->toArray(), 'Venta saved successfully');
+        return $this->sendResponse($clienteNegocio->toArray(), 'Cliente Negocio saved successfully');
     }
 
     /**
@@ -120,14 +120,14 @@ class VentaAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/ventas/{id}",
-     *      summary="Display the specified Venta",
-     *      tags={"Venta"},
-     *      description="Get Venta",
+     *      path="/api/v1/usuario/clientes_negocios/{id}",
+     *      summary="Display the specified ClienteNegocio",
+     *      tags={"User"},
+     *      description="Get ClienteNegocio",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Venta",
+     *          description="id of ClienteNegocio",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -143,7 +143,7 @@ class VentaAPIController extends CommonController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Venta"
+     *                  ref="#/definitions/ClienteNegocio"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -155,30 +155,30 @@ class VentaAPIController extends CommonController
      */
     public function show($id)
     {
-        /** @var Venta $venta */
-        $venta = $this->ventaRepository->find($id);
+        /** @var ClienteNegocio $clienteNegocio */
+        $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
-        if (empty($venta)) {
-            return $this->sendError('Venta not found');
+        if (empty($clienteNegocio)) {
+            return $this->sendError('Cliente Negocio not found');
         }
 
-        return $this->sendResponse($venta->toArray(), 'Venta retrieved successfully');
+        return $this->sendResponse($clienteNegocio->toArray(), 'Cliente Negocio retrieved successfully');
     }
 
     /**
      * @param int $id
-     * @param UpdateVentaAPIRequest $request
+     * @param UpdateClienteNegocioAPIRequest $request
      * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/ventas/{id}",
-     *      summary="Update the specified Venta in storage",
-     *      tags={"Venta"},
-     *      description="Update Venta",
+     *      path="/api/v1/usuario/clientes_negocios/{id}",
+     *      summary="Update the specified ClienteNegocio in storage",
+     *      tags={"User"},
+     *      description="Update ClienteNegocio",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Venta",
+     *          description="id of ClienteNegocio",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -186,9 +186,9 @@ class VentaAPIController extends CommonController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Venta that should be updated",
+     *          description="ClienteNegocio that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Venta")
+     *          @SWG\Schema(ref="#/definitions/ClienteNegocio")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -201,7 +201,7 @@ class VentaAPIController extends CommonController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Venta"
+     *                  ref="#/definitions/ClienteNegocio"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -211,20 +211,20 @@ class VentaAPIController extends CommonController
      *      )
      * )
      */
-    public function update($id, UpdateVentaAPIRequest $request)
+    public function update($id, UpdateClienteNegocioAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var Venta $venta */
-        $venta = $this->ventaRepository->find($id);
+        /** @var ClienteNegocio $clienteNegocio */
+        $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
-        if (empty($venta)) {
-            return $this->sendError('Venta not found');
+        if (empty($clienteNegocio)) {
+            return $this->sendError('Cliente Negocio not found');
         }
 
-        $venta = $this->ventaRepository->update($input, $id);
+        $clienteNegocio = $this->clienteNegocioRepository->update($input, $id);
 
-        return $this->sendResponse($venta->toArray(), 'Venta updated successfully');
+        return $this->sendResponse($clienteNegocio->toArray(), 'ClienteNegocio updated successfully');
     }
 
     /**
@@ -233,14 +233,14 @@ class VentaAPIController extends CommonController
      *
      * @throws \Exception
      * @SWG\Delete(
-     *      path="/ventas/{id}",
-     *      summary="Remove the specified Venta from storage",
-     *      tags={"Venta"},
-     *      description="Delete Venta",
+     *      path="/api/v1/usuario/clientes_negocios/{id}",
+     *      summary="Remove the specified ClienteNegocio from storage",
+     *      tags={"User"},
+     *      description="Delete ClienteNegocio",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Venta",
+     *          description="id of ClienteNegocio",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -268,15 +268,15 @@ class VentaAPIController extends CommonController
      */
     public function destroy($id)
     {
-        /** @var Venta $venta */
-        $venta = $this->ventaRepository->find($id);
+        /** @var ClienteNegocio $clienteNegocio */
+        $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
-        if (empty($venta)) {
-            return $this->sendError('Venta not found');
+        if (empty($clienteNegocio)) {
+            return $this->sendError('Cliente Negocio not found');
         }
 
-        $venta->delete();
+        $clienteNegocio->delete();
 
-        return $this->sendSuccess('Venta deleted successfully');
+        return $this->sendSuccess('Cliente Negocio deleted successfully');
     }
 }

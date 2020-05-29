@@ -3,6 +3,9 @@
 namespace Modules\Usuario\Entities;
 
 use App\Models\Eloquent as Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @SWG\Definition(
@@ -47,6 +50,8 @@ use App\Models\Eloquent as Model;
 class User extends Model
 {
 
+    use HasApiTokens, Notifiable, HasRoles;
+
     public $table = 'users';
     
 
@@ -59,6 +64,13 @@ class User extends Model
         'negocio_id',
         'finca_id'
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at', 'roles', 'remember_token', 'password'];
 
     /**
      * The attributes that should be casted to native types.

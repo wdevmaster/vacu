@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Negocio\Entities;
+namespace Modules\Usuario\Entities;
 
 use App\Models\Eloquent as Model;
-use Modules\Usuario\Entities\ClienteNegocio;
+use Modules\Negocio\Entities\Negocio;
 
 /**
  * @SWG\Definition(
- *      definition="Negocio",
- *      required={"code", "nombre", "jefe", "telefono", "active"},
+ *      definition="ClienteNegocio",
+ *      required={"code", "nombre", "telefono", "active", "negocio_id"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -27,20 +27,25 @@ use Modules\Usuario\Entities\ClienteNegocio;
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="jefe",
- *          description="jefe",
+ *          property="descripcion",
+ *          description="descripcion",
  *          type="string"
  *      ),
  *      @SWG\Property(
  *          property="telefono",
  *          description="telefono",
- *          type="integer",
- *          format="int32"
+ *          type="string"
  *      ),
  *      @SWG\Property(
  *          property="active",
  *          description="active",
  *          type="boolean"
+ *      ),
+ *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="created_at",
@@ -56,18 +61,19 @@ use Modules\Usuario\Entities\ClienteNegocio;
  *      )
  * )
  */
-class Negocio extends Model
+class ClienteNegocio extends Model
 {
 
-    public $table = 'negocios';
+    public $table = 'clientes_negocios';
 
 
     public $fillable = [
         'code',
         'nombre',
-        'jefe',
+        'descripcion',
         'telefono',
-        'active'
+        'active',
+        'negocio_id'
     ];
 
     /**
@@ -79,9 +85,10 @@ class Negocio extends Model
         'id' => 'integer',
         'code' => 'integer',
         'nombre' => 'string',
-        'jefe' => 'string',
-        'telefono' => 'integer',
-        'active' => 'boolean'
+        'descripcion' => 'string',
+        'telefono' => 'string',
+        'active' => 'boolean',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -92,17 +99,16 @@ class Negocio extends Model
     public static $rules = [
         'code' => 'required',
         'nombre' => 'required',
-        'jefe' => 'required',
+        'descripcion' => 'required',
         'telefono' => 'required',
-        'active' => 'required'
+        'active' => 'required',
+        'negocio_id' => 'required'
     ];
 
-    public static $tableName = 'negocios';
 
-
-    public function clientes_negocios()
+    public function negocio()
     {
-        $this->hasMany(ClienteNegocio::class);
+        $this->belongsTo(Negocio::class);
     }
 
 

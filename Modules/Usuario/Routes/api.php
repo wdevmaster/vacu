@@ -23,22 +23,25 @@ Route::prefix('v1/usuario')->group(function(){
 
     Route::get('/auth/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
     Route::get('/auth/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-});
 
-Route::prefix('v1/usuario')->group(function(){
 
-    Route::prefix('/usuarios')->group(function(){
-        Route::get('/', 'UserAPIController@index')->name('user.users.index');
-        Route::get('/{id}', 'UserAPIController@show')->name('user.users.show');
-        Route::get('/filter/all', 'UserAPIController@filter')->name('user.users.filter');
-        Route::post('/', 'UserAPIController@store')->name('user.users.store');
-        Route::put('/{id}', 'UserAPIController@update')->name('user.users.update');
-        Route::delete('/{id}', 'UserAPIController@destroy')->name('user.users.destroy');
 
+    Route::prefix('usuarios')->group(function (){
+        Route::get('/', 'UserAPIController@index')->name('usuario.usuarios.index');
+        Route::post('/', 'UserAPIController@store')->name('usuario.usuarios.store');
+        Route::put('/{id}', 'UserAPIController@update')->name('usuario.usuarios.update');
+        Route::delete('/{id}', 'UserAPIController@delete')->name('usuario.usuarios.delete');
     });
 
-//    Route::prefix('/roles')->group(function(){
-//        Route::get('/', 'RolController@index')->name('user.roles.index');
-//    });
+    Route::prefix('clientes_negocios')->group(function (){
+        Route::get('/', 'ClienteNegocioAPIController@index')->name('usuario.clientes_negocios.index');
+        Route::get('/{id}', 'ClienteNegocioAPIController@show')->name('usuario.clientes_negocios.show');
+        Route::post('/', 'ClienteNegocioAPIController@store')->name('usuario.clientes_negocios.store');
+        Route::put('/{id}', 'ClienteNegocioAPIController@update')->name('usuario.clientes_negocios.update');
+        Route::delete('/{id}', 'ClienteNegocioAPIController@delete')->name('usuario.clientes_negocios.delete');
+    });
 });
+
+
+
 
