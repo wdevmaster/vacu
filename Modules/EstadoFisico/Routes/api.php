@@ -13,8 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/estadofisico', function (Request $request) {
-    return $request->user();
-});
 
-Route::resource('estado_fisicos', 'EstadoFisicoAPIController');
+
+
+
+Route::prefix('v1/estado_fisico')->middleware('auth:api')->group(function () {
+    Route::prefix('estados_fisicos')->group(function () {
+        Route::get('/', 'EstadoFisicoAPIController@index')->name('estado_fisico.estados_fisicos.index');
+        Route::post('/', 'EstadoFisicoAPIController@store')->name('estado_fisico.estados_fisicos.store');
+        Route::put('/{id}', 'EstadoFisicoAPIController@update')->name('estado_fisico.estados_fisicos.update');
+        Route::delete('/{id}', 'EstadoFisicoAPIController@delete')->name('estado_fisico.estados_fisicos.delete');
+    });
+});

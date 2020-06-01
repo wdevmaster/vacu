@@ -30,7 +30,7 @@ class EstadoFisicoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/estadoFisicos",
+     *      path="/api/v1/estado_fisico/estados_fisicos",
      *      summary="Get a listing of the EstadoFisicos.",
      *      tags={"EstadoFisico"},
      *      description="Get all EstadoFisicos",
@@ -73,7 +73,7 @@ class EstadoFisicoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/estadoFisicos",
+     *      path="/api/v1/estado_fisico/estados_fisicos",
      *      summary="Store a newly created EstadoFisico in storage",
      *      tags={"EstadoFisico"},
      *      description="Store EstadoFisico",
@@ -120,7 +120,7 @@ class EstadoFisicoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/estadoFisicos/{id}",
+     *      path="/api/v1/estado_fisico/estados_fisicos/{id}",
      *      summary="Display the specified EstadoFisico",
      *      tags={"EstadoFisico"},
      *      description="Get EstadoFisico",
@@ -171,7 +171,7 @@ class EstadoFisicoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/estadoFisicos/{id}",
+     *      path="/api/v1/estado_fisico/estados_fisicos/{id}",
      *      summary="Update the specified EstadoFisico in storage",
      *      tags={"EstadoFisico"},
      *      description="Update EstadoFisico",
@@ -232,7 +232,7 @@ class EstadoFisicoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/estadoFisicos/{id}",
+     *      path="/api/v1/estado_fisico/estados_fisicos/{id}",
      *      summary="Remove the specified EstadoFisico from storage",
      *      tags={"EstadoFisico"},
      *      description="Delete EstadoFisico",

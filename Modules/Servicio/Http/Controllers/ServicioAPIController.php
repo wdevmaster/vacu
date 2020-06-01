@@ -30,7 +30,7 @@ class ServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/servicios",
+     *      path="/api/v1/servicio/servicios",
      *      summary="Get a listing of the Servicios.",
      *      tags={"Servicio"},
      *      description="Get all Servicios",
@@ -73,7 +73,7 @@ class ServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/servicios",
+     *      path="/api/v1/servicio/servicios",
      *      summary="Store a newly created Servicio in storage",
      *      tags={"Servicio"},
      *      description="Store Servicio",
@@ -120,7 +120,7 @@ class ServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/servicios/{id}",
+     *      path="/api/v1/servicio/servicios/{id}",
      *      summary="Display the specified Servicio",
      *      tags={"Servicio"},
      *      description="Get Servicio",
@@ -171,7 +171,7 @@ class ServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/servicios/{id}",
+     *      path="/api/v1/servicio/servicios/{id}",
      *      summary="Update the specified Servicio in storage",
      *      tags={"Servicio"},
      *      description="Update Servicio",
@@ -232,7 +232,7 @@ class ServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/servicios/{id}",
+     *      path="/api/v1/servicio/servicios/{id}",
      *      summary="Remove the specified Servicio from storage",
      *      tags={"Servicio"},
      *      description="Delete Servicio",

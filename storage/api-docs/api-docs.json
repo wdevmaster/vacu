@@ -820,7 +820,7 @@
                 }
             }
         },
-        "/estadoFisicos": {
+        "/api/v1/estado_fisico/estados_fisicos": {
             "get": {
                 "tags": [
                     "EstadoFisico"
@@ -894,7 +894,7 @@
                 }
             }
         },
-        "/estadoFisicos/{id}": {
+        "/api/v1/estado_fisico/estados_fisicos/{id}": {
             "get": {
                 "tags": [
                     "EstadoFisico"
@@ -1019,7 +1019,7 @@
                 }
             }
         },
-        "/eventos": {
+        "/api/v1/evento/eventos": {
             "get": {
                 "tags": [
                     "Evento"
@@ -1093,7 +1093,7 @@
                 }
             }
         },
-        "/eventos/{id}": {
+        "/api/v1/evento/eventos/{id}": {
             "get": {
                 "tags": [
                     "Evento"
@@ -1218,7 +1218,7 @@
                 }
             }
         },
-        "/fincas": {
+        "/api/v1/finca/fincas": {
             "get": {
                 "tags": [
                     "Finca"
@@ -1292,7 +1292,7 @@
                 }
             }
         },
-        "/fincas/{id}": {
+        "/api/v1/finca/fincas/{id}": {
             "get": {
                 "tags": [
                     "Finca"
@@ -1417,7 +1417,7 @@
                 }
             }
         },
-        "/ingresos": {
+        "/api/v1/ingreso/ingresos": {
             "get": {
                 "tags": [
                     "Ingreso"
@@ -1491,7 +1491,7 @@
                 }
             }
         },
-        "/ingresos/{id}": {
+        "/api/v1/ingreso/ingresos/{id}": {
             "get": {
                 "tags": [
                     "Ingreso"
@@ -1616,7 +1616,7 @@
                 }
             }
         },
-        "/inseminadors": {
+        "/api/v1/inseminador/inseminadores": {
             "get": {
                 "tags": [
                     "Inseminador"
@@ -1690,7 +1690,7 @@
                 }
             }
         },
-        "/inseminadors/{id}": {
+        "/api/v1/inseminador/inseminadores/{id}": {
             "get": {
                 "tags": [
                     "Inseminador"
@@ -1815,7 +1815,7 @@
                 }
             }
         },
-        "/lactancias": {
+        "/api/v1/lactancia/lactancias": {
             "get": {
                 "tags": [
                     "Lactancia"
@@ -1889,7 +1889,7 @@
                 }
             }
         },
-        "/lactancias/{id}": {
+        "/api/v1/lactancia/lactancias/{id}": {
             "get": {
                 "tags": [
                     "Lactancia"
@@ -2014,7 +2014,7 @@
                 }
             }
         },
-        "/locomocions": {
+        "/api/v1/locomocion/locomociones": {
             "get": {
                 "tags": [
                     "Locomocion"
@@ -2088,7 +2088,7 @@
                 }
             }
         },
-        "/locomocions/{id}": {
+        "/api/v1/locomocion/locomociones/{id}": {
             "get": {
                 "tags": [
                     "Locomocion"
@@ -2213,7 +2213,7 @@
                 }
             }
         },
-        "/lotes": {
+        "/api/v1/lote/lotes": {
             "get": {
                 "tags": [
                     "Lote"
@@ -2287,7 +2287,7 @@
                 }
             }
         },
-        "/lotes/{id}": {
+        "/api/v1/lote/lotes/{id}": {
             "get": {
                 "tags": [
                     "Lote"
@@ -2412,7 +2412,7 @@
                 }
             }
         },
-        "/muertes": {
+        "/api/v1/muerte/muertes": {
             "get": {
                 "tags": [
                     "Muerte"
@@ -2486,7 +2486,7 @@
                 }
             }
         },
-        "/muertes/{id}": {
+        "/api/v1/muerte/muertes/{id}": {
             "get": {
                 "tags": [
                     "Muerte"
@@ -2772,7 +2772,7 @@
                 }
             }
         },
-        "/partos": {
+        "/api/v1/parto/partos": {
             "get": {
                 "tags": [
                     "Parto"
@@ -2846,7 +2846,7 @@
                 }
             }
         },
-        "/partos/{id}": {
+        "/api/v1/parto/partos/{id}": {
             "get": {
                 "tags": [
                     "Parto"
@@ -2971,7 +2971,7 @@
                 }
             }
         },
-        "/produccions": {
+        "/api/v1/produccion/producciones": {
             "get": {
                 "tags": [
                     "Produccion"
@@ -3045,7 +3045,7 @@
                 }
             }
         },
-        "/produccions/{id}": {
+        "/api/v1/produccion/producciones/{id}": {
             "get": {
                 "tags": [
                     "Produccion"
@@ -3170,7 +3170,7 @@
                 }
             }
         },
-        "/razas": {
+        "/api/v1/raza/razas": {
             "get": {
                 "tags": [
                     "Raza"
@@ -3244,7 +3244,7 @@
                 }
             }
         },
-        "/razas/{id}": {
+        "/api/v1/raza/razas/{id}": {
             "get": {
                 "tags": [
                     "Raza"
@@ -3369,7 +3369,7 @@
                 }
             }
         },
-        "/registroEnfermedads": {
+        "/api/v1/registro_enfermedad/registros_enfermedades": {
             "get": {
                 "tags": [
                     "RegistroEnfermedad"
@@ -3443,7 +3443,7 @@
                 }
             }
         },
-        "/registroEnfermedads/{id}": {
+        "/api/v1/registro_enfermedad/registros_enfermedades/{id}": {
             "get": {
                 "tags": [
                     "RegistroEnfermedad"
@@ -3568,7 +3568,7 @@
                 }
             }
         },
-        "/semens": {
+        "/api/v1/semen/semens": {
             "get": {
                 "tags": [
                     "Semen"
@@ -3642,7 +3642,7 @@
                 }
             }
         },
-        "/semens/{id}": {
+        "/api/v1/semen/semens/{id}": {
             "get": {
                 "tags": [
                     "Semen"
@@ -3767,7 +3767,7 @@
                 }
             }
         },
-        "/servicios": {
+        "/api/v1/servicio/servicios": {
             "get": {
                 "tags": [
                     "Servicio"
@@ -3841,7 +3841,7 @@
                 }
             }
         },
-        "/servicios/{id}": {
+        "/api/v1/servicio/servicios/{id}": {
             "get": {
                 "tags": [
                     "Servicio"
@@ -4047,7 +4047,7 @@
                 }
             }
         },
-        "/tipoServicios": {
+        "/api/v1/tipo_servicio/tipos_servicios": {
             "get": {
                 "tags": [
                     "TipoServicio"
@@ -4121,7 +4121,7 @@
                 }
             }
         },
-        "/tipoServicios/{id}": {
+        "/api/v1/tipo_servicio/tipos_servicios/{id}": {
             "get": {
                 "tags": [
                     "TipoServicio"
@@ -4956,6 +4956,205 @@
                 }
             }
         },
+        "/api/v1/rol_boton/roles_botones": {
+            "get": {
+                "tags": [
+                    "RolBoton"
+                ],
+                "summary": "Get a listing of the RolBotons.",
+                "description": "Get all RolBotons",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/RolBoton"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "RolBoton"
+                ],
+                "summary": "Store a newly created RolBoton in storage",
+                "description": "Store RolBoton",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "RolBoton that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/RolBoton"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/RolBoton"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/rol_boton/roles_botones/{id}": {
+            "get": {
+                "tags": [
+                    "RolBoton"
+                ],
+                "summary": "Display the specified RolBoton",
+                "description": "Get RolBoton",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of RolBoton",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/RolBoton"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "RolBoton"
+                ],
+                "summary": "Update the specified RolBoton in storage",
+                "description": "Update RolBoton",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of RolBoton",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "RolBoton that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/RolBoton"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/RolBoton"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "RolBoton"
+                ],
+                "summary": "Remove the specified RolBoton from storage",
+                "description": "Delete RolBoton",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of RolBoton",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/role/roles": {
             "get": {
                 "tags": [
@@ -5325,7 +5524,7 @@
                     {
                         "name": "filter",
                         "in": "query",
-                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\n    <b>campo</b>(string): uno de los siguientes valores ('<b>negocio_id</b>'). Id del negocio a filtrar <br>\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''negocio_id'',''='',''1'']] <br><br>\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
+                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\r\n    <b>campo</b>(string): uno de los siguientes valores ('<b>negocio_id</b>'). Id del negocio a filtrar <br>\r\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\r\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''negocio_id'',''='',''1'']] <br><br>\r\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
                         "type": "array",
                         "items": {
                             "type": "array",
@@ -5519,7 +5718,7 @@
                 }
             }
         },
-        "/ventas": {
+        "/api/v1/venta/ventas": {
             "get": {
                 "tags": [
                     "Venta"
@@ -5593,7 +5792,7 @@
                 }
             }
         },
-        "/ventas/{id}": {
+        "/api/v1/venta/ventas/{id}": {
             "get": {
                 "tags": [
                     "Venta"
@@ -6869,6 +7068,37 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "RolBoton": {
+            "required": [
+                "nombre",
+                "descripcion"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nombre": {
+                    "description": "nombre",
+                    "type": "string"
+                },
+                "descripcion": {
+                    "description": "descripcion",
+                    "type": "string"
                 },
                 "created_at": {
                     "description": "created_at",

@@ -30,7 +30,7 @@ class FincaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/fincas",
+     *      path="/api/v1/finca/fincas",
      *      summary="Get a listing of the Fincas.",
      *      tags={"Finca"},
      *      description="Get all Fincas",
@@ -73,7 +73,7 @@ class FincaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/fincas",
+     *      path="/api/v1/finca/fincas",
      *      summary="Store a newly created Finca in storage",
      *      tags={"Finca"},
      *      description="Store Finca",
@@ -120,7 +120,7 @@ class FincaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/fincas/{id}",
+     *      path="/api/v1/finca/fincas/{id}",
      *      summary="Display the specified Finca",
      *      tags={"Finca"},
      *      description="Get Finca",
@@ -171,7 +171,7 @@ class FincaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/fincas/{id}",
+     *      path="/api/v1/finca/fincas/{id}",
      *      summary="Update the specified Finca in storage",
      *      tags={"Finca"},
      *      description="Update Finca",
@@ -232,7 +232,7 @@ class FincaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/fincas/{id}",
+     *      path="/api/v1/finca/fincas/{id}",
      *      summary="Remove the specified Finca from storage",
      *      tags={"Finca"},
      *      description="Delete Finca",

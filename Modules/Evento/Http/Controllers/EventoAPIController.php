@@ -30,7 +30,7 @@ class EventoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/eventos",
+     *      path="/api/v1/evento/eventos",
      *      summary="Get a listing of the Eventos.",
      *      tags={"Evento"},
      *      description="Get all Eventos",
@@ -73,7 +73,7 @@ class EventoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/eventos",
+     *      path="/api/v1/evento/eventos",
      *      summary="Store a newly created Evento in storage",
      *      tags={"Evento"},
      *      description="Store Evento",
@@ -120,7 +120,7 @@ class EventoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/eventos/{id}",
+     *      path="/api/v1/evento/eventos/{id}",
      *      summary="Display the specified Evento",
      *      tags={"Evento"},
      *      description="Get Evento",
@@ -171,7 +171,7 @@ class EventoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/eventos/{id}",
+     *      path="/api/v1/evento/eventos/{id}",
      *      summary="Update the specified Evento in storage",
      *      tags={"Evento"},
      *      description="Update Evento",
@@ -232,7 +232,7 @@ class EventoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/eventos/{id}",
+     *      path="/api/v1/evento/eventos/{id}",
      *      summary="Remove the specified Evento from storage",
      *      tags={"Evento"},
      *      description="Delete Evento",

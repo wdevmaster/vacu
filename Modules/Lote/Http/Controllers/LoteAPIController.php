@@ -30,7 +30,7 @@ class LoteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/lotes",
+     *      path="/api/v1/lote/lotes",
      *      summary="Get a listing of the Lotes.",
      *      tags={"Lote"},
      *      description="Get all Lotes",
@@ -73,7 +73,7 @@ class LoteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/lotes",
+     *      path="/api/v1/lote/lotes",
      *      summary="Store a newly created Lote in storage",
      *      tags={"Lote"},
      *      description="Store Lote",
@@ -120,7 +120,7 @@ class LoteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/lotes/{id}",
+     *      path="/api/v1/lote/lotes/{id}",
      *      summary="Display the specified Lote",
      *      tags={"Lote"},
      *      description="Get Lote",
@@ -171,7 +171,7 @@ class LoteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/lotes/{id}",
+     *      path="/api/v1/lote/lotes/{id}",
      *      summary="Update the specified Lote in storage",
      *      tags={"Lote"},
      *      description="Update Lote",
@@ -232,7 +232,7 @@ class LoteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/lotes/{id}",
+     *      path="/api/v1/lote/lotes/{id}",
      *      summary="Remove the specified Lote from storage",
      *      tags={"Lote"},
      *      description="Delete Lote",

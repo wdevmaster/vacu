@@ -30,7 +30,7 @@ class ProduccionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/produccions",
+     *      path="/api/v1/produccion/producciones",
      *      summary="Get a listing of the Produccions.",
      *      tags={"Produccion"},
      *      description="Get all Produccions",
@@ -73,7 +73,7 @@ class ProduccionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/produccions",
+     *      path="/api/v1/produccion/producciones",
      *      summary="Store a newly created Produccion in storage",
      *      tags={"Produccion"},
      *      description="Store Produccion",
@@ -120,7 +120,7 @@ class ProduccionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/produccions/{id}",
+     *      path="/api/v1/produccion/producciones/{id}",
      *      summary="Display the specified Produccion",
      *      tags={"Produccion"},
      *      description="Get Produccion",
@@ -171,7 +171,7 @@ class ProduccionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/produccions/{id}",
+     *      path="/api/v1/produccion/producciones/{id}",
      *      summary="Update the specified Produccion in storage",
      *      tags={"Produccion"},
      *      description="Update Produccion",
@@ -232,7 +232,7 @@ class ProduccionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/produccions/{id}",
+     *      path="/api/v1/produccion/producciones/{id}",
      *      summary="Remove the specified Produccion from storage",
      *      tags={"Produccion"},
      *      description="Delete Produccion",

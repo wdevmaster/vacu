@@ -30,7 +30,7 @@ class PartoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/partos",
+     *      path="/api/v1/parto/partos",
      *      summary="Get a listing of the Partos.",
      *      tags={"Parto"},
      *      description="Get all Partos",
@@ -73,7 +73,7 @@ class PartoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/partos",
+     *      path="/api/v1/parto/partos",
      *      summary="Store a newly created Parto in storage",
      *      tags={"Parto"},
      *      description="Store Parto",
@@ -120,7 +120,7 @@ class PartoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/partos/{id}",
+     *      path="/api/v1/parto/partos/{id}",
      *      summary="Display the specified Parto",
      *      tags={"Parto"},
      *      description="Get Parto",
@@ -171,7 +171,7 @@ class PartoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/partos/{id}",
+     *      path="/api/v1/parto/partos/{id}",
      *      summary="Update the specified Parto in storage",
      *      tags={"Parto"},
      *      description="Update Parto",
@@ -232,7 +232,7 @@ class PartoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/partos/{id}",
+     *      path="/api/v1/parto/partos/{id}",
      *      summary="Remove the specified Parto from storage",
      *      tags={"Parto"},
      *      description="Delete Parto",

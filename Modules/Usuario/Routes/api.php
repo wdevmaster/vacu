@@ -67,3 +67,12 @@ Route::prefix('v1/permiso')->middleware('auth:api')->group(function () {
 
 
 
+Route::prefix('v1/rol_boton')->middleware('auth:api')->group(function () {
+    Route::prefix('roles_botones')->group(function () {
+        Route::get('/', 'RolBotonAPIController@index')->name('rol_boton.roles_botones.index');
+        Route::post('/', 'RolBotonAPIController@store')->name('rol_boton.roles_botones.store');
+        Route::put('/{id}', 'RolBotonAPIController@update')->name('rol_boton.roles_botones.update');
+        Route::delete('/{id}', 'RolBotonAPIController@delete')->name('rol_boton.roles_botones.delete');
+    });
+});
+

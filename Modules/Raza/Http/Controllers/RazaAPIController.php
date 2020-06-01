@@ -30,7 +30,7 @@ class RazaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/razas",
+     *      path="/api/v1/raza/razas",
      *      summary="Get a listing of the Razas.",
      *      tags={"Raza"},
      *      description="Get all Razas",
@@ -73,7 +73,7 @@ class RazaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/razas",
+     *      path="/api/v1/raza/razas",
      *      summary="Store a newly created Raza in storage",
      *      tags={"Raza"},
      *      description="Store Raza",
@@ -120,7 +120,7 @@ class RazaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/razas/{id}",
+     *      path="/api/v1/raza/razas/{id}",
      *      summary="Display the specified Raza",
      *      tags={"Raza"},
      *      description="Get Raza",
@@ -171,7 +171,7 @@ class RazaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/razas/{id}",
+     *      path="/api/v1/raza/razas/{id}",
      *      summary="Update the specified Raza in storage",
      *      tags={"Raza"},
      *      description="Update Raza",
@@ -232,7 +232,7 @@ class RazaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/razas/{id}",
+     *      path="/api/v1/raza/razas/{id}",
      *      summary="Remove the specified Raza from storage",
      *      tags={"Raza"},
      *      description="Delete Raza",

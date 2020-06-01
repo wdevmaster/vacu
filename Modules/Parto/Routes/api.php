@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/parto', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/parto')->middleware('auth:api')->group(function () {
+    Route::prefix('partos')->group(function () {
+        Route::get('/', 'PartoAPIController@index')->name('parto.partos.index');
+        Route::post('/', 'PartoAPIController@store')->name('parto.partos.store');
+        Route::put('/{id}', 'PartoAPIController@update')->name('parto.partos.update');
+        Route::delete('/{id}', 'PartoAPIController@delete')->name('parto.partos.delete');
+    });
 });
-
-Route::resource('partos', 'PartoAPIController');

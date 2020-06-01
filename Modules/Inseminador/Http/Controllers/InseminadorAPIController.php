@@ -30,7 +30,7 @@ class InseminadorAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/inseminadors",
+     *      path="/api/v1/inseminador/inseminadores",
      *      summary="Get a listing of the Inseminadors.",
      *      tags={"Inseminador"},
      *      description="Get all Inseminadors",
@@ -73,7 +73,7 @@ class InseminadorAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/inseminadors",
+     *      path="/api/v1/inseminador/inseminadores",
      *      summary="Store a newly created Inseminador in storage",
      *      tags={"Inseminador"},
      *      description="Store Inseminador",
@@ -120,7 +120,7 @@ class InseminadorAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/inseminadors/{id}",
+     *      path="/api/v1/inseminador/inseminadores/{id}",
      *      summary="Display the specified Inseminador",
      *      tags={"Inseminador"},
      *      description="Get Inseminador",
@@ -171,7 +171,7 @@ class InseminadorAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/inseminadors/{id}",
+     *      path="/api/v1/inseminador/inseminadores/{id}",
      *      summary="Update the specified Inseminador in storage",
      *      tags={"Inseminador"},
      *      description="Update Inseminador",
@@ -232,7 +232,7 @@ class InseminadorAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/inseminadors/{id}",
+     *      path="/api/v1/inseminador/inseminadores/{id}",
      *      summary="Remove the specified Inseminador from storage",
      *      tags={"Inseminador"},
      *      description="Delete Inseminador",

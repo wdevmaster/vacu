@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/lote', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/lote')->middleware('auth:api')->group(function () {
+    Route::prefix('lotes')->group(function () {
+        Route::get('/', 'LoteAPIController@index')->name('lote.lotes.index');
+        Route::post('/', 'LoteAPIController@store')->name('lote.lotes.store');
+        Route::put('/{id}', 'LoteAPIController@update')->name('lote.lotes.update');
+        Route::delete('/{id}', 'LoteAPIController@delete')->name('lote.lotes.delete');
+    });
 });
-
-Route::resource('lotes', 'LoteAPIController');

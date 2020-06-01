@@ -30,7 +30,7 @@ class IngresoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/ingresos",
+     *      path="/api/v1/ingreso/ingresos",
      *      summary="Get a listing of the Ingresos.",
      *      tags={"Ingreso"},
      *      description="Get all Ingresos",
@@ -73,7 +73,7 @@ class IngresoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/ingresos",
+     *      path="/api/v1/ingreso/ingresos",
      *      summary="Store a newly created Ingreso in storage",
      *      tags={"Ingreso"},
      *      description="Store Ingreso",
@@ -120,7 +120,7 @@ class IngresoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/ingresos/{id}",
+     *      path="/api/v1/ingreso/ingresos/{id}",
      *      summary="Display the specified Ingreso",
      *      tags={"Ingreso"},
      *      description="Get Ingreso",
@@ -171,7 +171,7 @@ class IngresoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/ingresos/{id}",
+     *      path="/api/v1/ingreso/ingresos/{id}",
      *      summary="Update the specified Ingreso in storage",
      *      tags={"Ingreso"},
      *      description="Update Ingreso",
@@ -232,7 +232,7 @@ class IngresoAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/ingresos/{id}",
+     *      path="/api/v1/ingreso/ingresos/{id}",
      *      summary="Remove the specified Ingreso from storage",
      *      tags={"Ingreso"},
      *      description="Delete Ingreso",

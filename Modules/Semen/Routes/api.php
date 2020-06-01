@@ -13,8 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/semen', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/semen')->middleware('auth:api')->group(function () {
+    Route::prefix('semens')->group(function () {
+        Route::get('/', 'SemenAPIController@index')->name('semen.semens.index');
+        Route::post('/', 'SemenAPIController@store')->name('semen.semens.store');
+        Route::put('/{id}', 'SemenAPIController@update')->name('semen.semens.update');
+        Route::delete('/{id}', 'SemenAPIController@delete')->name('semen.semens.delete');
+    });
 });
 
-Route::resource('semens', 'SemenAPIController');

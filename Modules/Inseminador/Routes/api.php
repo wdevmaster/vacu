@@ -13,8 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/inseminador', function (Request $request) {
-    return $request->user();
-});
 
-Route::resource('inseminadors', 'InseminadorAPIController');
+Route::prefix('v1/inseminador')->middleware('auth:api')->group(function () {
+    Route::prefix('inseminadores')->group(function () {
+        Route::get('/', 'InseminadorAPIController@index')->name('inseminador.inseminadores.index');
+        Route::post('/', 'InseminadorAPIController@store')->name('inseminador.inseminadores.store');
+        Route::put('/{id}', 'InseminadorAPIController@update')->name('inseminador.inseminadores.update');
+        Route::delete('/{id}', 'InseminadorAPIController@delete')->name('inseminador.inseminadores.delete');
+    });
+});

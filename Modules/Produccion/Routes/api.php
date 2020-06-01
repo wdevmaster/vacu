@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/produccion', function (Request $request) {
-    return $request->user();
+Route::prefix('v1/produccion')->middleware('auth:api')->group(function () {
+    Route::prefix('producciones')->group(function () {
+        Route::get('/', 'ProduccionAPIController@index')->name('produccion.producciones.index');
+        Route::post('/', 'ProduccionAPIController@store')->name('produccion.producciones.store');
+        Route::put('/{id}', 'ProduccionAPIController@update')->name('produccion.producciones.update');
+        Route::delete('/{id}', 'ProduccionAPIController@delete')->name('produccion.producciones.delete');
+    });
 });
-
-Route::resource('produccions', 'ProduccionAPIController');

@@ -30,7 +30,7 @@ class LactanciaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/lactancias",
+     *      path="/api/v1/lactancia/lactancias",
      *      summary="Get a listing of the Lactancias.",
      *      tags={"Lactancia"},
      *      description="Get all Lactancias",
@@ -73,7 +73,7 @@ class LactanciaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/lactancias",
+     *      path="/api/v1/lactancia/lactancias",
      *      summary="Store a newly created Lactancia in storage",
      *      tags={"Lactancia"},
      *      description="Store Lactancia",
@@ -120,7 +120,7 @@ class LactanciaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/lactancias/{id}",
+     *      path="/api/v1/lactancia/lactancias/{id}",
      *      summary="Display the specified Lactancia",
      *      tags={"Lactancia"},
      *      description="Get Lactancia",
@@ -171,7 +171,7 @@ class LactanciaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/lactancias/{id}",
+     *      path="/api/v1/lactancia/lactancias/{id}",
      *      summary="Update the specified Lactancia in storage",
      *      tags={"Lactancia"},
      *      description="Update Lactancia",
@@ -232,7 +232,7 @@ class LactanciaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/lactancias/{id}",
+     *      path="/api/v1/lactancia/lactancias/{id}",
      *      summary="Remove the specified Lactancia from storage",
      *      tags={"Lactancia"},
      *      description="Delete Lactancia",

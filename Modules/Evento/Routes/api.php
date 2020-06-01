@@ -13,8 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/evento', function (Request $request) {
-    return $request->user();
-});
 
-Route::resource('eventos', 'EventoAPIController');
+
+
+Route::prefix('v1/evento')->middleware('auth:api')->group(function () {
+    Route::prefix('eventos')->group(function () {
+        Route::get('/', 'EventoAPIController@index')->name('evento.eventos.index');
+        Route::post('/', 'EventoAPIController@store')->name('evento.eventos.store');
+        Route::put('/{id}', 'EventoAPIController@update')->name('evento.eventos.update');
+        Route::delete('/{id}', 'EventoAPIController@delete')->name('evento.eventos.delete');
+    });
+});

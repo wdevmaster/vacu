@@ -30,7 +30,7 @@ class VentaAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/ventas",
+     *      path="/api/v1/venta/ventas",
      *      summary="Get a listing of the Ventas.",
      *      tags={"Venta"},
      *      description="Get all Ventas",
@@ -73,7 +73,7 @@ class VentaAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Post(
-     *      path="/ventas",
+     *      path="/api/v1/venta/ventas",
      *      summary="Store a newly created Venta in storage",
      *      tags={"Venta"},
      *      description="Store Venta",
@@ -120,7 +120,7 @@ class VentaAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/ventas/{id}",
+     *      path="/api/v1/venta/ventas/{id}",
      *      summary="Display the specified Venta",
      *      tags={"Venta"},
      *      description="Get Venta",
@@ -171,7 +171,7 @@ class VentaAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/ventas/{id}",
+     *      path="/api/v1/venta/ventas/{id}",
      *      summary="Update the specified Venta in storage",
      *      tags={"Venta"},
      *      description="Update Venta",
@@ -233,7 +233,7 @@ class VentaAPIController extends CommonController
      *
      * @throws \Exception
      * @SWG\Delete(
-     *      path="/ventas/{id}",
+     *      path="/api/v1/venta/ventas/{id}",
      *      summary="Remove the specified Venta from storage",
      *      tags={"Venta"},
      *      description="Delete Venta",

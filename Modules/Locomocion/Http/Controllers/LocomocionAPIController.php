@@ -30,7 +30,7 @@ class LocomocionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/locomocions",
+     *      path="/api/v1/locomocion/locomociones",
      *      summary="Get a listing of the Locomocions.",
      *      tags={"Locomocion"},
      *      description="Get all Locomocions",
@@ -73,7 +73,7 @@ class LocomocionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/locomocions",
+     *      path="/api/v1/locomocion/locomociones",
      *      summary="Store a newly created Locomocion in storage",
      *      tags={"Locomocion"},
      *      description="Store Locomocion",
@@ -120,7 +120,7 @@ class LocomocionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/locomocions/{id}",
+     *      path="/api/v1/locomocion/locomociones/{id}",
      *      summary="Display the specified Locomocion",
      *      tags={"Locomocion"},
      *      description="Get Locomocion",
@@ -171,7 +171,7 @@ class LocomocionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/locomocions/{id}",
+     *      path="/api/v1/locomocion/locomociones/{id}",
      *      summary="Update the specified Locomocion in storage",
      *      tags={"Locomocion"},
      *      description="Update Locomocion",
@@ -232,7 +232,7 @@ class LocomocionAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/locomocions/{id}",
+     *      path="/api/v1/locomocion/locomociones/{id}",
      *      summary="Remove the specified Locomocion from storage",
      *      tags={"Locomocion"},
      *      description="Delete Locomocion",

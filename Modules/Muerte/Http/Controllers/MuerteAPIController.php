@@ -30,7 +30,7 @@ class MuerteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/muertes",
+     *      path="/api/v1/muerte/muertes",
      *      summary="Get a listing of the Muertes.",
      *      tags={"Muerte"},
      *      description="Get all Muertes",
@@ -73,7 +73,7 @@ class MuerteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/muertes",
+     *      path="/api/v1/muerte/muertes",
      *      summary="Store a newly created Muerte in storage",
      *      tags={"Muerte"},
      *      description="Store Muerte",
@@ -120,7 +120,7 @@ class MuerteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/muertes/{id}",
+     *      path="/api/v1/muerte/muertes/{id}",
      *      summary="Display the specified Muerte",
      *      tags={"Muerte"},
      *      description="Get Muerte",
@@ -171,7 +171,7 @@ class MuerteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/muertes/{id}",
+     *      path="/api/v1/muerte/muertes/{id}",
      *      summary="Update the specified Muerte in storage",
      *      tags={"Muerte"},
      *      description="Update Muerte",
@@ -232,7 +232,7 @@ class MuerteAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/muertes/{id}",
+     *      path="/api/v1/muerte/muertes/{id}",
      *      summary="Remove the specified Muerte from storage",
      *      tags={"Muerte"},
      *      description="Delete Muerte",

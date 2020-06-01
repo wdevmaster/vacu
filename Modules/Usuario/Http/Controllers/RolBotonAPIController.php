@@ -1,28 +1,28 @@
 <?php
 
-namespace Modules\RegistroEnfermedad\Http\Controllers;
+namespace Modules\Usuario\Http\Controllers;
 
-use Modules\RegistroEnfermedad\Http\Requests\CreateRegistroEnfermedadAPIRequest;
-use Modules\RegistroEnfermedad\Http\Requests\UpdateRegistroEnfermedadAPIRequest;
-use Modules\RegistroEnfermedad\Entities\RegistroEnfermedad;
-use Modules\RegistroEnfermedad\Repositories\RegistroEnfermedadRepository;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Usuario\Http\Requests\CreateRolBotonAPIRequest;
+use Modules\Usuario\Http\Requests\UpdateRolBotonAPIRequest;
+use Modules\Usuario\Entities\RolBoton;
+use Modules\Usuario\Repositories\RolBotonRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+
 
 /**
- * Class RegistroEnfermedadController
- * @package Modules\RegistroEnfermedad\Http\Controllers
+ * Class RolBotonController
+ * @package Modules\Usuario\Http\Controllers
  */
 
-class RegistroEnfermedadAPIController extends AppBaseController
+class RolBotonAPIController extends CommonController
 {
-    /** @var  RegistroEnfermedadRepository */
-    private $registroEnfermedadRepository;
+    /** @var  RolBotonRepository */
+    private $rolBotonRepository;
 
-    public function __construct(RegistroEnfermedadRepository $registroEnfermedadRepo)
+    public function __construct(RolBotonRepository $rolBotonRepo)
     {
-        $this->registroEnfermedadRepository = $registroEnfermedadRepo;
+        $this->rolBotonRepository = $rolBotonRepo;
     }
 
     /**
@@ -30,10 +30,10 @@ class RegistroEnfermedadAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/api/v1/registro_enfermedad/registros_enfermedades",
-     *      summary="Get a listing of the RegistroEnfermedads.",
-     *      tags={"RegistroEnfermedad"},
-     *      description="Get all RegistroEnfermedads",
+     *      path="/api/v1/rol_boton/roles_botones",
+     *      summary="Get a listing of the RolBotons.",
+     *      tags={"RolBoton"},
+     *      description="Get all RolBotons",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -47,7 +47,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/RegistroEnfermedad")
+     *                  @SWG\Items(ref="#/definitions/RolBoton")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -59,31 +59,31 @@ class RegistroEnfermedadAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $registroEnfermedads = $this->registroEnfermedadRepository->all(
+        $rolBotons = $this->rolBotonRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($registroEnfermedads->toArray(), 'Registro Enfermedads retrieved successfully');
+        return $this->sendResponse($rolBotons->toArray(), 'Rol Botons retrieved successfully');
     }
 
     /**
-     * @param CreateRegistroEnfermedadAPIRequest $request
+     * @param CreateRolBotonAPIRequest $request
      * @return Response
      *
      * @SWG\Post(
-     *      path="/api/v1/registro_enfermedad/registros_enfermedades",
-     *      summary="Store a newly created RegistroEnfermedad in storage",
-     *      tags={"RegistroEnfermedad"},
-     *      description="Store RegistroEnfermedad",
+     *      path="/api/v1/rol_boton/roles_botones",
+     *      summary="Store a newly created RolBoton in storage",
+     *      tags={"RolBoton"},
+     *      description="Store RolBoton",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="RegistroEnfermedad that should be stored",
+     *          description="RolBoton that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/RegistroEnfermedad")
+     *          @SWG\Schema(ref="#/definitions/RolBoton")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -96,7 +96,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/RegistroEnfermedad"
+     *                  ref="#/definitions/RolBoton"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -106,13 +106,13 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateRegistroEnfermedadAPIRequest $request)
+    public function store(CreateRolBotonAPIRequest $request)
     {
         $input = $request->all();
 
-        $registroEnfermedad = $this->registroEnfermedadRepository->create($input);
+        $rolBoton = $this->rolBotonRepository->create($input);
 
-        return $this->sendResponse($registroEnfermedad->toArray(), 'Registro Enfermedad saved successfully');
+        return $this->sendResponse($rolBoton->toArray(), 'Rol Boton saved successfully');
     }
 
     /**
@@ -120,14 +120,14 @@ class RegistroEnfermedadAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/api/v1/registro_enfermedad/registros_enfermedades/{id}",
-     *      summary="Display the specified RegistroEnfermedad",
-     *      tags={"RegistroEnfermedad"},
-     *      description="Get RegistroEnfermedad",
+     *      path="/api/v1/rol_boton/roles_botones/{id}",
+     *      summary="Display the specified RolBoton",
+     *      tags={"RolBoton"},
+     *      description="Get RolBoton",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of RegistroEnfermedad",
+     *          description="id of RolBoton",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -143,7 +143,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/RegistroEnfermedad"
+     *                  ref="#/definitions/RolBoton"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -155,30 +155,30 @@ class RegistroEnfermedadAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var RegistroEnfermedad $registroEnfermedad */
-        $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
+        /** @var RolBoton $rolBoton */
+        $rolBoton = $this->rolBotonRepository->find($id);
 
-        if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found');
+        if (empty($rolBoton)) {
+            return $this->sendError('Rol Boton not found');
         }
 
-        return $this->sendResponse($registroEnfermedad->toArray(), 'Registro Enfermedad retrieved successfully');
+        return $this->sendResponse($rolBoton->toArray(), 'Rol Boton retrieved successfully');
     }
 
     /**
      * @param int $id
-     * @param UpdateRegistroEnfermedadAPIRequest $request
+     * @param UpdateRolBotonAPIRequest $request
      * @return Response
      *
      * @SWG\Put(
-     *      path="/api/v1/registro_enfermedad/registros_enfermedades/{id}",
-     *      summary="Update the specified RegistroEnfermedad in storage",
-     *      tags={"RegistroEnfermedad"},
-     *      description="Update RegistroEnfermedad",
+     *      path="/api/v1/rol_boton/roles_botones/{id}",
+     *      summary="Update the specified RolBoton in storage",
+     *      tags={"RolBoton"},
+     *      description="Update RolBoton",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of RegistroEnfermedad",
+     *          description="id of RolBoton",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -186,9 +186,9 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="RegistroEnfermedad that should be updated",
+     *          description="RolBoton that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/RegistroEnfermedad")
+     *          @SWG\Schema(ref="#/definitions/RolBoton")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -201,7 +201,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/RegistroEnfermedad"
+     *                  ref="#/definitions/RolBoton"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -211,20 +211,20 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *      )
      * )
      */
-    public function update($id, UpdateRegistroEnfermedadAPIRequest $request)
+    public function update($id, UpdateRolBotonAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var RegistroEnfermedad $registroEnfermedad */
-        $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
+        /** @var RolBoton $rolBoton */
+        $rolBoton = $this->rolBotonRepository->find($id);
 
-        if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found');
+        if (empty($rolBoton)) {
+            return $this->sendError('Rol Boton not found');
         }
 
-        $registroEnfermedad = $this->registroEnfermedadRepository->update($input, $id);
+        $rolBoton = $this->rolBotonRepository->update($input, $id);
 
-        return $this->sendResponse($registroEnfermedad->toArray(), 'RegistroEnfermedad updated successfully');
+        return $this->sendResponse($rolBoton->toArray(), 'RolBoton updated successfully');
     }
 
     /**
@@ -232,14 +232,14 @@ class RegistroEnfermedadAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/api/v1/registro_enfermedad/registros_enfermedades/{id}",
-     *      summary="Remove the specified RegistroEnfermedad from storage",
-     *      tags={"RegistroEnfermedad"},
-     *      description="Delete RegistroEnfermedad",
+     *      path="/api/v1/rol_boton/roles_botones/{id}",
+     *      summary="Remove the specified RolBoton from storage",
+     *      tags={"RolBoton"},
+     *      description="Delete RolBoton",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of RegistroEnfermedad",
+     *          description="id of RolBoton",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -267,15 +267,15 @@ class RegistroEnfermedadAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var RegistroEnfermedad $registroEnfermedad */
-        $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
+        /** @var RolBoton $rolBoton */
+        $rolBoton = $this->rolBotonRepository->find($id);
 
-        if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found');
+        if (empty($rolBoton)) {
+            return $this->sendError('Rol Boton not found');
         }
 
-        $registroEnfermedad->delete();
+        $rolBoton->delete();
 
-        return $this->sendSuccess('Registro Enfermedad deleted successfully');
+        return $this->sendSuccess('Rol Boton deleted successfully');
     }
 }

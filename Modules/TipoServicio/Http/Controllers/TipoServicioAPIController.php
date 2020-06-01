@@ -30,7 +30,7 @@ class TipoServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/tipoServicios",
+     *      path="/api/v1/tipo_servicio/tipos_servicios",
      *      summary="Get a listing of the TipoServicios.",
      *      tags={"TipoServicio"},
      *      description="Get all TipoServicios",
@@ -73,7 +73,7 @@ class TipoServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/tipoServicios",
+     *      path="/api/v1/tipo_servicio/tipos_servicios",
      *      summary="Store a newly created TipoServicio in storage",
      *      tags={"TipoServicio"},
      *      description="Store TipoServicio",
@@ -120,7 +120,7 @@ class TipoServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/tipoServicios/{id}",
+     *      path="/api/v1/tipo_servicio/tipos_servicios/{id}",
      *      summary="Display the specified TipoServicio",
      *      tags={"TipoServicio"},
      *      description="Get TipoServicio",
@@ -171,7 +171,7 @@ class TipoServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/tipoServicios/{id}",
+     *      path="/api/v1/tipo_servicio/tipos_servicios/{id}",
      *      summary="Update the specified TipoServicio in storage",
      *      tags={"TipoServicio"},
      *      description="Update TipoServicio",
@@ -232,7 +232,7 @@ class TipoServicioAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/tipoServicios/{id}",
+     *      path="/api/v1/tipo_servicio/tipos_servicios/{id}",
      *      summary="Remove the specified TipoServicio from storage",
      *      tags={"TipoServicio"},
      *      description="Delete TipoServicio",

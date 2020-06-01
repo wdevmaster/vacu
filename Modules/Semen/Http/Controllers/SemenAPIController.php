@@ -30,7 +30,7 @@ class SemenAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/semens",
+     *      path="/api/v1/semen/semens",
      *      summary="Get a listing of the Semens.",
      *      tags={"Semen"},
      *      description="Get all Semens",
@@ -73,7 +73,7 @@ class SemenAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/semens",
+     *      path="/api/v1/semen/semens",
      *      summary="Store a newly created Semen in storage",
      *      tags={"Semen"},
      *      description="Store Semen",
@@ -120,7 +120,7 @@ class SemenAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/semens/{id}",
+     *      path="/api/v1/semen/semens/{id}",
      *      summary="Display the specified Semen",
      *      tags={"Semen"},
      *      description="Get Semen",
@@ -171,7 +171,7 @@ class SemenAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/semens/{id}",
+     *      path="/api/v1/semen/semens/{id}",
      *      summary="Update the specified Semen in storage",
      *      tags={"Semen"},
      *      description="Update Semen",
@@ -232,7 +232,7 @@ class SemenAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/semens/{id}",
+     *      path="/api/v1/semen/semens/{id}",
      *      summary="Remove the specified Semen from storage",
      *      tags={"Semen"},
      *      description="Delete Semen",

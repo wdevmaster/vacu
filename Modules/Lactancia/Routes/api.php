@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/lactancia', function (Request $request) {
-    return $request->user();
+
+Route::prefix('v1/lactancia')->middleware('auth:api')->group(function () {
+    Route::prefix('lactancias')->group(function () {
+        Route::get('/', 'LactanciaAPIController@index')->name('lactancia.lactancias.index');
+        Route::post('/', 'LactanciaAPIController@store')->name('lactancia.lactancias.store');
+        Route::put('/{id}', 'LactanciaAPIController@update')->name('lactancia.lactancias.update');
+        Route::delete('/{id}', 'LactanciaAPIController@delete')->name('lactancia.lactancias.delete');
+    });
 });
 
-Route::resource('lactancias', 'LactanciaAPIController');

@@ -13,8 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/ingreso', function (Request $request) {
-    return $request->user();
-});
 
-Route::resource('ingresos', 'IngresoAPIController');
+
+
+Route::prefix('v1/ingreso')->middleware('auth:api')->group(function () {
+    Route::prefix('ingresos')->group(function () {
+        Route::get('/', 'IngresoAPIController@index')->name('ingreso.ingresos.index');
+        Route::post('/', 'IngresoAPIController@store')->name('ingreso.ingresos.store');
+        Route::put('/{id}', 'IngresoAPIController@update')->name('ingreso.ingresos.update');
+        Route::delete('/{id}', 'IngresoAPIController@delete')->name('ingreso.ingresos.delete');
+    });
+});
