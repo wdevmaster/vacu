@@ -45,10 +45,21 @@ Route::prefix('v1/usuario')->middleware('auth:api')->group(function () {
 Route::prefix('v1/role')->middleware('auth:api')->group(function () {
     Route::prefix('/roles')->group(function () {
         Route::get('/', 'RoleAPIController@index')->name('role.roles.index');
+        Route::get('/{id}', 'RoleAPIController@show')->name('role.roles.show');
         Route::post('/', 'RoleAPIController@store')->name('role.roles.store');
         Route::put('/{id}', 'RoleAPIController@update')->name('role.roles.update');
         Route::delete('/{id}', 'RoleAPIController@destroy')->name('role.roles.delete');
         Route::post('/{id}/give/permission', 'RoleAPIController@givePermissionToRole')->name('role.roles.give_permission');
+    });
+});
+
+Route::prefix('v1/permiso')->middleware('auth:api')->group(function () {
+    Route::prefix('/permisos')->group(function () {
+        Route::get('/', 'PermissionAPIController@index')->name('permiso.permisos.index');
+        Route::get('/{id}', 'PermissionAPIController@show')->name('permiso.permisos.show');
+        Route::post('/', 'PermissionAPIController@store')->name('permiso.permisos.store');
+        Route::put('/{id}', 'PermissionAPIController@update')->name('permiso.permisos.update');
+        Route::delete('/{id}', 'PermissionAPIController@destroy')->name('permiso.permisos.delete');
     });
 });
 
