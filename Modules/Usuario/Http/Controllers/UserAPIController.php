@@ -2,20 +2,21 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Entities\User;
 use Modules\Usuario\Http\Requests\CreateUserAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserAPIRequest;
 use Modules\Usuario\Repositories\UserRepository;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class UserController
  * @package Modules\Usuario\Http\Controllers
  */
-class UserAPIController extends AppBaseController
+class UserAPIController extends CommonController
 {
     /** @var  UserRepository */
     private $userRepository;
@@ -258,7 +259,7 @@ class UserAPIController extends AppBaseController
             $paginados = $this->userRepository->filterByNegocioId($filter, $orderBy, $direction, $paginate);
             $results = [];
 
-            foreach ($paginados->items() as $user){
+            foreach ($paginados->items() as $user) {
                 $results [] = $user;
             }
 
@@ -429,6 +430,88 @@ class UserAPIController extends AppBaseController
                 'message' => __('comun::msgs.msg_error_contact_the_administrator'),
                 'success' => false
             ], 500);
+        }
+    }
+
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @SWG\Post(
+     *      path="/api/v1/usuario/usuarios/{id}/assign/role",
+     *      summary="Remove the specified User from storage",
+     *      tags={"User"},
+     *      description="Delete User",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of User",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="User that should be updated",
+     *          required=false,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="role_id",
+     *                  description="Role Id",
+     *                  type="integer"
+     *              ),
+     *
+     *         )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function assignRoleTo($id, Request $request)
+    {
+        try {
+            $input = $request->all();
+            $role_id = $input['role_id'];
+            /**
+             * @var Role $role
+             */
+            $role = Role::find($role_id);
+            if (!$role)
+                return $this->sendError('Role not Found', 404);
+
+            /**
+             * @var User $user
+             */
+            $user = User::find($id);
+
+            if (!$user)
+                return $this->sendError('User not found', 404);
+
+            $user->assignRole($role->name);
+
+            return $this->sendSuccess('Role assigned successfully');
+        } catch (\Exception $e) {
+            return $this->sendError('Error contact the administrator', 500);
         }
     }
 }

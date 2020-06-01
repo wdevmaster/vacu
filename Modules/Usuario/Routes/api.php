@@ -30,6 +30,7 @@ Route::prefix('v1/usuario')->middleware('auth:api')->group(function () {
         Route::post('/', 'UserAPIController@store')->name('usuario.usuarios.store');
         Route::put('/{id}', 'UserAPIController@update')->name('usuario.usuarios.update');
         Route::delete('/{id}', 'UserAPIController@delete')->name('usuario.usuarios.delete');
+        Route::post('/{id}/assign/role', 'UserAPIController@assignRoleTo')->name('usuario.usuarios.assign.role');
     });
 
     Route::prefix('clientes_negocios')->group(function () {
