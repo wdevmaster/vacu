@@ -39,6 +39,17 @@ Route::prefix('v1/usuario')->middleware('auth:api')->group(function () {
         Route::put('/{id}', 'ClienteNegocioAPIController@update')->name('usuario.clientes_negocios.update');
         Route::delete('/{id}', 'ClienteNegocioAPIController@delete')->name('usuario.clientes_negocios.delete');
     });
+
+});
+
+Route::prefix('v1/role')->middleware('auth:api')->group(function () {
+    Route::prefix('/roles')->group(function () {
+        Route::get('/', 'RoleAPIController@index')->name('role.roles.index');
+        Route::post('/', 'RoleAPIController@store')->name('role.roles.store');
+        Route::put('/{id}', 'RoleAPIController@update')->name('role.roles.update');
+        Route::delete('/{id}', 'RoleAPIController@destroy')->name('role.roles.delete');
+        Route::post('/{id}/give/permission', 'RoleAPIController@givePermissionToRole')->name('role.roles.give_permission');
+    });
 });
 
 
