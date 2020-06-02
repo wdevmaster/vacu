@@ -10,8 +10,9 @@
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Modules\Usuario\Entities\User;
+use Illuminate\Database\Seeder;
 
-class PermissionsTableSeeder
+class PermissionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,21 +25,19 @@ class PermissionsTableSeeder
         //Permission list
         Permission::create(['name' => 'negocios.index']);
         Permission::create(['name' => 'negocios.edit']);
-        Permission::create(['name' => 'negocios.show']);
         Permission::create(['name' => 'negocios.create']);
         Permission::create(['name' => 'negocios.destroy']);
 
 
         Permission::create(['name' => 'usuarios.index']);
         Permission::create(['name' => 'usuarios.edit']);
-        Permission::create(['name' => 'usuarios.show']);
         Permission::create(['name' => 'usuarios.create']);
         Permission::create(['name' => 'usuarios.destroy']);
 
 
 
         //Admin
-        $admin = Role::create(['name' => 'Admin']);
+        $admin = Role::create(['name' => 'SuperAdmin']);
 
 //        $admin->givePermissionTo([
 //            'products.index',
@@ -50,12 +49,9 @@ class PermissionsTableSeeder
         //$admin->givePermissionTo('products.index');
         $admin->givePermissionTo(Permission::all());
 
-        //Guest
-        $guest = Role::create(['name' => 'Client']);
-
 
         //User Admin
         $user = User::where('email', 'admin@admin.com')->first();
-        $user->assignRole('Admin');
+        $user->assignRole('SuperAdmin');
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Modules\Sincronizacion\Database\Seeders\SincronizacionDatabaseSeeder;
 use Modules\Usuario\Database\Seeders\UsuarioDatabaseSeeder;
 
@@ -25,6 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(\Modules\Negocio\Database\Seeders\NegocioDatabaseSeeder::class);
         $this->call(UsuarioDatabaseSeeder::class);
         $this->call(SincronizacionDatabaseSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+
+        Artisan::call('passport:install');
 
     }
 }
