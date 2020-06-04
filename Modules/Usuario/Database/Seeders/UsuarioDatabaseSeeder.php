@@ -24,6 +24,12 @@ class UsuarioDatabaseSeeder extends Seeder
             'password' =>  Hash::make('777crew')
         ]);
 
+        $apkUserTest = User::create([
+            'name' => 'apk',
+            'email' => 'apk@test.com',
+            'password' =>  Hash::make('apktest123')
+        ]);
+
         $users = factory(User::class, 11)->create();
     }
 }
