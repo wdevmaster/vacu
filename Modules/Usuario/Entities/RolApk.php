@@ -72,5 +72,7 @@ class RolApk extends Model
         'descripcion' => 'required'
     ];
 
-    
+    public function rol_apk_rol_boton(){
+        $this->hasMany(RolApkRolBoton::class);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Modules\Usuario\Entities;
 
-use Eloquent as Model;
+use App\Models\Eloquent as Model;
 
 /**
  * @SWG\Definition(
@@ -72,5 +72,8 @@ class RolBoton extends Model
         'descripcion' => 'required'
     ];
 
+    public function rol_apk_rol_boton(){
+        $this->hasMany(RolApkRolBoton::class);
+    }
     
 }

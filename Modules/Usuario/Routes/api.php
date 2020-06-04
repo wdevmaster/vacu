@@ -76,3 +76,6 @@ Route::prefix('v1/rol_boton')->middleware('auth:api')->group(function () {
     });
 });
 
+
+
+Route::resource('rol_apk_rol_botons', 'RolApkRolBotonAPIController');
