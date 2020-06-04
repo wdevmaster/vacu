@@ -99,4 +99,13 @@ class User extends Authenticatable
         'finca_id' => 'required'
     ];
 
+    public function usuario_api()
+    {
+        $this->hasOne(UserApi::class);
+    }
+
+    public function usuario_apk()
+    {
+        $this->hasOne(UserApk::class);
+    }
 }
