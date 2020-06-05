@@ -75,4 +75,8 @@ class RolApk extends Model
     public function rol_apk_rol_boton(){
         $this->hasMany(RolApkRolBoton::class);
     }
+
+    public function user_apk(){
+        $this->hasMany(UserApk::class);
+    }
 }

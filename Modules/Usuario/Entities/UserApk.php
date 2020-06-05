@@ -37,7 +37,8 @@ class UserApk extends Model
 
 
     public $fillable = [
-        'user_id'=> 'integer'
+        'user_id'=> 'integer',
+        'rol_apk__id'=> 'integer'
     ];
 
     /**
@@ -47,7 +48,8 @@ class UserApk extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'user_id'=> 'integer'
+        'user_id'=> 'integer',
+         'rol_apk__id'=> 'integer'
     ];
 
     /**
@@ -56,10 +58,15 @@ class UserApk extends Model
      * @var array
      */
     public static $rules = [
-        'user_id'=> 'required'
+        'user_id'=> 'required',
+         'rol_apk__id'=> 'required'
     ];
 
     public function user(){
         $this->belongsTo(User::class);
+    }
+
+    public function rol_apk(){
+        $this->hasOne(RolApk::class);
     }
 }
