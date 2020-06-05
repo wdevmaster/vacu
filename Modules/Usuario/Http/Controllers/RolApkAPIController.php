@@ -30,7 +30,7 @@ class RolApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/rolApks",
+     *      path="/api/v1/rol_apk/roles_apks",
      *      summary="Get a listing of the RolApks.",
      *      tags={"RolApk"},
      *      description="Get all RolApks",
@@ -73,7 +73,7 @@ class RolApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/rolApks",
+     *      path="/api/v1/rol_apk/roles_apks",
      *      summary="Store a newly created RolApk in storage",
      *      tags={"RolApk"},
      *      description="Store RolApk",
@@ -120,7 +120,7 @@ class RolApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/rolApks/{id}",
+     *      path="/api/v1/rol_apk/roles_apks/{id}",
      *      summary="Display the specified RolApk",
      *      tags={"RolApk"},
      *      description="Get RolApk",
@@ -171,7 +171,7 @@ class RolApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/rolApks/{id}",
+     *      path="/api/v1/rol_apk/roles_apks/{id}",
      *      summary="Update the specified RolApk in storage",
      *      tags={"RolApk"},
      *      description="Update RolApk",
@@ -232,7 +232,7 @@ class RolApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/rolApks/{id}",
+     *      path="/api/v1/rol_apk/roles_apks/{id}",
      *      summary="Remove the specified RolApk from storage",
      *      tags={"RolApk"},
      *      description="Delete RolApk",

@@ -30,7 +30,7 @@ class UserApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/userApks",
+     *      path="/api/v1/user_apk/users_apks",
      *      summary="Get a listing of the UserApks.",
      *      tags={"UserApk"},
      *      description="Get all UserApks",
@@ -73,7 +73,7 @@ class UserApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/userApks",
+     *      path="/api/v1/user_apk/users_apks",
      *      summary="Store a newly created UserApk in storage",
      *      tags={"UserApk"},
      *      description="Store UserApk",
@@ -120,7 +120,7 @@ class UserApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/userApks/{id}",
+     *      path="/api/v1/user_apk/users_apks/{id}",
      *      summary="Display the specified UserApk",
      *      tags={"UserApk"},
      *      description="Get UserApk",
@@ -171,7 +171,7 @@ class UserApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/userApks/{id}",
+     *      path="/api/v1/user_apk/users_apks/{id}",
      *      summary="Update the specified UserApk in storage",
      *      tags={"UserApk"},
      *      description="Update UserApk",
@@ -232,7 +232,7 @@ class UserApkAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/userApks/{id}",
+     *      path="/api/v1/user_apk/users_apks/{id}",
      *      summary="Remove the specified UserApk from storage",
      *      tags={"UserApk"},
      *      description="Delete UserApk",

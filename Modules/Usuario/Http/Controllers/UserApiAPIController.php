@@ -30,7 +30,7 @@ class UserApiAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/userApis",
+     *      path="/api/v1/user_api/users_apis",
      *      summary="Get a listing of the UserApis.",
      *      tags={"UserApi"},
      *      description="Get all UserApis",
@@ -73,7 +73,7 @@ class UserApiAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/userApis",
+     *      path="/api/v1/user_api/users_apis",
      *      summary="Store a newly created UserApi in storage",
      *      tags={"UserApi"},
      *      description="Store UserApi",
@@ -120,7 +120,7 @@ class UserApiAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/userApis/{id}",
+     *      path="/api/v1/user_api/users_apis/{id}",
      *      summary="Display the specified UserApi",
      *      tags={"UserApi"},
      *      description="Get UserApi",
@@ -171,7 +171,7 @@ class UserApiAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/userApis/{id}",
+     *      path="/api/v1/user_api/users_apis/{id}",
      *      summary="Update the specified UserApi in storage",
      *      tags={"UserApi"},
      *      description="Update UserApi",
@@ -232,7 +232,7 @@ class UserApiAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/userApis/{id}",
+     *      path="/api/v1/user_api/users_apis/{id}",
      *      summary="Remove the specified UserApi from storage",
      *      tags={"UserApi"},
      *      description="Delete UserApi",

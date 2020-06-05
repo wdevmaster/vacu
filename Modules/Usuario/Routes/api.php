@@ -77,5 +77,42 @@ Route::prefix('v1/rol_boton')->middleware('auth:api')->group(function () {
 });
 
 
+Route::prefix('v1/rol_apk_rol_boton')->middleware('auth:api')->group(function () {
+    Route::prefix('roles_apks_roles_botones')->group(function () {
+        Route::get('/', 'RolApkRolBotonAPIController@index')->name('rol_apk_rol_boton.roles_apks_roles_botones.index');
+        Route::post('/', 'RolApkRolBotonAPIController@store')->name('rol_apk_rol_boton.roles_apks_roles_botones.store');
+        Route::put('/{id}', 'RolApkRolBotonAPIController@update')->name('rol_apk_rol_boton.roles_apks_roles_botones.update');
+        Route::delete('/{id}', 'RolApkRolBotonAPIController@delete')->name('rol_apk_rol_boton.roles_apks_roles_botones.delete');
+    });
+});
 
-Route::resource('rol_apk_rol_botons', 'RolApkRolBotonAPIController');
+
+Route::prefix('v1/rol_apk')->middleware('auth:api')->group(function () {
+    Route::prefix('roles_apks')->group(function () {
+        Route::get('/', 'RolApkAPIController@index')->name('rol_apk.roles_apks.index');
+        Route::post('/', 'RolApkAPIController@store')->name('rol_apk.roles_apks.store');
+        Route::put('/{id}', 'RolApkAPIController@update')->name('rol_apk.roles_apks.update');
+        Route::delete('/{id}', 'RolApkAPIController@delete')->name('rol_apk.roles_apks.delete');
+    });
+});
+
+
+Route::prefix('v1/user_api')->middleware('auth:api')->group(function () {
+    Route::prefix('users_apis')->group(function () {
+        Route::get('/', 'UserApiAPIController@index')->name('user_api.users_apis.index');
+        Route::post('/', 'UserApiAPIController@store')->name('user_api.users_apis.store');
+        Route::put('/{id}', 'UserApiAPIController@update')->name('user_api.users_apis.update');
+        Route::delete('/{id}', 'UserApiAPIController@delete')->name('user_api.users_apis.delete');
+    });
+});
+
+
+
+Route::prefix('v1/user_apk')->middleware('auth:api')->group(function () {
+    Route::prefix('users_apks')->group(function () {
+        Route::get('/', 'UserApiAPIController@index')->name('user_apk.users_apks.index');
+        Route::post('/', 'UserApiAPIController@store')->name('user_apk.users_apks.store');
+        Route::put('/{id}', 'UserApiAPIController@update')->name('user_apk.users_apks.update');
+        Route::delete('/{id}', 'UserApiAPIController@delete')->name('user_apk.users_apks.delete');
+    });
+});

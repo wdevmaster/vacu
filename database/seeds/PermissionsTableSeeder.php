@@ -150,6 +150,26 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'ventas.create']);
         Permission::create(['name' => 'ventas.destroy']);
 
+        Permission::create(['name' => 'users_apks.index']);
+        Permission::create(['name' => 'users_apks.edit']);
+        Permission::create(['name' => 'users_apks.create']);
+        Permission::create(['name' => 'users_apks.destroy']);
+
+        Permission::create(['name' => 'users_apis.index']);
+        Permission::create(['name' => 'users_apis.edit']);
+        Permission::create(['name' => 'users_apis.create']);
+        Permission::create(['name' => 'users_apis.destroy']);
+
+        Permission::create(['name' => 'roles_apks.index']);
+        Permission::create(['name' => 'roles_apks.edit']);
+        Permission::create(['name' => 'roles_apks.create']);
+        Permission::create(['name' => 'roles_apks.destroy']);
+
+        Permission::create(['name' => 'roles_apks_roles_botones.index']);
+        Permission::create(['name' => 'roles_apks_roles_botones.edit']);
+        Permission::create(['name' => 'roles_apks_roles_botones.create']);
+        Permission::create(['name' => 'roles_apks_roles_botones.destroy']);
+
         //Admin
         $admin = Role::create(['name' => 'SuperAdmin']);
 

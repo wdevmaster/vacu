@@ -30,7 +30,7 @@ class RolApkRolBotonAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/rolApkRolBotons",
+     *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones",
      *      summary="Get a listing of the RolApkRolBotons.",
      *      tags={"RolApkRolBoton"},
      *      description="Get all RolApkRolBotons",
@@ -73,7 +73,7 @@ class RolApkRolBotonAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/rolApkRolBotons",
+     *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones",
      *      summary="Store a newly created RolApkRolBoton in storage",
      *      tags={"RolApkRolBoton"},
      *      description="Store RolApkRolBoton",
@@ -120,7 +120,7 @@ class RolApkRolBotonAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/rolApkRolBotons/{id}",
+     *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}",
      *      summary="Display the specified RolApkRolBoton",
      *      tags={"RolApkRolBoton"},
      *      description="Get RolApkRolBoton",
@@ -171,7 +171,7 @@ class RolApkRolBotonAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Put(
-     *      path="/rolApkRolBotons/{id}",
+     *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}",
      *      summary="Update the specified RolApkRolBoton in storage",
      *      tags={"RolApkRolBoton"},
      *      description="Update RolApkRolBoton",
@@ -232,7 +232,7 @@ class RolApkRolBotonAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/rolApkRolBotons/{id}",
+     *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}",
      *      summary="Remove the specified RolApkRolBoton from storage",
      *      tags={"RolApkRolBoton"},
      *      description="Delete RolApkRolBoton",
