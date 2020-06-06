@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 
 
-Route::prefix('v1/sincronizacion')->group(function(){
+Route::prefix('v1/sincronizacion')->middleware('auth:api')->group(function(){
 
     Route::prefix('sincronizaciones')->group(function () {
         Route::post('/', 'SyncronizacionAPIController@store')->name('configuracion.store');

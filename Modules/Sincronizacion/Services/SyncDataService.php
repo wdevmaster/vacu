@@ -9,6 +9,7 @@
 namespace Modules\Sincronizacion\Services;
 
 
+use Illuminate\Support\Facades\Auth;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
 use Modules\Common\Resolvers\BaseResolver;
@@ -200,8 +201,8 @@ class SyncDataService implements SyncDataServiceInterface
     public function executeService(): array
     {
 
-        //TODO:Validaar aca que sean solo las del user logueadas.
-        $sincronizaciones = $this->syncronizacionRepository->all();
+        $user = Auth::user();
+        $sincronizaciones = $this->syncronizacionRepository->all()->where('user_id', '=', $user->id);
         $results = array();
 
         if ($sincronizaciones) {
