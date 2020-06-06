@@ -26,7 +26,7 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
     public function handle($user_code, $tabla)
     {
         try {
-            $last_code = DB::select('select '.$tabla.'.code');
+//            $last_code = DB::select('select '.$tabla.'.code');
             $generate_code = random_int(1,1000);//TODO logica para generar el nuevo codigo
             /**
              * @var Traductor $traduccion
