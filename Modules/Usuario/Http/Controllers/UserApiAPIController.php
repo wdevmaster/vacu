@@ -9,7 +9,7 @@ use Modules\Usuario\Http\Requests\UpdateUserApiAPIRequest;
 use Modules\Usuario\Entities\UserApi;
 use Modules\Usuario\Repositories\UserApiRepository;
 use Illuminate\Http\Request;
-
+use Modules\Usuario\Repositories\UserRepository;
 
 
 /**
@@ -22,9 +22,13 @@ class UserApiAPIController extends CommonController
     /** @var  UserApiRepository */
     private $userApiRepository;
 
-    public function __construct(UserApiRepository $userApiRepo)
+    /** @var  UserRepository */
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepo,UserApiRepository $userApiRepo)
     {
         $this->userApiRepository = $userApiRepo;
+        $this->userRepository = $userRepo;
     }
 
     /**
@@ -83,9 +87,9 @@ class UserApiAPIController extends CommonController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="UserApi that should be stored",
+     *          description="User that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/UserApi")
+     *          @SWG\Schema(ref="#/definitions/User")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -111,8 +115,10 @@ class UserApiAPIController extends CommonController
     public function store(CreateUserApiAPIRequest $request)
     {
         $input = $request->all();
-
-        $userApi = $this->userApiRepository->create($input);
+        $user = $this->userRepository->create($input);
+        $user_id=$user->id;
+        $data=['user_id'=>$user_id];
+        $userApi = $this->userApiRepository->create($data);
 
         return $this->sendResponse($userApi->toArray(), 'User Api saved successfully');
     }

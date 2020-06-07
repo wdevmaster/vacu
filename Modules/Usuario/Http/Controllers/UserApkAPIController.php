@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateUserApkAPIRequest;
@@ -9,6 +10,7 @@ use Modules\Usuario\Http\Requests\UpdateUserApkAPIRequest;
 use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Repositories\UserApkRepository;
 use Illuminate\Http\Request;
+use Modules\Usuario\Repositories\UserRepository;
 
 /**
  * Class UserApkController
@@ -20,9 +22,15 @@ class UserApkAPIController extends CommonController
     /** @var  UserApkRepository */
     private $userApkRepository;
 
-    public function __construct(UserApkRepository $userApkRepo)
+    /** @var  UserRepository */
+    private $userRepository;
+
+
+
+    public function __construct(UserRepository $userRepo ,UserApkRepository $userApkRepo)
     {
         $this->userApkRepository = $userApkRepo;
+        $this->userRepository = $userRepo;
     }
 
     /**
@@ -81,9 +89,9 @@ class UserApkAPIController extends CommonController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="UserApk that should be stored",
+     *          description="User that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/UserApk")
+     *          @SWG\Schema(ref="#/definitions/User")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -109,9 +117,10 @@ class UserApkAPIController extends CommonController
     public function store(CreateUserApkAPIRequest $request)
     {
         $input = $request->all();
-
-        $userApk = $this->userApkRepository->create($input);
-
+        $user = $this->userRepository->create($input);
+        $user_id = $user->id;
+        $data = ['user_id'=>$user_id];
+        $userApk = $this->userApkRepository->create($data);
         return $this->sendResponse($userApk->toArray(), 'User Apk saved successfully');
     }
 
