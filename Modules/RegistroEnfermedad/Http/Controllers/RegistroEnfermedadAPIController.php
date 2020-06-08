@@ -2,20 +2,20 @@
 
 namespace Modules\RegistroEnfermedad\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\RegistroEnfermedad\Entities\RegistroEnfermedad;
 use Modules\RegistroEnfermedad\Http\Requests\CreateRegistroEnfermedadAPIRequest;
 use Modules\RegistroEnfermedad\Http\Requests\UpdateRegistroEnfermedadAPIRequest;
-use Modules\RegistroEnfermedad\Entities\RegistroEnfermedad;
 use Modules\RegistroEnfermedad\Repositories\RegistroEnfermedadRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+
 
 /**
  * Class RegistroEnfermedadController
  * @package Modules\RegistroEnfermedad\Http\Controllers
  */
-
-class RegistroEnfermedadAPIController extends AppBaseController
+class RegistroEnfermedadAPIController extends CommonController
 {
     /** @var  RegistroEnfermedadRepository */
     private $registroEnfermedadRepository;
@@ -27,7 +27,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/registro_enfermedad/registros_enfermedades",
@@ -35,6 +35,19 @@ class RegistroEnfermedadAPIController extends AppBaseController
      *      tags={"RegistroEnfermedad"},
      *      description="Get all RegistroEnfermedads",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,24 @@ class RegistroEnfermedadAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $registroEnfermedads = $this->registroEnfermedadRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $registroEnfermedads = $this->registroEnfermedadRepository->paginate($paginate);
+        } else {
+            $registroEnfermedads = $this->registroEnfermedadRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($registroEnfermedads->toArray(), 'Registro Enfermedads retrieved successfully');
     }
 
     /**
      * @param CreateRegistroEnfermedadAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/registro_enfermedad/registros_enfermedades",
@@ -117,7 +136,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/registro_enfermedad/registros_enfermedades/{id}",
@@ -159,7 +178,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
         $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
 
         if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found');
+            return $this->sendError('Registro Enfermedad not found', 404);
         }
 
         return $this->sendResponse($registroEnfermedad->toArray(), 'Registro Enfermedad retrieved successfully');
@@ -168,7 +187,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateRegistroEnfermedadAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/registro_enfermedad/registros_enfermedades/{id}",
@@ -219,7 +238,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
         $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
 
         if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found');
+            return $this->sendError('Registro Enfermedad not found', 404);
         }
 
         $registroEnfermedad = $this->registroEnfermedadRepository->update($input, $id);
@@ -229,8 +248,9 @@ class RegistroEnfermedadAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/registro_enfermedad/registros_enfermedades/{id}",
      *      summary="Remove the specified RegistroEnfermedad from storage",
@@ -271,7 +291,7 @@ class RegistroEnfermedadAPIController extends AppBaseController
         $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
 
         if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found');
+            return $this->sendError('Registro Enfermedad not found', 404);
         }
 
         $registroEnfermedad->delete();

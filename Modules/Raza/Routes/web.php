@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('raza')->group(function() {
-    Route::get('/', 'RazaController@index');
-});
+

@@ -3,18 +3,17 @@
 namespace Modules\Venta\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Venta\Entities\Venta;
 use Modules\Venta\Http\Requests\CreateVentaAPIRequest;
 use Modules\Venta\Http\Requests\UpdateVentaAPIRequest;
-use Modules\Venta\Entities\Venta;
 use Modules\Venta\Repositories\VentaRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class VentaController
  * @package Modules\Venta\Http\Controllers
  */
-
 class VentaAPIController extends CommonController
 {
     /** @var  VentaRepository */
@@ -35,6 +34,19 @@ class VentaAPIController extends CommonController
      *      tags={"Venta"},
      *      description="Get all Ventas",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,11 +71,18 @@ class VentaAPIController extends CommonController
      */
     public function index(Request $request)
     {
-        $ventas = $this->ventaRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $ventas = $this->ventaRepository->paginate($paginate);
+        } else {
+            $ventas = $this->ventaRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($ventas->toArray(), 'Ventas retrieved successfully');
     }

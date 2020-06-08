@@ -2,20 +2,20 @@
 
 namespace Modules\Inseminador\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Inseminador\Entities\Inseminador;
 use Modules\Inseminador\Http\Requests\CreateInseminadorAPIRequest;
 use Modules\Inseminador\Http\Requests\UpdateInseminadorAPIRequest;
-use Modules\Inseminador\Entities\Inseminador;
 use Modules\Inseminador\Repositories\InseminadorRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+
 
 /**
  * Class InseminadorController
  * @package Modules\Inseminador\Http\Controllers
  */
-
-class InseminadorAPIController extends AppBaseController
+class InseminadorAPIController extends CommonController
 {
     /** @var  InseminadorRepository */
     private $inseminadorRepository;
@@ -27,7 +27,7 @@ class InseminadorAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/inseminador/inseminadores",
@@ -35,6 +35,19 @@ class InseminadorAPIController extends AppBaseController
      *      tags={"Inseminador"},
      *      description="Get all Inseminadors",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,24 @@ class InseminadorAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $inseminadors = $this->inseminadorRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $inseminadors = $this->inseminadorRepository->paginate($paginate);
+        } else {
+            $inseminadors = $this->inseminadorRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($inseminadors->toArray(), 'Inseminadors retrieved successfully');
     }
 
     /**
      * @param CreateInseminadorAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/inseminador/inseminadores",
@@ -117,7 +136,7 @@ class InseminadorAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/inseminador/inseminadores/{id}",
@@ -159,7 +178,7 @@ class InseminadorAPIController extends AppBaseController
         $inseminador = $this->inseminadorRepository->find($id);
 
         if (empty($inseminador)) {
-            return $this->sendError('Inseminador not found');
+            return $this->sendError('Inseminador not found', 404);
         }
 
         return $this->sendResponse($inseminador->toArray(), 'Inseminador retrieved successfully');
@@ -168,7 +187,7 @@ class InseminadorAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateInseminadorAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/inseminador/inseminadores/{id}",
@@ -219,7 +238,7 @@ class InseminadorAPIController extends AppBaseController
         $inseminador = $this->inseminadorRepository->find($id);
 
         if (empty($inseminador)) {
-            return $this->sendError('Inseminador not found');
+            return $this->sendError('Inseminador not found', 404);
         }
 
         $inseminador = $this->inseminadorRepository->update($input, $id);
@@ -229,8 +248,9 @@ class InseminadorAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/inseminador/inseminadores/{id}",
      *      summary="Remove the specified Inseminador from storage",
@@ -271,7 +291,7 @@ class InseminadorAPIController extends AppBaseController
         $inseminador = $this->inseminadorRepository->find($id);
 
         if (empty($inseminador)) {
-            return $this->sendError('Inseminador not found');
+            return $this->sendError('Inseminador not found', 404);
         }
 
         $inseminador->delete();

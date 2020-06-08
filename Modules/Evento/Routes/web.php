@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('evento')->group(function() {
-    Route::get('/', 'EventoController@index');
-});
+

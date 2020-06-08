@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('registroenfermedad')->group(function() {
-    Route::get('/', 'RegistroEnfermedadController@index');
-});
+

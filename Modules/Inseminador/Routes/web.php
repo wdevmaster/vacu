@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('inseminador')->group(function() {
-    Route::get('/', 'InseminadorController@index');
-});

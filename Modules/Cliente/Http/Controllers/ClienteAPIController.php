@@ -36,9 +36,10 @@ class ClienteAPIController extends CommonController
      *      description="Get all Clientes",
      *      produces={"application/json"},
      *     @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="ClienteNegocio that should be stored",
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
      *          required=false,
      *          @SWG\Schema(
      *               @SWG\Property(
@@ -73,7 +74,7 @@ class ClienteAPIController extends CommonController
     {
         try {
 
-            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+            $paginate = isset($request->paginado) ? $request->paginado : null;
 
             if ($paginate) {
                 $clientes = $this->clienteRepository->paginate($paginate);

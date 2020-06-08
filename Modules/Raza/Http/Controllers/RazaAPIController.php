@@ -2,20 +2,20 @@
 
 namespace Modules\Raza\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Raza\Http\Requests\CreateRazaAPIRequest;
 use Modules\Raza\Http\Requests\UpdateRazaAPIRequest;
 use Modules\Raza\Entities\Raza;
 use Modules\Raza\Repositories\RazaRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class RazaController
  * @package Modules\Raza\Http\Controllers
  */
 
-class RazaAPIController extends AppBaseController
+class RazaAPIController extends CommonController
 {
     /** @var  RazaRepository */
     private $razaRepository;
@@ -27,7 +27,7 @@ class RazaAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/raza/razas",
@@ -35,6 +35,19 @@ class RazaAPIController extends AppBaseController
      *      tags={"Raza"},
      *      description="Get all Razas",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,25 @@ class RazaAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $razas = $this->razaRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $razas = $this->razaRepository->paginate($paginate);
+        } else {
+            $razas = $this->razaRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($razas->toArray(), 'Razas retrieved successfully');
     }
 
     /**
      * @param CreateRazaAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/raza/razas",
@@ -117,7 +137,7 @@ class RazaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/raza/razas/{id}",
@@ -159,7 +179,7 @@ class RazaAPIController extends AppBaseController
         $raza = $this->razaRepository->find($id);
 
         if (empty($raza)) {
-            return $this->sendError('Raza not found');
+            return $this->sendError('Raza not found', 404);
         }
 
         return $this->sendResponse($raza->toArray(), 'Raza retrieved successfully');
@@ -168,7 +188,7 @@ class RazaAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateRazaAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/raza/razas/{id}",
@@ -219,7 +239,7 @@ class RazaAPIController extends AppBaseController
         $raza = $this->razaRepository->find($id);
 
         if (empty($raza)) {
-            return $this->sendError('Raza not found');
+            return $this->sendError('Raza not found', 404);
         }
 
         $raza = $this->razaRepository->update($input, $id);
@@ -229,8 +249,9 @@ class RazaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/raza/razas/{id}",
      *      summary="Remove the specified Raza from storage",
@@ -271,7 +292,7 @@ class RazaAPIController extends AppBaseController
         $raza = $this->razaRepository->find($id);
 
         if (empty($raza)) {
-            return $this->sendError('Raza not found');
+            return $this->sendError('Raza not found', 404);
         }
 
         $raza->delete();

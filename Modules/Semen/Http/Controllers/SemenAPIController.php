@@ -2,20 +2,20 @@
 
 namespace Modules\Semen\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Semen\Entities\Semen;
 use Modules\Semen\Http\Requests\CreateSemenAPIRequest;
 use Modules\Semen\Http\Requests\UpdateSemenAPIRequest;
-use Modules\Semen\Entities\Semen;
 use Modules\Semen\Repositories\SemenRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+
 
 /**
  * Class SemenController
  * @package Modules\Semen\Http\Controllers
  */
-
-class SemenAPIController extends AppBaseController
+class SemenAPIController extends CommonController
 {
     /** @var  SemenRepository */
     private $semenRepository;
@@ -27,7 +27,7 @@ class SemenAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/semen/semens",
@@ -35,6 +35,19 @@ class SemenAPIController extends AppBaseController
      *      tags={"Semen"},
      *      description="Get all Semens",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,24 @@ class SemenAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $semens = $this->semenRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $semens = $this->semenRepository->paginate($paginate);
+        } else {
+            $semens = $this->semenRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($semens->toArray(), 'Semens retrieved successfully');
     }
 
     /**
      * @param CreateSemenAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/semen/semens",
@@ -117,7 +136,7 @@ class SemenAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/semen/semens/{id}",
@@ -159,7 +178,7 @@ class SemenAPIController extends AppBaseController
         $semen = $this->semenRepository->find($id);
 
         if (empty($semen)) {
-            return $this->sendError('Semen not found');
+            return $this->sendError('Semen not found', 404);
         }
 
         return $this->sendResponse($semen->toArray(), 'Semen retrieved successfully');
@@ -168,7 +187,7 @@ class SemenAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateSemenAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/semen/semens/{id}",
@@ -219,7 +238,7 @@ class SemenAPIController extends AppBaseController
         $semen = $this->semenRepository->find($id);
 
         if (empty($semen)) {
-            return $this->sendError('Semen not found');
+            return $this->sendError('Semen not found', 404);
         }
 
         $semen = $this->semenRepository->update($input, $id);
@@ -229,8 +248,9 @@ class SemenAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/semen/semens/{id}",
      *      summary="Remove the specified Semen from storage",
@@ -271,7 +291,7 @@ class SemenAPIController extends AppBaseController
         $semen = $this->semenRepository->find($id);
 
         if (empty($semen)) {
-            return $this->sendError('Semen not found');
+            return $this->sendError('Semen not found', 404);
         }
 
         $semen->delete();

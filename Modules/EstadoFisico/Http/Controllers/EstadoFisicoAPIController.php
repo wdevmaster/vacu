@@ -35,9 +35,10 @@ class EstadoFisicoAPIController extends CommonController
      *      description="Get all EstadoFisicos",
      *      produces={"application/json"},
      *     @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="ClienteNegocio that should be stored",
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
      *          required=false,
      *          @SWG\Schema(
      *               @SWG\Property(
@@ -71,7 +72,7 @@ class EstadoFisicoAPIController extends CommonController
     public function index(Request $request)
     {
 
-        $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+        $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $estadoFisicos = $this->estadoFisicoRepository->paginate($paginate);
         } else {

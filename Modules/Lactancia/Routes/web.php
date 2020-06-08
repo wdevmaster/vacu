@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('lactancia')->group(function() {
-    Route::get('/', 'LactanciaController@index');
-});
+

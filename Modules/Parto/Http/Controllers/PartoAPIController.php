@@ -2,20 +2,19 @@
 
 namespace Modules\Parto\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Parto\Entities\Parto;
 use Modules\Parto\Http\Requests\CreatePartoAPIRequest;
 use Modules\Parto\Http\Requests\UpdatePartoAPIRequest;
-use Modules\Parto\Entities\Parto;
 use Modules\Parto\Repositories\PartoRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class PartoController
  * @package Modules\Parto\Http\Controllers
  */
-
-class PartoAPIController extends AppBaseController
+class PartoAPIController extends CommonController
 {
     /** @var  PartoRepository */
     private $partoRepository;
@@ -27,7 +26,7 @@ class PartoAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/parto/partos",
@@ -35,6 +34,19 @@ class PartoAPIController extends AppBaseController
      *      tags={"Parto"},
      *      description="Get all Partos",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +71,25 @@ class PartoAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $partos = $this->partoRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $partos = $this->partoRepository->paginate($paginate);
+        } else {
+            $partos = $this->partoRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($partos->toArray(), 'Partos retrieved successfully');
     }
 
     /**
      * @param CreatePartoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/parto/partos",
@@ -117,7 +136,7 @@ class PartoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/parto/partos/{id}",
@@ -159,7 +178,7 @@ class PartoAPIController extends AppBaseController
         $parto = $this->partoRepository->find($id);
 
         if (empty($parto)) {
-            return $this->sendError('Parto not found');
+            return $this->sendError('Parto not found', 404);
         }
 
         return $this->sendResponse($parto->toArray(), 'Parto retrieved successfully');
@@ -168,7 +187,7 @@ class PartoAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdatePartoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/parto/partos/{id}",
@@ -219,7 +238,7 @@ class PartoAPIController extends AppBaseController
         $parto = $this->partoRepository->find($id);
 
         if (empty($parto)) {
-            return $this->sendError('Parto not found');
+            return $this->sendError('Parto not found', 404);
         }
 
         $parto = $this->partoRepository->update($input, $id);
@@ -229,8 +248,9 @@ class PartoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/parto/partos/{id}",
      *      summary="Remove the specified Parto from storage",
@@ -271,7 +291,7 @@ class PartoAPIController extends AppBaseController
         $parto = $this->partoRepository->find($id);
 
         if (empty($parto)) {
-            return $this->sendError('Parto not found');
+            return $this->sendError('Parto not found', 404);
         }
 
         $parto->delete();

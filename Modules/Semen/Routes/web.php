@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('semen')->group(function() {
-    Route::get('/', 'SemenController@index');
-});

@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('locomocion')->group(function() {
-    Route::get('/', 'LocomocionController@index');
-});
+

@@ -2,20 +2,19 @@
 
 namespace Modules\Produccion\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Produccion\Entities\Produccion;
 use Modules\Produccion\Http\Requests\CreateProduccionAPIRequest;
 use Modules\Produccion\Http\Requests\UpdateProduccionAPIRequest;
-use Modules\Produccion\Entities\Produccion;
 use Modules\Produccion\Repositories\ProduccionRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class ProduccionController
  * @package Modules\Produccion\Http\Controllers
  */
-
-class ProduccionAPIController extends AppBaseController
+class ProduccionAPIController extends CommonController
 {
     /** @var  ProduccionRepository */
     private $produccionRepository;
@@ -27,7 +26,7 @@ class ProduccionAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/produccion/producciones",
@@ -35,6 +34,19 @@ class ProduccionAPIController extends AppBaseController
      *      tags={"Produccion"},
      *      description="Get all Produccions",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +71,25 @@ class ProduccionAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $produccions = $this->produccionRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $produccions = $this->produccionRepository->paginate($paginate);
+        } else {
+            $produccions = $this->produccionRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($produccions->toArray(), 'Produccions retrieved successfully');
     }
 
     /**
      * @param CreateProduccionAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/produccion/producciones",
@@ -117,7 +136,7 @@ class ProduccionAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/produccion/producciones/{id}",
@@ -159,7 +178,7 @@ class ProduccionAPIController extends AppBaseController
         $produccion = $this->produccionRepository->find($id);
 
         if (empty($produccion)) {
-            return $this->sendError('Produccion not found');
+            return $this->sendError('Produccion not found', 404);
         }
 
         return $this->sendResponse($produccion->toArray(), 'Produccion retrieved successfully');
@@ -168,7 +187,7 @@ class ProduccionAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateProduccionAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/produccion/producciones/{id}",
@@ -219,7 +238,7 @@ class ProduccionAPIController extends AppBaseController
         $produccion = $this->produccionRepository->find($id);
 
         if (empty($produccion)) {
-            return $this->sendError('Produccion not found');
+            return $this->sendError('Produccion not found', 404);
         }
 
         $produccion = $this->produccionRepository->update($input, $id);
@@ -229,8 +248,9 @@ class ProduccionAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/produccion/producciones/{id}",
      *      summary="Remove the specified Produccion from storage",
@@ -271,7 +291,7 @@ class ProduccionAPIController extends AppBaseController
         $produccion = $this->produccionRepository->find($id);
 
         if (empty($produccion)) {
-            return $this->sendError('Produccion not found');
+            return $this->sendError('Produccion not found', 404);
         }
 
         $produccion->delete();

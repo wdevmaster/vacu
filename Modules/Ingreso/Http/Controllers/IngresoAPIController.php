@@ -2,20 +2,19 @@
 
 namespace Modules\Ingreso\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Ingreso\Entities\Ingreso;
 use Modules\Ingreso\Http\Requests\CreateIngresoAPIRequest;
 use Modules\Ingreso\Http\Requests\UpdateIngresoAPIRequest;
-use Modules\Ingreso\Entities\Ingreso;
 use Modules\Ingreso\Repositories\IngresoRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class IngresoController
  * @package Modules\Ingreso\Http\Controllers
  */
-
-class IngresoAPIController extends AppBaseController
+class IngresoAPIController extends CommonController
 {
     /** @var  IngresoRepository */
     private $ingresoRepository;
@@ -27,7 +26,7 @@ class IngresoAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/ingreso/ingresos",
@@ -35,6 +34,19 @@ class IngresoAPIController extends AppBaseController
      *      tags={"Ingreso"},
      *      description="Get all Ingresos",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +71,24 @@ class IngresoAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $ingresos = $this->ingresoRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $ingresos = $this->ingresoRepository->paginate($paginate);
+        } else {
+            $ingresos = $this->ingresoRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($ingresos->toArray(), 'Ingresos retrieved successfully');
     }
 
     /**
      * @param CreateIngresoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/ingreso/ingresos",
@@ -117,7 +135,7 @@ class IngresoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/ingreso/ingresos/{id}",
@@ -159,7 +177,7 @@ class IngresoAPIController extends AppBaseController
         $ingreso = $this->ingresoRepository->find($id);
 
         if (empty($ingreso)) {
-            return $this->sendError('Ingreso not found');
+            return $this->sendError('Ingreso not found', 404);
         }
 
         return $this->sendResponse($ingreso->toArray(), 'Ingreso retrieved successfully');
@@ -168,7 +186,7 @@ class IngresoAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateIngresoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/ingreso/ingresos/{id}",
@@ -219,7 +237,7 @@ class IngresoAPIController extends AppBaseController
         $ingreso = $this->ingresoRepository->find($id);
 
         if (empty($ingreso)) {
-            return $this->sendError('Ingreso not found');
+            return $this->sendError('Ingreso not found', 404);
         }
 
         $ingreso = $this->ingresoRepository->update($input, $id);
@@ -229,8 +247,9 @@ class IngresoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/ingreso/ingresos/{id}",
      *      summary="Remove the specified Ingreso from storage",
@@ -271,7 +290,7 @@ class IngresoAPIController extends AppBaseController
         $ingreso = $this->ingresoRepository->find($id);
 
         if (empty($ingreso)) {
-            return $this->sendError('Ingreso not found');
+            return $this->sendError('Ingreso not found', 404);
         }
 
         $ingreso->delete();

@@ -35,6 +35,19 @@ class NegocioAPIController extends CommonController
      *      tags={"Negocio"},
      *      description="Get all Negocios",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -61,11 +74,17 @@ class NegocioAPIController extends CommonController
     {
         try {
 
-            $negocios = $this->negocioRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
+            $paginate = isset($request->paginado) ? $request->paginado : null;
+            if ($paginate) {
+                $negocios = $this->negocioRepository->paginate($paginate);
+            } else {
+                $negocios = $this->negocioRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
+
 
             return $this->sendResponse($negocios->toArray(), 'Negocios retrieved successfully');
 

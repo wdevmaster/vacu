@@ -2,20 +2,20 @@
 
 namespace Modules\Finca\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Finca\Http\Requests\CreateFincaAPIRequest;
 use Modules\Finca\Http\Requests\UpdateFincaAPIRequest;
 use Modules\Finca\Entities\Finca;
 use Modules\Finca\Repositories\FincaRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class FincaController
  * @package Modules\Finca\Http\Controllers
  */
 
-class FincaAPIController extends AppBaseController
+class FincaAPIController extends CommonController
 {
     /** @var  FincaRepository */
     private $fincaRepository;
@@ -27,7 +27,7 @@ class FincaAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/finca/fincas",
@@ -35,6 +35,19 @@ class FincaAPIController extends AppBaseController
      *      tags={"Finca"},
      *      description="Get all Fincas",
      *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,26 @@ class FincaAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $fincas = $this->fincaRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate){
+            $fincas = $this->fincaRepository->paginate($paginate);
+        }
+        else {
+            $fincas = $this->fincaRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
+
 
         return $this->sendResponse($fincas->toArray(), 'Fincas retrieved successfully');
     }
 
     /**
      * @param CreateFincaAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/finca/fincas",
@@ -117,7 +138,7 @@ class FincaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/finca/fincas/{id}",
@@ -159,7 +180,7 @@ class FincaAPIController extends AppBaseController
         $finca = $this->fincaRepository->find($id);
 
         if (empty($finca)) {
-            return $this->sendError('Finca not found');
+            return $this->sendError('Finca not found', 404);
         }
 
         return $this->sendResponse($finca->toArray(), 'Finca retrieved successfully');
@@ -168,7 +189,7 @@ class FincaAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateFincaAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/finca/fincas/{id}",
@@ -219,7 +240,7 @@ class FincaAPIController extends AppBaseController
         $finca = $this->fincaRepository->find($id);
 
         if (empty($finca)) {
-            return $this->sendError('Finca not found');
+            return $this->sendError('Finca not found', 404);
         }
 
         $finca = $this->fincaRepository->update($input, $id);
@@ -229,8 +250,9 @@ class FincaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/finca/fincas/{id}",
      *      summary="Remove the specified Finca from storage",
@@ -271,7 +293,7 @@ class FincaAPIController extends AppBaseController
         $finca = $this->fincaRepository->find($id);
 
         if (empty($finca)) {
-            return $this->sendError('Finca not found');
+            return $this->sendError('Finca not found', 404);
         }
 
         $finca->delete();

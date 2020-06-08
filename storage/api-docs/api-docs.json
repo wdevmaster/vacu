@@ -25,9 +25,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -35,7 +35,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -201,9 +202,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -211,7 +212,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -377,9 +379,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -387,7 +389,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -553,9 +556,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -563,7 +566,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -729,9 +733,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -739,7 +743,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -907,9 +912,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -917,7 +922,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -1119,6 +1125,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -1317,6 +1339,22 @@
                 "description": "Get all Fincas",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1517,6 +1555,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -1715,6 +1769,22 @@
                 "description": "Get all Inseminadors",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1915,6 +1985,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -2113,6 +2199,22 @@
                 "description": "Get all Locomocions",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -2313,6 +2415,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -2511,6 +2629,22 @@
                 "description": "Get all Muertes",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -2711,6 +2845,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -2871,6 +3021,22 @@
                 "description": "Get all Partos",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -3071,6 +3237,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -3269,6 +3451,22 @@
                 "description": "Get all Razas",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -3469,6 +3667,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -3668,6 +3882,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -3866,6 +4096,22 @@
                 "description": "Get all Servicios",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -4146,6 +4392,22 @@
                 "description": "Get all TipoServicios",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -4658,9 +4920,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -4668,7 +4930,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -5930,9 +6193,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
-                        "description": "ClienteNegocio that should be stored",
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
                         "required": false,
                         "schema": {
                             "properties": {
@@ -5940,7 +6203,8 @@
                                     "type": "integer"
                                 }
                             }
-                        }
+                        },
+                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -6643,6 +6907,22 @@
                 "description": "Get all Ventas",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "200": {

@@ -36,9 +36,10 @@ class EnfermedadAPIController extends CommonController
      *      description="Get all Enfermedads",
      *      produces={"application/json"},
      *     @SWG\Parameter(
-     *          name="body",
-     *          in="body",
-     *          description="ClienteNegocio that should be stored",
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
      *          required=false,
      *          @SWG\Schema(
      *               @SWG\Property(
@@ -72,7 +73,7 @@ class EnfermedadAPIController extends CommonController
     public function index(Request $request)
     {
         try {
-            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+            $paginate = isset($request->paginado) ? $request->paginado : null;
             if ($paginate) {
                 $enfermedads = $this->enfermedadRepository->paginate($paginate);
             } else {

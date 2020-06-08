@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('parto')->group(function() {
-    Route::get('/', 'PartoController@index');
-});

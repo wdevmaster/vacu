@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('servicio')->group(function() {
-    Route::get('/', 'ServicioController@index');
-});
+

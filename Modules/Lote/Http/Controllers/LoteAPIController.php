@@ -2,20 +2,19 @@
 
 namespace Modules\Lote\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Lote\Entities\Lote;
 use Modules\Lote\Http\Requests\CreateLoteAPIRequest;
 use Modules\Lote\Http\Requests\UpdateLoteAPIRequest;
-use Modules\Lote\Entities\Lote;
 use Modules\Lote\Repositories\LoteRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class LoteController
  * @package Modules\Lote\Http\Controllers
  */
-
-class LoteAPIController extends AppBaseController
+class LoteAPIController extends CommonController
 {
     /** @var  LoteRepository */
     private $loteRepository;
@@ -27,7 +26,7 @@ class LoteAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/lote/lotes",
@@ -35,6 +34,19 @@ class LoteAPIController extends AppBaseController
      *      tags={"Lote"},
      *      description="Get all Lotes",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +71,24 @@ class LoteAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $lotes = $this->loteRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $lotes = $this->loteRepository->paginate($paginate);
+        } else {
+            $lotes = $this->loteRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
 
         return $this->sendResponse($lotes->toArray(), 'Lotes retrieved successfully');
     }
 
     /**
      * @param CreateLoteAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/lote/lotes",
@@ -117,7 +135,7 @@ class LoteAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/lote/lotes/{id}",
@@ -159,7 +177,7 @@ class LoteAPIController extends AppBaseController
         $lote = $this->loteRepository->find($id);
 
         if (empty($lote)) {
-            return $this->sendError('Lote not found');
+            return $this->sendError('Lote not found', 404);
         }
 
         return $this->sendResponse($lote->toArray(), 'Lote retrieved successfully');
@@ -168,7 +186,7 @@ class LoteAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateLoteAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/lote/lotes/{id}",
@@ -219,7 +237,7 @@ class LoteAPIController extends AppBaseController
         $lote = $this->loteRepository->find($id);
 
         if (empty($lote)) {
-            return $this->sendError('Lote not found');
+            return $this->sendError('Lote not found', 404);
         }
 
         $lote = $this->loteRepository->update($input, $id);
@@ -229,8 +247,9 @@ class LoteAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/lote/lotes/{id}",
      *      summary="Remove the specified Lote from storage",
@@ -271,7 +290,7 @@ class LoteAPIController extends AppBaseController
         $lote = $this->loteRepository->find($id);
 
         if (empty($lote)) {
-            return $this->sendError('Lote not found');
+            return $this->sendError('Lote not found', 404);
         }
 
         $lote->delete();

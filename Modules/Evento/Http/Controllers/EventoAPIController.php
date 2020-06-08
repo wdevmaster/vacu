@@ -2,20 +2,20 @@
 
 namespace Modules\Evento\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Evento\Entities\Evento;
 use Modules\Evento\Http\Requests\CreateEventoAPIRequest;
 use Modules\Evento\Http\Requests\UpdateEventoAPIRequest;
-use Modules\Evento\Entities\Evento;
 use Modules\Evento\Repositories\EventoRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 use Response;
 
 /**
  * Class EventoController
  * @package Modules\Evento\Http\Controllers
  */
-
-class EventoAPIController extends AppBaseController
+class EventoAPIController extends CommonController
 {
     /** @var  EventoRepository */
     private $eventoRepository;
@@ -27,7 +27,7 @@ class EventoAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/evento/eventos",
@@ -35,6 +35,19 @@ class EventoAPIController extends AppBaseController
      *      tags={"Evento"},
      *      description="Get all Eventos",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,26 @@ class EventoAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $eventos = $this->eventoRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+
+        if ($paginate) {
+
+            $eventos = $this->eventoRepository->paginate($paginate);
+        } else {
+            $eventos = $this->eventoRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($eventos->toArray(), 'Eventos retrieved successfully');
     }
 
     /**
      * @param CreateEventoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/evento/eventos",
@@ -117,7 +138,7 @@ class EventoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/evento/eventos/{id}",
@@ -159,7 +180,7 @@ class EventoAPIController extends AppBaseController
         $evento = $this->eventoRepository->find($id);
 
         if (empty($evento)) {
-            return $this->sendError('Evento not found');
+            return $this->sendError('Evento not found', 404);
         }
 
         return $this->sendResponse($evento->toArray(), 'Evento retrieved successfully');
@@ -168,7 +189,7 @@ class EventoAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateEventoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/evento/eventos/{id}",
@@ -219,7 +240,7 @@ class EventoAPIController extends AppBaseController
         $evento = $this->eventoRepository->find($id);
 
         if (empty($evento)) {
-            return $this->sendError('Evento not found');
+            return $this->sendError('Evento not found', 404);
         }
 
         $evento = $this->eventoRepository->update($input, $id);
@@ -229,8 +250,9 @@ class EventoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/evento/eventos/{id}",
      *      summary="Remove the specified Evento from storage",
@@ -271,7 +293,7 @@ class EventoAPIController extends AppBaseController
         $evento = $this->eventoRepository->find($id);
 
         if (empty($evento)) {
-            return $this->sendError('Evento not found');
+            return $this->sendError('Evento not found', 404);
         }
 
         $evento->delete();

@@ -2,20 +2,21 @@
 
 namespace Modules\Muerte\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Muerte\Http\Requests\CreateMuerteAPIRequest;
 use Modules\Muerte\Http\Requests\UpdateMuerteAPIRequest;
 use Modules\Muerte\Entities\Muerte;
 use Modules\Muerte\Repositories\MuerteRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+
 
 /**
  * Class MuerteController
  * @package Modules\Muerte\Http\Controllers
  */
 
-class MuerteAPIController extends AppBaseController
+class MuerteAPIController extends CommonController
 {
     /** @var  MuerteRepository */
     private $muerteRepository;
@@ -27,7 +28,7 @@ class MuerteAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/muerte/muertes",
@@ -35,6 +36,19 @@ class MuerteAPIController extends AppBaseController
      *      tags={"Muerte"},
      *      description="Get all Muertes",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +73,22 @@ class MuerteAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $muertes = $this->muerteRepository->paginate($paginate);
+        } else {
         $muertes = $this->muerteRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
-        );
+        );}
 
         return $this->sendResponse($muertes->toArray(), 'Muertes retrieved successfully');
     }
 
     /**
      * @param CreateMuerteAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/muerte/muertes",
@@ -117,7 +135,7 @@ class MuerteAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/muerte/muertes/{id}",
@@ -159,7 +177,7 @@ class MuerteAPIController extends AppBaseController
         $muerte = $this->muerteRepository->find($id);
 
         if (empty($muerte)) {
-            return $this->sendError('Muerte not found');
+            return $this->sendError('Muerte not found', 404);
         }
 
         return $this->sendResponse($muerte->toArray(), 'Muerte retrieved successfully');
@@ -168,7 +186,7 @@ class MuerteAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateMuerteAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/muerte/muertes/{id}",
@@ -219,7 +237,7 @@ class MuerteAPIController extends AppBaseController
         $muerte = $this->muerteRepository->find($id);
 
         if (empty($muerte)) {
-            return $this->sendError('Muerte not found');
+            return $this->sendError('Muerte not found', 404);
         }
 
         $muerte = $this->muerteRepository->update($input, $id);
@@ -229,8 +247,9 @@ class MuerteAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/muerte/muertes/{id}",
      *      summary="Remove the specified Muerte from storage",
@@ -271,7 +290,7 @@ class MuerteAPIController extends AppBaseController
         $muerte = $this->muerteRepository->find($id);
 
         if (empty($muerte)) {
-            return $this->sendError('Muerte not found');
+            return $this->sendError('Muerte not found', 404);
         }
 
         $muerte->delete();

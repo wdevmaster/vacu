@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('lote')->group(function() {
-    Route::get('/', 'LoteController@index');
-});

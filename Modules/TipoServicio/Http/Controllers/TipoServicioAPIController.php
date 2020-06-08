@@ -2,20 +2,20 @@
 
 namespace Modules\TipoServicio\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\TipoServicio\Http\Requests\CreateTipoServicioAPIRequest;
 use Modules\TipoServicio\Http\Requests\UpdateTipoServicioAPIRequest;
 use Modules\TipoServicio\Entities\TipoServicio;
 use Modules\TipoServicio\Repositories\TipoServicioRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class TipoServicioController
  * @package Modules\TipoServicio\Http\Controllers
  */
 
-class TipoServicioAPIController extends AppBaseController
+class TipoServicioAPIController extends CommonController
 {
     /** @var  TipoServicioRepository */
     private $tipoServicioRepository;
@@ -27,7 +27,7 @@ class TipoServicioAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/tipo_servicio/tipos_servicios",
@@ -35,6 +35,19 @@ class TipoServicioAPIController extends AppBaseController
      *      tags={"TipoServicio"},
      *      description="Get all TipoServicios",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +72,24 @@ class TipoServicioAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $tipoServicios = $this->tipoServicioRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $tipoServicios = $this->tipoServicioRepository->paginate($paginate);
+        } else {
+            $tipoServicios = $this->tipoServicioRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($tipoServicios->toArray(), 'Tipo Servicios retrieved successfully');
     }
 
     /**
      * @param CreateTipoServicioAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/tipo_servicio/tipos_servicios",
@@ -117,7 +136,7 @@ class TipoServicioAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/tipo_servicio/tipos_servicios/{id}",
@@ -159,7 +178,7 @@ class TipoServicioAPIController extends AppBaseController
         $tipoServicio = $this->tipoServicioRepository->find($id);
 
         if (empty($tipoServicio)) {
-            return $this->sendError('Tipo Servicio not found');
+            return $this->sendError('Tipo Servicio not found', 404);
         }
 
         return $this->sendResponse($tipoServicio->toArray(), 'Tipo Servicio retrieved successfully');
@@ -168,7 +187,7 @@ class TipoServicioAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateTipoServicioAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/tipo_servicio/tipos_servicios/{id}",
@@ -219,7 +238,7 @@ class TipoServicioAPIController extends AppBaseController
         $tipoServicio = $this->tipoServicioRepository->find($id);
 
         if (empty($tipoServicio)) {
-            return $this->sendError('Tipo Servicio not found');
+            return $this->sendError('Tipo Servicio not found', 404);
         }
 
         $tipoServicio = $this->tipoServicioRepository->update($input, $id);
@@ -229,8 +248,9 @@ class TipoServicioAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/tipo_servicio/tipos_servicios/{id}",
      *      summary="Remove the specified TipoServicio from storage",
@@ -271,7 +291,7 @@ class TipoServicioAPIController extends AppBaseController
         $tipoServicio = $this->tipoServicioRepository->find($id);
 
         if (empty($tipoServicio)) {
-            return $this->sendError('Tipo Servicio not found');
+            return $this->sendError('Tipo Servicio not found', 404);
         }
 
         $tipoServicio->delete();

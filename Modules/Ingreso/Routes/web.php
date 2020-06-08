@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('ingreso')->group(function() {
-    Route::get('/', 'IngresoController@index');
-});

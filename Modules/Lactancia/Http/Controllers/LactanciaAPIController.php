@@ -2,20 +2,19 @@
 
 namespace Modules\Lactancia\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Lactancia\Entities\Lactancia;
 use Modules\Lactancia\Http\Requests\CreateLactanciaAPIRequest;
 use Modules\Lactancia\Http\Requests\UpdateLactanciaAPIRequest;
-use Modules\Lactancia\Entities\Lactancia;
 use Modules\Lactancia\Repositories\LactanciaRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class LactanciaController
  * @package Modules\Lactancia\Http\Controllers
  */
-
-class LactanciaAPIController extends AppBaseController
+class LactanciaAPIController extends CommonController
 {
     /** @var  LactanciaRepository */
     private $lactanciaRepository;
@@ -27,7 +26,7 @@ class LactanciaAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/lactancia/lactancias",
@@ -35,6 +34,19 @@ class LactanciaAPIController extends AppBaseController
      *      tags={"Lactancia"},
      *      description="Get all Lactancias",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +71,24 @@ class LactanciaAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $lactancias = $this->lactanciaRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $lactancias = $this->lactanciaRepository->paginate($paginate);
+        } else {
+            $lactancias = $this->lactanciaRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($lactancias->toArray(), 'Lactancias retrieved successfully');
     }
 
     /**
      * @param CreateLactanciaAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/lactancia/lactancias",
@@ -117,7 +135,7 @@ class LactanciaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/lactancia/lactancias/{id}",
@@ -159,7 +177,7 @@ class LactanciaAPIController extends AppBaseController
         $lactancia = $this->lactanciaRepository->find($id);
 
         if (empty($lactancia)) {
-            return $this->sendError('Lactancia not found');
+            return $this->sendError('Lactancia not found', 404);
         }
 
         return $this->sendResponse($lactancia->toArray(), 'Lactancia retrieved successfully');
@@ -168,7 +186,7 @@ class LactanciaAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateLactanciaAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/lactancia/lactancias/{id}",
@@ -219,7 +237,7 @@ class LactanciaAPIController extends AppBaseController
         $lactancia = $this->lactanciaRepository->find($id);
 
         if (empty($lactancia)) {
-            return $this->sendError('Lactancia not found');
+            return $this->sendError('Lactancia not found', 404);
         }
 
         $lactancia = $this->lactanciaRepository->update($input, $id);
@@ -229,8 +247,9 @@ class LactanciaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/lactancia/lactancias/{id}",
      *      summary="Remove the specified Lactancia from storage",
@@ -271,7 +290,7 @@ class LactanciaAPIController extends AppBaseController
         $lactancia = $this->lactanciaRepository->find($id);
 
         if (empty($lactancia)) {
-            return $this->sendError('Lactancia not found');
+            return $this->sendError('Lactancia not found', 404);
         }
 
         $lactancia->delete();

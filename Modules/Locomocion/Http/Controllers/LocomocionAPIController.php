@@ -2,20 +2,19 @@
 
 namespace Modules\Locomocion\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\Locomocion\Entities\Locomocion;
 use Modules\Locomocion\Http\Requests\CreateLocomocionAPIRequest;
 use Modules\Locomocion\Http\Requests\UpdateLocomocionAPIRequest;
-use Modules\Locomocion\Entities\Locomocion;
 use Modules\Locomocion\Repositories\LocomocionRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class LocomocionController
  * @package Modules\Locomocion\Http\Controllers
  */
-
-class LocomocionAPIController extends AppBaseController
+class LocomocionAPIController extends CommonController
 {
     /** @var  LocomocionRepository */
     private $locomocionRepository;
@@ -27,7 +26,7 @@ class LocomocionAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/locomocion/locomociones",
@@ -35,6 +34,19 @@ class LocomocionAPIController extends AppBaseController
      *      tags={"Locomocion"},
      *      description="Get all Locomocions",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +71,24 @@ class LocomocionAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $locomocions = $this->locomocionRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+        if ($paginate) {
+            $locomocions = $this->locomocionRepository->paginate($paginate);
+        } else {
+            $locomocions = $this->locomocionRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($locomocions->toArray(), 'Locomocions retrieved successfully');
     }
 
     /**
      * @param CreateLocomocionAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/locomocion/locomociones",
@@ -117,7 +135,7 @@ class LocomocionAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/locomocion/locomociones/{id}",
@@ -159,7 +177,7 @@ class LocomocionAPIController extends AppBaseController
         $locomocion = $this->locomocionRepository->find($id);
 
         if (empty($locomocion)) {
-            return $this->sendError('Locomocion not found');
+            return $this->sendError('Locomocion not found', 404);
         }
 
         return $this->sendResponse($locomocion->toArray(), 'Locomocion retrieved successfully');
@@ -168,7 +186,7 @@ class LocomocionAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateLocomocionAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/locomocion/locomociones/{id}",
@@ -219,7 +237,7 @@ class LocomocionAPIController extends AppBaseController
         $locomocion = $this->locomocionRepository->find($id);
 
         if (empty($locomocion)) {
-            return $this->sendError('Locomocion not found');
+            return $this->sendError('Locomocion not found', 404);
         }
 
         $locomocion = $this->locomocionRepository->update($input, $id);
@@ -229,8 +247,9 @@ class LocomocionAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/locomocion/locomociones/{id}",
      *      summary="Remove the specified Locomocion from storage",
@@ -271,7 +290,7 @@ class LocomocionAPIController extends AppBaseController
         $locomocion = $this->locomocionRepository->find($id);
 
         if (empty($locomocion)) {
-            return $this->sendError('Locomocion not found');
+            return $this->sendError('Locomocion not found', 404);
         }
 
         $locomocion->delete();
