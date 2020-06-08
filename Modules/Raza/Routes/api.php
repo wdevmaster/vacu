@@ -17,7 +17,7 @@ Route::prefix('v1/raza')->middleware('auth:api')->group(function () {
         Route::get('/', 'RazaAPIController@index')->name('raza.razas.index');
         Route::post('/', 'RazaAPIController@store')->name('raza.razas.store');
         Route::put('/{id}', 'RazaAPIController@update')->name('raza.razas.update');
-        Route::delete('/{id}', 'RazaAPIController@delete')->name('raza.razas.delete');
+        Route::delete('/{id}', 'RazaAPIController@destroy')->name('raza.razas.delete');
     });
 });
 

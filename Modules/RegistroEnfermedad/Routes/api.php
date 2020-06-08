@@ -18,7 +18,7 @@ Route::prefix('v1/registro_enfermedad')->middleware('auth:api')->group(function 
         Route::get('/', 'RegistroEnfermedadAPIController@index')->name('registro_enfermedad.registros_emfermedades.index');
         Route::post('/', 'RegistroEnfermedadAPIController@store')->name('registro_enfermedad.registros_emfermedades.store');
         Route::put('/{id}', 'RegistroEnfermedadAPIController@update')->name('registro_enfermedad.registros_emfermedades.update');
-        Route::delete('/{id}', 'RegistroEnfermedadAPIController@delete')->name('registro_enfermedad.registros_emfermedades.delete');
+        Route::delete('/{id}', 'RegistroEnfermedadAPIController@destroy')->name('registro_enfermedad.registros_emfermedades.delete');
     });
 });
 

@@ -19,7 +19,7 @@ Route::prefix('v1/lactancia')->middleware('auth:api')->group(function () {
         Route::get('/', 'LactanciaAPIController@index')->name('lactancia.lactancias.index');
         Route::post('/', 'LactanciaAPIController@store')->name('lactancia.lactancias.store');
         Route::put('/{id}', 'LactanciaAPIController@update')->name('lactancia.lactancias.update');
-        Route::delete('/{id}', 'LactanciaAPIController@delete')->name('lactancia.lactancias.delete');
+        Route::delete('/{id}', 'LactanciaAPIController@destroy')->name('lactancia.lactancias.delete');
     });
 });
 

@@ -18,6 +18,6 @@ Route::prefix('v1/tipo_servicio')->middleware('auth:api')->group(function () {
         Route::get('/', 'TipoServicioAPIController@index')->name('tipo_servicio.tipos_servicios.index');
         Route::post('/', 'TipoServicioAPIController@store')->name('tipo_servicio.tipos_servicios.store');
         Route::put('/{id}', 'TipoServicioAPIController@update')->name('tipo_servicio.tipos_servicios.update');
-        Route::delete('/{id}', 'TipoServicioAPIController@delete')->name('tipo_servicio.tipos_servicios.delete');
+        Route::delete('/{id}', 'TipoServicioAPIController@destroy')->name('tipo_servicio.tipos_servicios.delete');
     });
 });
