@@ -19,7 +19,7 @@ Route::prefix('v1/negocio')->middleware('auth:api')->group(function (){
         Route::get('/', 'NegocioAPIController@index')->name('negocio.negocios.index');
         Route::post('/', 'NegocioAPIController@store')->name('negocio.negocios.store');
         Route::put('/{id}', 'NegocioAPIController@update')->name('negocio.negocios.update');
-        Route::delete('/{id}', 'NegocioAPIController@delete')->name('negocio.negocios.delete');
+        Route::delete('/{id}', 'NegocioAPIController@destroy')->name('negocio.negocios.delete');
     });
 
 });
