@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Container\Container as Application;
 use Illuminate\Database\Eloquent\Model;
+use test\Mockery\ArgumentObjectTypeHint;
 
 
 abstract class BaseRepository
@@ -204,5 +205,11 @@ abstract class BaseRepository
 
         return false;
 
+    }
+
+    public function allPaginate($paginate)
+    {
+        $models = $this->model::paginate($paginate);
+        return $models;
     }
 }

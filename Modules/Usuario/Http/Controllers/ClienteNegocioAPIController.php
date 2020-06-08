@@ -3,18 +3,17 @@
 namespace Modules\Usuario\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Usuario\Entities\ClienteNegocio;
 use Modules\Usuario\Http\Requests\CreateClienteNegocioAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateClienteNegocioAPIRequest;
-use Modules\Usuario\Entities\ClienteNegocio;
 use Modules\Usuario\Repositories\ClienteNegocioRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class ClienteNegocioController
  * @package Modules\Usuario\Http\Controllers
  */
-
 class ClienteNegocioAPIController extends CommonController
 {
     /** @var  ClienteNegocioRepository */
@@ -35,6 +34,18 @@ class ClienteNegocioAPIController extends CommonController
      *      tags={"User"},
      *      description="Get all ClienteNegocios",
      *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,11 +70,20 @@ class ClienteNegocioAPIController extends CommonController
      */
     public function index(Request $request)
     {
-        $clienteNegocios = $this->clienteNegocioRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $clienteNegocios = null;
+        $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+
+        if ($paginate) {
+            $clienteNegocios = $this->clienteNegocioRepository->allPaginate($paginate);
+        } else {
+            $clienteNegocios = $this->clienteNegocioRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($clienteNegocios->toArray(), 'Cliente Negocios retrieved successfully');
     }

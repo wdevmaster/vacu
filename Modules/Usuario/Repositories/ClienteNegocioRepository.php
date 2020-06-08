@@ -2,16 +2,15 @@
 
 namespace Modules\Usuario\Repositories;
 
-use Modules\Usuario\Entities\ClienteNegocio;
 use App\Repositories\BaseRepository;
+use Modules\Usuario\Entities\ClienteNegocio;
 
 
 /**
  * Class ClienteNegocioRepository
  * @package Modules\Usuario\Repositories
  * @version May 28, 2020, 11:26 pm UTC
-*/
-
+ */
 class ClienteNegocioRepository extends BaseRepository
 {
     /**
@@ -43,6 +42,5 @@ class ClienteNegocioRepository extends BaseRepository
     {
         return ClienteNegocio::class;
     }
-
 
 }
