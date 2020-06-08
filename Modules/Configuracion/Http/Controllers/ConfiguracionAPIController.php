@@ -35,6 +35,18 @@ class ConfiguracionAPIController extends AppBaseController
      *      tags={"Configuracion"},
      *      description="Get all Configuracions",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -60,11 +72,18 @@ class ConfiguracionAPIController extends AppBaseController
     public function index(Request $request)
     {
         try {
-            $configuraciones = $this->configuracionRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
+            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+
+            if ($paginate) {
+                $configuraciones = $this->configuracionRepository->paginate($paginate);
+            } else {
+                $configuraciones = $this->configuracionRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
+
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_updated_successfully', [
@@ -125,7 +144,7 @@ class ConfiguracionAPIController extends AppBaseController
      */
     public function store(CreateConfiguracionAPIRequest $request)
     {
-        try{
+        try {
             $input = $request->all();
 
             $configuracion = $this->configuracionRepository->create($input);
@@ -200,7 +219,7 @@ class ConfiguracionAPIController extends AppBaseController
      */
     public function update($id, UpdateConfiguracionAPIRequest $request)
     {
-        try{
+        try {
             $input = $request->all();
 
             /** @var Configuracion $configuracion */
@@ -275,7 +294,7 @@ class ConfiguracionAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        try{
+        try {
             /** @var Configuracion $configuracion */
             $configuracion = $this->configuracionRepository->find($id);
 
