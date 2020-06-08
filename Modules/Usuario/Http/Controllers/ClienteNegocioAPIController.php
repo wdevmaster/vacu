@@ -75,7 +75,7 @@ class ClienteNegocioAPIController extends CommonController
         $paginate = isset($request['paginate']) ? $request['paginate'] : null;
 
         if ($paginate) {
-            $clienteNegocios = $this->clienteNegocioRepository->allPaginate($paginate);
+            $clienteNegocios = $this->clienteNegocioRepository->paginate($paginate);
         } else {
             $clienteNegocios = $this->clienteNegocioRepository->all(
                 $request->except(['skip', 'limit']),

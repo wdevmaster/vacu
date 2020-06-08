@@ -36,6 +36,18 @@ class UserAPIController extends CommonController
      *      tags={"User"},
      *      description="Get all Users",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -61,12 +73,20 @@ class UserAPIController extends CommonController
     public function index(Request $request)
     {
         try {
-            $users = $this->userRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
 
-            );
+            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+
+            if ($paginate) {
+                $users = $this->userRepository->paginate($paginate);
+            } else {
+                $users = $this->userRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+
+                );
+            }
+
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_updated_successfully', [

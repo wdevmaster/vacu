@@ -207,9 +207,4 @@ abstract class BaseRepository
 
     }
 
-    public function allPaginate($paginate)
-    {
-        $models = $this->model::paginate($paginate);
-        return $models;
-    }
 }
