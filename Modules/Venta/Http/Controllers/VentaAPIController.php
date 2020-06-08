@@ -178,7 +178,7 @@ class VentaAPIController extends CommonController
         $venta = $this->ventaRepository->find($id);
 
         if (empty($venta)) {
-            return $this->sendError('Venta not found');
+            return $this->sendError('Venta not found', 404);
         }
 
         return $this->sendResponse($venta->toArray(), 'Venta retrieved successfully');
@@ -238,7 +238,7 @@ class VentaAPIController extends CommonController
         $venta = $this->ventaRepository->find($id);
 
         if (empty($venta)) {
-            return $this->sendError('Venta not found');
+            return $this->sendError('Venta not found', 404);
         }
 
         $venta = $this->ventaRepository->update($input, $id);
@@ -291,7 +291,7 @@ class VentaAPIController extends CommonController
         $venta = $this->ventaRepository->find($id);
 
         if (empty($venta)) {
-            return $this->sendError('Venta not found');
+            return $this->sendError('Venta not found', 404);
         }
 
         $venta->delete();

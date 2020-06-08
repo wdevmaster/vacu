@@ -11,6 +11,4 @@
 |
 */
 
-Route::prefix('venta')->group(function() {
-    Route::get('/', 'VentaController@index');
-});
+
