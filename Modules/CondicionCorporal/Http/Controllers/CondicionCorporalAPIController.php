@@ -4,18 +4,17 @@ namespace Modules\CondicionCorporal\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\CondicionCorporal\Entities\CondicionCorporal;
 use Modules\CondicionCorporal\Http\Requests\CreateCondicionCorporalAPIRequest;
 use Modules\CondicionCorporal\Http\Requests\UpdateCondicionCorporalAPIRequest;
-use Modules\CondicionCorporal\Entities\CondicionCorporal;
 use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
-use Illuminate\Http\Request;
 
 /**
  * Class CondicionCorporalController
  * @package Modules\CondicionCorporal\Http\Controllers
  */
-
 class CondicionCorporalAPIController extends CommonController
 {
     /** @var  CondicionCorporalRepository */
@@ -36,6 +35,18 @@ class CondicionCorporalAPIController extends CommonController
      *      tags={"CondicionCorporal"},
      *      description="Get all CondicionCorporals",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -60,12 +71,19 @@ class CondicionCorporalAPIController extends CommonController
      */
     public function index(Request $request)
     {
-        try{
-            $condicionCorporals = $this->condicionCorporalRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
+        try {
+
+            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+            if ($paginate) {
+                $condicionCorporals = $this->condicionCorporalRepository->paginate($paginate);
+            } else {
+                $condicionCorporals = $this->condicionCorporalRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
+
 
             return $this->sendResponse($condicionCorporals->toArray(),
                 'comun::msgs.la_model_list_successfully',
@@ -131,10 +149,10 @@ class CondicionCorporalAPIController extends CommonController
      */
     public function store(CreateCondicionCorporalAPIRequest $request)
     {
-        try{
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $condicionCorporal = $this->condicionCorporalRepository->create($input);
+            $condicionCorporal = $this->condicionCorporalRepository->create($input);
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_list_successfully',
                 'condicion_corporal::msgs.label_condicion_corporal',
@@ -206,14 +224,14 @@ class CondicionCorporalAPIController extends CommonController
      */
     public function update($id, UpdateCondicionCorporalAPIRequest $request)
     {
-        try{
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        /** @var CondicionCorporal $condicionCorporal */
-        $condicionCorporal = $this->condicionCorporalRepository->find($id);
+            /** @var CondicionCorporal $condicionCorporal */
+            $condicionCorporal = $this->condicionCorporalRepository->find($id);
 
 
-        $condicionCorporal = $this->condicionCorporalRepository->update($input, $id);
+            $condicionCorporal = $this->condicionCorporalRepository->update($input, $id);
 
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_updated_successfully',
@@ -279,15 +297,15 @@ class CondicionCorporalAPIController extends CommonController
      */
     public function destroy($id)
     {
-        try{
-        /** @var CondicionCorporal $condicionCorporal */
-        $condicionCorporal = $this->condicionCorporalRepository->find($id);
+        try {
+            /** @var CondicionCorporal $condicionCorporal */
+            $condicionCorporal = $this->condicionCorporalRepository->find($id);
 
-        if (empty($condicionCorporal)) {
-            return $this->sendError('Condicion Corporal not found');
-        }
+            if (empty($condicionCorporal)) {
+                return $this->sendError('Condicion Corporal not found');
+            }
 
-        $condicionCorporal->delete();
+            $condicionCorporal->delete();
 
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_list_successfully',
