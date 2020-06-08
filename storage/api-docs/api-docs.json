@@ -727,6 +727,21 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "ClienteNegocio that should be stored",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",

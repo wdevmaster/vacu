@@ -35,6 +35,18 @@ class EnfermedadAPIController extends CommonController
      *      tags={"Enfermedad"},
      *      description="Get all Enfermedads",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -60,22 +72,26 @@ class EnfermedadAPIController extends CommonController
     public function index(Request $request)
     {
         try {
-            $enfermedads = $this->enfermedadRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
+            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+            if ($paginate) {
+                $enfermedads = $this->enfermedadRepository->paginate($paginate);
+            } else {
+                $enfermedads = $this->enfermedadRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
+
 
             return $this->sendResponse($enfermedads->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'enfermedad::msgs.label_enfermedad',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 404);
         } catch
@@ -83,7 +99,6 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 500);
         }
@@ -137,14 +152,12 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse($enfermedad->toArray(),
                 'comun::msgs.la_model_created_successfully',
-                'enfermedad::msgs.label_enfermedad',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 404);
         } catch
@@ -152,7 +165,6 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 500);
         }
@@ -218,14 +230,12 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse($enfermedad->toArray(),
                 'comun::msgs.la_model_updated_successfully',
-                'enfermedad::msgs.label_enfermedad',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 404);
         } catch
@@ -233,7 +243,6 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 500);
         }
@@ -285,14 +294,12 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse($enfermedad->toArray(),
                 'comun::msgs.la_model_disabled_successfully',
-                'enfermedad::msgs.label_enfermedad',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 404);
         } catch
@@ -300,7 +307,6 @@ class EnfermedadAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'enfermedad::msgs.label_enfermedad',
                 false,
                 500);
         }
