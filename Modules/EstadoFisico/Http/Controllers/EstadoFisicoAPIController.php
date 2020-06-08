@@ -2,20 +2,19 @@
 
 namespace Modules\EstadoFisico\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
+use Modules\EstadoFisico\Entities\EstadoFisico;
 use Modules\EstadoFisico\Http\Requests\CreateEstadoFisicoAPIRequest;
 use Modules\EstadoFisico\Http\Requests\UpdateEstadoFisicoAPIRequest;
-use Modules\EstadoFisico\Entities\EstadoFisico;
 use Modules\EstadoFisico\Repositories\EstadoFisicoRepository;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class EstadoFisicoController
  * @package Modules\EstadoFisico\Http\Controllers
  */
-
-class EstadoFisicoAPIController extends AppBaseController
+class EstadoFisicoAPIController extends CommonController
 {
     /** @var  EstadoFisicoRepository */
     private $estadoFisicoRepository;
@@ -27,7 +26,7 @@ class EstadoFisicoAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/estado_fisico/estados_fisicos",
@@ -35,6 +34,18 @@ class EstadoFisicoAPIController extends AppBaseController
      *      tags={"EstadoFisico"},
      *      description="Get all EstadoFisicos",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -59,18 +70,25 @@ class EstadoFisicoAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $estadoFisicos = $this->estadoFisicoRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+        if ($paginate) {
+            $estadoFisicos = $this->estadoFisicoRepository->paginate($paginate);
+        } else {
+            $estadoFisicos = $this->estadoFisicoRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($estadoFisicos->toArray(), 'Estado Fisicos retrieved successfully');
     }
 
     /**
      * @param CreateEstadoFisicoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/estado_fisico/estados_fisicos",
@@ -117,7 +135,7 @@ class EstadoFisicoAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/estado_fisico/estados_fisicos/{id}",
@@ -159,7 +177,7 @@ class EstadoFisicoAPIController extends AppBaseController
         $estadoFisico = $this->estadoFisicoRepository->find($id);
 
         if (empty($estadoFisico)) {
-            return $this->sendError('Estado Fisico not found');
+            return $this->sendError('Estado Fisico not found', 404);
         }
 
         return $this->sendResponse($estadoFisico->toArray(), 'Estado Fisico retrieved successfully');
@@ -168,7 +186,7 @@ class EstadoFisicoAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateEstadoFisicoAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/estado_fisico/estados_fisicos/{id}",
@@ -219,7 +237,7 @@ class EstadoFisicoAPIController extends AppBaseController
         $estadoFisico = $this->estadoFisicoRepository->find($id);
 
         if (empty($estadoFisico)) {
-            return $this->sendError('Estado Fisico not found');
+            return $this->sendError('Estado Fisico not found', 404);
         }
 
         $estadoFisico = $this->estadoFisicoRepository->update($input, $id);
@@ -231,6 +249,7 @@ class EstadoFisicoAPIController extends AppBaseController
      * @param int $id
      * @return Response
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/estado_fisico/estados_fisicos/{id}",
      *      summary="Remove the specified EstadoFisico from storage",
@@ -271,7 +290,7 @@ class EstadoFisicoAPIController extends AppBaseController
         $estadoFisico = $this->estadoFisicoRepository->find($id);
 
         if (empty($estadoFisico)) {
-            return $this->sendError('Estado Fisico not found');
+            return $this->sendError('Estado Fisico not found', 404);
         }
 
         $estadoFisico->delete();

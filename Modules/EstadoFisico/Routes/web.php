@@ -11,6 +11,3 @@
 |
 */
 
-Route::prefix('estadofisico')->group(function() {
-    Route::get('/', 'EstadoFisicoController@index');
-});
