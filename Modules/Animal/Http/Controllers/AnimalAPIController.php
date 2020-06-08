@@ -35,6 +35,18 @@ class AnimalAPIController extends CommonController
      *      tags={"Animal"},
      *      description="Get all Animals",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -60,11 +72,19 @@ class AnimalAPIController extends CommonController
     public function index(Request $request)
     {
         try {
-            $animals = $this->animalRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
+
+            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+
+            if ($paginate) {
+                $animals = $this->animalRepository->paginate($paginate);
+            } else {
+                $animals = $this->animalRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
+
 
             return $this->sendResponse($animals->toArray(),
                 'comun::msgs.la_model_list_successfully',
@@ -130,10 +150,10 @@ class AnimalAPIController extends CommonController
      */
     public function store(CreateAnimalAPIRequest $request)
     {
-        try{
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $animal = $this->animalRepository->create($input);
+            $animal = $this->animalRepository->create($input);
 
             return $this->sendResponse($animal->toArray(),
                 'comun::msgs.la_model_saved_successfully',
@@ -207,10 +227,10 @@ class AnimalAPIController extends CommonController
      */
     public function update($id, UpdateAnimalAPIRequest $request)
     {
-        try{
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $animal = $this->animalRepository->update($input, $id);
+            $animal = $this->animalRepository->update($input, $id);
 
             return $this->sendResponse($animal->toArray(),
                 'comun::msgs.la_model_updated_successfully',
@@ -275,12 +295,12 @@ class AnimalAPIController extends CommonController
      */
     public function destroy($id)
     {
-        try{
-        /** @var Animal $animal */
-        $animal = $this->animalRepository->find($id);
+        try {
+            /** @var Animal $animal */
+            $animal = $this->animalRepository->find($id);
 
-        $animal->active = false;
-        $result = $this->animalRepository->update($animal->toArray(), $animal->id);
+            $animal->active = false;
+            $result = $this->animalRepository->update($animal->toArray(), $animal->id);
 
             return $this->sendResponse($result->toArray(),
                 'comun::msgs.la_model_desactivated_successfully',
