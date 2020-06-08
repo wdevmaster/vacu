@@ -2,20 +2,20 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateRolApkRolBotonAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateRolApkRolBotonAPIRequest;
 use Modules\Usuario\Entities\RolApkRolBoton;
 use Modules\Usuario\Repositories\RolApkRolBotonRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class RolApkRolBotonController
  * @package Modules\Usuario\Http\Controllers
  */
 
-class RolApkRolBotonAPIController extends AppBaseController
+class RolApkRolBotonAPIController extends CommonController
 {
     /** @var  RolApkRolBotonRepository */
     private $rolApkRolBotonRepository;
@@ -27,7 +27,7 @@ class RolApkRolBotonAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones",
@@ -70,7 +70,7 @@ class RolApkRolBotonAPIController extends AppBaseController
 
     /**
      * @param CreateRolApkRolBotonAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones",
@@ -117,7 +117,7 @@ class RolApkRolBotonAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}",
@@ -159,7 +159,7 @@ class RolApkRolBotonAPIController extends AppBaseController
         $rolApkRolBoton = $this->rolApkRolBotonRepository->find($id);
 
         if (empty($rolApkRolBoton)) {
-            return $this->sendError('Rol Apk Rol Boton not found');
+            return $this->sendError('Rol Apk Rol Boton not found', 404);
         }
 
         return $this->sendResponse($rolApkRolBoton->toArray(), 'Rol Apk Rol Boton retrieved successfully');
@@ -168,7 +168,7 @@ class RolApkRolBotonAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateRolApkRolBotonAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}",
@@ -219,7 +219,7 @@ class RolApkRolBotonAPIController extends AppBaseController
         $rolApkRolBoton = $this->rolApkRolBotonRepository->find($id);
 
         if (empty($rolApkRolBoton)) {
-            return $this->sendError('Rol Apk Rol Boton not found');
+            return $this->sendError('Rol Apk Rol Boton not found', 404);
         }
 
         $rolApkRolBoton = $this->rolApkRolBotonRepository->update($input, $id);
@@ -229,8 +229,9 @@ class RolApkRolBotonAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}",
      *      summary="Remove the specified RolApkRolBoton from storage",
@@ -271,7 +272,7 @@ class RolApkRolBotonAPIController extends AppBaseController
         $rolApkRolBoton = $this->rolApkRolBotonRepository->find($id);
 
         if (empty($rolApkRolBoton)) {
-            return $this->sendError('Rol Apk Rol Boton not found');
+            return $this->sendError('Rol Apk Rol Boton not found', 404);
         }
 
         $rolApkRolBoton->delete();

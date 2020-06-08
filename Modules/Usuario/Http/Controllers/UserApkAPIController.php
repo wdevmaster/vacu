@@ -2,20 +2,20 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateUserApkAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserApkAPIRequest;
 use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Repositories\UserApkRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class UserApkController
  * @package Modules\Usuario\Http\Controllers
  */
 
-class UserApkAPIController extends AppBaseController
+class UserApkAPIController extends CommonController
 {
     /** @var  UserApkRepository */
     private $userApkRepository;
@@ -27,7 +27,7 @@ class UserApkAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/user_apk/users_apks",
@@ -70,7 +70,7 @@ class UserApkAPIController extends AppBaseController
 
     /**
      * @param CreateUserApkAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/user_apk/users_apks",
@@ -117,7 +117,7 @@ class UserApkAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/user_apk/users_apks/{id}",
@@ -159,7 +159,7 @@ class UserApkAPIController extends AppBaseController
         $userApk = $this->userApkRepository->find($id);
 
         if (empty($userApk)) {
-            return $this->sendError('User Apk not found');
+            return $this->sendError('User Apk not found', 404);
         }
 
         return $this->sendResponse($userApk->toArray(), 'User Apk retrieved successfully');
@@ -168,7 +168,7 @@ class UserApkAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateUserApkAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/user_apk/users_apks/{id}",
@@ -219,7 +219,7 @@ class UserApkAPIController extends AppBaseController
         $userApk = $this->userApkRepository->find($id);
 
         if (empty($userApk)) {
-            return $this->sendError('User Apk not found');
+            return $this->sendError('User Apk not found', 404);
         }
 
         $userApk = $this->userApkRepository->update($input, $id);
@@ -229,8 +229,9 @@ class UserApkAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/user_apk/users_apks/{id}",
      *      summary="Remove the specified UserApk from storage",
@@ -271,7 +272,7 @@ class UserApkAPIController extends AppBaseController
         $userApk = $this->userApkRepository->find($id);
 
         if (empty($userApk)) {
-            return $this->sendError('User Apk not found');
+            return $this->sendError('User Apk not found', 404);
         }
 
         $userApk->delete();

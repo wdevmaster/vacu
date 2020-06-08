@@ -2,20 +2,22 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateUserApiAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserApiAPIRequest;
 use Modules\Usuario\Entities\UserApi;
 use Modules\Usuario\Repositories\UserApiRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
+
+
 
 /**
  * Class UserApiController
  * @package Modules\Usuario\Http\Controllers
  */
 
-class UserApiAPIController extends AppBaseController
+class UserApiAPIController extends CommonController
 {
     /** @var  UserApiRepository */
     private $userApiRepository;
@@ -27,7 +29,7 @@ class UserApiAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/user_api/users_apis",
@@ -70,7 +72,7 @@ class UserApiAPIController extends AppBaseController
 
     /**
      * @param CreateUserApiAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/user_api/users_apis",
@@ -117,7 +119,7 @@ class UserApiAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/user_api/users_apis/{id}",
@@ -159,7 +161,7 @@ class UserApiAPIController extends AppBaseController
         $userApi = $this->userApiRepository->find($id);
 
         if (empty($userApi)) {
-            return $this->sendError('User Api not found');
+            return $this->sendError('User Api not found', 404);
         }
 
         return $this->sendResponse($userApi->toArray(), 'User Api retrieved successfully');
@@ -168,7 +170,7 @@ class UserApiAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateUserApiAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/user_api/users_apis/{id}",
@@ -219,7 +221,7 @@ class UserApiAPIController extends AppBaseController
         $userApi = $this->userApiRepository->find($id);
 
         if (empty($userApi)) {
-            return $this->sendError('User Api not found');
+            return $this->sendError('User Api not found', 404);
         }
 
         $userApi = $this->userApiRepository->update($input, $id);
@@ -229,8 +231,9 @@ class UserApiAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/user_api/users_apis/{id}",
      *      summary="Remove the specified UserApi from storage",
@@ -271,7 +274,7 @@ class UserApiAPIController extends AppBaseController
         $userApi = $this->userApiRepository->find($id);
 
         if (empty($userApi)) {
-            return $this->sendError('User Api not found');
+            return $this->sendError('User Api not found', 404);
         }
 
         $userApi->delete();

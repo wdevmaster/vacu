@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateRolBotonAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateRolBotonAPIRequest;
@@ -27,7 +28,7 @@ class RolBotonAPIController extends CommonController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/rol_boton/roles_botones",
@@ -70,7 +71,7 @@ class RolBotonAPIController extends CommonController
 
     /**
      * @param CreateRolBotonAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/rol_boton/roles_botones",
@@ -117,7 +118,7 @@ class RolBotonAPIController extends CommonController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/rol_boton/roles_botones/{id}",
@@ -159,7 +160,7 @@ class RolBotonAPIController extends CommonController
         $rolBoton = $this->rolBotonRepository->find($id);
 
         if (empty($rolBoton)) {
-            return $this->sendError('Rol Boton not found');
+            return $this->sendError('Rol Boton not found', 404);
         }
 
         return $this->sendResponse($rolBoton->toArray(), 'Rol Boton retrieved successfully');
@@ -168,7 +169,7 @@ class RolBotonAPIController extends CommonController
     /**
      * @param int $id
      * @param UpdateRolBotonAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/rol_boton/roles_botones/{id}",
@@ -219,7 +220,7 @@ class RolBotonAPIController extends CommonController
         $rolBoton = $this->rolBotonRepository->find($id);
 
         if (empty($rolBoton)) {
-            return $this->sendError('Rol Boton not found');
+            return $this->sendError('Rol Boton not found', 404);
         }
 
         $rolBoton = $this->rolBotonRepository->update($input, $id);
@@ -231,6 +232,7 @@ class RolBotonAPIController extends CommonController
      * @param int $id
      * @return Response
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/rol_boton/roles_botones/{id}",
      *      summary="Remove the specified RolBoton from storage",
@@ -271,7 +273,7 @@ class RolBotonAPIController extends CommonController
         $rolBoton = $this->rolBotonRepository->find($id);
 
         if (empty($rolBoton)) {
-            return $this->sendError('Rol Boton not found');
+            return $this->sendError('Rol Boton not found', 404);
         }
 
         $rolBoton->delete();

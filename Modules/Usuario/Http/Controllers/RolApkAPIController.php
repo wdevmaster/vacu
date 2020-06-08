@@ -2,20 +2,20 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateRolApkAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateRolApkAPIRequest;
 use Modules\Usuario\Entities\RolApk;
 use Modules\Usuario\Repositories\RolApkRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use Response;
 
 /**
  * Class RolApkController
  * @package Modules\Usuario\Http\Controllers
  */
 
-class RolApkAPIController extends AppBaseController
+class RolApkAPIController extends CommonController
 {
     /** @var  RolApkRepository */
     private $rolApkRepository;
@@ -27,7 +27,7 @@ class RolApkAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/rol_apk/roles_apks",
@@ -70,7 +70,7 @@ class RolApkAPIController extends AppBaseController
 
     /**
      * @param CreateRolApkAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/rol_apk/roles_apks",
@@ -117,7 +117,7 @@ class RolApkAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/rol_apk/roles_apks/{id}",
@@ -159,7 +159,7 @@ class RolApkAPIController extends AppBaseController
         $rolApk = $this->rolApkRepository->find($id);
 
         if (empty($rolApk)) {
-            return $this->sendError('Rol Apk not found');
+            return $this->sendError('Rol Apk not found', 404);
         }
 
         return $this->sendResponse($rolApk->toArray(), 'Rol Apk retrieved successfully');
@@ -219,7 +219,7 @@ class RolApkAPIController extends AppBaseController
         $rolApk = $this->rolApkRepository->find($id);
 
         if (empty($rolApk)) {
-            return $this->sendError('Rol Apk not found');
+            return $this->sendError('Rol Apk not found', 404);
         }
 
         $rolApk = $this->rolApkRepository->update($input, $id);
@@ -229,8 +229,9 @@ class RolApkAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
+     * @throws \Exception
      * @SWG\Delete(
      *      path="/api/v1/rol_apk/roles_apks/{id}",
      *      summary="Remove the specified RolApk from storage",
@@ -271,7 +272,7 @@ class RolApkAPIController extends AppBaseController
         $rolApk = $this->rolApkRepository->find($id);
 
         if (empty($rolApk)) {
-            return $this->sendError('Rol Apk not found');
+            return $this->sendError('Rol Apk not found', 404);
         }
 
         $rolApk->delete();
