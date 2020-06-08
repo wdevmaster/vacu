@@ -35,6 +35,18 @@ class ClienteAPIController extends CommonController
      *      tags={"Cliente"},
      *      description="Get all Clientes",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="ClienteNegocio that should be stored",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -60,11 +72,19 @@ class ClienteAPIController extends CommonController
     public function index(Request $request)
     {
         try {
-            $clientes = $this->clienteRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
+
+            $paginate = isset($request['paginate']) ? $request['paginate'] : null;
+
+            if ($paginate) {
+                $clientes = $this->clienteRepository->paginate($paginate);
+            } else {
+                $clientes = $this->clienteRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
+
             return $this->sendResponse($clientes->toArray(),
                 'comun::msgs.la_model_list_successfully',
                 'cliente::msgs.label_cliente',
