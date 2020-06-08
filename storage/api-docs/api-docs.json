@@ -6510,6 +6510,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -6546,10 +6562,10 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "UserApi that should be stored",
+                        "description": "User that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/UserApi"
+                            "$ref": "#/definitions/User"
                         }
                     }
                 ],
@@ -6709,6 +6725,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -6745,10 +6777,10 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "UserApk that should be stored",
+                        "description": "User that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/UserApk"
+                            "$ref": "#/definitions/User"
                         }
                     }
                 ],

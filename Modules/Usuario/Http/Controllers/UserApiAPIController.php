@@ -3,12 +3,12 @@
 namespace Modules\Usuario\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Usuario\Entities\UserApi;
 use Modules\Usuario\Http\Requests\CreateUserApiAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserApiAPIRequest;
-use Modules\Usuario\Entities\UserApi;
 use Modules\Usuario\Repositories\UserApiRepository;
-use Illuminate\Http\Request;
 use Modules\Usuario\Repositories\UserRepository;
 
 
@@ -16,7 +16,6 @@ use Modules\Usuario\Repositories\UserRepository;
  * Class UserApiController
  * @package Modules\Usuario\Http\Controllers
  */
-
 class UserApiAPIController extends CommonController
 {
     /** @var  UserApiRepository */
@@ -25,7 +24,7 @@ class UserApiAPIController extends CommonController
     /** @var  UserRepository */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepo,UserApiRepository $userApiRepo)
+    public function __construct(UserRepository $userRepo, UserApiRepository $userApiRepo)
     {
         $this->userApiRepository = $userApiRepo;
         $this->userRepository = $userRepo;
@@ -41,6 +40,19 @@ class UserApiAPIController extends CommonController
      *      tags={"UserApi"},
      *      description="Get all UserApis",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -65,11 +77,18 @@ class UserApiAPIController extends CommonController
      */
     public function index(Request $request)
     {
-        $userApis = $this->userApiRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+
+        if ($paginate) {
+            $userApis = $this->userApiRepository->paginate($paginate);
+        } else {
+            $userApis = $this->userApiRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($userApis->toArray(), 'User Apis retrieved successfully');
     }
@@ -116,8 +135,8 @@ class UserApiAPIController extends CommonController
     {
         $input = $request->all();
         $user = $this->userRepository->create($input);
-        $user_id=$user->id;
-        $data=['user_id'=>$user_id];
+        $user_id = $user->id;
+        $data = ['user_id' => $user_id];
         $userApi = $this->userApiRepository->create($data);
 
         return $this->sendResponse($userApi->toArray(), 'User Api saved successfully');

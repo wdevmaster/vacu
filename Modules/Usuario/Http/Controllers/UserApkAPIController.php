@@ -2,21 +2,19 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
-use App\Http\Controllers\UserController;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Http\Requests\CreateUserApkAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserApkAPIRequest;
-use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Repositories\UserApkRepository;
-use Illuminate\Http\Request;
 use Modules\Usuario\Repositories\UserRepository;
 
 /**
  * Class UserApkController
  * @package Modules\Usuario\Http\Controllers
  */
-
 class UserApkAPIController extends CommonController
 {
     /** @var  UserApkRepository */
@@ -26,8 +24,7 @@ class UserApkAPIController extends CommonController
     private $userRepository;
 
 
-
-    public function __construct(UserRepository $userRepo ,UserApkRepository $userApkRepo)
+    public function __construct(UserRepository $userRepo, UserApkRepository $userApkRepo)
     {
         $this->userApkRepository = $userApkRepo;
         $this->userRepository = $userRepo;
@@ -43,6 +40,19 @@ class UserApkAPIController extends CommonController
      *      tags={"UserApk"},
      *      description="Get all UserApks",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="paginado",
+     *          in="query",
+     *          type="integer",
+     *          description="Paginado",
+     *          required=false,
+     *          @SWG\Schema(
+     *               @SWG\Property(
+     *                  property="paginate",
+     *                  type="integer"
+     *              ),
+     *         )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -67,11 +77,19 @@ class UserApkAPIController extends CommonController
      */
     public function index(Request $request)
     {
-        $userApks = $this->userApkRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+
+        $paginate = isset($request->paginado) ? $request->paginado : null;
+
+        if ($paginate) {
+            $userApks = $this->userApkRepository->paginate($paginate);
+        } else {
+            $userApks = $this->userApkRepository->all(
+                $request->except(['skip', 'limit']),
+                $request->get('skip'),
+                $request->get('limit')
+            );
+        }
+
 
         return $this->sendResponse($userApks->toArray(), 'User Apks retrieved successfully');
     }
@@ -119,7 +137,7 @@ class UserApkAPIController extends CommonController
         $input = $request->all();
         $user = $this->userRepository->create($input);
         $user_id = $user->id;
-        $data = ['user_id'=>$user_id];
+        $data = ['user_id' => $user_id];
         $userApk = $this->userApkRepository->create($data);
         return $this->sendResponse($userApk->toArray(), 'User Apk saved successfully');
     }
