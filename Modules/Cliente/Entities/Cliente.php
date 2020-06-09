@@ -86,7 +86,7 @@ class Cliente extends Model
         'code' => 'string',
         'nombre' => 'string',
         'descripcion' => 'string',
-        'telfono' => 'string',
+        'telefono' => 'string',
         'active' => 'boolean',
         'negocio_id' => 'integer'
     ];
@@ -100,7 +100,7 @@ class Cliente extends Model
         'code' => 'required',
         'nombre' => 'required',
         'descripcion' => 'required',
-        'telfono' => 'required',
+        'telefono' => 'required',
         'active' => 'required',
         'negocio_id' => 'required'
     ];
