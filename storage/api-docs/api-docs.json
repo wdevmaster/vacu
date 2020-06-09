@@ -7221,7 +7221,7 @@
                 "code",
                 "nombre",
                 "descripcion",
-                "telfono",
+                "telefono",
                 "active",
                 "negocio_id"
             ],
@@ -7243,8 +7243,8 @@
                     "description": "descripcion",
                     "type": "string"
                 },
-                "telfono": {
-                    "description": "telfono",
+                "telefono": {
+                    "description": "telefono",
                     "type": "string"
                 },
                 "active": {
