@@ -34,7 +34,7 @@ class BaseResolver
         $accion = $sincronizacion->accion;
         $data = json_decode($sincronizacion->data, true);
         $code = $data['code'];
-        $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->first();
+        $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('negocio_id','=',$data['negocio_id'])->first();
 
         if ($traductor_code)
             $code = $traductor_code->generate_code;

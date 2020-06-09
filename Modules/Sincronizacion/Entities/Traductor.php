@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Traductor",
- *      required={"user_id", "user_code", "generate_code"},
+ *      required={"user_id", "user_code", "generate_code" , "negocio_id"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -36,6 +36,12 @@ use App\Models\Eloquent as Model;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="created_at",
  *          description="created_at",
  *          type="string",
@@ -61,7 +67,9 @@ class Traductor extends Model
         'user_id',
         'user_code',
         'generate_code',
-        'tabla'
+        'tabla',
+        'negocio_id'
+
     ];
 
     /**
@@ -74,7 +82,8 @@ class Traductor extends Model
         'user_id' => 'integer',
         'user_code' => 'string',
         'generate_code' => 'string',
-        'tabla' => 'string'
+        'tabla' => 'string',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -86,7 +95,8 @@ class Traductor extends Model
         'user_id' => 'required',
         'user_code' => 'required',
         'generate_code' => 'required',
-        'tabla' => 'requerid'
+        'tabla' => 'requerid',
+        'negocio_id' => 'integer'
     ];
 
     

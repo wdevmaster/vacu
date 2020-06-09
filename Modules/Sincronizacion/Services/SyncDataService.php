@@ -54,6 +54,10 @@ use Modules\Servicio\Repositories\ServicioRepository;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 use Modules\TipoServicio\Entities\TipoServicio;
 use Modules\TipoServicio\Repositories\TipoServicioRepository;
+use Modules\Usuario\Entities\RolApk;
+use Modules\Usuario\Entities\RolBoton;
+use Modules\Usuario\Repositories\RolApkRepository;
+use Modules\Usuario\Repositories\RolBotonRepository;
 use Modules\Venta\Entities\Venta;
 use Modules\Venta\Repositories\VentaRepository;
 
@@ -137,6 +141,10 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $ventaRepository;
 
+    private $rolApkRepository;
+
+    private $rolBotonRepository;
+
     private $baseResolver;
 
 
@@ -163,6 +171,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 ServicioRepository $servicioRepository,
                                 TipoServicioRepository $tipoServicioRepository,
                                 VentaRepository $ventaRepository,
+                                RolApkRepository $rolApkRepository,
+                                RolBotonRepository $rolBotonRepository,
                                 BaseResolver $baseResolver
     )
     {
@@ -189,6 +199,8 @@ class SyncDataService implements SyncDataServiceInterface
         $this->servicioRepository = $servicioRepository;
         $this->tipoServicioRepository = $tipoServicioRepository;
         $this->ventaRepository = $ventaRepository;
+        $this->rolApkRepository = $rolApkRepository;
+        $this->rolBotonRepository = $rolBotonRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -297,6 +309,14 @@ class SyncDataService implements SyncDataServiceInterface
                         $this->baseResolver->handle($sincronizacion, $this->ventaRepository);
                         break;
 
+                    case RolApk::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->rolApkRepository);
+                        break;
+
+                    case RolBoton::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->rolBotonRepository);
+                        break;
+
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
             }
@@ -324,6 +344,9 @@ class SyncDataService implements SyncDataServiceInterface
         $results['servicios'] = $this->servicioRepository->all();
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
         $results['ventas'] = $this->ventaRepository->all();
+        $results['rol_apks'] = $this->rolApkRepository->all();
+        $results['rol_botons'] = $this->rolApkRepository->all();
+
 
         return $results;
 
