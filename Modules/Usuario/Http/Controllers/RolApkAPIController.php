@@ -9,6 +9,9 @@ use Modules\Usuario\Http\Requests\UpdateRolApkAPIRequest;
 use Modules\Usuario\Entities\RolApk;
 use Modules\Usuario\Repositories\RolApkRepository;
 use Illuminate\Http\Request;
+use Modules\Usuario\Repositories\RolApkRolBotonRepository;
+use Modules\Usuario\Repositories\RolBotonRepository;
+use Modules\Usuario\Repositories\UserApkRepository;
 
 /**
  * Class RolApkController
@@ -19,10 +22,14 @@ class RolApkAPIController extends CommonController
 {
     /** @var  RolApkRepository */
     private $rolApkRepository;
+    private $rolApkRolBotonRepository;
+    private $rolBotonRepository;
 
-    public function __construct(RolApkRepository $rolApkRepo)
+    public function __construct(RolApkRepository $rolApkRepo, RolApkRolBotonRepository $rolApkRolBotonRepo, RolBotonRepository $rolBotonRepo)
     {
         $this->rolApkRepository = $rolApkRepo;
+        $this->rolApkRolBotonRepository = $rolApkRolBotonRepo;
+        $this->rolBotonRepository = $rolBotonRepo;
     }
 
     /**
@@ -168,7 +175,7 @@ class RolApkAPIController extends CommonController
     /**
      * @param int $id
      * @param UpdateRolApkAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/rol_apk/roles_apks/{id}",
@@ -279,4 +286,94 @@ class RolApkAPIController extends CommonController
 
         return $this->sendSuccess('Rol Apk deleted successfully');
     }
+
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     * @SWG\Post(
+     *      path="/api/v1/rol_apk/roles_apks/{id}/give/rol_boton",
+     *      summary="Asignnig RolBoton to RolApk",
+     *      tags={"RolApk"},
+     *      description="Asigning Role Boton",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of Role Apk",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Role Apk that should be updated",
+     *          required=false,
+     *          @SWG\Schema(
+     *           @SWG\Property(
+     *                  property="giveRolBotonTo",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                      @SWG\Property(
+     *                          property="nombre",
+     *                          type="string",
+     *                          example="negocios.index"
+     *                      ),
+     *                  )
+     *
+     *
+     *              ),
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+
+    public function giveRolBotonToRolApk($id_rol_apk, Request $request)
+    {
+        /** @var RolApk $rolApk */
+        $rolApk = $this->rolApkRepository->find($id_rol_apk);
+
+        if (empty($rolApk)) {
+            return $this->sendError('Role Apk not found', 404);
+        }
+
+        $input = $request->all();
+
+        foreach ($input['giveRolBotonTo']  as $item){
+           $rol_boton= $this->rolBotonRepository->find($item['id']);
+
+            if(empty($rol_boton)){
+                return $this->sendError('Role Boton not found', 404);
+            }
+
+            $data=['rol_apk_id' => $id_rol_apk, 'rol_boton_id'=>$item['id']];
+            $this->rolApkRolBotonRepository->create($data);
+
+        }
+
+        return $this->sendSuccess('Rol Boton assigned successfully');
+
+    }
+
 }

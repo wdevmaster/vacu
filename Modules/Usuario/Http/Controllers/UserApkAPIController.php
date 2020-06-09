@@ -8,6 +8,7 @@ use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Http\Requests\CreateUserApkAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserApkAPIRequest;
+use Modules\Usuario\Repositories\RolApkRepository;
 use Modules\Usuario\Repositories\UserApkRepository;
 use Modules\Usuario\Repositories\UserRepository;
 
@@ -24,10 +25,14 @@ class UserApkAPIController extends CommonController
     private $userRepository;
 
 
-    public function __construct(UserRepository $userRepo, UserApkRepository $userApkRepo)
+    private $rolApkRepository;
+
+
+    public function __construct(UserRepository $userRepo, UserApkRepository $userApkRepo, RolApkRepository $rolApkRepo)
     {
         $this->userApkRepository = $userApkRepo;
         $this->userRepository = $userRepo;
+        $this->rolApkRepository = $rolApkRepo;
     }
 
     /**
@@ -306,4 +311,95 @@ class UserApkAPIController extends CommonController
 
         return $this->sendSuccess('User Apk deleted successfully');
     }
+
+
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     * @SWG\Post(
+     *      path="/api/v1/user_apk/users_apks/{id}/give/rol_apk",
+     *      summary="Asignnig RolApk to UserApk",
+     *      tags={"UserApk"},
+     *      description="Asigning Rol Apk",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of User Apk",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Role Apk that should be updated",
+     *          required=false,
+     *          @SWG\Schema(
+     *           @SWG\Property(
+     *                  property="giveRolApkTo",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                      @SWG\Property(
+     *                          property="nombre",
+     *                          type="string",
+     *                          example="negocios.index"
+     *                      ),
+     *                  )
+     *
+     *
+     *              ),
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+
+    public function giveRolApkToUserApk($id_user_apk, Request $request)
+    {
+        /** @var UserApk $userApk */
+        $userApk = $this->userApkRepository->find($id_user_apk);
+
+        if (empty($userApk)) {
+            return $this->sendError('User Apk not found', 404);
+        }
+
+
+        $input = $request->all();
+        $rol_apk = $input['giveRolApkTo'];
+        $rol_apk_id=$rol_apk->id;
+        $rol=$this->rolApkRepository->find($rol_apk_id);
+        if(empty($rol)){
+            return $this->sendError('Rol Apk not found', 404);
+        }
+
+        $userApk->update(['rol_apk__id'=>$rol_apk_id]);
+        $this->userApkRepository->update($userApk);
+
+
+
+        return $this->sendSuccess('Rol Apk assigned successfully');
+
+    }
+
 }

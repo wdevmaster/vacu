@@ -77,15 +77,6 @@ Route::prefix('v1/rol_boton')->middleware('auth:api')->group(function () {
 });
 
 
-Route::prefix('v1/rol_apk_rol_boton')->middleware('auth:api')->group(function () {
-    Route::prefix('roles_apks_roles_botones')->group(function () {
-        Route::get('/', 'RolApkRolBotonAPIController@index')->name('rol_apk_rol_boton.roles_apks_roles_botones.index');
-        Route::post('/', 'RolApkRolBotonAPIController@store')->name('rol_apk_rol_boton.roles_apks_roles_botones.store');
-        Route::put('/{id}', 'RolApkRolBotonAPIController@update')->name('rol_apk_rol_boton.roles_apks_roles_botones.update');
-        Route::delete('/{id}', 'RolApkRolBotonAPIController@destroy')->name('rol_apk_rol_boton.roles_apks_roles_botones.delete');
-    });
-});
-
 
 Route::prefix('v1/rol_apk')->middleware('auth:api')->group(function () {
     Route::prefix('roles_apks')->group(function () {
@@ -93,6 +84,7 @@ Route::prefix('v1/rol_apk')->middleware('auth:api')->group(function () {
         Route::post('/', 'RolApkAPIController@store')->name('rol_apk.roles_apks.store');
         Route::put('/{id}', 'RolApkAPIController@update')->name('rol_apk.roles_apks.update');
         Route::delete('/{id}', 'RolApkAPIController@destroy')->name('rol_apk.roles_apks.delete');
+        Route::post('/{id}/give/rol_boton', 'RolApkAPIController@giveRolBotonToRolApk')->name('rol_apk.roles_apks.give_role_boton');
     });
 });
 
@@ -114,5 +106,6 @@ Route::prefix('v1/user_apk')->middleware('auth:api')->group(function () {
         Route::post('/', 'UserApiAPIController@store')->name('user_apk.users_apks.store');
         Route::put('/{id}', 'UserApiAPIController@update')->name('user_apk.users_apks.update');
         Route::delete('/{id}', 'UserApiAPIController@destroy')->name('user_apk.users_apks.delete');
+        Route::post('/{id}/give/rol_apk', 'UserApiAPIController@giveRolApkToUserApk')->name('user_apk.users_apks.give_role_apk');
     });
 });

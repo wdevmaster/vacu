@@ -5523,87 +5523,13 @@
                 }
             }
         },
-        "/api/v1/rol_apk_rol_boton/roles_apks_roles_botones": {
-            "get": {
-                "tags": [
-                    "RolApkRolBoton"
-                ],
-                "summary": "Get a listing of the RolApkRolBotons.",
-                "description": "Get all RolApkRolBotons",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/RolApkRolBoton"
-                                    }
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
+        "/api/v1/rol_apk/roles_apks/{id}/give/rol_boton": {
             "post": {
                 "tags": [
-                    "RolApkRolBoton"
+                    "RolApk"
                 ],
-                "summary": "Store a newly created RolApkRolBoton in storage",
-                "description": "Store RolApkRolBoton",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "RolApkRolBoton that should be stored",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/RolApkRolBoton"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/RolApkRolBoton"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/rol_apk_rol_boton/roles_apks_roles_botones/{id}": {
-            "get": {
-                "tags": [
-                    "RolApkRolBoton"
-                ],
-                "summary": "Display the specified RolApkRolBoton",
-                "description": "Get RolApkRolBoton",
+                "summary": "Asignnig RolBoton to RolApk",
+                "description": "Asigning Role Boton",
                 "produces": [
                     "application/json"
                 ],
@@ -5611,94 +5537,30 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of RolApkRolBoton",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/RolApkRolBoton"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "RolApkRolBoton"
-                ],
-                "summary": "Update the specified RolApkRolBoton in storage",
-                "description": "Update RolApkRolBoton",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of RolApkRolBoton",
+                        "description": "id of Role Apk",
                         "required": true,
                         "type": "integer"
                     },
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "RolApkRolBoton that should be updated",
+                        "description": "Role Apk that should be updated",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/RolApkRolBoton"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
                             "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/RolApkRolBoton"
-                                },
-                                "message": {
-                                    "type": "string"
+                                "giveRolBotonTo": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "negocios.index"
+                                            }
+                                        }
+                                    }
                                 }
-                            },
-                            "type": "object"
+                            }
                         }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "RolApkRolBoton"
-                ],
-                "summary": "Remove the specified RolApkRolBoton from storage",
-                "description": "Delete RolApkRolBoton",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of RolApkRolBoton",
-                        "required": true,
-                        "type": "integer"
                     }
                 ],
                 "responses": {
@@ -6907,6 +6769,67 @@
                         "description": "id of UserApk",
                         "required": true,
                         "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user_apk/users_apks/{id}/give/rol_apk": {
+            "post": {
+                "tags": [
+                    "UserApk"
+                ],
+                "summary": "Asignnig RolApk to UserApk",
+                "description": "Asigning Rol Apk",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of User Apk",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Role Apk that should be updated",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "giveRolApkTo": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "negocios.index"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -8183,7 +8106,8 @@
             "required": [
                 "user_id",
                 "user_code",
-                "generate_code"
+                "generate_code",
+                "negocio_id"
             ],
             "properties": {
                 "id": {
@@ -8207,6 +8131,11 @@
                 "tabla": {
                     "description": "tabla",
                     "type": "string"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "created_at": {
                     "description": "created_at",
