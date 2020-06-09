@@ -248,7 +248,7 @@ class EstadoFisicoAPIController extends CommonController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @throws \Exception
      * @SWG\Delete(

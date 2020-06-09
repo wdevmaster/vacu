@@ -88,14 +88,12 @@ class CondicionCorporalAPIController extends CommonController
 
             return $this->sendResponse($condicionCorporals->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 404);
         } catch
@@ -103,7 +101,6 @@ class CondicionCorporalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 500);
         }
@@ -156,14 +153,12 @@ class CondicionCorporalAPIController extends CommonController
             $condicionCorporal = $this->condicionCorporalRepository->create($input);
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 404);
         } catch
@@ -171,7 +166,6 @@ class CondicionCorporalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 500);
         }
@@ -236,14 +230,12 @@ class CondicionCorporalAPIController extends CommonController
 
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_updated_successfully',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 404);
         } catch
@@ -251,7 +243,6 @@ class CondicionCorporalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 500);
         }
@@ -303,21 +294,19 @@ class CondicionCorporalAPIController extends CommonController
             $condicionCorporal = $this->condicionCorporalRepository->find($id);
 
             if (empty($condicionCorporal)) {
-                return $this->sendError('Condicion Corporal not found');
+                return $this->sendError('Condicion Corporal not found', 404);
             }
 
             $condicionCorporal->delete();
 
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 404);
         } catch
@@ -325,7 +314,6 @@ class CondicionCorporalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'condicion_corporal::msgs.label_condicion_corporal',
                 false,
                 500);
         }

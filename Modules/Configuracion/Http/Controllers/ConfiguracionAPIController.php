@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\Common\Http\Controllers\CommonController;
 use Modules\Configuracion\Entities\Configuracion;
 use Modules\Configuracion\Http\Requests\CreateConfiguracionAPIRequest;
 use Modules\Configuracion\Http\Requests\UpdateConfiguracionAPIRequest;
@@ -15,7 +16,7 @@ use Modules\Configuracion\Repositories\ConfiguracionRepository;
  * Class ConfiguracionController
  * @package Modules\Configuracion\Http\Controllers
  */
-class ConfiguracionAPIController extends AppBaseController
+class ConfiguracionAPIController extends CommonController
 {
     /** @var  ConfiguracionRepository */
     private $configuracionRepository;
@@ -227,7 +228,7 @@ class ConfiguracionAPIController extends AppBaseController
             $configuracion = $this->configuracionRepository->find($id);
 
             if (empty($configuracion)) {
-                return $this->sendError('User not found');
+                return $this->sendError('User not found', 404);
             }
 
             $configuracion = $this->configuracionRepository->update($input, $id);
@@ -300,7 +301,7 @@ class ConfiguracionAPIController extends AppBaseController
             $configuracion = $this->configuracionRepository->find($id);
 
             if (empty($configuracion)) {
-                return $this->sendError('User not found');
+                return $this->sendError('User not found', 404);
             }
 
             $configuracion->delete();

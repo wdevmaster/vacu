@@ -89,14 +89,12 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse($animals->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'animal::msgs.label_animal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'animal::msgs.label_animal',
                 false,
                 404);
         } catch
@@ -104,7 +102,6 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'animal::msgs.label_animal',
                 false,
                 500);
         }
@@ -158,14 +155,12 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse($animal->toArray(),
                 'comun::msgs.la_model_saved_successfully',
-                'animal::msgs.label_animal',
                 true,
                 201);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'animal::msgs.label_animal',
                 false,
                 404);
         } catch
@@ -173,7 +168,6 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'animal::msgs.label_animal',
                 false,
                 500);
         }
@@ -235,14 +229,12 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse($animal->toArray(),
                 'comun::msgs.la_model_updated_successfully',
-                'animal::msgs.label_animal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'animal::msgs.label_animal',
                 false,
                 404);
         } catch
@@ -250,7 +242,6 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'animal::msgs.label_animal',
                 false,
                 500);
         }
@@ -305,14 +296,12 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse($result->toArray(),
                 'comun::msgs.la_model_desactivated_successfully',
-                'animal::msgs.label_animal',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'animal::msgs.label_animal',
                 false,
                 404);
         } catch
@@ -320,7 +309,6 @@ class AnimalAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'animal::msgs.label_animal',
                 false,
                 500);
         }
