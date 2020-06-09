@@ -88,7 +88,6 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse($clientes->toArray(),
                 'comun::msgs.la_model_list_successfully',
-                'cliente::msgs.label_cliente',
                 true,
                 200);
 
@@ -96,14 +95,12 @@ class ClienteAPIController extends CommonController
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
                 'cliente::msgs.label_cliente',
-                false,
                 404);
         } catch
         (\Exception $e) {
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'cliente::msgs.label_cliente',
                 false,
                 500);
         }
@@ -156,14 +153,12 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse($cliente->toArray(),
                 'comun::msgs.la_model_created_successfully',
-                'cliente::msgs.label_cliente',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'cliente::msgs.label_cliente',
                 false,
                 404);
         } catch
@@ -171,7 +166,6 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'cliente::msgs.label_cliente',
                 false,
                 500);
         }
@@ -237,14 +231,12 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse($cliente->toArray(),
                 'comun::msgs.la_model_updated_successfully',
-                'cliente::msgs.label_cliente',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'cliente::msgs.label_cliente',
                 false,
                 404);
         } catch
@@ -252,7 +244,6 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'cliente::msgs.label_cliente',
                 false,
                 500);
         }
@@ -307,14 +298,12 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse($cliente->toArray(),
                 'comun::msgs.la_model_desactivated_successfully',
-                'cliente::msgs.label_cliente',
                 true,
                 200);
 
         } catch (ModelNotFoundException $e) {
             return $this->sendResponse([],
                 'comun::msgs.la_model_not_found',
-                'cliente::msgs.label_cliente',
                 false,
                 404);
         } catch
@@ -322,7 +311,6 @@ class ClienteAPIController extends CommonController
 
             return $this->sendResponse([],
                 'comun::msgs.msg_error_contact_the_administrator',
-                'cliente::msgs.label_cliente',
                 false,
                 500);
         }
