@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('v1/enfermedad')->group(function (){
+Route::prefix('v1/enfermedad')->middleware('auth:api')->group(function (){
     Route::prefix('/enfermedades')->group(function (){
         Route::get('/', 'EnfermedadAPIController@index')->name('enfermedad.enfermedades.index');
         Route::post('/', 'EnfermedadAPIController@store')->name('enfermedad.enfermedades.store');

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('v1/configuracion')->group(function(){
+Route::prefix('v1/configuracion')->middleware('auth:api')->group(function(){
 
     Route::prefix('configuraciones')->group(function () {
         Route::get('/', 'ConfiguracionAPIController@index')->name('configuracion.index');

@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('v1/cliente')->group(function () {
+Route::prefix('v1/cliente')->middleware('auth:api')->group(function () {
     Route::prefix('/clientes')->group(function () {
         Route::get('/', 'ClienteAPIController@index')->name('cliente.clientes.index');
         Route::post('/', 'ClienteAPIController@store')->name('cliente.clientes.store');

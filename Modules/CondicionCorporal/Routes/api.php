@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('v1/condicion_corporal')->group(function () {
+Route::prefix('v1/condicion_corporal')->middleware('auth:api')->group(function () {
     Route::prefix('/condiciones_corporales')->group(function () {
         Route::get('/', 'CondicionCorporalAPIController@index')->name('condicion_coporal.condiciones_corporales.index');
         Route::post('/', 'CondicionCorporalAPIController@store')->name('condicion_coporal.condiciones_corporales.store');

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('/v1/animal/')->group(function () {
+Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
 
     Route::prefix('animales')->group(function () {
         Route::get('/', 'AnimalAPIController@index')->name('animal.animales.index');
