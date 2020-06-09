@@ -24,8 +24,6 @@ class UpdateLactanciaAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Lactancia::$rules;
-        
-        return $rules;
+        return [];
     }
 }

@@ -24,8 +24,6 @@ class UpdatePartoAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Parto::$rules;
-        
-        return $rules;
+        return [];
     }
 }

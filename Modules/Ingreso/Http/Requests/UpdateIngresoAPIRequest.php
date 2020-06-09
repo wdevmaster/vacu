@@ -24,8 +24,6 @@ class UpdateIngresoAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Ingreso::$rules;
-        
-        return $rules;
+        return [];
     }
 }

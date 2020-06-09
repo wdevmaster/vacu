@@ -24,8 +24,6 @@ class UpdateSyncronizacionAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Syncronizacion::$rules;
-        
-        return $rules;
+        return [];
     }
 }

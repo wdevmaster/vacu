@@ -24,8 +24,6 @@ class UpdateTipoServicioAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = TipoServicio::$rules;
-        
-        return $rules;
+        return [];
     }
 }

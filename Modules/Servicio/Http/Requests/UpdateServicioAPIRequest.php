@@ -24,8 +24,6 @@ class UpdateServicioAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Servicio::$rules;
-        
-        return $rules;
+        return [];
     }
 }

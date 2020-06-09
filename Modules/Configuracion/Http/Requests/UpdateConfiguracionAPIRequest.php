@@ -24,8 +24,6 @@ class UpdateConfiguracionAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Configuracion::$rules;
-        
-        return $rules;
+        return [];
     }
 }

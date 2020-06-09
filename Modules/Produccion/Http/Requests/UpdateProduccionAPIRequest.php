@@ -24,8 +24,6 @@ class UpdateProduccionAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Produccion::$rules;
-        
-        return $rules;
+        return [];
     }
 }

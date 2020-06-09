@@ -24,8 +24,6 @@ class UpdateLoteAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Lote::$rules;
-        
-        return $rules;
+        return [];
     }
 }

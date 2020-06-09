@@ -24,8 +24,6 @@ class UpdateCondicionCorporalAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = CondicionCorporal::$rules;
-        
-        return $rules;
+        return [];
     }
 }

@@ -24,8 +24,6 @@ class UpdateEventoAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Evento::$rules;
-        
-        return $rules;
+        return [];
     }
 }

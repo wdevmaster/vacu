@@ -24,8 +24,6 @@ class UpdateInseminadorAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Inseminador::$rules;
-        
-        return $rules;
+        return [];
     }
 }

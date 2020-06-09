@@ -24,8 +24,6 @@ class UpdateMuerteAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Muerte::$rules;
-        
-        return $rules;
+        return [];
     }
 }

@@ -24,8 +24,6 @@ class UpdateEnfermedadAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Enfermedad::$rules;
-        
-        return $rules;
+        return [];
     }
 }

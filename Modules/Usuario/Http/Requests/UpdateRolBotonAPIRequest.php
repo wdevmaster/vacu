@@ -24,8 +24,6 @@ class UpdateRolBotonAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = RolBoton::$rules;
-        
-        return $rules;
+        return [];
     }
 }

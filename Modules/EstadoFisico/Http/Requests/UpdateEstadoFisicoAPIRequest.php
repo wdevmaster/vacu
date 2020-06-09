@@ -24,8 +24,6 @@ class UpdateEstadoFisicoAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = EstadoFisico::$rules;
-        
-        return $rules;
+        return [];
     }
 }

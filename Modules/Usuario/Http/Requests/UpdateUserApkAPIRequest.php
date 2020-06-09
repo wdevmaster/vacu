@@ -24,8 +24,6 @@ class UpdateUserApkAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = UserApk::$rules;
-        
-        return $rules;
+        return [];
     }
 }

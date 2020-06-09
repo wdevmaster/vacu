@@ -24,8 +24,6 @@ class UpdateSemenAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Semen::$rules;
-        
-        return $rules;
+        return [];
     }
 }

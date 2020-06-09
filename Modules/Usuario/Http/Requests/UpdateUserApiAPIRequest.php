@@ -24,8 +24,6 @@ class UpdateUserApiAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = UserApi::$rules;
-        
-        return $rules;
+        return [];
     }
 }

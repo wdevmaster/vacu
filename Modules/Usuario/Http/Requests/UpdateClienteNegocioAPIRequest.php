@@ -24,8 +24,6 @@ class UpdateClienteNegocioAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = ClienteNegocio::$rules;
-        
-        return $rules;
+        return [];
     }
 }

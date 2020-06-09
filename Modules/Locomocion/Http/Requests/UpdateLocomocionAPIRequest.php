@@ -24,8 +24,6 @@ class UpdateLocomocionAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Locomocion::$rules;
-        
-        return $rules;
+        return [];
     }
 }

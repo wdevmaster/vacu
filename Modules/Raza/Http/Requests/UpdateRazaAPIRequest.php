@@ -24,8 +24,6 @@ class UpdateRazaAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Raza::$rules;
-        
-        return $rules;
+        return [];
     }
 }

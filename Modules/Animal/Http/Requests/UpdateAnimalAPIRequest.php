@@ -24,8 +24,6 @@ class UpdateAnimalAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Animal::$rules;
-        
-        return $rules;
+        return [];
     }
 }

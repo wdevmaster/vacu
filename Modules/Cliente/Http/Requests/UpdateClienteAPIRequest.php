@@ -24,8 +24,6 @@ class UpdateClienteAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Cliente::$rules;
-        
-        return $rules;
+        return [];
     }
 }

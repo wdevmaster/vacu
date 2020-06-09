@@ -24,8 +24,6 @@ class UpdateRolApkAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = RolApk::$rules;
-        
-        return $rules;
+        return [];
     }
 }

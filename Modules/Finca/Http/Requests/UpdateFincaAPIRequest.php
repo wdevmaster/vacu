@@ -24,8 +24,6 @@ class UpdateFincaAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Finca::$rules;
-        
-        return $rules;
+        return [];
     }
 }

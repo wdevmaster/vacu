@@ -24,8 +24,6 @@ class UpdateVentaAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Venta::$rules;
-        
-        return $rules;
+        return [];
     }
 }
