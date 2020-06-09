@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Cliente",
- *      required={"code", "nombre", "descripcion", "telfono", "active", "negocio_id"},
+ *      required={"code", "nombre", "descripcion", "telefono", "active", "negocio_id"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -30,8 +30,8 @@ use App\Models\Eloquent as Model;
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="telfono",
- *          description="telfono",
+ *          property="telefono",
+ *          description="telefono",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -71,7 +71,7 @@ class Cliente extends Model
         'code',
         'nombre',
         'descripcion',
-        'telfono',
+        'telefono',
         'active',
         'negocio_id'
     ];
