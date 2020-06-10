@@ -13,6 +13,7 @@ use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Sincronizacion\Entities\Syncronizacion;
 use Modules\Sincronizacion\Repositories\TraductorRepository;
+use phpDocumentor\Reflection\Types\Integer;
 
 class BaseResolver
 {
@@ -29,12 +30,12 @@ class BaseResolver
         $this->generateCodeResolver = $generateCodeResolver;
     }
 
-    public function handle(Syncronizacion $sincronizacion, BaseRepository $repository)
+    public function handle(Syncronizacion $sincronizacion, BaseRepository $repository, Integer $negocio_id)
     {
         $accion = $sincronizacion->accion;
         $data = json_decode($sincronizacion->data, true);
         $code = $data['code'];
-        $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('negocio_id','=',$sincronizacion->negocio_id)->first();
+        $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('negocio_id','=',$negocio_id)->first();
 
         if ($traductor_code)
             $code = $traductor_code->generate_code;

@@ -214,6 +214,7 @@ class SyncDataService implements SyncDataServiceInterface
     {
 
         $user = Auth::user();
+        $negocio_id=$user->negocio_id;
         $sincronizaciones = $this->syncronizacionRepository->all()->where('user_id', '=', $user->id);
         $results = array();
 
@@ -223,98 +224,98 @@ class SyncDataService implements SyncDataServiceInterface
                 switch ($sincronizacion->tabla) {
 
                     case Configuracion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->configuracionRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->configuracionRepository, $negocio_id);
                         break;
 
                     case Animal::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->animalRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->animalRepository, $negocio_id );
                         break;
 
                     case CondicionCorporal::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->condicionCorporalRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->condicionCorporalRepository,$negocio_id);
                         break;
 
                     case Enfermedad::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->enfermedadRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->enfermedadRepository, $negocio_id);
                         break;
 
                     case Negocio::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->negocioRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->negocioRepository, $negocio_id);
                         break;
 
                     case EstadoFisico::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->estadoFisicoRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->estadoFisicoRepository, $negocio_id);
                         break;
 
                     case Evento::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->eventoRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->eventoRepository, $negocio_id);
                         break;
 
                     case Finca::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->fincaRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->fincaRepository, $negocio_id);
                         break;
 
                     case Ingreso::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->ingresoRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->ingresoRepository, $negocio_id);
                         break;
                     case Inseminador::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->inseminadorRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->inseminadorRepository, $negocio_id);
                         break;
 
                     case Lactancia::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->lactanciaRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->lactanciaRepository, $negocio_id);
                         break;
 
                     case Locomocion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->locomocionRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->locomocionRepository, $negocio_id);
                         break;
 
                     case Lote::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->loteRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->loteRepository, $negocio_id);
                         break;
 
                     case Muerte::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->muerteRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->muerteRepository, $negocio_id);
                         break;
 
                     case Parto::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->partoRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->partoRepository, $negocio_id);
                         break;
 
                     case Produccion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->produccionRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->produccionRepository, $negocio_id);
                         break;
 
                     case Raza::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->razaRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->razaRepository, $negocio_id);
                         break;
 
                     case RegistroEnfermedad::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->registroEnfermedadRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->registroEnfermedadRepository, $negocio_id);
                         break;
 
                     case Semen::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->semenRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->semenRepository, $negocio_id);
                         break;
 
                     case Servicio::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->servicioRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->servicioRepository, $negocio_id);
                         break;
 
                     case TipoServicio::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->tipoServicioRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->tipoServicioRepository, $negocio_id);
                         break;
 
                     case Venta::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->ventaRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->ventaRepository, $negocio_id);
                         break;
 
                     case RolApk::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->rolApkRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->rolApkRepository, $negocio_id);
                         break;
 
                     case RolBoton::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->rolBotonRepository);
+                        $this->baseResolver->handle($sincronizacion, $this->rolBotonRepository, $negocio_id);
                         break;
 
                 }
