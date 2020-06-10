@@ -67,7 +67,10 @@ class AnimalAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *    security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function index(Request $request)
@@ -282,7 +285,10 @@ class AnimalAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *    security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function destroy($id)

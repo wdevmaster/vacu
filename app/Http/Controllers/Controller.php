@@ -34,6 +34,14 @@ use JWTAuth;
  *     name="Projects",
  *     description="API Endpoints of Projects"
  * )
+ *
+ *     @SWG\SecurityScheme(
+ *      securityDefinition="Bearer",
+ *       type="apiKey",
+ *         name="Authorization",
+ *         in="header"
+ *     )
+
  */
 class Controller extends BaseController
 {
