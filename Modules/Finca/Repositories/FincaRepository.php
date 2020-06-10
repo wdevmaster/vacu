@@ -43,4 +43,18 @@ class FincaRepository extends BaseRepository
     {
         return Finca::class;
     }
+
+    public function delete($id)
+    {
+        $finca = $this->find($id);
+
+        if ($finca){
+            $data_delete = [
+                'active' => false
+            ];
+
+            $this->update($data_delete, $finca->id);
+        }
+
+    }
 }

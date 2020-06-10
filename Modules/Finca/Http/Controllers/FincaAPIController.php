@@ -296,7 +296,7 @@ class FincaAPIController extends CommonController
             return $this->sendError('Finca not found', 404);
         }
 
-        $finca->delete();
+        $this->fincaRepository->delete($id);
 
         return $this->sendSuccess('Finca deleted successfully');
     }

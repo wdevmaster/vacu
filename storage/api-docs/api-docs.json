@@ -7408,7 +7408,6 @@
         },
         "Finca": {
             "required": [
-                "finca_id",
                 "motivo",
                 "nombre",
                 "numero",
@@ -7418,11 +7417,6 @@
             "properties": {
                 "id": {
                     "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "finca_id": {
-                    "description": "finca_id",
                     "type": "integer",
                     "format": "int32"
                 },
