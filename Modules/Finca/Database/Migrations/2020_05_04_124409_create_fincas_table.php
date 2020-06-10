@@ -15,12 +15,13 @@ class CreateFincasTable extends Migration
     {
         Schema::create('fincas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('finca_id');
             $table->string('nombre');
             $table->integer('numero');
-            $table->integer('negocio_id');
+            $table->integer('negocio_id')->unsigned();
             $table->boolean('active');
             $table->timestamps();
+
+            $table->foreign('negocio_id')->references('id')->on('negocios');
         });
     }
 

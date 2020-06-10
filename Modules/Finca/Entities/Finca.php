@@ -7,16 +7,10 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Finca",
- *      required={"finca_id",  "motivo", "nombre", "numero", "negocio_id", "active"},
+ *      required={"motivo", "nombre", "numero", "negocio_id", "active"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="finca_id",
- *          description="finca_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -65,7 +59,6 @@ class Finca extends Model
 
 
     public $fillable = [
-        'finca_id',
         'nombre',
         'numero',
         'negocio_id',
@@ -79,7 +72,6 @@ class Finca extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'finca_id' => 'integer',
         'nombre' => 'string',
         'numero' => 'integer',
         'negocio_id' => 'integer',
@@ -92,11 +84,15 @@ class Finca extends Model
      * @var array
      */
     public static $rules = [
-        'finca_id' => 'required',
         'nombre' => 'required',
         'numero' => 'required',
         'negocio_id' => 'required',
         'active' => 'required'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 
     public static $tableName = 'fincas';
