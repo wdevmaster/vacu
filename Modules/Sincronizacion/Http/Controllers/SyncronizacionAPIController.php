@@ -65,7 +65,10 @@ class SyncronizacionAPIController extends AppBaseController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function store(CreateSyncronizacionAPIRequest $request)
@@ -135,7 +138,10 @@ class SyncronizacionAPIController extends AppBaseController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function startSync()

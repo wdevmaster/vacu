@@ -67,7 +67,10 @@ class RazaAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function index(Request $request)
@@ -123,7 +126,10 @@ class RazaAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function store(CreateRazaAPIRequest $request)
@@ -170,7 +176,10 @@ class RazaAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function show($id)
@@ -228,7 +237,10 @@ class RazaAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function update($id, UpdateRazaAPIRequest $request)
@@ -283,7 +295,10 @@ class RazaAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function destroy($id)

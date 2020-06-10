@@ -67,7 +67,10 @@ class InseminadorAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function index(Request $request)
@@ -122,7 +125,10 @@ class InseminadorAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function store(CreateInseminadorAPIRequest $request)
@@ -169,7 +175,10 @@ class InseminadorAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function show($id)
@@ -227,7 +236,10 @@ class InseminadorAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function update($id, UpdateInseminadorAPIRequest $request)
@@ -282,7 +294,10 @@ class InseminadorAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function destroy($id)

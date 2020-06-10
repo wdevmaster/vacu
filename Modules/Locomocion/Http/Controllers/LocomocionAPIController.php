@@ -66,7 +66,10 @@ class LocomocionAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function index(Request $request)
@@ -121,7 +124,10 @@ class LocomocionAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function store(CreateLocomocionAPIRequest $request)
@@ -168,7 +174,10 @@ class LocomocionAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function show($id)
@@ -226,7 +235,10 @@ class LocomocionAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function update($id, UpdateLocomocionAPIRequest $request)
@@ -281,7 +293,10 @@ class LocomocionAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function destroy($id)

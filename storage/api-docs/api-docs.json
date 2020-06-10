@@ -105,7 +105,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/animal/animales/{id}": {
@@ -154,7 +159,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -247,7 +257,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -287,7 +302,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/cliente/clientes/{id}": {
@@ -336,7 +356,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -374,7 +399,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/condicion_corporal/condiciones_corporales": {
@@ -424,7 +454,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -464,7 +499,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/condicion_corporal/condiciones_corporales/{id}": {
@@ -513,7 +553,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -551,7 +596,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/configuracion/configuraciones": {
@@ -601,7 +651,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -641,7 +696,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/configuracion/configuraciones/{id}": {
@@ -690,7 +750,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -728,7 +793,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/enfermedad/enfermedades": {
@@ -778,7 +848,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -818,7 +893,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/enfermedades/{id}": {
@@ -867,7 +947,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/enfermedad/enfermedades/{id}": {
@@ -907,7 +992,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/estado_fisico/estados_fisicos": {
@@ -957,7 +1047,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -997,7 +1092,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/estado_fisico/estados_fisicos/{id}": {
@@ -1037,7 +1137,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1084,7 +1189,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -1122,7 +1232,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/evento/eventos": {
@@ -1172,7 +1287,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -1212,7 +1332,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/evento/eventos/{id}": {
@@ -1252,7 +1377,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1299,7 +1429,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -1337,7 +1472,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/finca/fincas": {
@@ -1387,7 +1527,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -1427,7 +1572,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/finca/fincas/{id}": {
@@ -1467,7 +1617,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1514,7 +1669,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -1552,7 +1712,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/ingreso/ingresos": {
@@ -1602,7 +1767,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -1642,7 +1812,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/ingreso/ingresos/{id}": {
@@ -1682,7 +1857,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1729,7 +1909,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -1767,7 +1952,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/inseminador/inseminadores": {
@@ -1817,7 +2007,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -1857,7 +2052,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/inseminador/inseminadores/{id}": {
@@ -1897,7 +2097,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -1944,7 +2149,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -1982,7 +2192,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/lactancia/lactancias": {
@@ -2032,7 +2247,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -2072,7 +2292,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/lactancia/lactancias/{id}": {
@@ -2112,7 +2337,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -2159,7 +2389,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -2197,7 +2432,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/locomocion/locomociones": {
@@ -2247,7 +2487,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -2287,7 +2532,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/locomocion/locomociones/{id}": {
@@ -2327,7 +2577,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -2374,7 +2629,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -2412,7 +2672,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/lote/lotes": {
@@ -2462,7 +2727,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -2502,7 +2772,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/lote/lotes/{id}": {
@@ -2542,7 +2817,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -2589,7 +2869,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -2627,7 +2912,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/muerte/muertes": {
@@ -2677,7 +2967,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -2717,7 +3012,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/muerte/muertes/{id}": {
@@ -2757,7 +3057,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -2804,7 +3109,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -2842,7 +3152,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/negocio/negocios": {
@@ -2892,7 +3207,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -2932,7 +3252,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/negocio/negocios/{id}": {
@@ -2981,7 +3306,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -3019,7 +3349,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/parto/partos": {
@@ -3069,7 +3404,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -3109,7 +3449,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/parto/partos/{id}": {
@@ -3149,7 +3494,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -3196,7 +3546,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -3234,7 +3589,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/produccion/producciones": {
@@ -3284,7 +3644,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -3324,7 +3689,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/produccion/producciones/{id}": {
@@ -3364,7 +3734,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -3411,7 +3786,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -3449,7 +3829,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/raza/razas": {
@@ -3499,7 +3884,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -3539,7 +3929,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/raza/razas/{id}": {
@@ -3579,7 +3974,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -3626,7 +4026,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -3664,7 +4069,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/registro_enfermedad/registros_enfermedades": {
@@ -3714,7 +4124,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -3754,7 +4169,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/registro_enfermedad/registros_enfermedades/{id}": {
@@ -3794,7 +4214,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -3841,7 +4266,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -3879,7 +4309,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/semen/semens": {
@@ -3929,7 +4364,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -3969,7 +4409,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/semen/semens/{id}": {
@@ -4009,7 +4454,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -4056,7 +4506,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -4094,7 +4549,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/servicio/servicios": {
@@ -4144,7 +4604,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -4184,7 +4649,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/servicio/servicios/{id}": {
@@ -4224,7 +4694,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -4271,7 +4746,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -4309,7 +4789,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/sincronizacion/sincronizaciones": {
@@ -4351,7 +4836,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/sincronizacion/sincronizaciones/start": {
@@ -4390,7 +4880,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/tipo_servicio/tipos_servicios": {
@@ -4440,7 +4935,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -4480,7 +4980,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/tipo_servicio/tipos_servicios/{id}": {
@@ -4520,7 +5025,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -4567,7 +5077,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -4605,7 +5120,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/usuario/auth/password/email": {
@@ -4965,7 +5485,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -5005,7 +5530,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/usuario/clientes_negocios/{id}": {
@@ -5045,7 +5575,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -5092,7 +5627,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -5130,7 +5670,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/permiso/permisos": {
@@ -5164,7 +5709,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -5204,7 +5754,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/permissions/{id}": {
@@ -5244,7 +5799,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/permiso/permisos/{id}": {
@@ -5293,7 +5853,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -5331,7 +5896,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/rol_apk/roles_apks": {
@@ -5365,7 +5935,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -5405,7 +5980,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/rol_apk/roles_apks/{id}": {
@@ -5445,7 +6025,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -5492,7 +6077,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -5530,7 +6120,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/rol_apk/roles_apks/{id}/give/rol_boton": {
@@ -5591,7 +6186,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/rol_boton/roles_botones": {
@@ -5625,7 +6225,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -5665,7 +6270,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/rol_boton/roles_botones/{id}": {
@@ -5705,7 +6315,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -5752,7 +6367,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -5790,7 +6410,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/role/roles": {
@@ -5824,7 +6449,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -5864,7 +6494,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/role/roles/{id}": {
@@ -5904,7 +6539,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -5951,7 +6591,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -5989,7 +6634,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/role/roles/{id}/give/permission": {
@@ -6050,7 +6700,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/usuario/usuarios": {
@@ -6100,7 +6755,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -6140,7 +6800,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/usuario/usuarios/filter/all": {
@@ -6223,7 +6888,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/usuario/usuarios/{id}": {
@@ -6315,7 +6985,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/usuario/usuarios/{id}/assign/role": {
@@ -6369,7 +7044,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/user_api/users_apis": {
@@ -6419,7 +7099,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -6459,7 +7144,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/user_api/users_apis/{id}": {
@@ -6499,7 +7189,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -6546,7 +7241,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -6584,7 +7284,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/user_apk/users_apks": {
@@ -6634,7 +7339,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -6674,7 +7384,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/user_apk/users_apks/{id}": {
@@ -6714,7 +7429,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -6761,7 +7481,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -6799,7 +7524,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/user_apk/users_apks/{id}/give/rol_apk": {
@@ -6860,7 +7590,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/venta/ventas": {
@@ -6910,7 +7645,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -6950,7 +7690,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/venta/ventas/{id}": {
@@ -6990,7 +7735,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -7037,7 +7787,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -7075,7 +7830,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         }
     },

@@ -66,7 +66,10 @@ class ClienteNegocioAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function index(Request $request)
@@ -124,7 +127,10 @@ class ClienteNegocioAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function store(CreateClienteNegocioAPIRequest $request)
@@ -171,7 +177,10 @@ class ClienteNegocioAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function show($id)
@@ -180,7 +189,7 @@ class ClienteNegocioAPIController extends CommonController
         $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
         if (empty($clienteNegocio)) {
-            return $this->sendError('Cliente Negocio not found');
+            return $this->sendError('Cliente Negocio not found', 404);
         }
 
         return $this->sendResponse($clienteNegocio->toArray(), 'Cliente Negocio retrieved successfully');
@@ -229,7 +238,10 @@ class ClienteNegocioAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function update($id, UpdateClienteNegocioAPIRequest $request)
@@ -240,7 +252,7 @@ class ClienteNegocioAPIController extends CommonController
         $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
         if (empty($clienteNegocio)) {
-            return $this->sendError('Cliente Negocio not found');
+            return $this->sendError('Cliente Negocio not found', 404);
         }
 
         $clienteNegocio = $this->clienteNegocioRepository->update($input, $id);
@@ -284,7 +296,10 @@ class ClienteNegocioAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function destroy($id)
@@ -293,7 +308,7 @@ class ClienteNegocioAPIController extends CommonController
         $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
         if (empty($clienteNegocio)) {
-            return $this->sendError('Cliente Negocio not found');
+            return $this->sendError('Cliente Negocio not found', 404);
         }
 
         $clienteNegocio->delete();
