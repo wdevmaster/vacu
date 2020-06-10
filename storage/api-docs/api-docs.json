@@ -6843,7 +6843,7 @@
                     {
                         "name": "filter",
                         "in": "query",
-                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\n    <b>campo</b>(string): uno de los siguientes valores ('<b>negocio_id</b>'). Id del negocio a filtrar <br>\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''negocio_id'',''='',''1'']] <br><br>\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
+                        "description": "Cada elemento del arreglo filter debe estar en el formato: [['<b>campo</b>','<b>operador</b>','<b>valor</b>']]. <br><br>\r\n    <b>campo</b>(string): uno de los siguientes valores ('<b>negocio_id</b>'). Id del negocio a filtrar <br>\r\n    <b>operador</b>(string): Los posibles operadores son: '=', '!=', 'like',  '>', '<'. <br>\r\n    <b>valor</b>: El valor que se usara en la busqueda. <br><br><b>ej</b>: [[''negocio_id'',''='',''1'']] <br><br>\r\n    <b>Nota: Cuando se envia el operador like en el filter el valor no debe contener los signos de ''%''.</b>",
                         "type": "array",
                         "items": {
                             "type": "array",

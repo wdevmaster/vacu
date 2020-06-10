@@ -358,9 +358,9 @@ class UserApkAPIController extends CommonController
      *                  type="array",
      *                  @SWG\Items(
      *                      @SWG\Property(
-     *                          property="nombre",
-     *                          type="string",
-     *                          example="negocios.index"
+     *                          property="id",
+     *                          type="integer",
+     *                          example="rol_apk_id"
      *                      ),
      *                  )
      *

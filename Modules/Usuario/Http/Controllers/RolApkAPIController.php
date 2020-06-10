@@ -332,9 +332,9 @@ class RolApkAPIController extends CommonController
      *                  type="array",
      *                  @SWG\Items(
      *                      @SWG\Property(
-     *                          property="nombre",
+     *                          property="id",
      *                          type="string",
-     *                          example="negocios.index"
+     *                          example="rol_boton_id"
      *                      ),
      *                  )
      *
@@ -383,6 +383,11 @@ class RolApkAPIController extends CommonController
 
             if(empty($rol_boton)){
                 return $this->sendError('Role Boton not found', 404);
+            }
+
+            $rol_apk_rol_boton= $this->rolApkRolBotonRepository->all()->where('rol_apk_id','=',$id_rol_apk)->where('rol_boton_id','=',$item['id']);
+            if ($rol_apk_rol_boton){
+                return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
             }
 
             $data=['rol_apk_id' => $id_rol_apk, 'rol_boton_id'=>$item['id']];

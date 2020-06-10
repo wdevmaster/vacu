@@ -70,6 +70,7 @@ Route::prefix('v1/permiso')->middleware('auth:api')->group(function () {
 Route::prefix('v1/rol_boton')->middleware('auth:api')->group(function () {
     Route::prefix('roles_botones')->group(function () {
         Route::get('/', 'RolBotonAPIController@index')->name('rol_boton.roles_botones.index');
+        Route::get('/{id}', 'RolBotonAPIController@show')->name('rol_boton.roles_botones.show');
         Route::post('/', 'RolBotonAPIController@store')->name('rol_boton.roles_botones.store');
         Route::put('/{id}', 'RolBotonAPIController@update')->name('rol_boton.roles_botones.update');
         Route::delete('/{id}', 'RolBotonAPIController@destroy')->name('rol_boton.roles_botones.delete');
@@ -82,6 +83,7 @@ Route::prefix('v1/rol_apk')->middleware('auth:api')->group(function () {
     Route::prefix('roles_apks')->group(function () {
         Route::get('/', 'RolApkAPIController@index')->name('rol_apk.roles_apks.index');
         Route::post('/', 'RolApkAPIController@store')->name('rol_apk.roles_apks.store');
+        Route::get('/{id}', 'RolApkAPIController@show')->name('rol_apk.roles_apks.show');
         Route::put('/{id}', 'RolApkAPIController@update')->name('rol_apk.roles_apks.update');
         Route::delete('/{id}', 'RolApkAPIController@destroy')->name('rol_apk.roles_apks.delete');
         Route::post('/{id}/give/rol_boton', 'RolApkAPIController@giveRolBotonToRolApk')->name('rol_apk.roles_apks.give_role_boton');
@@ -93,6 +95,7 @@ Route::prefix('v1/user_api')->middleware('auth:api')->group(function () {
     Route::prefix('users_apis')->group(function () {
         Route::get('/', 'UserApiAPIController@index')->name('user_api.users_apis.index');
         Route::post('/', 'UserApiAPIController@store')->name('user_api.users_apis.store');
+        Route::get('/{id}', 'UserApiAPIController@show')->name('user_api.users_apis.show');
         Route::put('/{id}', 'UserApiAPIController@update')->name('user_api.users_apis.update');
         Route::delete('/{id}', 'UserApiAPIController@destroy')->name('user_api.users_apis.delete');
     });
@@ -102,10 +105,11 @@ Route::prefix('v1/user_api')->middleware('auth:api')->group(function () {
 
 Route::prefix('v1/user_apk')->middleware('auth:api')->group(function () {
     Route::prefix('users_apks')->group(function () {
-        Route::get('/', 'UserApiAPIController@index')->name('user_apk.users_apks.index');
-        Route::post('/', 'UserApiAPIController@store')->name('user_apk.users_apks.store');
-        Route::put('/{id}', 'UserApiAPIController@update')->name('user_apk.users_apks.update');
-        Route::delete('/{id}', 'UserApiAPIController@destroy')->name('user_apk.users_apks.delete');
-        Route::post('/{id}/give/rol_apk', 'UserApiAPIController@giveRolApkToUserApk')->name('user_apk.users_apks.give_role_apk');
+        Route::get('/', 'UserApkAPIController@index')->name('user_apk.users_apks.index');
+        Route::post('/', 'UserApkAPIController@store')->name('user_apk.users_apks.store');
+        Route::get('/{id}', 'UserApkAPIController@show')->name('user_apk.users_apks.show');
+        Route::put('/{id}', 'UserApkAPIController@update')->name('user_apk.users_apks.update');
+        Route::delete('/{id}', 'UserApkAPIController@destroy')->name('user_apk.users_apks.delete');
+        Route::post('/{id}/give/rol_apk', 'UserApkAPIController@giveRolApkToUserApk')->name('user_apk.users_apks.give_role_apk');
     });
 });
