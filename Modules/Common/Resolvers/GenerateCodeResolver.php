@@ -23,7 +23,7 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
         $this->traductorRepository = $traductorRepository;
     }
 
-    public function handle($user_code, $tabla)
+    public function handle($user_code, $tabla,$negocio_id)
     {
         try {
 //            $last_code = DB::select('select '.$tabla.'.code');
@@ -34,6 +34,7 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
             $traduccion = new Traductor();
             $traduccion->user_code = $user_code;
             $traduccion->generate_code = $generate_code;
+            $traduccion->negocio_id = $negocio_id;
             $traduccion->tabla = $tabla;
 
             $this->traductorRepository->create($traduccion->toArray());

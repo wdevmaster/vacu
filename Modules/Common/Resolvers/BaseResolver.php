@@ -34,7 +34,7 @@ class BaseResolver
         $accion = $sincronizacion->accion;
         $data = json_decode($sincronizacion->data, true);
         $code = $data['code'];
-        $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('negocio_id','=',$data['negocio_id'])->first();
+        $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('negocio_id','=',$sincronizacion->negocio_id)->first();
 
         if ($traductor_code)
             $code = $traductor_code->generate_code;
@@ -45,7 +45,7 @@ class BaseResolver
                 $validateCode = $repository->validateCode($code);
 
                 if ($validateCode)
-                    $code = $this->generateCodeResolver->handle($code, $sincronizacion->tabla);
+                    $code = $this->generateCodeResolver->handle($code, $sincronizacion->tabla,$sincronizacion->negocio_id);
 
                 $data['code'] = $code;
                 $repository->create($data);
