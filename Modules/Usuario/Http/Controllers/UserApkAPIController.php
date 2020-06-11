@@ -148,8 +148,9 @@ class UserApkAPIController extends CommonController
         $input = $request->all();
         $user = $this->userRepository->create($input);
         $user_id = $user->id;
-        $data = ['user_id' => $user_id ,'rol_apk_id' => 0];
+        $data = ['user_id' => $user_id,'rol_apk_id' => 0];
         $userApk = $this->userApkRepository->create($data);
+
         return $this->sendResponse($userApk->toArray(), 'User Apk saved successfully');
     }
 

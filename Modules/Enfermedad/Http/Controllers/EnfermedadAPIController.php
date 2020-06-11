@@ -183,7 +183,7 @@ class EnfermedadAPIController extends CommonController
      * @return JsonResponse
      *
      * @SWG\Put(
-     *      path="/api/v1/enfermedades/{id}",
+     *      path="/api/v1/enfermedad/enfermedades/{id}",
      *      summary="Update the specified Enfermedad in storage",
      *      tags={"Enfermedad"},
      *      description="Update Enfermedad",

@@ -901,7 +901,7 @@
                 ]
             }
         },
-        "/api/v1/enfermedades/{id}": {
+        "/api/v1/enfermedad/enfermedades/{id}": {
             "put": {
                 "tags": [
                     "Enfermedad"
@@ -953,9 +953,7 @@
                         "Bearer": []
                     }
                 ]
-            }
-        },
-        "/api/v1/enfermedad/enfermedades/{id}": {
+            },
             "delete": {
                 "tags": [
                     "Enfermedad"
@@ -7135,7 +7133,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/UserApi"
+                                    "$ref": "#/definitions/User"
                                 },
                                 "message": {
                                     "type": "string"

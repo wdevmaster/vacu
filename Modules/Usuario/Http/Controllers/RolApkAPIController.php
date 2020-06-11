@@ -371,6 +371,7 @@ class RolApkAPIController extends CommonController
     {
         /** @var RolApk $rolApk */
         $rolApk = $this->rolApkRepository->find($id_rol_apk);
+
         if ($rolApk) {
             return $this->sendError('Role Apk not found', 404);
         }
@@ -379,11 +380,12 @@ class RolApkAPIController extends CommonController
 
         foreach ($input['giveRolBotonTo']  as $item){
            $rol_boton= $this->rolBotonRepository->find($item);
+
             if($rol_boton){
                 return $this->sendError('Role Boton not found', 404);
             }
 
-            $rol_apk_rol_boton= $this->rolApkRolBotonRepository->all()->where('rol_apk_id','=',$id_rol_apk)->where('rol_boton_id','=',$item['id']);
+            $rol_apk_rol_boton= $this->rolApkRolBotonRepository->all()->where('rol_apk_id','=',$id_rol_apk)->where('rol_boton_id','=',$item);
             if ($rol_apk_rol_boton){
                 return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
             }
