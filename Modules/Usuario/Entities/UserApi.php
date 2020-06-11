@@ -37,7 +37,7 @@ class UserApi extends Model
 
 
     public $fillable = [
-        'user_id'=> 'integer'
+        'user_id'
     ];
 
     /**

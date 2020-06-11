@@ -37,8 +37,8 @@ class UserApk extends Model
 
 
     public $fillable = [
-        'user_id'=> 'integer',
-        'rol_apk__id'=> 'integer'
+        'user_id',
+        'rol_apk__id'
     ];
 
     /**

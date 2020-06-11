@@ -2,7 +2,7 @@
 
 namespace Modules\Usuario\Http\Requests;
 
-use Modules\Usuario\Entities\UserApi;
+use Modules\Usuario\Entities\User;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateUserApiAPIRequest extends APIRequest
@@ -24,6 +24,6 @@ class CreateUserApiAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return UserApi::$rules;
+        return User::$rules;
     }
 }
