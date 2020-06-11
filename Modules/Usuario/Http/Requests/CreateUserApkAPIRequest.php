@@ -24,6 +24,6 @@ class CreateUserApkAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return UserApk::$rules;
+        return User::$rules;
     }
 }

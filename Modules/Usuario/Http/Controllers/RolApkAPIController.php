@@ -333,7 +333,7 @@ class RolApkAPIController extends CommonController
      *                  @SWG\Items(
      *                      @SWG\Property(
      *                          property="id",
-     *                          type="string",
+     *                          type="integer",
      *                          example="rol_boton_id"
      *                      ),
      *                  )
@@ -372,16 +372,16 @@ class RolApkAPIController extends CommonController
         /** @var RolApk $rolApk */
         $rolApk = $this->rolApkRepository->find($id_rol_apk);
 
-        if (empty($rolApk)) {
+        if ($rolApk) {
             return $this->sendError('Role Apk not found', 404);
         }
 
         $input = $request->all();
 
         foreach ($input['giveRolBotonTo']  as $item){
-           $rol_boton= $this->rolBotonRepository->find($item['id']);
+           $rol_boton= $this->rolBotonRepository->find($item);
 
-            if(empty($rol_boton)){
+            if($rol_boton){
                 return $this->sendError('Role Boton not found', 404);
             }
 
