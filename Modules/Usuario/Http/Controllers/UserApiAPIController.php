@@ -124,7 +124,7 @@ class UserApiAPIController extends CommonController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/UserApi"
+     *                  ref="#/definitions/User"
      *              ),
      *              @SWG\Property(
      *                  property="message",

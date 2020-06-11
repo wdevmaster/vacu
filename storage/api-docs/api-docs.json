@@ -6157,9 +6157,9 @@
                                     "type": "array",
                                     "items": {
                                         "properties": {
-                                            "nombre": {
-                                                "type": "string",
-                                                "example": "negocios.index"
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "rol_boton_id"
                                             }
                                         }
                                     }
@@ -7375,7 +7375,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/UserApk"
+                                    "$ref": "#/definitions/User"
                                 },
                                 "message": {
                                     "type": "string"
@@ -7561,9 +7561,9 @@
                                     "type": "array",
                                     "items": {
                                         "properties": {
-                                            "nombre": {
-                                                "type": "string",
-                                                "example": "negocios.index"
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "rol_apk_id"
                                             }
                                         }
                                     }

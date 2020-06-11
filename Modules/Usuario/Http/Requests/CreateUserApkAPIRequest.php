@@ -2,7 +2,7 @@
 
 namespace Modules\Usuario\Http\Requests;
 
-use Modules\Usuario\Entities\UserApk;
+use Modules\Usuario\Entities\User;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateUserApkAPIRequest extends APIRequest
