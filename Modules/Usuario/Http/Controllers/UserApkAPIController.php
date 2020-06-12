@@ -148,7 +148,7 @@ class UserApkAPIController extends CommonController
         $input = $request->all();
         $user = $this->userRepository->create($input);
         $user_id = $user->id;
-        $data = ['user_id' => $user_id,'rol_apk_id' => 0];
+        $data = ['user_id' => $user_id];
         $userApk = $this->userApkRepository->create($data);
 
         return $this->sendResponse($userApk->toArray(), 'User Apk saved successfully');
@@ -399,21 +399,21 @@ class UserApkAPIController extends CommonController
         /** @var UserApk $userApk */
         $userApk = $this->userApkRepository->find($id_user_apk);
 
-        if (empty($userApk)) {
+        if ($userApk) {
             return $this->sendError('User Apk not found', 404);
         }
 
-
         $input = $request->all();
         $rol_apk = $input['giveRolApkTo'];
-        $rol_apk_id=$rol_apk->id;
-        $rol=$this->rolApkRepository->find($rol_apk_id);
-        if(empty($rol)){
+
+        $rol=$this->rolApkRepository->find($rol_apk);
+
+        if($rol){
             return $this->sendError('Rol Apk not found', 404);
         }
 
-        $userApk->update(['rol_apk__id'=>$rol_apk_id]);
-        $this->userApkRepository->update($userApk);
+        $userApk->rol_apk_id = $rol_apk;
+        $this->userApkRepository->update($userApk->toArray(),$id_user_apk);
 
 
 
