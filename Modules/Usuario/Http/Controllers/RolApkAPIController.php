@@ -11,6 +11,7 @@ use Modules\Usuario\Repositories\RolApkRepository;
 use Illuminate\Http\Request;
 use Modules\Usuario\Repositories\RolApkRolBotonRepository;
 use Modules\Usuario\Repositories\RolBotonRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Usuario\Repositories\UserApkRepository;
 
 /**
@@ -369,33 +370,61 @@ class RolApkAPIController extends CommonController
 
     public function giveRolBotonToRolApk($id_rol_apk, Request $request)
     {
-        /** @var RolApk $rolApk */
-        $rolApk = $this->rolApkRepository->find($id_rol_apk);
+        try {
+            /** @var RolApk $rolApk */
+            $rolApk = $this->rolApkRepository->find($id_rol_apk);
+            $input = $request->all();
 
-        if ($rolApk) {
-            return $this->sendError('Role Apk not found', 404);
-        }
+            foreach ($input['giveRolBotonTo'] as $item) {
+               try{
+                   $this->rolBotonRepository->find($item);
 
-        $input = $request->all();
+               } catch (ModelNotFoundException $e) {
+                   return response()->json([
+                       'message' => __('comun::msgs.la_model_not_found', [
+                           'model' => trans_choice('usuario::msgs.label_rol_boton', 1)
+                       ]),
+                       'success' => false,
+                       'data' => $item
+                   ], 404);
+               }
 
-        foreach ($input['giveRolBotonTo']  as $item){
-           $rol_boton= $this->rolBotonRepository->find($item);
 
-            if($rol_boton){
-                return $this->sendError('Role Boton not found', 404);
+               $rol_apk_rol_boton = $this->rolApkRolBotonRepository->all()->where('rol_apk_id', '=', $id_rol_apk)->where('rol_boton_id', '=', $item['id']);
+               $cant=$rol_apk_rol_boton->count();
+
+               if ($cant>0) {
+                    return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
+                }
+
+                $data = ['rol_apk_id' => $id_rol_apk, 'rol_boton_id' => $item['id']];
+                $this->rolApkRolBotonRepository->create($data);
+
             }
 
-            $rol_apk_rol_boton= $this->rolApkRolBotonRepository->all()->where('rol_apk_id','=',$id_rol_apk)->where('rol_boton_id','=',$item);
-            if ($rol_apk_rol_boton){
-                return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
-            }
+            return response()->json([
+                'message' => __('comun::msgs.rol_apk_assgnated_successfully', [
+                    'model' => trans_choice('usuario::msgs.label_rol_apk', 1)
+                ]),
+                'success' => true,
+                'data' => $rolApk
+            ], 200);
 
-            $data=['rol_apk_id' => $id_rol_apk, 'rol_boton_id'=>$item];
-            $this->rolApkRolBotonRepository->create($data);
 
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => __('comun::msgs.la_model_not_found', [
+                    'model' => trans_choice('usuario::msgs.label_rol_apk', 1)
+                ]),
+                'success' => false
+            ], 404);
         }
-
-        return $this->sendSuccess('Rol Boton assigned successfully');
+             catch (\Exception $e) {
+                        return response()->json([
+                            'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                            'success' => false
+                        ], 500);
+                    }
 
     }
 
