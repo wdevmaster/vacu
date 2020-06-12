@@ -19,7 +19,7 @@ class CreateUserApksTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->integer('rol_apk_id')->unsigned();
+            $table->integer('rol_apk_id')->unsigned()->nullable();
             $table->foreign('rol_apk_id')->references('id')->on('rol_apks');
 
             $table->timestamps();

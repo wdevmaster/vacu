@@ -38,7 +38,7 @@ class UserApk extends Model
 
     public $fillable = [
         'user_id',
-        'rol_apk__id'
+        'rol_apk_id'
     ];
 
     /**
@@ -49,7 +49,7 @@ class UserApk extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id'=> 'integer',
-         'rol_apk__id'=> 'integer'
+         'rol_apk_id'=> 'integer'
     ];
 
     /**
@@ -57,10 +57,7 @@ class UserApk extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'user_id'=> 'required',
-         'rol_apk__id'=> 'required'
-    ];
+    public static $rules = [];
 
     public function user(){
         $this->belongsTo(User::class);
