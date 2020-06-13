@@ -2,10 +2,12 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Usuario\Dtos\UserDto;
 use Modules\Usuario\Entities\User;
 use Modules\Usuario\Http\Requests\CreateUserAPIRequest;
 use Modules\Usuario\Http\Requests\UpdateUserAPIRequest;
@@ -61,7 +63,7 @@ class UserAPIController extends CommonController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/User")
+     *                  @SWG\Items(ref="#/definitions/UserDto")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -79,9 +81,11 @@ class UserAPIController extends CommonController
         try {
 
             $paginate = isset($request->paginado) ? $request->paginado : null;
-
+            $results = [];
             if ($paginate) {
                 $users = $this->userRepository->paginate($paginate);
+
+
             } else {
                 $users = $this->userRepository->all(
                     $request->except(['skip', 'limit']),
@@ -89,8 +93,13 @@ class UserAPIController extends CommonController
                     $request->get('limit')
 
                 );
+
+
             }
 
+            for ($i = 0; $i < count($users); $i++){
+                $users[$i] = new UserDto($users[$i]);
+            }
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_updated_successfully', [
