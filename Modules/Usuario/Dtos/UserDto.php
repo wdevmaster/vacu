@@ -28,13 +28,24 @@ use Modules\Usuario\Entities\User;
  *                  type="string"
  *              )
  *         )
- *      )
+ *      ),
+ *     @SWG\Property(
+ *          property="permisos",
+ *          type="array",
+ *          @SWG\Items(
+ *           @SWG\Property(
+ *                  property="name",
+ *                  type="string"
+ *              )
+ *         )
+ *      ),
  * )
  */
 class UserDto
 {
     public $user;
     public $roles;
+    public $permisos;
 
     /**
      * UserDto constructor.
@@ -44,6 +55,7 @@ class UserDto
     {
         $this->user = $user;
         $this->roles = $user->roles()->pluck('name');
+        $this->permisos = $user->getAllPermissions();
     }
 
 
