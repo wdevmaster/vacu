@@ -81,20 +81,14 @@ class UserAPIController extends CommonController
         try {
 
             $paginate = isset($request->paginado) ? $request->paginado : null;
-            $results = [];
             if ($paginate) {
                 $users = $this->userRepository->paginate($paginate);
-
-
             } else {
                 $users = $this->userRepository->all(
                     $request->except(['skip', 'limit']),
                     $request->get('skip'),
                     $request->get('limit')
-
                 );
-
-
             }
 
             for ($i = 0; $i < count($users); $i++){
