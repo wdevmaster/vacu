@@ -15,6 +15,12 @@ use App\Models\Eloquent as Model;
  *          type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
+ *      ),
  *      @SWG\Property(
  *          property="motivo_id",
  *          description="motivo_id",
@@ -52,6 +58,7 @@ class Muerte extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'fecha' => 'datetime',
         'motivo_id' => 'integer',
         'animal_id' => 'integer'
     ];

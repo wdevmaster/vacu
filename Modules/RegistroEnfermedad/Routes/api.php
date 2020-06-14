@@ -14,11 +14,12 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('v1/registro_enfermedad')->middleware('auth:api')->group(function () {
-    Route::prefix('registros_emfermedades')->group(function () {
-        Route::get('/', 'RegistroEnfermedadAPIController@index')->name('registro_enfermedad.registros_emfermedades.index');
-        Route::post('/', 'RegistroEnfermedadAPIController@store')->name('registro_enfermedad.registros_emfermedades.store');
-        Route::put('/{id}', 'RegistroEnfermedadAPIController@update')->name('registro_enfermedad.registros_emfermedades.update');
-        Route::delete('/{id}', 'RegistroEnfermedadAPIController@destroy')->name('registro_enfermedad.registros_emfermedades.delete');
+    Route::prefix('registros_enfermedades')->group(function () {
+        Route::get('/', 'RegistroEnfermedadAPIController@index')->name('registro_enfermedad.registros_enfermedades.index');
+        Route::post('/', 'RegistroEnfermedadAPIController@store')->name('registro_enfermedad.registros_enfermedades.store');
+        Route::put('/{id}', 'RegistroEnfermedadAPIController@update')->name('registro_enfermedad.registros_enfermedades.update');
+        Route::get('/{id}', 'RegistroEnfermedadAPIController@show')->name('registro_enfermedad.registros_enfermedades.show');
+        Route::delete('/{id}', 'RegistroEnfermedadAPIController@destroy')->name('registro_enfermedad.registros_enfermedades.delete');
     });
 });
 

@@ -15,6 +15,12 @@ use App\Models\Eloquent as Model;
  *          type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
+ *      ),
  *      @SWG\Property(
  *          property="sexo",
  *          description="sexo",
@@ -69,6 +75,7 @@ class Parto extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'fecha' => 'datetime',
         'sexo' => 'string',
         'animal_nacido' => 'string',
         'madre_code' => 'string',

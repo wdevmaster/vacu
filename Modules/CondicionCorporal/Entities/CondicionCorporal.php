@@ -75,7 +75,7 @@ class CondicionCorporal extends Model
      */
     public static $rules = [
         'code' => 'required',
-        'nombre' => 'requerid',
+        'nombre' => 'required',
         'descripcion' => 'required',
         'active' => 'required',
         'negocio_id' => 'required'

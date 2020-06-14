@@ -15,6 +15,12 @@ use App\Models\Eloquent as Model;
  *          type="integer",
  *           format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
+ *      ),
  *      @SWG\Property(
  *          property="leche",
  *          description="leche",
@@ -63,6 +69,7 @@ class Lactancia extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'fecha'=> 'datetime',
         'leche' => 'string',
         'concentrado' => 'string',
         'peso' => 'string',

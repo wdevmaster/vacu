@@ -15,6 +15,12 @@ use App\Models\Eloquent as Model;
  *          type="integer",
  *          format="int32"
  *      ),
+ *       @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
+ *      ),
  *      @SWG\Property(
  *          property="active",
  *          description="active",
@@ -58,6 +64,7 @@ class Ingreso extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'fecha' => 'datetime',
         'active' => 'boolean',
         'animal_id' => 'integer',
         'lote_id' => 'integer'
@@ -69,7 +76,7 @@ class Ingreso extends Model
      * @var array
      */
     public static $rules = [
-        'code' => 'fecha datatime',
+        'code' => 'required',
         'fecha' => 'required',
         'active' => 'required',
         'animal_id' => 'required',

@@ -15,6 +15,12 @@ use App\Models\Eloquent as Model;
  *           type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
+ *      ),
  *      @SWG\Property(
  *          property="animal_inceminado",
  *          description="animal_inceminado",
@@ -79,6 +85,7 @@ class Servicio extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'fecha' => 'datetime',
         'animal_inceminado' => 'integer',
         'animal_inseminador' => 'integer',
         'semen_id' => 'integer',

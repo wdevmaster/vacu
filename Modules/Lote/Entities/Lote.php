@@ -76,7 +76,7 @@ class Lote extends Model
      */
     public static $rules = [
         'lote_id' => 'required',
-        'numero' => 'requires',
+        'numero' => 'required',
         'nombre' => 'required',
         'active' => 'required',
         'finca_id' => 'required'

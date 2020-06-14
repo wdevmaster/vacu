@@ -15,6 +15,18 @@ use App\Models\Eloquent as Model;
  *         type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="fecha_enfermedad",
+ *          description="fecha_enfermedad",
+ *          type="string",
+ *          format="date-time"
+ *      ),
+ *     @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
+ *      ),
  *      @SWG\Property(
  *          property="active",
  *          description="active",
@@ -59,6 +71,8 @@ class RegistroEnfermedad extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'fecha_enfermedad' => 'datetime',
+        'fecha' => 'datetime',
         'active' => 'boolean',
         'id_animal' => 'integer',
         'id_enfermedad' => 'integer'

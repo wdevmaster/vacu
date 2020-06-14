@@ -8141,6 +8141,11 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
+                },
                 "active": {
                     "description": "active",
                     "type": "boolean"
@@ -8199,6 +8204,11 @@
                     "description": "code",
                     "type": "integer",
                     "format": "int32"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "leche": {
                     "description": "leche",
@@ -8299,6 +8309,11 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
+                },
                 "motivo_id": {
                     "description": "motivo_id",
                     "type": "integer",
@@ -8360,6 +8375,11 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
+                },
                 "sexo": {
                     "description": "sexo",
                     "type": "string"
@@ -8396,6 +8416,11 @@
                     "description": "code",
                     "type": "integer",
                     "format": "int32"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "peso": {
                     "description": "peso",
@@ -8455,6 +8480,16 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "fecha_enfermedad": {
+                    "description": "fecha_enfermedad",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
+                },
                 "active": {
                     "description": "active",
                     "type": "boolean"
@@ -8510,6 +8545,11 @@
                     "description": "code",
                     "type": "integer",
                     "format": "int32"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "animal_inceminado": {
                     "description": "animal_inceminado",
@@ -8856,6 +8896,11 @@
                     "description": "code",
                     "type": "integer",
                     "format": "int32"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "motivo": {
                     "description": "motivo",

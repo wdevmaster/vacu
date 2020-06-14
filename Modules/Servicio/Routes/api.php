@@ -15,10 +15,10 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1/servicio')->middleware('auth:api')->group(function () {
     Route::prefix('servicios')->group(function () {
-        Route::get('/', 'RolBotonAPIController@index')->name('servicio.servicios.index');
-        Route::post('/', 'RolBotonAPIController@store')->name('servicio.servicios.store');
-        Route::put('/{id}', 'RolBotonAPIController@update')->name('servicio.servicios.update');
-        Route::delete('/{id}', 'RolBotonAPIController@destroy')->name('servicio.servicios.delete');
+        Route::get('/', 'ServicioAPIController@index')->name('servicio.servicios.index');
+        Route::post('/', 'ServicioAPIController@store')->name('servicio.servicios.store');
+        Route::put('/{id}', 'ServicioAPIController@update')->name('servicio.servicios.update');
+        Route::delete('/{id}', 'ServicioAPIController@destroy')->name('servicio.servicios.delete');
     });
 });
 
