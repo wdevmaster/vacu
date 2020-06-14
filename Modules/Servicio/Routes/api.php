@@ -18,6 +18,7 @@ Route::prefix('v1/servicio')->middleware('auth:api')->group(function () {
         Route::get('/', 'ServicioAPIController@index')->name('servicio.servicios.index');
         Route::post('/', 'ServicioAPIController@store')->name('servicio.servicios.store');
         Route::put('/{id}', 'ServicioAPIController@update')->name('servicio.servicios.update');
+        Route::get('/{id}', 'ServicioAPIController@show')->name('servicio.servicios.show');
         Route::delete('/{id}', 'ServicioAPIController@destroy')->name('servicio.servicios.delete');
     });
 });

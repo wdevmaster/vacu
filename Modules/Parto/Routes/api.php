@@ -18,6 +18,7 @@ Route::prefix('v1/parto')->middleware('auth:api')->group(function () {
         Route::get('/', 'PartoAPIController@index')->name('parto.partos.index');
         Route::post('/', 'PartoAPIController@store')->name('parto.partos.store');
         Route::put('/{id}', 'PartoAPIController@update')->name('parto.partos.update');
+        Route::get('/{id}', 'PartoAPIController@show')->name('parto.partos.show');
         Route::delete('/{id}', 'PartoAPIController@destroy')->name('parto.partos.delete');
     });
 });

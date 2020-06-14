@@ -20,6 +20,7 @@ Route::prefix('v1/finca')->middleware('auth:api')->group(function () {
         Route::get('/', 'FincaAPIController@index')->name('finca.fincas.index');
         Route::post('/', 'FincaAPIController@store')->name('finca.fincas.store');
         Route::put('/{id}', 'FincaAPIController@update')->name('finca.fincas.update');
+        Route::get('/{id}', 'FincaAPIController@show')->name('finca.fincas.show');
         Route::delete('/{id}', 'FincaAPIController@destroy')->name('finca.fincas.delete');
     });
 });
