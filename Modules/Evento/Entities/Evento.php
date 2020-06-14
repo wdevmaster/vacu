@@ -8,12 +8,7 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Evento",
  *      required={"animal_id", "tipo_evento"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="fecha",
  *          description="fecha",
@@ -30,18 +25,6 @@ use App\Models\Eloquent as Model;
  *          property="tipo_evento",
  *          description="tipo_evento",
  *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */

@@ -8,16 +8,12 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Produccion",
  *      required={"code", "fecha", "peso", "active", "animal_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *           type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="peso",
@@ -34,18 +30,6 @@ use App\Models\Eloquent as Model;
  *          description="animal_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -72,7 +56,7 @@ class Produccion extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
         'peso' => 'string',
         'active' => 'boolean',
         'animal_id' => 'integer'

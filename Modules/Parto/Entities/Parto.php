@@ -8,16 +8,12 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Parto",
  *      required={"code", "fecha", "sexo", "animal_nacido", "madre_code", "active", "raza_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="sexo",
@@ -44,18 +40,6 @@ use App\Models\Eloquent as Model;
  *          description="raza_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -84,7 +68,7 @@ class Parto extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
         'sexo' => 'string',
         'animal_nacido' => 'string',
         'madre_code' => 'string',

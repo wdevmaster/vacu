@@ -8,16 +8,12 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Venta",
  *      required={"code", "fecha", "motivo", "active", "animal_id", "cliente_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="motivo",
@@ -40,18 +36,6 @@ use App\Models\Eloquent as Model;
  *          description="cliente_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -79,7 +63,7 @@ class Venta extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
         'motivo' => 'string',
         'active' => 'boolean',
         'animal_id' => 'integer',

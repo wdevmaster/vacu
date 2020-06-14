@@ -9,12 +9,7 @@ use Modules\Negocio\Entities\Negocio;
  * @SWG\Definition(
  *      definition="ClienteNegocio",
  *      required={"code", "nombre", "telefono", "active", "negocio_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
@@ -46,18 +41,6 @@ use Modules\Negocio\Entities\Negocio;
  *          description="negocio_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */

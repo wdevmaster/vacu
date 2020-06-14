@@ -8,16 +8,12 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Muerte",
  *      required={"code", "fecha", "motivo_id", "animal_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="motivo_id",
@@ -30,18 +26,6 @@ use App\Models\Eloquent as Model;
  *          description="animal_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -67,7 +51,7 @@ class Muerte extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
         'motivo_id' => 'integer',
         'animal_id' => 'integer'
     ];

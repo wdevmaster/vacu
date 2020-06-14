@@ -8,12 +8,7 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Lote",
  *      required={"lote_id", "numero", "nombre", "active", "finca_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="lote_id",
  *          description="lote_id",
@@ -41,18 +36,6 @@ use App\Models\Eloquent as Model;
  *          description="finca_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
