@@ -18,6 +18,7 @@ Route::prefix('v1/produccion')->middleware('auth:api')->group(function () {
         Route::get('/', 'ProduccionAPIController@index')->name('produccion.producciones.index');
         Route::post('/', 'ProduccionAPIController@store')->name('produccion.producciones.store');
         Route::put('/{id}', 'ProduccionAPIController@update')->name('produccion.producciones.update');
+        Route::get('/{id}', 'ProduccionAPIController@show')->name('produccion.producciones.show');
         Route::delete('/{id}', 'ProduccionAPIController@destroy')->name('produccion.producciones.delete');
     });
 });

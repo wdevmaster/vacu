@@ -7909,14 +7909,10 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "nombre": {
                     "description": "nombre",
@@ -7938,16 +7934,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -7959,14 +7945,10 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "nombre": {
                     "description": "nombre",
@@ -7984,16 +7966,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8004,11 +7976,6 @@
                 "valor"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
                     "type": "integer"
@@ -8036,14 +8003,10 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "nombre": {
                     "description": "nombre",
@@ -8061,16 +8024,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8084,14 +8037,10 @@
                 "locomocion_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "fecha": {
                     "description": "fecha",
@@ -8116,16 +8065,6 @@
                     "description": "locomocion_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8135,11 +8074,6 @@
                 "tipo_evento"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "fecha": {
                     "description": "fecha",
                     "type": "string",
@@ -8153,16 +8087,6 @@
                 "tipo_evento": {
                     "description": "tipo_evento",
                     "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8175,11 +8099,6 @@
                 "active"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "nombre": {
                     "description": "nombre",
                     "type": "string"
@@ -8197,16 +8116,6 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8219,14 +8128,15 @@
                 "lote_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "active": {
                     "description": "active",
@@ -8241,16 +8151,6 @@
                     "description": "lote_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8262,14 +8162,10 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "codigo": {
                     "description": "codigo",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "nombre": {
                     "description": "nombre",
@@ -8283,16 +8179,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8306,14 +8192,15 @@
                 "animal_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "leche": {
                     "description": "leche",
@@ -8331,16 +8218,6 @@
                     "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8353,14 +8230,10 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "nombre": {
                     "description": "nombre",
@@ -8378,16 +8251,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8400,11 +8263,6 @@
                 "finca_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "lote_id": {
                     "description": "lote_id",
                     "type": "integer",
@@ -8427,16 +8285,6 @@
                     "description": "finca_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8448,14 +8296,15 @@
                 "animal_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "motivo_id": {
                     "description": "motivo_id",
@@ -8466,16 +8315,6 @@
                     "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8488,11 +8327,6 @@
                 "active"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
                     "type": "integer",
@@ -8514,16 +8348,6 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8538,14 +8362,15 @@
                 "raza_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "sexo": {
                     "description": "sexo",
@@ -8567,16 +8392,6 @@
                     "description": "raza_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8589,14 +8404,15 @@
                 "animal_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "peso": {
                     "description": "peso",
@@ -8610,16 +8426,6 @@
                     "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8631,14 +8437,10 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "nombre": {
                     "description": "nombre",
@@ -8652,16 +8454,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8675,14 +8467,20 @@
                 "id_enfermedad"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha_enfermedad": {
+                    "description": "fecha_enfermedad",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "active": {
                     "description": "active",
@@ -8697,16 +8495,6 @@
                     "description": "id_enfermedad",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8717,14 +8505,10 @@
                 "id_animal"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "active": {
                     "description": "active",
@@ -8734,16 +8518,6 @@
                     "description": "id_animal",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8759,14 +8533,15 @@
                 "tipo_servicio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "animal_inceminado": {
                     "description": "animal_inceminado",
@@ -8795,16 +8570,6 @@
                     "description": "tipo_servicio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8910,11 +8675,6 @@
                 "descripcion"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "tipo_servicio_id": {
                     "description": "tipo_servicio_id",
                     "type": "integer",
@@ -8927,16 +8687,6 @@
                 "descripcion": {
                     "description": "descripcion",
                     "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8971,11 +8721,6 @@
                 "negocio_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "code": {
                     "description": "code",
                     "type": "integer",
@@ -9001,16 +8746,6 @@
                     "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -9020,11 +8755,6 @@
                 "descripcion"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "nombre": {
                     "description": "nombre",
                     "type": "string"
@@ -9032,40 +8762,13 @@
                 "descripcion": {
                     "description": "descripcion",
                     "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
         "RolApkRolBoton": {
             "required": [
                 ""
-            ],
-            "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
-                }
-            }
+            ]
         },
         "RolBoton": {
             "required": [
@@ -9073,11 +8776,6 @@
                 "descripcion"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "nombre": {
                     "description": "nombre",
                     "type": "string"
@@ -9085,16 +8783,6 @@
                 "descripcion": {
                     "description": "descripcion",
                     "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -9106,11 +8794,6 @@
                 "fincaId"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "name": {
                     "description": "name",
                     "type": "string"
@@ -9138,46 +8821,12 @@
         "UserApi": {
             "required": [
                 ""
-            ],
-            "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
-                }
-            }
+            ]
         },
         "UserApk": {
             "required": [
                 ""
-            ],
-            "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
-                }
-            }
+            ]
         },
         "RegisterUsuarioData": {
             "required": [
@@ -9257,14 +8906,15 @@
                 "cliente_id"
             ],
             "properties": {
-                "id": {
-                    "description": "id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
-                "code": {
-                    "description": "code",
-                    "type": "string"
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "motivo": {
                     "description": "motivo",
@@ -9283,16 +8933,6 @@
                     "description": "cliente_id",
                     "type": "integer",
                     "format": "int32"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         }

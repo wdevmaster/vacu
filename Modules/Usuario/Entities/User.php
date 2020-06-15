@@ -12,12 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @SWG\Definition(
  *      definition="User",
  *      required={"name", "password", "negocioId", "fincaId"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="name",
  *          description="name",

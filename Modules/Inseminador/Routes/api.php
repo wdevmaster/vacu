@@ -19,6 +19,7 @@ Route::prefix('v1/inseminador')->middleware('auth:api')->group(function () {
         Route::get('/', 'InseminadorAPIController@index')->name('inseminador.inseminadores.index');
         Route::post('/', 'InseminadorAPIController@store')->name('inseminador.inseminadores.store');
         Route::put('/{id}', 'InseminadorAPIController@update')->name('inseminador.inseminadores.update');
+        Route::get('/{id}', 'InseminadorAPIController@show')->name('inseminador.inseminadores.show');
         Route::delete('/{id}', 'InseminadorAPIController@destroy')->name('inseminador.inseminadores.delete');
     });
 });

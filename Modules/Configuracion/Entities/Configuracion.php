@@ -8,12 +8,7 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Configuracion",
  *      required={ "clave", "descripcion", "valor"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",

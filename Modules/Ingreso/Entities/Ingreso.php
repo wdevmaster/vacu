@@ -8,16 +8,18 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Ingreso",
  *      required={"code","fecha", "active", "animal_id", "lote_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *       @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
  *      ),
  *      @SWG\Property(
  *          property="active",
@@ -35,18 +37,6 @@ use App\Models\Eloquent as Model;
  *          description="lote_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -73,7 +63,8 @@ class Ingreso extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
+        'fecha' => 'datetime',
         'active' => 'boolean',
         'animal_id' => 'integer',
         'lote_id' => 'integer'
@@ -85,7 +76,7 @@ class Ingreso extends Model
      * @var array
      */
     public static $rules = [
-        'code' => 'fecha datatime',
+        'code' => 'required',
         'fecha' => 'required',
         'active' => 'required',
         'animal_id' => 'required',

@@ -21,6 +21,7 @@ Route::prefix('v1/ingreso')->middleware('auth:api')->group(function () {
         Route::get('/', 'IngresoAPIController@index')->name('ingreso.ingresos.index');
         Route::post('/', 'IngresoAPIController@store')->name('ingreso.ingresos.store');
         Route::put('/{id}', 'IngresoAPIController@update')->name('ingreso.ingresos.update');
+        Route::get('/{id}', 'IngresoAPIController@show')->name('ingreso.ingresos.show');
         Route::delete('/{id}', 'IngresoAPIController@destroy')->name('ingreso.ingresos.delete');
     });
 });

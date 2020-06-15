@@ -18,6 +18,7 @@ Route::prefix('v1/venta')->middleware('auth:api')->group(function () {
         Route::get('/', 'VentaAPIController@index')->name('venta.ventas.index');
         Route::post('/', 'VentaAPIController@store')->name('venta.ventas.store');
         Route::put('/{id}', 'VentaAPIController@update')->name('venta.ventas.update');
+        Route::get('/{id}', 'VentaAPIController@show')->name('venta.ventas.show');
         Route::delete('/{id}', 'VentaAPIController@destroy')->name('venta.ventas.delete');
     });
 });

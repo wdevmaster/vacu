@@ -21,6 +21,7 @@ Route::prefix('v1/evento')->middleware('auth:api')->group(function () {
         Route::get('/', 'EventoAPIController@index')->name('evento.eventos.index');
         Route::post('/', 'EventoAPIController@store')->name('evento.eventos.store');
         Route::put('/{id}', 'EventoAPIController@update')->name('evento.eventos.update');
+        Route::get('/{id}', 'EventoAPIController@show')->name('evento.eventos.show');
         Route::delete('/{id}', 'EventoAPIController@destroy')->name('evento.eventos.delete');
     });
 });

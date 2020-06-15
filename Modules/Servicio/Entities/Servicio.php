@@ -8,16 +8,18 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Servicio",
  *      required={"code", "fecha", "animal_inceminado", "animal_inseminador", "semen_id", "personal_inseminador", "active", "tipo_servicio_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *           type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="fecha",
+ *          description="fecha",
+ *          type="string",
+ *          format="date-time"
  *      ),
  *      @SWG\Property(
  *          property="animal_inceminado",
@@ -52,19 +54,8 @@ use App\Models\Eloquent as Model;
  *          description="tipo_servicio_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
+ *
  * )
  */
 class Servicio extends Model
@@ -93,7 +84,8 @@ class Servicio extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
+        'fecha' => 'datetime',
         'animal_inceminado' => 'integer',
         'animal_inseminador' => 'integer',
         'semen_id' => 'integer',

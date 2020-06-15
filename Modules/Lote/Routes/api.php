@@ -18,6 +18,7 @@ Route::prefix('v1/lote')->middleware('auth:api')->group(function () {
         Route::get('/', 'LoteAPIController@index')->name('lote.lotes.index');
         Route::post('/', 'LoteAPIController@store')->name('lote.lotes.store');
         Route::put('/{id}', 'LoteAPIController@update')->name('lote.lotes.update');
+        Route::get('/{id}', 'LoteAPIController@show')->name('lote.lotes.show');
         Route::delete('/{id}', 'LoteAPIController@destroy')->name('lote.lotes.delete');
     });
 });

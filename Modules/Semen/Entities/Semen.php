@@ -8,16 +8,12 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Semen",
  *      required={"code", "active", "id_animal"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *           type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="active",
@@ -29,18 +25,6 @@ use App\Models\Eloquent as Model;
  *          description="id_animal",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -65,7 +49,7 @@ class Semen extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
         'active' => 'boolean',
         'id_animal' => 'integer'
     ];

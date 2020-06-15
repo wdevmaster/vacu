@@ -8,16 +8,12 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="Raza",
  *      required={"code", "nombre", "active", "negocio_id"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="string"
+ *         type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="nombre",
@@ -34,18 +30,6 @@ use App\Models\Eloquent as Model;
  *          description="negocio_id",
  *          type="integer",
  *          format="int32"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
  * )
  */
@@ -71,7 +55,7 @@ class Raza extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'code' => 'string',
+        'code' => 'integer',
         'nombre' => 'string',
         'active' => 'boolean',
         'negocio_id' => 'integer'

@@ -153,10 +153,11 @@ class CondicionCorporalAPIController extends CommonController
      */
     public function store(CreateCondicionCorporalAPIRequest $request)
     {
+
         try {
             $input = $request->all();
-
             $condicionCorporal = $this->condicionCorporalRepository->create($input);
+
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_list_successfully',
                 true,

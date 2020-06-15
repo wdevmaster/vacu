@@ -18,6 +18,7 @@ Route::prefix('v1/semen')->middleware('auth:api')->group(function () {
         Route::get('/', 'SemenAPIController@index')->name('semen.semens.index');
         Route::post('/', 'SemenAPIController@store')->name('semen.semens.store');
         Route::put('/{id}', 'SemenAPIController@update')->name('semen.semens.update');
+        Route::get('/{id}', 'SemenAPIController@show')->name('semen.semens.show');
         Route::delete('/{id}', 'SemenAPIController@destroy')->name('semen.semens.delete');
     });
 });

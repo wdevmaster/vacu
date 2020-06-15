@@ -8,12 +8,7 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="TipoServicio",
  *      required={"tipo_servicio_id", "nombre", "descripcion"},
- *      @SWG\Property(
- *          property="id",
- *          description="id",
- *          type="integer",
- *          format="int32"
- *      ),
+ *
  *      @SWG\Property(
  *          property="tipo_servicio_id",
  *          description="tipo_servicio_id",
@@ -29,19 +24,8 @@ use App\Models\Eloquent as Model;
  *          property="descripcion",
  *          description="descripcion",
  *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
- *      ),
- *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
  *      )
+ *
  * )
  */
 class TipoServicio extends Model
