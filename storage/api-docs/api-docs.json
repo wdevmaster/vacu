@@ -7556,15 +7556,8 @@
                         "schema": {
                             "properties": {
                                 "giveRolApkTo": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer",
-                                                "example": "rol_apk_id"
-                                            }
-                                        }
-                                    }
+                                    "type": "integer",
+                                    "example": "rol_apk_id"
                                 }
                             }
                         }

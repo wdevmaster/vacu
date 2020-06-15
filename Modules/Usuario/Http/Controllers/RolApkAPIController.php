@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateRolApkAPIRequest;
@@ -369,34 +370,38 @@ class RolApkAPIController extends CommonController
 
     public function giveRolBotonToRolApk($id_rol_apk, Request $request)
     {
-        /** @var RolApk $rolApk */
-        $rolApk = $this->rolApkRepository->find($id_rol_apk);
+        try {
+            /** @var RolApk $rolApk */
+             $this->rolApkRepository->find($id_rol_apk);
+             $input = $request->all();
 
-        if ($rolApk) {
-            return $this->sendError('Role Apk not found', 404);
-        }
+            foreach ($input['giveRolBotonTo'] as $item) {
+               $this->rolBotonRepository->find($item);
 
-        $input = $request->all();
+               $rol_apk_rol_boton = $this->rolApkRolBotonRepository->all()->where('rol_apk_id', '=', $id_rol_apk)->where('rol_boton_id', '=', $item['id']);
+                if ($rol_apk_rol_boton->count()>0) {
+                    return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
+                }
 
-        foreach ($input['giveRolBotonTo']  as $item){
-           $rol_boton= $this->rolBotonRepository->find($item);
+                $data = ['rol_apk_id' => $id_rol_apk, 'rol_boton_id' => $item['id']];
+                $this->rolApkRolBotonRepository->create($data);
 
-            if($rol_boton){
-                return $this->sendError('Role Boton not found', 404);
             }
 
-            $rol_apk_rol_boton= $this->rolApkRolBotonRepository->all()->where('rol_apk_id','=',$id_rol_apk)->where('rol_boton_id','=',$item);
-            if ($rol_apk_rol_boton){
-                return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
+            return $this->sendSuccess('Rol Boton assigned successfully');
+
+        } catch (ModelNotFoundException $e) {
+        return response()->json([
+            'message' => __('comun::msgs.la_model_not_found'),
+            'success' => false
+        ], 404);
+     }
+         catch (\Exception $e) {
+                return response()->json([
+                    'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+                    'success' => false
+                ], 500);
             }
-
-            $data=['rol_apk_id' => $id_rol_apk, 'rol_boton_id'=>$item];
-            $this->rolApkRolBotonRepository->create($data);
-
-        }
-
-        return $this->sendSuccess('Rol Boton assigned successfully');
-
     }
 
 }

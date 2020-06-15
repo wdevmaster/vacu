@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -356,14 +357,8 @@ class UserApkAPIController extends CommonController
      *          @SWG\Schema(
      *           @SWG\Property(
      *                  property="giveRolApkTo",
-     *                  type="array",
-     *                  @SWG\Items(
-     *                      @SWG\Property(
-     *                          property="id",
-     *                          type="integer",
-     *                          example="rol_apk_id"
-     *                      ),
-     *                  )
+     *                  type="integer",
+     *                  example="rol_apk_id"
      *
      *
      *              ),
@@ -396,29 +391,29 @@ class UserApkAPIController extends CommonController
 
     public function giveRolApkToUserApk($id_user_apk, Request $request)
     {
-        /** @var UserApk $userApk */
-        $userApk = $this->userApkRepository->find($id_user_apk);
+     try {
+         /** @var UserApk $userApk */
+         $userApk = $this->userApkRepository->find($id_user_apk);
 
-        if (empty($userApk)) {
-            return $this->sendError('User Apk not found', 404);
-        }
+         $input = $request->all();
+         $rol_apk = $input['giveRolApkTo'];
+          $this->rolApkRepository->find($rol_apk);
+         $userApk->rol_apk_id = $rol_apk;
+         $this->userApkRepository->update($userApk->toArray(),$userApk->id);
 
+         return $this->sendSuccess('Rol Apk assigned successfully');
 
-        $input = $request->all();
-        $rol_apk = $input['giveRolApkTo'];
-        $rol_apk_id=$rol_apk->id;
-        $rol=$this->rolApkRepository->find($rol_apk_id);
-        if(empty($rol)){
-            return $this->sendError('Rol Apk not found', 404);
-        }
-
-        $userApk->update(['rol_apk__id'=>$rol_apk_id]);
-        $this->userApkRepository->update($userApk);
-
-
-
-        return $this->sendSuccess('Rol Apk assigned successfully');
-
+     } catch (ModelNotFoundException $e) {
+        return response()->json([
+            'message' => __('comun::msgs.la_model_not_found'),
+            'success' => false
+        ], 404);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+            'success' => false
+        ], 500);
     }
 
+    }
 }
