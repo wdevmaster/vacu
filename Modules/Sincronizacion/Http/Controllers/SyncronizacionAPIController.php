@@ -75,6 +75,7 @@ class SyncronizacionAPIController extends AppBaseController
     {
         try {
             $input = $request->all();
+            $input['data'] = json_encode($input['data']);
 
             $sincronizacion = $this->syncronizacionRepository->create($input);
 

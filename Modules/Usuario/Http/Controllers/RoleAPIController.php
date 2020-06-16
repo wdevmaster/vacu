@@ -5,6 +5,7 @@ namespace Modules\Usuario\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Usuario\Dtos\RolDto;
 use Modules\Usuario\Repositories\RoleRepository;
 use Spatie\Permission\Models\Role;
 
@@ -84,7 +85,12 @@ class RoleAPIController extends CommonController
             $request->get('limit')
         );
 
-        return $this->sendResponse($roles->toArray(), 'Roles retrieved successfully');
+        $results = [];
+        foreach ($roles as $role){
+            $results[] = new RolDto($role);
+        }
+
+        return $this->sendResponse($results, 'Roles retrieved successfully');
     }
 
     /**
