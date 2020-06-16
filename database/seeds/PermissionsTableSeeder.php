@@ -166,7 +166,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'usuarios.create']);
         Permission::create(['name' => 'usuarios.destroy']);
         Permission::create(['name' => 'usuarios.show']);
-        Permission::create(['name' => 'usuarios.assign.role']);
+        Permission::create(['name' => 'usuarios.assignRoleTo']);
 
         Permission::create(['name' => 'clientes_negocios.index']);
         Permission::create(['name' => 'clientes_negocios.update']);
@@ -179,7 +179,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'roles.create']);
         Permission::create(['name' => 'roles.destroy']);
         Permission::create(['name' => 'roles.show']);
-        Permission::create(['name' => 'roles.give_permission']);
+        Permission::create(['name' => 'roles.givePermissionToRole']);
 
         Permission::create(['name' => 'permisos.index']);
         Permission::create(['name' => 'permisos.update']);
@@ -187,11 +187,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'permisos.destroy']);
         Permission::create(['name' => 'permisos.show']);
 
-        Permission::create(['name' => 'roles_botones.index']);
-        Permission::create(['name' => 'roles_botones.update']);
-        Permission::create(['name' => 'roles_botones.create']);
-        Permission::create(['name' => 'roles_botones.destroy']);
-        Permission::create(['name' => 'roles_botones.show']);
+        Permission::create(['name' => 'rol_botons.index']);
+        Permission::create(['name' => 'rol_botons.update']);
+        Permission::create(['name' => 'rol_botons.create']);
+        Permission::create(['name' => 'rol_botons.destroy']);
+        Permission::create(['name' => 'rol_botons.show']);
 
 
         Permission::create(['name' => 'ventas.index']);
@@ -200,33 +200,33 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'ventas.destroy']);
         Permission::create(['name' => 'ventas.show']);
 
-        Permission::create(['name' => 'users_apks.index']);
-        Permission::create(['name' => 'users_apks.update']);
-        Permission::create(['name' => 'users_apks.create']);
-        Permission::create(['name' => 'users_apks.destroy']);
-        Permission::create(['name' => 'users_apks.show']);
-        Permission::create(['name' => 'users_apks.give_role_apk']);
+        Permission::create(['name' => 'user_apks.index']);
+        Permission::create(['name' => 'user_apks.update']);
+        Permission::create(['name' => 'user_apks.create']);
+        Permission::create(['name' => 'user_apks.destroy']);
+        Permission::create(['name' => 'user_apks.show']);
+        Permission::create(['name' => 'user_apks.giveRolApkToUserApk']);
 
 
-        Permission::create(['name' => 'users_apis.index']);
-        Permission::create(['name' => 'users_apis.update']);
-        Permission::create(['name' => 'users_apis.create']);
-        Permission::create(['name' => 'users_apis.destroy']);
-        Permission::create(['name' => 'users_apis.show']);
+        Permission::create(['name' => 'user_apis.index']);
+        Permission::create(['name' => 'user_apis.update']);
+        Permission::create(['name' => 'user_apis.create']);
+        Permission::create(['name' => 'user_apis.destroy']);
+        Permission::create(['name' => 'user_apis.show']);
 
-        Permission::create(['name' => 'roles_apks.index']);
-        Permission::create(['name' => 'roles_apks.update']);
-        Permission::create(['name' => 'roles_apks.create']);
-        Permission::create(['name' => 'roles_apks.destroy']);
-        Permission::create(['name' => 'roles_apks.show']);
-        Permission::create(['name' => 'roles_apks.give_role_boton']);
+        Permission::create(['name' => 'rol_apks.index']);
+        Permission::create(['name' => 'rol_apks.update']);
+        Permission::create(['name' => 'rol_apks.create']);
+        Permission::create(['name' => 'rol_apks.destroy']);
+        Permission::create(['name' => 'rol_apks.show']);
+        Permission::create(['name' => 'rol_apks.giveRolBotonToRolApk']);
 
 
-        Permission::create(['name' => 'roles_apks_roles_botones.index']);
-        Permission::create(['name' => 'roles_apks_roles_botones.update']);
-        Permission::create(['name' => 'roles_apks_roles_botones.create']);
-        Permission::create(['name' => 'roles_apks_roles_botones.destroy']);
-        Permission::create(['name' => 'roles_apks_roles_botones.show']);
+        Permission::create(['name' => 'rol_apk_rol_botons.index']);
+        Permission::create(['name' => 'rol_apk_rol_botons.update']);
+        Permission::create(['name' => 'rol_apk_rol_botons.create']);
+        Permission::create(['name' => 'rol_apk_rol_botons.destroy']);
+        Permission::create(['name' => 'rol_apk_rol_botons.show']);
 
         //Admin
         $admin = Role::create(['name' => 'SuperAdmin']);
