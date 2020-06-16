@@ -397,7 +397,7 @@ class UserApkAPIController extends CommonController
 
          $input = $request->all();
          $rol_apk = $input['giveRolApkTo'];
-          $this->rolApkRepository->find($rol_apk);
+         $this->rolApkRepository->find($rol_apk);
          $userApk->rol_apk_id = $rol_apk;
          $this->userApkRepository->update($userApk->toArray(),$userApk->id);
 

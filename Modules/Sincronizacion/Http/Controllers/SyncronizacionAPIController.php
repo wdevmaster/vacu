@@ -147,7 +147,7 @@ class SyncronizacionAPIController extends AppBaseController
      */
     public function startSync()
     {
-        try {
+       // try {
             $results = $this->syncDataService->executeService();
 
             return response()->json([
@@ -157,11 +157,12 @@ class SyncronizacionAPIController extends AppBaseController
                 'success' => true,
                 'data' => $results
             ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
-                'success' => false
-            ], 500);
-        }
+      //  }
+//        catch (\Exception $e) {
+//            return response()->json([
+//                'message' => __('comun::msgs.msg_error_contact_the_administrator'),
+//                'success' => false
+//            ], 500);
+//        }
     }
 }
