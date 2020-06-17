@@ -7,8 +7,8 @@
  */
 
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
+use App\Models\Role;
 use Modules\Usuario\Entities\User;
 use Illuminate\Database\Seeder;
 
@@ -243,6 +243,9 @@ class PermissionsTableSeeder extends Seeder
 
 
         //User Admin
+        /**
+         * @var User $user
+         */
         $user = User::where('email', 'admin@admin.com')->first();
         $user->assignRole('SuperAdmin');
     }

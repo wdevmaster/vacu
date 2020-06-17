@@ -2,10 +2,13 @@
 
 namespace Modules\Usuario\Entities;
 
+use App\Models\Permission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Exceptions\PermissionDoesNotExist;
+use Spatie\Permission\Guard;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -94,6 +97,4 @@ class User extends Authenticatable
         'negocio_id' => 'required',
         'finca_id' => 'required'
     ];
-
-
 }

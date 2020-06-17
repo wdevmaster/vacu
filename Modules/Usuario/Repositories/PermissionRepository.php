@@ -2,8 +2,8 @@
 
 namespace Modules\Usuario\Repositories;
 
+use App\Models\Permission;
 use App\Repositories\BaseRepository;
-use Spatie\Permission\Models\Permission;
 
 /**
  * Class PermissionRepository
