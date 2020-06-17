@@ -231,14 +231,6 @@ class PermissionsTableSeeder extends Seeder
         //Admin
         $admin = Role::create(['name' => 'SuperAdmin']);
 
-//        $admin->givePermissionTo([
-//            'products.index',
-//            'products.edit',
-//            'products.show',
-//            'products.create',
-//            'products.destroy'
-//        ]);
-        //$admin->givePermissionTo('products.index');
         $admin->givePermissionTo(Permission::all());
 
 
@@ -248,5 +240,19 @@ class PermissionsTableSeeder extends Seeder
          */
         $user = User::where('email', 'admin@admin.com')->first();
         $user->assignRole('SuperAdmin');
+
+        $user_sergio = User::where('email', 'sergio@test.com')->first();
+        $user_sergio->assignRole('SuperAdmin');
+
+        $user_andres = User::where('email', 'andres@test.com')->first();
+        $user_andres->assignRole('SuperAdmin');
+
+        $user_carlos = User::where('email', 'carlos@test.com')->first();
+        $user_carlos->assignRole('SuperAdmin');
+
+
+
+
+
     }
 }

@@ -30,6 +30,27 @@ class UsuarioDatabaseSeeder extends Seeder
             'password' =>  Hash::make('apktest123')
         ]);
 
-        $users = factory(User::class, 11)->create();
+
+        $andresTest = User::create([
+            'name' => 'andres',
+            'email' => 'andres@test.com',
+            'password' =>  Hash::make('andres123')
+        ]);
+
+        $sergioTest = User::create([
+            'name' => 'sergio',
+            'email' => 'sergio@test.com',
+            'password' =>  Hash::make('sergio123')
+        ]);
+
+        $carlosTest = User::create([
+            'name' => 'carlos',
+            'email' => 'carlos@test.com',
+            'password' =>  Hash::make('carlos123')
+        ]);
+
+
+
+
     }
 }
