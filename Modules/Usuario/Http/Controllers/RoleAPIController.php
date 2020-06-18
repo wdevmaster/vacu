@@ -345,11 +345,8 @@ class RoleAPIController extends CommonController
      *                  property="givePermissionTo",
      *                  type="array",
      *                  @SWG\Items(
-     *                      @SWG\Property(
-     *                          property="nombre",
-     *                          type="string",
-     *                          example="negocios.index"
-     *                      ),
+     *                      type="string",
+     *                      example="negocios.index"
      *                  )
      *
      *
@@ -392,7 +389,7 @@ class RoleAPIController extends CommonController
         $input = $request->all();
 
        foreach ($input['givePermissionTo']  as $item){
-           $role->givePermissionTo($item['nombre']);
+           $role->givePermissionTo($item);
        }
 
        return $this->sendSuccess('Permissions assigned successfully');

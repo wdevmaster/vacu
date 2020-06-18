@@ -6668,12 +6668,8 @@
                                 "givePermissionTo": {
                                     "type": "array",
                                     "items": {
-                                        "properties": {
-                                            "nombre": {
-                                                "type": "string",
-                                                "example": "negocios.index"
-                                            }
-                                        }
+                                        "type": "string",
+                                        "example": "negocios.index"
                                     }
                                 }
                             }
@@ -8702,6 +8698,16 @@
                     "$ref": "#/definitions/User"
                 },
                 "roles": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "permisos": {
                     "type": "array",
                     "items": {
                         "properties": {
