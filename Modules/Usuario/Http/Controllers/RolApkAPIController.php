@@ -12,7 +12,7 @@ use Modules\Usuario\Repositories\RolApkRepository;
 use Illuminate\Http\Request;
 use Modules\Usuario\Repositories\RolApkRolBotonRepository;
 use Modules\Usuario\Repositories\RolBotonRepository;
-use Modules\Usuario\Repositories\UserApkRepository;
+
 
 /**
  * Class RolApkController
@@ -70,13 +70,31 @@ class RolApkAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $rolApks = $this->rolApkRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($rolApks->toArray(), 'Rol Apks retrieved successfully');
+            return $this->sendResponse($rolApks->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -122,11 +140,28 @@ class RolApkAPIController extends CommonController
      */
     public function store(CreateRolApkAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $rolApk = $this->rolApkRepository->create($input);
+            return $this->sendResponse($rolApk->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($rolApk->toArray(), 'Rol Apk saved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -172,14 +207,28 @@ class RolApkAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var RolApk $rolApk */
         $rolApk = $this->rolApkRepository->find($id);
 
-        if (empty($rolApk)) {
-            return $this->sendError('Rol Apk not found', 404);
-        }
+            return $this->sendResponse($rolApk->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($rolApk->toArray(), 'Rol Apk retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -233,18 +282,32 @@ class RolApkAPIController extends CommonController
      */
     public function update($id, UpdateRolApkAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var RolApk $rolApk */
-        $rolApk = $this->rolApkRepository->find($id);
-
-        if (empty($rolApk)) {
-            return $this->sendError('Rol Apk not found', 404);
-        }
+        $this->rolApkRepository->find($id);
 
         $rolApk = $this->rolApkRepository->update($input, $id);
 
-        return $this->sendResponse($rolApk->toArray(), 'RolApk updated successfully');
+            return $this->sendResponse($rolApk->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -291,16 +354,28 @@ class RolApkAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var RolApk $rolApk */
         $rolApk = $this->rolApkRepository->find($id);
-
-        if (empty($rolApk)) {
-            return $this->sendError('Rol Apk not found', 404);
-        }
-
         $rolApk->delete();
+            return $this->sendResponse([],
+                'comun::msgs.la_model_deleted_successfully',
+                true,
+                200);
 
-        return $this->sendSuccess('Rol Apk deleted successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
 

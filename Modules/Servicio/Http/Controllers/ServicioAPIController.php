@@ -2,6 +2,7 @@
 
 namespace Modules\Servicio\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -75,6 +76,7 @@ class ServicioAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $servicios = $this->servicioRepository->paginate($paginate);
@@ -86,8 +88,24 @@ class ServicioAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($servicios->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($servicios->toArray(), 'Servicios retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +151,29 @@ class ServicioAPIController extends CommonController
      */
     public function store(CreateServicioAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $servicio = $this->servicioRepository->create($input);
 
-        return $this->sendResponse($servicio->toArray(), 'Servicio saved successfully');
+            return $this->sendResponse($servicio->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +219,29 @@ class ServicioAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
+
         /** @var Servicio $servicio */
         $servicio = $this->servicioRepository->find($id);
 
-        if (empty($servicio)) {
-            return $this->sendError('Servicio not found', 404);
-        }
+            return $this->sendResponse($servicio->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($servicio->toArray(), 'Servicio retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +295,32 @@ class ServicioAPIController extends CommonController
      */
     public function update($id, UpdateServicioAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Servicio $servicio */
-        $servicio = $this->servicioRepository->find($id);
-
-        if (empty($servicio)) {
-            return $this->sendError('Servicio not found', 404);
-        }
+        $this->servicioRepository->find($id);
 
         $servicio = $this->servicioRepository->update($input, $id);
 
-        return $this->sendResponse($servicio->toArray(), 'Servicio updated successfully');
+            return $this->sendResponse($servicio->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -302,15 +367,28 @@ class ServicioAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Servicio $servicio */
         $servicio = $this->servicioRepository->find($id);
+        $servicio->active=false;
+        $result= $this->servicioRepository->update($servicio->toArray(),$servicio->id);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
 
-        if (empty($servicio)) {
-            return $this->sendError('Servicio not found', 404);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $servicio->delete();
-
-        return $this->sendSuccess('Servicio deleted successfully');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Lactancia\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class LactanciaAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $lactancias = $this->lactanciaRepository->paginate($paginate);
@@ -86,7 +88,24 @@ class LactanciaAPIController extends CommonController
         }
 
 
-        return $this->sendResponse($lactancias->toArray(), 'Lactancias retrieved successfully');
+            return $this->sendResponse($lactancias->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -132,11 +151,29 @@ class LactanciaAPIController extends CommonController
      */
     public function store(CreateLactanciaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $lactancia = $this->lactanciaRepository->create($input);
 
-        return $this->sendResponse($lactancia->toArray(), 'Lactancia saved successfully');
+            return $this->sendResponse($lactancia->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -182,14 +219,29 @@ class LactanciaAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Lactancia $lactancia */
         $lactancia = $this->lactanciaRepository->find($id);
 
-        if (empty($lactancia)) {
-            return $this->sendError('Lactancia not found', 404);
-        }
 
-        return $this->sendResponse($lactancia->toArray(), 'Lactancia retrieved successfully');
+            return $this->sendResponse($lactancia->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -243,18 +295,33 @@ class LactanciaAPIController extends CommonController
      */
     public function update($id, UpdateLactanciaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Lactancia $lactancia */
-        $lactancia = $this->lactanciaRepository->find($id);
-
-        if (empty($lactancia)) {
-            return $this->sendError('Lactancia not found', 404);
-        }
+         $this->lactanciaRepository->find($id);
 
         $lactancia = $this->lactanciaRepository->update($input, $id);
 
-        return $this->sendResponse($lactancia->toArray(), 'Lactancia updated successfully');
+
+            return $this->sendResponse($lactancia->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -301,15 +368,29 @@ class LactanciaAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Lactancia $lactancia */
         $lactancia = $this->lactanciaRepository->find($id);
+      $lactancia->active=false;
+      $result= $this->lactanciaRepository->update($lactancia->toArray(),$lactancia->id);
 
-        if (empty($lactancia)) {
-            return $this->sendError('Lactancia not found', 404);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $lactancia->delete();
-
-        return $this->sendSuccess('Lactancia deleted successfully');
     }
 }

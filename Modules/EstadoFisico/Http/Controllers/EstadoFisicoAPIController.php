@@ -2,6 +2,7 @@
 
 namespace Modules\EstadoFisico\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,20 +75,38 @@ class EstadoFisicoAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try {
 
-        $paginate = isset($request->paginado) ? $request->paginado : null;
-        if ($paginate) {
-            $estadoFisicos = $this->estadoFisicoRepository->paginate($paginate);
-        } else {
-            $estadoFisicos = $this->estadoFisicoRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
-        }
+            $paginate = isset($request->paginado) ? $request->paginado : null;
+            if ($paginate) {
+                $estadoFisicos = $this->estadoFisicoRepository->paginate($paginate);
+            } else {
+                $estadoFisicos = $this->estadoFisicoRepository->all(
+                    $request->except(['skip', 'limit']),
+                    $request->get('skip'),
+                    $request->get('limit')
+                );
+            }
 
+          return $this->sendResponse($estadoFisicos->toArray(),
+        'comun::msgs.la_model_list_successfully',
+        true,
+        200);
 
-        return $this->sendResponse($estadoFisicos->toArray(), 'Estado Fisicos retrieved successfully');
+                    } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+            'comun::msgs.la_model_not_found',
+            false,
+            404);
+            } catch
+            (\Exception $e) {
+
+                return $this->sendResponse([],
+                    'comun::msgs.msg_error_contact_the_administrator',
+                    false,
+                    500);
+            }
+
     }
 
     /**
@@ -133,11 +152,30 @@ class EstadoFisicoAPIController extends CommonController
      */
     public function store(CreateEstadoFisicoAPIRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $estadoFisico = $this->estadoFisicoRepository->create($input);
+            $estadoFisico = $this->estadoFisicoRepository->create($input);
 
-        return $this->sendResponse($estadoFisico->toArray(), 'Estado Fisico saved successfully');
+
+            return $this->sendResponse($estadoFisico->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,15 +221,32 @@ class EstadoFisicoAPIController extends CommonController
      */
     public function show($id)
     {
+
+       try{
         /** @var EstadoFisico $estadoFisico */
         $estadoFisico = $this->estadoFisicoRepository->find($id);
 
-        if (empty($estadoFisico)) {
-            return $this->sendError('Estado Fisico not found', 404);
-        }
 
-        return $this->sendResponse($estadoFisico->toArray(), 'Estado Fisico retrieved successfully');
-    }
+
+           return $this->sendResponse($estadoFisico->toArray(),
+               'comun::msgs.la_model_find_successfully',
+               true,
+               200);
+
+       } catch (ModelNotFoundException $e) {
+           return $this->sendResponse([],
+               'comun::msgs.la_model_not_found',
+               false,
+               404);
+       } catch
+       (\Exception $e) {
+
+           return $this->sendResponse([],
+               'comun::msgs.msg_error_contact_the_administrator',
+               false,
+               500);
+       }
+       }
 
     /**
      * @param int $id
@@ -244,18 +299,32 @@ class EstadoFisicoAPIController extends CommonController
      */
     public function update($id, UpdateEstadoFisicoAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var EstadoFisico $estadoFisico */
-        $estadoFisico = $this->estadoFisicoRepository->find($id);
-
-        if (empty($estadoFisico)) {
-            return $this->sendError('Estado Fisico not found', 404);
-        }
+        $this->estadoFisicoRepository->find($id);
 
         $estadoFisico = $this->estadoFisicoRepository->update($input, $id);
 
-        return $this->sendResponse($estadoFisico->toArray(), 'EstadoFisico updated successfully');
+            return $this->sendResponse($estadoFisico->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -302,15 +371,30 @@ class EstadoFisicoAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var EstadoFisico $estadoFisico */
         $estadoFisico = $this->estadoFisicoRepository->find($id);
 
-        if (empty($estadoFisico)) {
-            return $this->sendError('Estado Fisico not found', 404);
+        $estadoFisico->active=false;
+        $result= $this->estadoFisicoRepository->update($estadoFisico->toArray(),$estadoFisico->id);
+
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $estadoFisico->delete();
-
-        return $this->sendSuccess('Estado Fisico deleted successfully');
-    }
+        }
 }

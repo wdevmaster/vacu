@@ -2,6 +2,7 @@
 
 namespace Modules\Semen\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -75,6 +76,7 @@ class SemenAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $semens = $this->semenRepository->paginate($paginate);
@@ -86,8 +88,24 @@ class SemenAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($semens->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($semens->toArray(), 'Semens retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +151,29 @@ class SemenAPIController extends CommonController
      */
     public function store(CreateSemenAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $semen = $this->semenRepository->create($input);
 
-        return $this->sendResponse($semen->toArray(), 'Semen saved successfully');
+            return $this->sendResponse($semen->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +219,28 @@ class SemenAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Semen $semen */
         $semen = $this->semenRepository->find($id);
 
-        if (empty($semen)) {
-            return $this->sendError('Semen not found', 404);
-        }
+            return $this->sendResponse($semen->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($semen->toArray(), 'Semen retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +294,30 @@ class SemenAPIController extends CommonController
      */
     public function update($id, UpdateSemenAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Semen $semen */
-        $semen = $this->semenRepository->find($id);
+        $this->semenRepository->find($id);
+        $result= $this->semenRepository->update($input,$id);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
 
-        if (empty($semen)) {
-            return $this->sendError('Semen not found', 404);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $semen = $this->semenRepository->update($input, $id);
-
-        return $this->sendResponse($semen->toArray(), 'Semen updated successfully');
     }
 
     /**
@@ -302,15 +364,27 @@ class SemenAPIController extends CommonController
      */
     public function destroy($id)
     {
-        /** @var Semen $semen */
+        try{
         $semen = $this->semenRepository->find($id);
+        $semen->active=false;
+        $result= $this->semenRepository->update($semen->toArray(),$semen->id);
+        return $this->sendResponse($result->toArray(),
+            'comun::msgs.la_model_desactivated_successfully',
+            true,
+            200);
 
-        if (empty($semen)) {
-            return $this->sendError('Semen not found', 404);
-        }
+                } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+            'comun::msgs.la_model_not_found',
+            false,
+            404);
+            } catch
+            (\Exception $e) {
 
-        $semen->delete();
-
-        return $this->sendSuccess('Semen deleted successfully');
-    }
+                return $this->sendResponse([],
+                    'comun::msgs.msg_error_contact_the_administrator',
+                    false,
+                    500);
+            }
+                }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Finca\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Finca\Http\Requests\CreateFincaAPIRequest;
@@ -75,6 +76,7 @@ class FincaAPIController extends CommonController
      */
     public function index(Request $request)
     {
+       try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate){
             $fincas = $this->fincaRepository->paginate($paginate);
@@ -88,8 +90,24 @@ class FincaAPIController extends CommonController
         }
 
 
+           return $this->sendResponse($fincas->toArray(),
+               'comun::msgs.la_model_list_successfully',
+               true,
+               200);
 
-        return $this->sendResponse($fincas->toArray(), 'Fincas retrieved successfully');
+       } catch (ModelNotFoundException $e) {
+           return $this->sendResponse([],
+               'comun::msgs.la_model_not_found',
+               false,
+               404);
+       } catch
+       (\Exception $e) {
+
+           return $this->sendResponse([],
+               'comun::msgs.msg_error_contact_the_administrator',
+               false,
+               500);
+       }
     }
 
     /**
@@ -135,11 +153,30 @@ class FincaAPIController extends CommonController
      */
     public function store(CreateFincaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $finca = $this->fincaRepository->create($input);
 
-        return $this->sendResponse($finca->toArray(), 'Finca saved successfully');
+
+            return $this->sendResponse($finca->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -185,14 +222,29 @@ class FincaAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Finca $finca */
         $finca = $this->fincaRepository->find($id);
 
-        if (empty($finca)) {
-            return $this->sendError('Finca not found', 404);
-        }
 
-        return $this->sendResponse($finca->toArray(), 'Finca retrieved successfully');
+            return $this->sendResponse($finca->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -246,18 +298,32 @@ class FincaAPIController extends CommonController
      */
     public function update($id, UpdateFincaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Finca $finca */
-        $finca = $this->fincaRepository->find($id);
-
-        if (empty($finca)) {
-            return $this->sendError('Finca not found', 404);
-        }
+         $this->fincaRepository->find($id);
 
         $finca = $this->fincaRepository->update($input, $id);
 
-        return $this->sendResponse($finca->toArray(), 'Finca updated successfully');
+            return $this->sendResponse($finca->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -304,15 +370,32 @@ class FincaAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Finca $finca */
         $finca = $this->fincaRepository->find($id);
 
-        if (empty($finca)) {
-            return $this->sendError('Finca not found', 404);
+       $finca->active=false;
+
+        $result= $this->fincaRepository->update($finca->toArray(),$finca->id);
+
+
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $this->fincaRepository->delete($id);
-
-        return $this->sendSuccess('Finca deleted successfully');
     }
 }

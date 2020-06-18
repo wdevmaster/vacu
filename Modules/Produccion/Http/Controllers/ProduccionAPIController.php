@@ -2,6 +2,7 @@
 
 namespace Modules\Produccion\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -75,6 +76,7 @@ class ProduccionAPIController extends CommonController
     public function index(Request $request)
     {
 
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $produccions = $this->produccionRepository->paginate($paginate);
@@ -87,7 +89,24 @@ class ProduccionAPIController extends CommonController
         }
 
 
-        return $this->sendResponse($produccions->toArray(), 'Produccions retrieved successfully');
+            return $this->sendResponse($produccions->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +152,29 @@ class ProduccionAPIController extends CommonController
      */
     public function store(CreateProduccionAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $produccion = $this->produccionRepository->create($input);
 
-        return $this->sendResponse($produccion->toArray(), 'Produccion saved successfully');
+            return $this->sendResponse($produccion->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +220,28 @@ class ProduccionAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Produccion $produccion */
         $produccion = $this->produccionRepository->find($id);
 
-        if (empty($produccion)) {
-            return $this->sendError('Produccion not found', 404);
-        }
+            return $this->sendResponse($produccion->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($produccion->toArray(), 'Produccion retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +295,31 @@ class ProduccionAPIController extends CommonController
      */
     public function update($id, UpdateProduccionAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Produccion $produccion */
-        $produccion = $this->produccionRepository->find($id);
-
-        if (empty($produccion)) {
-            return $this->sendError('Produccion not found', 404);
-        }
-
+         $this->produccionRepository->find($id);
         $produccion = $this->produccionRepository->update($input, $id);
 
-        return $this->sendResponse($produccion->toArray(), 'Produccion updated successfully');
+            return $this->sendResponse($produccion->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -302,15 +366,29 @@ class ProduccionAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Produccion $produccion */
         $produccion = $this->produccionRepository->find($id);
+        $produccion->active=false;
+        $result= $this->produccionRepository->update($produccion->toArray(),$produccion->id);
 
-        if (empty($produccion)) {
-            return $this->sendError('Produccion not found', 404);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $produccion->delete();
-
-        return $this->sendSuccess('Produccion deleted successfully');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Ingreso\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class IngresoAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $ingresos = $this->ingresoRepository->paginate($paginate);
@@ -86,7 +88,24 @@ class IngresoAPIController extends CommonController
         }
 
 
-        return $this->sendResponse($ingresos->toArray(), 'Ingresos retrieved successfully');
+            return $this->sendResponse($ingresos->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -132,11 +151,29 @@ class IngresoAPIController extends CommonController
      */
     public function store(CreateIngresoAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $ingreso = $this->ingresoRepository->create($input);
 
-        return $this->sendResponse($ingreso->toArray(), 'Ingreso saved successfully');
+            return $this->sendResponse($ingreso->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -182,14 +219,29 @@ class IngresoAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Ingreso $ingreso */
         $ingreso = $this->ingresoRepository->find($id);
 
-        if (empty($ingreso)) {
-            return $this->sendError('Ingreso not found', 404);
-        }
 
-        return $this->sendResponse($ingreso->toArray(), 'Ingreso retrieved successfully');
+            return $this->sendResponse($ingreso->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -243,18 +295,33 @@ class IngresoAPIController extends CommonController
      */
     public function update($id, UpdateIngresoAPIRequest $request)
     {
+      try{
         $input = $request->all();
 
         /** @var Ingreso $ingreso */
-        $ingreso = $this->ingresoRepository->find($id);
-
-        if (empty($ingreso)) {
-            return $this->sendError('Ingreso not found', 404);
-        }
+         $this->ingresoRepository->find($id);
 
         $ingreso = $this->ingresoRepository->update($input, $id);
 
-        return $this->sendResponse($ingreso->toArray(), 'Ingreso updated successfully');
+
+          return $this->sendResponse($ingreso->toArray(),
+              'comun::msgs.la_model_updated_successfully',
+              true,
+              200);
+
+      } catch (ModelNotFoundException $e) {
+          return $this->sendResponse([],
+              'comun::msgs.la_model_not_found',
+              false,
+              404);
+      } catch
+      (\Exception $e) {
+
+          return $this->sendResponse([],
+              'comun::msgs.msg_error_contact_the_administrator',
+              false,
+              500);
+      }
     }
 
     /**
@@ -301,15 +368,30 @@ class IngresoAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Ingreso $ingreso */
         $ingreso = $this->ingresoRepository->find($id);
 
-        if (empty($ingreso)) {
-            return $this->sendError('Ingreso not found', 404);
+      $ingreso->active=false;
+      $result= $this->ingresoRepository->update($ingreso->toArray(),$ingreso->id);
+
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $ingreso->delete();
-
-        return $this->sendSuccess('Ingreso deleted successfully');
     }
 }

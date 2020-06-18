@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Http\Requests\CreateRolBotonAPIRequest;
@@ -63,13 +64,31 @@ class RolBotonAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $rolBotons = $this->rolBotonRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($rolBotons->toArray(), 'Rol Botons retrieved successfully');
+            return $this->sendResponse($rolBotons->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -115,11 +134,29 @@ class RolBotonAPIController extends CommonController
      */
     public function store(CreateRolBotonAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $rolBoton = $this->rolBotonRepository->create($input);
 
-        return $this->sendResponse($rolBoton->toArray(), 'Rol Boton saved successfully');
+            return $this->sendResponse($rolBoton->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -165,14 +202,29 @@ class RolBotonAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var RolBoton $rolBoton */
         $rolBoton = $this->rolBotonRepository->find($id);
 
-        if (empty($rolBoton)) {
-            return $this->sendError('Rol Boton not found', 404);
-        }
 
-        return $this->sendResponse($rolBoton->toArray(), 'Rol Boton retrieved successfully');
+            return $this->sendResponse($rolBoton->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -226,18 +278,32 @@ class RolBotonAPIController extends CommonController
      */
     public function update($id, UpdateRolBotonAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var RolBoton $rolBoton */
-        $rolBoton = $this->rolBotonRepository->find($id);
-
-        if (empty($rolBoton)) {
-            return $this->sendError('Rol Boton not found', 404);
-        }
+        $this->rolBotonRepository->find($id);
 
         $rolBoton = $this->rolBotonRepository->update($input, $id);
 
-        return $this->sendResponse($rolBoton->toArray(), 'RolBoton updated successfully');
+            return $this->sendResponse($rolBoton->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -284,15 +350,28 @@ class RolBotonAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var RolBoton $rolBoton */
         $rolBoton = $this->rolBotonRepository->find($id);
-
-        if (empty($rolBoton)) {
-            return $this->sendError('Rol Boton not found', 404);
-        }
-
         $rolBoton->delete();
 
-        return $this->sendSuccess('Rol Boton deleted successfully');
+            return $this->sendResponse([],
+                'comun::msgs.la_model_deleted_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 }

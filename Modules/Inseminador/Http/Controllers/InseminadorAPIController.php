@@ -2,6 +2,7 @@
 
 namespace Modules\Inseminador\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -75,6 +76,7 @@ class InseminadorAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $inseminadors = $this->inseminadorRepository->paginate($paginate);
@@ -86,8 +88,24 @@ class InseminadorAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($inseminadors->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($inseminadors->toArray(), 'Inseminadors retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +151,30 @@ class InseminadorAPIController extends CommonController
      */
     public function store(CreateInseminadorAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $inseminador = $this->inseminadorRepository->create($input);
 
-        return $this->sendResponse($inseminador->toArray(), 'Inseminador saved successfully');
+
+            return $this->sendResponse($inseminador->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +220,29 @@ class InseminadorAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Inseminador $inseminador */
         $inseminador = $this->inseminadorRepository->find($id);
 
-        if (empty($inseminador)) {
-            return $this->sendError('Inseminador not found', 404);
-        }
 
-        return $this->sendResponse($inseminador->toArray(), 'Inseminador retrieved successfully');
+            return $this->sendResponse($inseminador->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +296,33 @@ class InseminadorAPIController extends CommonController
      */
     public function update($id, UpdateInseminadorAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Inseminador $inseminador */
-        $inseminador = $this->inseminadorRepository->find($id);
+        $this->inseminadorRepository->find($id);
 
-        if (empty($inseminador)) {
-            return $this->sendError('Inseminador not found', 404);
+         $inseminador = $this->inseminadorRepository->update($input, $id);
+
+
+            return $this->sendResponse($inseminador->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $inseminador = $this->inseminadorRepository->update($input, $id);
-
-        return $this->sendResponse($inseminador->toArray(), 'Inseminador updated successfully');
     }
 
     /**
@@ -302,15 +369,30 @@ class InseminadorAPIController extends CommonController
      */
     public function destroy($id)
     {
+       try{
         /** @var Inseminador $inseminador */
         $inseminador = $this->inseminadorRepository->find($id);
 
-        if (empty($inseminador)) {
-            return $this->sendError('Inseminador not found', 404);
-        }
+       $inseminador->active=false;
+       $result= $this->inseminadorRepository->update($inseminador->toArray(),$inseminador->id);
 
-        $inseminador->delete();
+           return $this->sendResponse($result->toArray(),
+               'comun::msgs.la_model_desactivated_successfully',
+               true,
+               200);
 
-        return $this->sendSuccess('Inseminador deleted successfully');
+       } catch (ModelNotFoundException $e) {
+           return $this->sendResponse([],
+               'comun::msgs.la_model_not_found',
+               false,
+               404);
+       } catch
+       (\Exception $e) {
+
+           return $this->sendResponse([],
+               'comun::msgs.msg_error_contact_the_administrator',
+               false,
+               500);
+       }
     }
 }

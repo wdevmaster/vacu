@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Repositories\PermissionRepository;
@@ -77,13 +78,31 @@ class PermissionAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $permissions = $this->permissionRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($permissions->toArray(), 'Permissions retrieved successfully');
+            return $this->sendResponse($permissions->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -129,11 +148,28 @@ class PermissionAPIController extends CommonController
      */
     public function store(Request $request)
     {
+        try{
         $input = $request->all();
 
         $permission = $this->permissionRepository->create($input);
+            return $this->sendResponse($permission->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($permission->toArray(), 'Permission saved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -179,14 +215,28 @@ class PermissionAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Permission $permission */
         $permission = $this->permissionRepository->find($id);
 
-        if (empty($permission)) {
-            return $this->sendError('Permission not found', 404);
-        }
+            return $this->sendResponse($permission->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($permission->toArray(), 'Permission retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -240,18 +290,32 @@ class PermissionAPIController extends CommonController
      */
     public function update($id, Request $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Permission $permission */
-        $permission = $this->permissionRepository->find($id);
-
-        if (empty($permission)) {
-            return $this->sendError('Permission not found', 404);
-        }
+        $this->permissionRepository->find($id);
 
         $permission = $this->permissionRepository->update($input, $id);
 
-        return $this->sendResponse($permission->toArray(), 'Permission updated successfully');
+            return $this->sendResponse($permission->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -298,15 +362,26 @@ class PermissionAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Permission $permission */
         $permission = $this->permissionRepository->find($id);
-
-        if (empty($permission)) {
-            return $this->sendError('Permission not found', 404);
-        }
 
         $permission->delete();
 
         return $this->sendSuccess('Permission deleted successfully');
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Lote\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class LoteAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
 
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
@@ -86,7 +88,25 @@ class LoteAPIController extends CommonController
             );
         }
 
-        return $this->sendResponse($lotes->toArray(), 'Lotes retrieved successfully');
+
+            return $this->sendResponse($lotes->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -132,11 +152,29 @@ class LoteAPIController extends CommonController
      */
     public function store(CreateLoteAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $lote = $this->loteRepository->create($input);
 
-        return $this->sendResponse($lote->toArray(), 'Lote saved successfully');
+            return $this->sendResponse($lote->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -182,14 +220,29 @@ class LoteAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Lote $lote */
         $lote = $this->loteRepository->find($id);
 
-        if (empty($lote)) {
-            return $this->sendError('Lote not found', 404);
-        }
 
-        return $this->sendResponse($lote->toArray(), 'Lote retrieved successfully');
+            return $this->sendResponse($lote->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -243,18 +296,32 @@ class LoteAPIController extends CommonController
      */
     public function update($id, UpdateLoteAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Lote $lote */
-        $lote = $this->loteRepository->find($id);
-
-        if (empty($lote)) {
-            return $this->sendError('Lote not found', 404);
-        }
+       $this->loteRepository->find($id);
 
         $lote = $this->loteRepository->update($input, $id);
 
-        return $this->sendResponse($lote->toArray(), 'Lote updated successfully');
+            return $this->sendResponse($lote->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -301,15 +368,30 @@ class LoteAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Lote $lote */
         $lote = $this->loteRepository->find($id);
 
-        if (empty($lote)) {
-            return $this->sendError('Lote not found', 404);
+       $lote->active=false;
+       $result= $this->loteRepository->update($lote->toArray(),$lote->id);
+
+        return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $lote->delete();
-
-        return $this->sendSuccess('Lote deleted successfully');
     }
 }

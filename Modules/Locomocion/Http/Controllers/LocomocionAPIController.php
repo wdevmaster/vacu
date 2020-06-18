@@ -2,6 +2,7 @@
 
 namespace Modules\Locomocion\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class LocomocionAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $locomocions = $this->locomocionRepository->paginate($paginate);
@@ -85,8 +87,24 @@ class LocomocionAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($locomocions->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($locomocions->toArray(), 'Locomocions retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -132,11 +150,29 @@ class LocomocionAPIController extends CommonController
      */
     public function store(CreateLocomocionAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $locomocion = $this->locomocionRepository->create($input);
 
-        return $this->sendResponse($locomocion->toArray(), 'Locomocion saved successfully');
+            return $this->sendResponse($locomocion->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -182,14 +218,29 @@ class LocomocionAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Locomocion $locomocion */
         $locomocion = $this->locomocionRepository->find($id);
 
-        if (empty($locomocion)) {
-            return $this->sendError('Locomocion not found', 404);
-        }
 
-        return $this->sendResponse($locomocion->toArray(), 'Locomocion retrieved successfully');
+            return $this->sendResponse($locomocion->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -243,18 +294,32 @@ class LocomocionAPIController extends CommonController
      */
     public function update($id, UpdateLocomocionAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Locomocion $locomocion */
-        $locomocion = $this->locomocionRepository->find($id);
-
-        if (empty($locomocion)) {
-            return $this->sendError('Locomocion not found', 404);
-        }
-
+        $this->locomocionRepository->find($id);
         $locomocion = $this->locomocionRepository->update($input, $id);
 
-        return $this->sendResponse($locomocion->toArray(), 'Locomocion updated successfully');
+
+            return $this->sendResponse($locomocion->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -301,15 +366,30 @@ class LocomocionAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Locomocion $locomocion */
         $locomocion = $this->locomocionRepository->find($id);
 
-        if (empty($locomocion)) {
-            return $this->sendError('Locomocion not found', 404);
+      $locomocion->active=false;
+      $result= $this->locomocionRepository->update($locomocion->toArray(),$locomocion->id);
+
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $locomocion->delete();
-
-        return $this->sendSuccess('Locomocion deleted successfully');
     }
 }

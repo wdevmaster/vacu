@@ -2,6 +2,7 @@
 
 namespace Modules\Venta\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class VentaAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
 
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
@@ -86,8 +88,24 @@ class VentaAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($ventas->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($ventas->toArray(), 'Ventas retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +151,29 @@ class VentaAPIController extends CommonController
      */
     public function store(CreateVentaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $venta = $this->ventaRepository->create($input);
 
-        return $this->sendResponse($venta->toArray(), 'Venta saved successfully');
+            return $this->sendResponse($venta->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +219,28 @@ class VentaAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Venta $venta */
         $venta = $this->ventaRepository->find($id);
 
-        if (empty($venta)) {
-            return $this->sendError('Venta not found', 404);
-        }
+            return $this->sendResponse($venta->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($venta->toArray(), 'Venta retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +294,32 @@ class VentaAPIController extends CommonController
      */
     public function update($id, UpdateVentaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Venta $venta */
-        $venta = $this->ventaRepository->find($id);
-
-        if (empty($venta)) {
-            return $this->sendError('Venta not found', 404);
-        }
+        $this->ventaRepository->find($id);
 
         $venta = $this->ventaRepository->update($input, $id);
 
-        return $this->sendResponse($venta->toArray(), 'Venta updated successfully');
+            return $this->sendResponse($venta->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -302,15 +366,28 @@ class VentaAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Venta $venta */
         $venta = $this->ventaRepository->find($id);
+        $venta->active=false;
+        $result= $this->ventaRepository->update($venta->toArray(),$venta->id);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
 
-        if (empty($venta)) {
-            return $this->sendError('Venta not found', 404);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $venta->delete();
-
-        return $this->sendSuccess('Venta deleted successfully');
     }
 }

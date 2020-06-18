@@ -2,6 +2,7 @@
 
 namespace Modules\Parto\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class PartoAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
 
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
@@ -86,8 +88,24 @@ class PartoAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($partos->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($partos->toArray(), 'Partos retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +151,29 @@ class PartoAPIController extends CommonController
      */
     public function store(CreatePartoAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $parto = $this->partoRepository->create($input);
 
-        return $this->sendResponse($parto->toArray(), 'Parto saved successfully');
+            return $this->sendResponse($parto->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +219,28 @@ class PartoAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Parto $parto */
         $parto = $this->partoRepository->find($id);
 
-        if (empty($parto)) {
-            return $this->sendError('Parto not found', 404);
-        }
+            return $this->sendResponse($parto->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($parto->toArray(), 'Parto retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +294,32 @@ class PartoAPIController extends CommonController
      */
     public function update($id, UpdatePartoAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Parto $parto */
-        $parto = $this->partoRepository->find($id);
-
-        if (empty($parto)) {
-            return $this->sendError('Parto not found', 404);
-        }
+         $this->partoRepository->find($id);
 
         $parto = $this->partoRepository->update($input, $id);
 
-        return $this->sendResponse($parto->toArray(), 'Parto updated successfully');
+            return $this->sendResponse($parto->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -302,15 +366,29 @@ class PartoAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Parto $parto */
         $parto = $this->partoRepository->find($id);
+        $parto->active=false;
+        $result= $this->partoRepository->update($parto->toArray(),$parto->id);
 
-        if (empty($parto)) {
-            return $this->sendError('Parto not found', 404);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $parto->delete();
-
-        return $this->sendSuccess('Parto deleted successfully');
     }
 }

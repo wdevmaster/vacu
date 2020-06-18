@@ -89,14 +89,22 @@ class NegocioAPIController extends CommonController
             }
 
 
-            return $this->sendResponse($negocios->toArray(), 'Negocios retrieved successfully');
+            return $this->sendResponse($negocios->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
         } catch (ModelNotFoundException $e) {
-            return $this->sendError('Model not found', 404);
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
         } catch
         (\Exception $e) {
 
-            return $this->sendError('Contact the administrator',
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
                 500);
         }
     }
@@ -150,14 +158,22 @@ class NegocioAPIController extends CommonController
 
             $negocio = $this->negocioRepository->create($input);
 
-            return $this->sendResponse($negocio->toArray(), 'Cliente Negocio saved successfully', true, 201);
+            return $this->sendResponse($negocio->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
 
         } catch (ModelNotFoundException $e) {
-            return $this->sendError('Model not found', 404);
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
         } catch
         (\Exception $e) {
 
-            return $this->sendError('Contact the administrator',
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
                 500);
         }
     }
@@ -220,16 +236,24 @@ class NegocioAPIController extends CommonController
             $negocio = $this->negocioRepository->update($input, $id);
 
             return $this->sendResponse($negocio->toArray(),
-                'comun::msgs.la_model_updated_successfully');
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
 
         } catch (ModelNotFoundException $e) {
-            return $this->sendError('Model not found', 404);
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
         } catch
         (\Exception $e) {
 
-            return $this->sendError('Contact the administrator',
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
                 500);
         }
+
     }
 
     /**
@@ -283,14 +307,21 @@ class NegocioAPIController extends CommonController
             $result = $this->negocioRepository->update($negocio->toArray(), $id);
 
             return $this->sendResponse($result->toArray(),
-                'model_desactivated_successfully');
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
 
         } catch (ModelNotFoundException $e) {
-            return $this->sendError('Model not found', 404);
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
         } catch
         (\Exception $e) {
 
-            return $this->sendError('Contact the administrator',
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
                 500);
         }
     }

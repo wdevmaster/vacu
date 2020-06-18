@@ -2,6 +2,7 @@
 
 namespace Modules\Muerte\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Muerte\Http\Requests\CreateMuerteAPIRequest;
@@ -76,6 +77,7 @@ class MuerteAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $muertes = $this->muerteRepository->paginate($paginate);
@@ -86,7 +88,25 @@ class MuerteAPIController extends CommonController
             $request->get('limit')
         );}
 
-        return $this->sendResponse($muertes->toArray(), 'Muertes retrieved successfully');
+
+            return $this->sendResponse($muertes->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -132,11 +152,29 @@ class MuerteAPIController extends CommonController
      */
     public function store(CreateMuerteAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $muerte = $this->muerteRepository->create($input);
 
-        return $this->sendResponse($muerte->toArray(), 'Muerte saved successfully');
+            return $this->sendResponse($muerte->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -182,14 +220,28 @@ class MuerteAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Muerte $muerte */
         $muerte = $this->muerteRepository->find($id);
 
-        if (empty($muerte)) {
-            return $this->sendError('Muerte not found', 404);
-        }
+            return $this->sendResponse($muerte->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($muerte->toArray(), 'Muerte retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -243,18 +295,32 @@ class MuerteAPIController extends CommonController
      */
     public function update($id, UpdateMuerteAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Muerte $muerte */
-        $muerte = $this->muerteRepository->find($id);
-
-        if (empty($muerte)) {
-            return $this->sendError('Muerte not found', 404);
-        }
+       $this->muerteRepository->find($id);
 
         $muerte = $this->muerteRepository->update($input, $id);
 
-        return $this->sendResponse($muerte->toArray(), 'Muerte updated successfully');
+            return $this->sendResponse($muerte->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -301,15 +367,29 @@ class MuerteAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Muerte $muerte */
         $muerte = $this->muerteRepository->find($id);
+        $muerte->active=false;
+        $result= $this->muerteRepository->update($muerte->toArray(),$muerte->id);
 
-        if (empty($muerte)) {
-            return $this->sendError('Muerte not found', 404);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $muerte->delete();
-
-        return $this->sendSuccess('Muerte deleted successfully');
     }
 }

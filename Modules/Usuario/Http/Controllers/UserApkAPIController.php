@@ -86,6 +86,7 @@ class UserApkAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
 
         $paginate = isset($request->paginado) ? $request->paginado : null;
 
@@ -98,9 +99,24 @@ class UserApkAPIController extends CommonController
                 $request->get('limit')
             );
         }
+            return $this->sendResponse($userApks->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
 
-        return $this->sendResponse($userApks->toArray(), 'User Apks retrieved successfully');
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -146,13 +162,31 @@ class UserApkAPIController extends CommonController
      */
     public function store(CreateUserApkAPIRequest $request)
     {
+        try{
         $input = $request->all();
         $user = $this->userRepository->create($input);
         $user_id = $user->id;
         $data = ['user_id' => $user_id];
         $userApk = $this->userApkRepository->create($data);
 
-        return $this->sendResponse($userApk->toArray(), 'User Apk saved successfully');
+            return $this->sendResponse($userApk->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -198,14 +232,29 @@ class UserApkAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var UserApk $userApk */
         $userApk = $this->userApkRepository->find($id);
 
-        if (empty($userApk)) {
-            return $this->sendError('User Apk not found', 404);
-        }
 
-        return $this->sendResponse($userApk->toArray(), 'User Apk retrieved successfully');
+            return $this->sendResponse($userApk->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -259,18 +308,31 @@ class UserApkAPIController extends CommonController
      */
     public function update($id, UpdateUserApkAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var UserApk $userApk */
-        $userApk = $this->userApkRepository->find($id);
-
-        if (empty($userApk)) {
-            return $this->sendError('User Apk not found', 404);
-        }
-
+       $this->userApkRepository->find($id);
         $userApk = $this->userApkRepository->update($input, $id);
 
-        return $this->sendResponse($userApk->toArray(), 'UserApk updated successfully');
+            return $this->sendResponse($userApk->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -317,16 +379,29 @@ class UserApkAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var UserApk $userApk */
         $userApk = $this->userApkRepository->find($id);
 
-        if (empty($userApk)) {
-            return $this->sendError('User Apk not found', 404);
-        }
-
         $userApk->delete();
+            return $this->sendResponse([],
+                'comun::msgs.la_model_deleted_successfully',
+                true,
+                200);
 
-        return $this->sendSuccess('User Apk deleted successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
 

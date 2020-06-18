@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -79,6 +80,7 @@ class RoleAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $roles = $this->roleRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
@@ -90,7 +92,24 @@ class RoleAPIController extends CommonController
             $results[] = new RolDto($role);
         }
 
-        return $this->sendResponse($results, 'Roles retrieved successfully');
+            return $this->sendResponse($results,
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -136,11 +155,29 @@ class RoleAPIController extends CommonController
      */
     public function store(Request $request)
     {
+        try{
         $input = $request->all();
 
         $role = $this->roleRepository->create($input);
 
-        return $this->sendResponse($role->toArray(), 'Role saved successfully');
+            return $this->sendResponse($role->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -186,14 +223,28 @@ class RoleAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Role $role */
         $role = $this->roleRepository->find($id);
 
-        if (empty($role)) {
-            return $this->sendError('Role not found', 404);
-        }
+            return $this->sendResponse($role->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($role->toArray(), 'Role retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -247,18 +298,32 @@ class RoleAPIController extends CommonController
      */
     public function update($id, Request $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Role $role */
-        $role = $this->roleRepository->find($id);
-
-        if (empty($role)) {
-            return $this->sendError('Role not found', 404);
-        }
+         $this->roleRepository->find($id);
 
         $role = $this->roleRepository->update($input, $id);
 
-        return $this->sendResponse($role->toArray(), 'Role updated successfully');
+            return $this->sendResponse($role->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -305,16 +370,29 @@ class RoleAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Role $role */
         $role = $this->roleRepository->find($id);
 
-        if (empty($role)) {
-            return $this->sendError('Role not found', 404);
-        }
 
         $role->delete();
 
         return $this->sendSuccess('Role deleted successfully');
+
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**

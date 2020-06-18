@@ -2,6 +2,7 @@
 
 namespace Modules\RegistroEnfermedad\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -75,6 +76,7 @@ class RegistroEnfermedadAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
             $registroEnfermedads = $this->registroEnfermedadRepository->paginate($paginate);
@@ -86,8 +88,24 @@ class RegistroEnfermedadAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($registroEnfermedads->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($registroEnfermedads->toArray(), 'Registro Enfermedads retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -133,11 +151,29 @@ class RegistroEnfermedadAPIController extends CommonController
      */
     public function store(CreateRegistroEnfermedadAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $registroEnfermedad = $this->registroEnfermedadRepository->create($input);
 
-        return $this->sendResponse($registroEnfermedad->toArray(), 'Registro Enfermedad saved successfully');
+            return $this->sendResponse($registroEnfermedad->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -183,14 +219,29 @@ class RegistroEnfermedadAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var RegistroEnfermedad $registroEnfermedad */
         $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
 
-        if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found', 404);
-        }
 
-        return $this->sendResponse($registroEnfermedad->toArray(), 'Registro Enfermedad retrieved successfully');
+            return $this->sendResponse($registroEnfermedad->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -244,18 +295,32 @@ class RegistroEnfermedadAPIController extends CommonController
      */
     public function update($id, UpdateRegistroEnfermedadAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var RegistroEnfermedad $registroEnfermedad */
-        $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
-
-        if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found', 404);
-        }
+         $this->registroEnfermedadRepository->find($id);
 
         $registroEnfermedad = $this->registroEnfermedadRepository->update($input, $id);
 
-        return $this->sendResponse($registroEnfermedad->toArray(), 'RegistroEnfermedad updated successfully');
+            return $this->sendResponse($registroEnfermedad->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -302,15 +367,29 @@ class RegistroEnfermedadAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var RegistroEnfermedad $registroEnfermedad */
         $registroEnfermedad = $this->registroEnfermedadRepository->find($id);
+        $registroEnfermedad->active=false;
+        $result= $this->registroEnfermedadRepository->update($registroEnfermedad->toArray(),$registroEnfermedad->id);
 
-        if (empty($registroEnfermedad)) {
-            return $this->sendError('Registro Enfermedad not found', 404);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $registroEnfermedad->delete();
-
-        return $this->sendSuccess('Registro Enfermedad deleted successfully');
     }
 }

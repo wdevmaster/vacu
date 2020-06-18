@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -74,6 +75,7 @@ class ClienteNegocioAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
 
         $clienteNegocios = null;
         $paginate = isset($request->paginado) ? $request->paginado: null;
@@ -88,8 +90,24 @@ class ClienteNegocioAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($clienteNegocios->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($clienteNegocios->toArray(), 'Cliente Negocios retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -135,11 +153,29 @@ class ClienteNegocioAPIController extends CommonController
      */
     public function store(CreateClienteNegocioAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $clienteNegocio = $this->clienteNegocioRepository->create($input);
 
-        return $this->sendResponse($clienteNegocio->toArray(), 'Cliente Negocio saved successfully');
+            return $this->sendResponse($clienteNegocio->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -185,14 +221,28 @@ class ClienteNegocioAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var ClienteNegocio $clienteNegocio */
         $clienteNegocio = $this->clienteNegocioRepository->find($id);
 
-        if (empty($clienteNegocio)) {
-            return $this->sendError('Cliente Negocio not found', 404);
-        }
+            return $this->sendResponse($clienteNegocio->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($clienteNegocio->toArray(), 'Cliente Negocio retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -246,18 +296,32 @@ class ClienteNegocioAPIController extends CommonController
      */
     public function update($id, UpdateClienteNegocioAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var ClienteNegocio $clienteNegocio */
-        $clienteNegocio = $this->clienteNegocioRepository->find($id);
-
-        if (empty($clienteNegocio)) {
-            return $this->sendError('Cliente Negocio not found', 404);
-        }
+         $this->clienteNegocioRepository->find($id);
 
         $clienteNegocio = $this->clienteNegocioRepository->update($input, $id);
 
-        return $this->sendResponse($clienteNegocio->toArray(), 'ClienteNegocio updated successfully');
+            return $this->sendResponse($clienteNegocio->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -304,15 +368,28 @@ class ClienteNegocioAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var ClienteNegocio $clienteNegocio */
         $clienteNegocio = $this->clienteNegocioRepository->find($id);
+        $clienteNegocio->active=false;
+        $result= $this->clienteNegocioRepository->update($clienteNegocio->toArray(),$clienteNegocio->id);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
 
-        if (empty($clienteNegocio)) {
-            return $this->sendError('Cliente Negocio not found', 404);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $clienteNegocio->delete();
-
-        return $this->sendSuccess('Cliente Negocio deleted successfully');
     }
 }

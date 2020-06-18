@@ -2,6 +2,7 @@
 
 namespace Modules\Raza\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Raza\Http\Requests\CreateRazaAPIRequest;
@@ -75,6 +76,7 @@ class RazaAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
 
         $paginate = isset($request->paginado) ? $request->paginado : null;
         if ($paginate) {
@@ -87,8 +89,24 @@ class RazaAPIController extends CommonController
             );
         }
 
+            return $this->sendResponse($razas->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($razas->toArray(), 'Razas retrieved successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -134,11 +152,29 @@ class RazaAPIController extends CommonController
      */
     public function store(CreateRazaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         $raza = $this->razaRepository->create($input);
 
-        return $this->sendResponse($raza->toArray(), 'Raza saved successfully');
+            return $this->sendResponse($raza->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -184,14 +220,29 @@ class RazaAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var Raza $raza */
         $raza = $this->razaRepository->find($id);
 
-        if (empty($raza)) {
-            return $this->sendError('Raza not found', 404);
-        }
 
-        return $this->sendResponse($raza->toArray(), 'Raza retrieved successfully');
+            return $this->sendResponse($raza->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -245,18 +296,31 @@ class RazaAPIController extends CommonController
      */
     public function update($id, UpdateRazaAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var Raza $raza */
-        $raza = $this->razaRepository->find($id);
-
-        if (empty($raza)) {
-            return $this->sendError('Raza not found', 404);
-        }
-
+         $this->razaRepository->find($id);
         $raza = $this->razaRepository->update($input, $id);
 
-        return $this->sendResponse($raza->toArray(), 'Raza updated successfully');
+            return $this->sendResponse($raza->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -303,15 +367,30 @@ class RazaAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var Raza $raza */
         $raza = $this->razaRepository->find($id);
+        $raza->active=false;
+        $result= $this->razaRepository->update($raza->toArray(),$raza->id);
 
-        if (empty($raza)) {
-            return $this->sendError('Raza not found', 404);
+
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
-
-        $raza->delete();
-
-        return $this->sendSuccess('Raza deleted successfully');
     }
 }

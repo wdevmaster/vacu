@@ -2,6 +2,7 @@
 
 namespace Modules\Usuario\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
@@ -80,6 +81,7 @@ class UserApiAPIController extends CommonController
      */
     public function index(Request $request)
     {
+        try{
         $paginate = isset($request->paginado) ? $request->paginado : null;
 
         if ($paginate) {
@@ -91,9 +93,24 @@ class UserApiAPIController extends CommonController
                 $request->get('limit')
             );
         }
+            return $this->sendResponse($userApis->toArray(),
+                'comun::msgs.la_model_list_successfully',
+                true,
+                200);
 
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
 
-        return $this->sendResponse($userApis->toArray(), 'User Apis retrieved successfully');
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -139,13 +156,31 @@ class UserApiAPIController extends CommonController
      */
     public function store(CreateUserApiAPIRequest $request)
     {
+        try{
         $input = $request->all();
         $user = $this->userRepository->create($input);
         $user_id = $user->id;
         $data = ['user_id' => $user_id];
         $userApi = $this->userApiRepository->create($data);
 
-        return $this->sendResponse($userApi->toArray(), 'User Api saved successfully');
+            return $this->sendResponse($userApi->toArray(),
+                'comun::msgs.la_model_saved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -191,14 +226,29 @@ class UserApiAPIController extends CommonController
      */
     public function show($id)
     {
+        try{
         /** @var UserApi $userApi */
         $userApi = $this->userApiRepository->find($id);
 
-        if (empty($userApi)) {
-            return $this->sendError('User Api not found', 404);
-        }
 
-        return $this->sendResponse($userApi->toArray(), 'User Api retrieved successfully');
+            return $this->sendResponse($userApi->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -252,18 +302,30 @@ class UserApiAPIController extends CommonController
      */
     public function update($id, UpdateUserApiAPIRequest $request)
     {
+        try{
         $input = $request->all();
 
         /** @var UserApi $userApi */
-        $userApi = $this->userApiRepository->find($id);
-
-        if (empty($userApi)) {
-            return $this->sendError('User Api not found', 404);
-        }
-
+         $this->userApiRepository->find($id);
         $userApi = $this->userApiRepository->update($input, $id);
+            return $this->sendResponse($userApi->toArray(),
+                'comun::msgs.la_model_updated_successfully',
+                true,
+                200);
 
-        return $this->sendResponse($userApi->toArray(), 'UserApi updated successfully');
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 
     /**
@@ -310,15 +372,30 @@ class UserApiAPIController extends CommonController
      */
     public function destroy($id)
     {
+        try{
         /** @var UserApi $userApi */
         $userApi = $this->userApiRepository->find($id);
 
-        if (empty($userApi)) {
-            return $this->sendError('User Api not found', 404);
-        }
 
         $userApi->delete();
 
-        return $this->sendSuccess('User Api deleted successfully');
+            return $this->sendResponse([],
+                'comun::msgs.la_model_deleted_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
     }
 }
