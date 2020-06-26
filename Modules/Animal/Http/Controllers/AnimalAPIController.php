@@ -3,6 +3,7 @@
 namespace Modules\Animal\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Maatwebsite\Excel\Excel;
@@ -22,12 +23,15 @@ class AnimalAPIController extends CommonController
     /** @var  AnimalRepository */
     private $animalRepository;
 
+    /**
+     * @var Excel
+     */
     private $excel;
 
     public function __construct(AnimalRepository $animalRepo, Excel $excel)
     {
         $this->animalRepository = $animalRepo;
-        $this->excel=$excel;
+        $this->excel = $excel;
     }
 
     /**
@@ -333,11 +337,13 @@ class AnimalAPIController extends CommonController
 
 
     /**
+     * @param $negocio_id
+     * @param Request $request
      * @return JsonResponse
      *
-     * @throws \Exception
+     * @throws \Illuminate\Validation\ValidationException
      * @SWG\Post(
-     *      path="/api/v1/animal/animales/import",
+     *      path="/api/v1/animal/animales/{negocio_id}/import",
      *      summary="Import Excel",
      *      tags={"Excel"},
      *      description="Import Excel",
@@ -350,6 +356,13 @@ class AnimalAPIController extends CommonController
      *          required=true,
      *          type="file"
      *
+     *      ),
+     *     @SWG\Parameter(
+     *          name="negocio_id",
+     *          description="id of negocio",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -375,15 +388,28 @@ class AnimalAPIController extends CommonController
      *    }
      * )
      */
-    public function importAnimales(Request $request){
+    public function importAnimales($negocio_id, Request $request)
+    {
 
+        try {
             $this->validate($request, [
                 'file' => 'required|mimes:xls,xlsx'
             ]);
-            $path = $request->file('file')->getRealPath();
-            $this->excel->import(new AnimalImport, $path);
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $data = $this->excel->import(new AnimalImport($negocio_id), $path);
 
-        return back()->with('success', 'Excel Imported Successfully');
+
+            return $this->sendResponse($data,
+                'File imported successfully',
+                true,
+                200);
+        } catch (\Exception $exception) {
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
+        }
 
     }
 

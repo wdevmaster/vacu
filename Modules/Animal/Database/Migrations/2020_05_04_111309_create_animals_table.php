@@ -16,19 +16,22 @@ class CreateAnimalsTable extends Migration
         Schema::create('animales', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('code')->unique();
-            $table->datetime('fecha_nacimiento');
+            $table->datetime('fecha_nacimiento')->nullable();
             $table->string('sexo');
-            $table->string('edad');
-            $table->integer('lote_nacimiento_id');
+            $table->boolean('temporal')->default(false);
+            $table->integer('estado_id')->unsigned()->nullable();
+            $table->integer('lote_nacimiento_id')->nullable();
             $table->integer('madre_codigo')->nullable();
-            $table->integer('padre_codigo');
-            $table->integer('raza_codigo');
-            $table->integer('lote_actual_id');
-            $table->integer('locomocion_code');
-            $table->integer('temporal_id');
-            $table->integer('inventario_id');
-            $table->boolean('active');
+            $table->integer('padre_codigo')->nullable();
+            $table->integer('raza_codigo')->nullable();
+            $table->integer('lote_actual_id')->nullable();
+            $table->integer('locomocion_code')->nullable();
+            $table->integer('temporal_id')->nullable();
+            $table->integer('inventario_id')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
+
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
         });
     }
 

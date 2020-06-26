@@ -28,9 +28,14 @@ use App\Models\Eloquent as Model;
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="edad",
- *          description="vaca,novillo,ternero",
- *          type="string"
+ *          property="temporal",
+ *          description="Describe si el code es temporal o no ",
+ *          type="boolean"
+ *      ),
+ *      @SWG\Property(
+ *          property="estado_id",
+ *          description="Id que referencia al estado del animal",
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="lote_nacimiento_id",
@@ -93,7 +98,8 @@ class Animal extends Model
         'code',
         'fecha_nacimiento',
         'sexo',
-        'edad',
+        'temporal',
+        'estado_id',
         'lote_nacimiento_id',
         'madre_codigo',
         'padre_codigo',
@@ -115,7 +121,8 @@ class Animal extends Model
         'code' => 'integer',
         'fecha_nacimiento' => 'datetime',
         'sexo' => 'string',
-        'edad' => 'string',
+        'temporal' => 'boolean',
+        'estado_id' => 'integer',
         'lote_nacimiento_id' => 'integer',
         'madre_codigo' => 'integer',
         'padre_codigo' => 'integer',
@@ -134,9 +141,7 @@ class Animal extends Model
      */
     public static $rules = [
         'code' => 'required',
-        'fecha_nacimiento' => 'required',
         'sexo' => 'required',
-        'edad' => 'required',
         'lote_nacimiento_id' => 'required',
         'madre_codigo' => 'required',
         'padre_codigo' => 'required',

@@ -2,75 +2,84 @@
 
 namespace Modules\Animal\Imports;
 
-use Modules\Animal\Entities;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Modules\Finca\Repositories\FincaRepository;
-use Modules\Lote\Repositories\LoteRepository;
+use Modules\Animal\Entities;
+use Modules\Finca\Entities\Finca;
+use Modules\Lote\Entities\Lote;
 
-class AnimalImport implements ToModel, WithHeadingRow ,WithValidation
+
+class AnimalImport implements ToModel, WithHeadingRow, WithValidation
 
 
 {
+    private $negocio_id;
+
+    public function __construct($negocio_id)
+    {
+        $this->negocio_id = $negocio_id;
+    }
+
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
-        $finca=FincaRepository::all()->where('nombre','=',$row['finca']);
-        $finca_id=null;
-        $lote_id=null;
-        if (empty($finca)){
-            $finca=[
-                'nombre'=>$row['finca'],
-                'numero'=>1,
-                'negocio_id'=>1,
-                'active'=>true
+        $finca = Finca::all()->where('nombre', '=', $row['finca']);
+        $finca_id = null;
+        $lote_id = null;
+        if ($finca) {
+            $finca = [
+                'nombre' => $row['finca'],
+                'numero' => 1,
+                'negocio_id' => $this->negocio_id,
+                'active' => true
             ];
-           $fincanueva= FincaRepository::create($finca);
-           $finca_id=$fincanueva->id;
-           $lote=[
-               'lote_id'=>1,
-               'numero'=>$row['lote'],
-               'nombre'=>"lote",
-               'active'=>true,
-               'finca_id'=>$finca_id
-           ];
-           $lotenuevo=LoteRepository::create($lote);
-           $lote_id=$lotenuevo->id;
+            $fincanueva = Finca::create($finca);
+            $finca_id = $fincanueva->id;
+            $lote = [
+                'lote_id' => 1,
+                'numero' => $row['lote'],
+                'nombre' => "lote",
+                'active' => true,
+                'finca_id' => $finca_id
+            ];
+            $lotenuevo = Lote::create($lote);
+            $lote_id = $lotenuevo->id;
         }
 
-        $lote=LoteRepository::all()->where('numero','=',$row['lote'])->where('finca_id','=',$finca_id);
-        if (empty($lote)){
-            $lote=[
-                'lote_id'=>1,
-                'numero'=>$row['lote'],
-                'nombre'=>"lote",
-                'active'=>true,
-                'finca_id'=>$finca_id
+        $lote = Lote::all()->where('numero', '=', $row['lote'])->where('finca_id', '=', $finca_id);
+        if ($lote) {
+            $lote = [
+                'lote_id' => 1,
+                'numero' => $row['lote'],
+                'nombre' => "lote",
+                'active' => true,
+                'finca_id' => $finca_id
             ];
-            $lote=LoteRepository::create($lote);
-            $lote_id=$lote->id;
+            $lote = Lote::create($lote);
+            $lote_id = $lote->id;
         }
 
-
+        $estado_id = null;
+        is_null($row['prenez']) ? $estado_id = null : $estado_id = Entities\Estado::where('nombre', 'Palpada Positiva')->first()->id;
         return new Entities\Animal([
             'code' => $row['animal'],
             'sexo' => $row['sexo'],
-            'edad' => $row['edad'],
+            'estado_id' => $estado_id,
             'fecha_nacimiento' => $row['fecha_de_nacimiento'],
             'madre_codigo' => $row['madre'],
             'padre_codigo' => 0,
             'raza_codigo' => 0,
-            'lote_nacimiento_id'=>$lote_id,
-            'lote_actual_id'=>$lote_id,
-            'locomocion_code'=>0,
-            'inventario_id'=>0,
-            'temporal_id'=>0,
-            'active'=>true,
+            'lote_nacimiento_id' => $lote_id,
+            'lote_actual_id' => $lote_id,
+            'locomocion_code' => 0,
+            'inventario_id' => 0,
+            'temporal_id' => 0,
+            'active' => true,
 
         ]);
     }
@@ -80,7 +89,6 @@ class AnimalImport implements ToModel, WithHeadingRow ,WithValidation
      */
     public function rules(): array
     {
-        // TODO: Implement rules() method.
-        return [];
+       return [];
     }
 }

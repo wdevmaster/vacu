@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsuarioDatabaseSeeder::class);
         $this->call(SincronizacionDatabaseSeeder::class);
         $this->call(PermissionsTableSeeder::class);
+        $this->call(\Modules\Animal\Database\Seeders\EstadoSeederTableSeeder::class);
 
         Artisan::call('passport:install');
 
