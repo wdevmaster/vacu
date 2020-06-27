@@ -21,6 +21,7 @@ class CreatePartosTable extends Migration
             $table->string('animal_nacido');
             $table->string('madre_code');
             $table->boolean('active');
+            $table->boolean('positivo');
             $table->integer('raza_id');
             $table->timestamps();
         });

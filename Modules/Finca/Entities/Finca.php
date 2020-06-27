@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Finca",
- *      required={"motivo", "nombre", "numero", "negocio_id", "active"},
+ *      required={"nombre", "numero", "negocio_id", "active"},
  *
  *      @SWG\Property(
  *          property="nombre",

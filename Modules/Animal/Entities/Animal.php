@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Animal",
- *      required={"code", "fecha_nacimiento", "sexo", "lote_nacimiento_id", "madre_codigo", "padre_codigo", "raza_codigo", "lote_actual_id", "locomocion_code", "active"},
+ *      required={"code", "fecha_nacimiento", "sexo","edad", "lote_nacimiento_id", "madre_codigo", "padre_codigo", "raza_codigo", "lote_actual_id", "locomocion_code", "active"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -25,6 +25,11 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="sexo",
  *          description="sexo",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="edad",
+ *          description="vaca,novillo,ternero",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -88,6 +93,7 @@ class Animal extends Model
         'code',
         'fecha_nacimiento',
         'sexo',
+        'edad',
         'lote_nacimiento_id',
         'madre_codigo',
         'padre_codigo',
@@ -109,6 +115,7 @@ class Animal extends Model
         'code' => 'integer',
         'fecha_nacimiento' => 'datetime',
         'sexo' => 'string',
+        'edad' => 'string',
         'lote_nacimiento_id' => 'integer',
         'madre_codigo' => 'integer',
         'padre_codigo' => 'integer',
@@ -129,6 +136,7 @@ class Animal extends Model
         'code' => 'required',
         'fecha_nacimiento' => 'required',
         'sexo' => 'required',
+        'edad' => 'required',
         'lote_nacimiento_id' => 'required',
         'madre_codigo' => 'required',
         'padre_codigo' => 'required',

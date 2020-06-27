@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Parto",
- *      required={"code", "fecha", "sexo", "animal_nacido", "madre_code", "active", "raza_id"},
+ *      required={"code", "fecha", "sexo", "animal_nacido", "madre_code", "active","positivo", "raza_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -39,6 +39,11 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="active",
  *          description="active",
+ *          type="boolean"
+ *      ),
+ *      @SWG\Property(
+ *          property="positivo",
+ *          description="positivo",
  *          type="boolean"
  *      ),
  *      @SWG\Property(

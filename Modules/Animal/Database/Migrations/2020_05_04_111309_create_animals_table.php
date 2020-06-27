@@ -18,8 +18,9 @@ class CreateAnimalsTable extends Migration
             $table->integer('code')->unique();
             $table->datetime('fecha_nacimiento');
             $table->string('sexo');
+            $table->string('edad');
             $table->integer('lote_nacimiento_id');
-            $table->integer('madre_codigo');
+            $table->integer('madre_codigo')->nullable();
             $table->integer('padre_codigo');
             $table->integer('raza_codigo');
             $table->integer('lote_actual_id');

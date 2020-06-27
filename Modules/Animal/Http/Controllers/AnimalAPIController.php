@@ -5,9 +5,11 @@ namespace Modules\Animal\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Maatwebsite\Excel\Excel;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Http\Requests\CreateAnimalAPIRequest;
 use Modules\Animal\Http\Requests\UpdateAnimalAPIRequest;
+use Modules\Animal\Imports\AnimalImport;
 use Modules\Animal\Repositories\AnimalRepository;
 use Modules\Common\Http\Controllers\CommonController;
 
@@ -20,9 +22,12 @@ class AnimalAPIController extends CommonController
     /** @var  AnimalRepository */
     private $animalRepository;
 
-    public function __construct(AnimalRepository $animalRepo)
+    private $excel;
+
+    public function __construct(AnimalRepository $animalRepo, Excel $excel)
     {
         $this->animalRepository = $animalRepo;
+        $this->excel=$excel;
     }
 
     /**
@@ -325,4 +330,61 @@ class AnimalAPIController extends CommonController
                 500);
         }
     }
+
+
+    /**
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     * @SWG\Post(
+     *      path="/api/v1/animal/animales/import",
+     *      summary="Import Excel",
+     *      tags={"Excel"},
+     *      description="Import Excel",
+     *      consumes={"multipart/form-data"},
+     *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="file",
+     *          in="formData",
+     *          description="File Excel to Import",
+     *          required=true,
+     *          type="file"
+     *
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
+     * )
+     */
+    public function importAnimales(Request $request){
+
+            $this->validate($request, [
+                'file' => 'required|mimes:xls,xlsx'
+            ]);
+            $path = $request->file('file')->getRealPath();
+            $this->excel->import(new AnimalImport, $path);
+
+        return back()->with('success', 'Excel Imported Successfully');
+
+    }
+
 }
