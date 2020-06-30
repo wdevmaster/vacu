@@ -28,10 +28,10 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function model(array $row)
     {
-        $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id','=',$this->negocio_id);
         $finca_id = null;
         $lote_id = null;
-        if ($finca) {
+        $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id','=',$this->negocio_id);
+        if ($finca->count() == 0) {
             $finca = [
                 'nombre' => $row['finca'],
                 'negocio_id' => $this->negocio_id,
@@ -46,10 +46,12 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             ];
             $lotenuevo = Lote::create($lote);
             $lote_id = $lotenuevo->id;
+        } else {
+            $finca_id = $finca[0]->id;
         }
 
-        $lote = Lote::all()->where('numero', '=', $row['lote'])->where('finca_id', '=', $finca_id);
-        if ($lote) {
+        $lote = Lote::all()->where('nombre', '=', $row['lote'])->where('finca_id', '=', $finca_id);
+        if ($lote->count() == 0) {
             $lote = [
                 'nombre' => $row['lote'],
                 'active' => true,
@@ -57,6 +59,8 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             ];
             $lote = Lote::create($lote);
             $lote_id = $lote->id;
+        } else {
+            $lote_id = $lote[0]->id;
         }
 
         $estado_id = null;
