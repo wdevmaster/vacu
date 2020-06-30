@@ -19,7 +19,7 @@ use App\Models\Eloquent as Model;
  *          property="fecha",
  *          description="fecha",
  *          type="string",
- *          format="date-time"
+ *          example="2020-06-30 17:41:29"
  *      ),
  *      @SWG\Property(
  *          property="leche",

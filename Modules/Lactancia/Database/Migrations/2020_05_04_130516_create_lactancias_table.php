@@ -15,7 +15,7 @@ class CreateLactanciasTable extends Migration
     {
         Schema::create('lactancias', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->integer('code');
             $table->dateTime('fecha');
             $table->string('leche');
             $table->string('concentrado');
