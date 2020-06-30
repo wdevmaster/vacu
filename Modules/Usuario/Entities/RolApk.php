@@ -63,4 +63,6 @@ class RolApk extends Model
     public function user_apk(){
         $this->hasMany(UserApk::class);
     }
+
+    public static $tableName = 'rol_apks';
 }
