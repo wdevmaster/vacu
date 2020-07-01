@@ -16,7 +16,7 @@ class CreateFincasTable extends Migration
         Schema::create('fincas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('numero');
+            $table->integer('numero')->nullable();
             $table->integer('negocio_id')->unsigned();
             $table->boolean('active');
             $table->timestamps();
