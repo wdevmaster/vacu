@@ -17,6 +17,6 @@ class NegocioDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $negocios = factory(Negocio::class, 20)->create();
+//        $negocios = factory(Negocio::class, 20)->create();
     }
 }
