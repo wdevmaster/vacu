@@ -35,12 +35,12 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
         $lote_id = null;
         $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id', '=', $this->negocio_id);
         if ($finca->count() == 0) {
-            $finca = [
+            $finca_data = [
                 'nombre' => $row['finca'],
                 'negocio_id' => $this->negocio_id,
                 'active' => true
             ];
-            $fincanueva = Finca::create($finca);
+            $fincanueva = Finca::create($finca_data);
             $finca_id = $fincanueva->id;
             $lote = [
                 'nombre' => $row['lote'],
@@ -50,7 +50,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             $lotenuevo = Lote::create($lote);
             $lote_id = $lotenuevo->id;
         } else {
-            $finca_id = $finca[0]->id;
+            $finca_id = $finca->first()->id;
         }
 
         $lote = Lote::all()->where('nombre', '=', $row['lote'])->where('finca_id', '=', $finca_id);
@@ -63,7 +63,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             $lote = Lote::create($lote);
             $lote_id = $lote->id;
         } else {
-            $lote_id = $lote[0]->id;
+            $lote_id = $lote->first()->id;
         }
 
         $estado_id = null;

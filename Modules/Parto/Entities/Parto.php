@@ -112,13 +112,17 @@ class Parto extends Model
     public static function generarCodigo(){
         $mayor = -1;
         $partos = Parto::all();
-        foreach ($partos as $parto){
-            if ($parto->code > $mayor){
-                $mayor = $parto->code;
+        if ($partos->count() > 0){
+            foreach ($partos as $parto){
+                if ($parto->code > $mayor){
+                    $mayor = $parto->code;
+                }
             }
+            return $mayor + 1;
         }
+        return 1;
 
-        return $mayor + 1;
+
     }
 
     
