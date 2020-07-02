@@ -2,6 +2,7 @@
 
 namespace Modules\Animal\Imports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -100,11 +101,15 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             ];
             Parto::create($data);
         }
+        $date = null;
+        if ($row['fecha_de_nacimiento'])
+        $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha_de_nacimiento']);
+
         return new Entities\Animal([
             'code' => $row['animal'],
             'sexo' => $row['sexo'],
             'estado_id' => $estado_id,
-            'fecha_nacimiento' => $row['fecha_de_nacimiento'],
+            'fecha_nacimiento' => $date,
             'madre_codigo' => $row['madre'],
             'padre_codigo' => 0,
             'raza_codigo' => $raza_code,
