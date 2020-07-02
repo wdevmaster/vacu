@@ -406,7 +406,7 @@ class AnimalAPIController extends CommonController
                 200);
         } catch (\Exception $exception) {
             return $this->sendResponse([],
-                'comun::msgs.msg_error_contact_the_administrator',
+                $exception->getMessage(),
                 false,
                 500);
         }
