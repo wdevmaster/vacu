@@ -24,12 +24,6 @@ use App\Models\Eloquent as Model;
  *          property="active",
  *          description="active",
  *          type="boolean"
- *      ),
- *      @SWG\Property(
- *          property="negocio_id",
- *          description="negocio_id",
- *          type="integer",
- *          format="int32"
  *      )
  * )
  */
@@ -45,7 +39,6 @@ class Raza extends Model
         'code',
         'nombre',
         'active',
-        'negocio_id'
     ];
 
     /**
@@ -58,7 +51,6 @@ class Raza extends Model
         'code' => 'integer',
         'nombre' => 'string',
         'active' => 'boolean',
-        'negocio_id' => 'integer'
     ];
 
     /**
@@ -70,7 +62,6 @@ class Raza extends Model
         'code' => 'required',
         'nombre' => 'required',
         'active' => 'required',
-        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'razas';

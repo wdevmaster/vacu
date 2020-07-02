@@ -206,5 +206,4 @@ abstract class BaseRepository
         return false;
 
     }
-
 }

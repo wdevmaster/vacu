@@ -18,7 +18,6 @@ class CreateRazasTable extends Migration
             $table->string('code');
             $table->string('nombre');
             $table->boolean('active');
-            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

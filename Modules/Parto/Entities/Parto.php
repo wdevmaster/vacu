@@ -69,6 +69,7 @@ class Parto extends Model
         'animal_nacido',
         'madre_code',
         'active',
+        'positivo',
         'raza_id'
     ];
 
@@ -85,6 +86,7 @@ class Parto extends Model
         'animal_nacido' => 'string',
         'madre_code' => 'string',
         'active' => 'boolean',
+        'positivo' => 'boolean',
         'raza_id' => 'integer'
     ];
 
@@ -104,6 +106,20 @@ class Parto extends Model
     ];
 
     public static $tableName = 'partos';
+
+
+
+    public static function generarCodigo(){
+        $mayor = -1;
+        $partos = Parto::all();
+        foreach ($partos as $parto){
+            if ($parto->code > $mayor){
+                $mayor = $parto->code;
+            }
+        }
+
+        return $mayor + 1;
+    }
 
     
 }

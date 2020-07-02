@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Modules\Animal\Entities;
 use Modules\Finca\Entities\Finca;
 use Modules\Lote\Entities\Lote;
+use Modules\Parto\Entities\Parto;
+use Modules\Raza\Entities\Raza;
 
 
 class AnimalImport implements ToModel, WithHeadingRow, WithValidation
@@ -30,7 +32,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
     {
         $finca_id = null;
         $lote_id = null;
-        $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id','=',$this->negocio_id);
+        $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id', '=', $this->negocio_id);
         if ($finca->count() == 0) {
             $finca = [
                 'nombre' => $row['finca'],
@@ -64,7 +66,40 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
         }
 
         $estado_id = null;
-        is_null($row['prenez']) ? $estado_id = null : $estado_id = Entities\Estado::where('nombre', 'Palpada Positiva')->first()->id;
+        if ($row['sexo'] == 'Hembra'){
+            if($row['prenez'] == 'S') {
+                $estado_id = Entities\Estado::where('nombre', 'Palpada Positiva')->first()->id;
+            }
+
+            if($row['prenez'] == 'N') {
+                $estado_id = Entities\Estado::where('nombre', 'Palpada Negativa')->first()->id;
+            }
+        }
+
+        $raza_code = null;
+        is_null($row['raza']) ? $raza_code = null : $raza_code = Raza::where('nombre', $row['raza'])->first()->code;
+
+        $cant_partos = 0;
+        is_null($row['partos']) ? $cant_partos = 0 : $cant_partos = $row['partos'];
+        for ($i = 0; $i < $cant_partos; $i++) {
+            $data = [
+                'code' => Parto::generarCodigo(),
+                'madre_code' => $row['animal'],
+                'positivo' => true,
+            ];
+            Parto::create($data);
+        }
+
+        $cant_partos_negativos = 0;
+        is_null($row['partos_muertos']) ? $cant_partos_negativos = 0 : $cant_partos_negativos = $row['partos_muertos'];
+        for ($i = 0; $i < $cant_partos_negativos; $i++) {
+           $data = [
+                'code' => Parto::generarCodigo(),
+                'madre_code' => $row['animal'],
+                'positivo' => false,
+            ];
+            Parto::create($data);
+        }
         return new Entities\Animal([
             'code' => $row['animal'],
             'sexo' => $row['sexo'],
@@ -72,7 +107,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             'fecha_nacimiento' => $row['fecha_de_nacimiento'],
             'madre_codigo' => $row['madre'],
             'padre_codigo' => 0,
-            'raza_codigo' => 0,
+            'raza_codigo' => $raza_code,
             'lote_nacimiento_id' => $lote_id,
             'lote_actual_id' => $lote_id,
             'locomocion_code' => 0,
@@ -88,6 +123,6 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function rules(): array
     {
-       return [];
+        return [];
     }
 }

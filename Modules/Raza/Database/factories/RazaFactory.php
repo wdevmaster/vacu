@@ -7,11 +7,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Raza::class, function (Faker $faker) {
 
+
     return [
-        'code' => $faker->word,
+        'code' => $faker->numberBetween(1,10),
         'nombre' => $faker->word,
         'active' => $faker->word,
-        'negocio_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

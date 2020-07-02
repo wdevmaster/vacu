@@ -16,13 +16,13 @@ class CreatePartosTable extends Migration
         Schema::create('partos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->dateTime('fecha');
-            $table->string('sexo');
-            $table->string('animal_nacido');
+            $table->dateTime('fecha')->nullable();
+            $table->string('sexo')->nullable();
+            $table->string('animal_nacido')->nullable();
             $table->string('madre_code');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->boolean('positivo');
-            $table->integer('raza_id');
+            $table->integer('raza_id')->nullable();
             $table->timestamps();
         });
     }
