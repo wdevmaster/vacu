@@ -151,7 +151,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'servicios.destroy']);
         Permission::create(['name' => 'servicios.show']);
 
-        Permission::create(['name' => 'configuracion.store']);
+        Permission::create(['name' => 'sync.store']);
         Permission::create(['name' => 'sync.data']);
 
 
