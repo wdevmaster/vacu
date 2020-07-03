@@ -49,6 +49,8 @@ class UsuarioDatabaseSeeder extends Seeder
             'password' =>  Hash::make('carlos123')
         ]);
 
+        $this->call(RolBotonesSeeder::class);
+
 
 
 
