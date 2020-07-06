@@ -8545,11 +8545,6 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
-                },
-                "negocio_id": {
-                    "description": "negocio_id",
-                    "type": "integer",
-                    "format": "int32"
                 }
             }
         },
