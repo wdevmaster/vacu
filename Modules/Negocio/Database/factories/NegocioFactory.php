@@ -13,6 +13,7 @@ $factory->define(Negocio::class, function (Faker $faker) {
         'jefe' => $faker->word,
         'telefono' => $faker->randomDigitNotNull,
         'active' => true,
+        'fecha_creacion' => $faker->date('Y-m-d H:i:s'),
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

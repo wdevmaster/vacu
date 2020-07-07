@@ -19,6 +19,7 @@ class CreateNegociosTable extends Migration
             $table->string('nombre');
             $table->string('jefe');
             $table->integer('telefono');
+            $table->dateTime('fecha_creacion');
             $table->boolean('active');
             $table->timestamps();
         });

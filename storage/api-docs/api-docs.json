@@ -8415,6 +8415,7 @@
                 "nombre",
                 "jefe",
                 "telefono",
+                "fecha_creacion",
                 "active"
             ],
             "properties": {
@@ -8435,6 +8436,12 @@
                     "description": "telefono",
                     "type": "integer",
                     "format": "int32"
+                },
+                "fecha_creacion": {
+                    "description": "fecha_creacion",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2020-05-12 14:37:39"
                 },
                 "active": {
                     "description": "active",
