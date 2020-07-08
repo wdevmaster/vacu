@@ -5,7 +5,6 @@ namespace Modules\Animal\Http\Controllers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Maatwebsite\Excel\Excel;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Http\Requests\CreateAnimalAPIRequest;
@@ -36,7 +35,7 @@ class AnimalAPIController extends CommonController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Get(
      *      path="/api/v1/animal/animales",
@@ -122,7 +121,7 @@ class AnimalAPIController extends CommonController
 
     /**
      * @param CreateAnimalAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Post(
      *      path="/api/v1/animal/animales",
@@ -192,7 +191,7 @@ class AnimalAPIController extends CommonController
     /**
      * @param int $id
      * @param UpdateAnimalAPIRequest $request
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Put(
      *      path="/api/v1/animal/animales/{id}",
@@ -267,7 +266,7 @@ class AnimalAPIController extends CommonController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @SWG\Delete(
      *      path="/api/v1/animal/animales/{id}",

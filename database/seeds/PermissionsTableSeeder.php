@@ -228,6 +228,8 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'rol_apk_rol_botons.destroy']);
         Permission::create(['name' => 'rol_apk_rol_botons.show']);
 
+        Permission::create(['name' => 'bitacoras.index']);
+
         //Admin
         $admin = Role::create(['name' => 'SuperAdmin']);
 
