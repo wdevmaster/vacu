@@ -9,7 +9,9 @@
 namespace Modules\Common\Resolvers;
 
 
+use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Modules\Bitacora\Repositories\BitacoraRepository;
 use Modules\Sincronizacion\Entities\Traductor;
 use Modules\Sincronizacion\Repositories\TraductorRepository;
 
@@ -21,13 +23,27 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
     public function __construct(TraductorRepository $traductorRepository)
     {
         $this->traductorRepository = $traductorRepository;
+
     }
 
     public function handle($user_code, $tabla,$negocio_id)
     {
         try {
-//            $last_code = DB::select('select '.$tabla.'.code');
-            $generate_code = random_int(1,1000);//TODO logica para generar el nuevo codigo
+
+            $codes = DB::table($tabla)->select('code')->get();
+            $mayor = 0;
+            if (count($codes) > 0){
+                foreach ($codes as $code){
+                    if ($code->code > $mayor){
+                        $mayor = $code->code;
+                    }
+                }
+                $mayor = $mayor + 1;
+            } else {
+                $mayor= 1;
+            }
+
+            $generate_code = $mayor;
             /**
              * @var Traductor $traduccion
              */

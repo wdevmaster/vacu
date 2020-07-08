@@ -12,6 +12,7 @@ namespace Modules\Sincronizacion\Services;
 use Illuminate\Support\Facades\Auth;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Repositories\AnimalRepository;
+use Modules\Bitacora\Repositories\BitacoraRepository;
 use Modules\Common\Resolvers\BaseResolver;
 use Modules\CondicionCorporal\Entities\CondicionCorporal;
 use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
@@ -145,6 +146,8 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $rolBotonRepository;
 
+    private $bitacoraRepository;
+
     private $baseResolver;
 
 
@@ -173,6 +176,7 @@ class SyncDataService implements SyncDataServiceInterface
                                 VentaRepository $ventaRepository,
                                 RolApkRepository $rolApkRepository,
                                 RolBotonRepository $rolBotonRepository,
+                                BitacoraRepository $bitacoraRepository,
                                 BaseResolver $baseResolver
     )
     {
@@ -201,6 +205,7 @@ class SyncDataService implements SyncDataServiceInterface
         $this->ventaRepository = $ventaRepository;
         $this->rolApkRepository = $rolApkRepository;
         $this->rolBotonRepository = $rolBotonRepository;
+        $this->bitacoraRepository = $bitacoraRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -347,6 +352,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['ventas'] = $this->ventaRepository->all();
         $results['rol_apks'] = $this->rolApkRepository->all();
         $results['rol_botons'] = $this->rolApkRepository->all();
+        $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id','=',$user->id);
 
 
         return $results;
