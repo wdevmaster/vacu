@@ -12,6 +12,7 @@ use Modules\Animal\Http\Requests\UpdateAnimalAPIRequest;
 use Modules\Animal\Imports\AnimalImport;
 use Modules\Animal\Repositories\AnimalRepository;
 use Modules\Common\Http\Controllers\CommonController;
+use Modules\Negocio\Repositories\NegocioRepository;
 
 /**
  * Class AnimalController
@@ -27,10 +28,13 @@ class AnimalAPIController extends CommonController
      */
     private $excel;
 
-    public function __construct(AnimalRepository $animalRepo, Excel $excel)
+    private $negocioRepository;
+
+    public function __construct(AnimalRepository $animalRepo, Excel $excel, NegocioRepository $negocioRepo)
     {
         $this->animalRepository = $animalRepo;
         $this->excel = $excel;
+        $this->negocioRepository= $negocioRepo;
     }
 
     /**
@@ -391,6 +395,14 @@ class AnimalAPIController extends CommonController
     {
 
         try {
+            $negocio= $this->negocioRepository->find($negocio_id)->first();
+            $fecha_creacion = $negocio->first()->fecha_creacion;
+            if($fecha_creacion==null){
+                return $this->sendResponse([],
+                    'Su negocio no tiene Fecha de Creación no se puede importar el excel',
+                    false);
+            }
+
             $this->validate($request, [
                 'file' => 'required|mimes:xls,xlsx'
             ]);
@@ -403,11 +415,17 @@ class AnimalAPIController extends CommonController
                 'File imported successfully',
                 true,
                 200);
-        } catch (\Exception $exception) {
-            return $this->sendResponse([],
-                $exception->getMessage(),
-                false,
-                500);
+        } catch (ModelNotFoundException $e) {
+                return $this->sendResponse([],
+                    'comun::msgs.la_model_not_found',
+                    false,
+                    404);
+        }
+            catch (\Exception $exception) {
+                return $this->sendResponse([],
+                    $exception->getMessage(),
+                    false,
+                    500);
         }
 
     }

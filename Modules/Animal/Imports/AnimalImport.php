@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Modules\Animal\Entities;
 use Modules\Finca\Entities\Finca;
 use Modules\Lote\Entities\Lote;
+use Modules\Negocio\Entities\Negocio;
 use Modules\Parto\Entities\Parto;
 use Modules\Raza\Entities\Raza;
 
@@ -31,6 +32,8 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function model(array $row)
     {
+        $negocio= Negocio::all()->where('id','=',$this->negocio_id);
+        $fecha_creacion = $negocio->first()->fecha_creacion;
         $finca_id = null;
         $lote_id = null;
         $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id', '=', $this->negocio_id);
@@ -68,11 +71,11 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
 
         $estado_id = null;
         if ($row['sexo'] == 'Hembra'){
-            if($row['prenez'] == 'S') {
+            if($row['prenez'] == 'S' || $row['prenez'] == 's') {
                 $estado_id = Entities\Estado::where('nombre', 'Palpada Positiva')->first()->id;
             }
 
-            if($row['prenez'] == 'N') {
+            if($row['prenez'] == 'N' || $row['prenez']== 'n') {
                 $estado_id = Entities\Estado::where('nombre', 'Palpada Negativa')->first()->id;
             }
         }
@@ -85,6 +88,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
         for ($i = 0; $i < $cant_partos; $i++) {
             $data = [
                 'code' => Parto::generarCodigo(),
+                'fecha'=>$fecha_creacion,
                 'madre_code' => $row['animal'],
                 'positivo' => true,
             ];
@@ -96,6 +100,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
         for ($i = 0; $i < $cant_partos_negativos; $i++) {
            $data = [
                 'code' => Parto::generarCodigo(),
+                'fecha'=>$fecha_creacion,
                 'madre_code' => $row['animal'],
                 'positivo' => false,
             ];
