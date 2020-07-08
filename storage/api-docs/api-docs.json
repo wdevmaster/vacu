@@ -265,6 +265,56 @@
                 ]
             }
         },
+        "/api/v1/bitacoras/bitacora": {
+            "get": {
+                "tags": [
+                    "Bitacora"
+                ],
+                "summary": "Get a listing of the Bitacoras.",
+                "description": "Get all Bitacoras",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "paginado",
+                        "in": "query",
+                        "description": "Paginado",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "paginate": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Bitacora"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/cliente/clientes": {
             "get": {
                 "tags": [
@@ -7978,6 +8028,57 @@
                 "descripcion": {
                     "description": "descripcion",
                     "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Bitacora": {
+            "required": [
+                "fecha_generacion",
+                "codigo_usuario",
+                "codigo_generado",
+                "entidad",
+                "usuario_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "fecha_generacion": {
+                    "description": "fecha_generacion",
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2020-05-12 14:37:39"
+                },
+                "codigo_usuario": {
+                    "description": "codigo_usuario",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "codigo_generado": {
+                    "description": "codigo_generado",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "entidad": {
+                    "description": "entidad",
+                    "type": "string"
+                },
+                "usuario_id": {
+                    "description": "usuario_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "created_at": {
                     "description": "created_at",

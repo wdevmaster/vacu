@@ -78,7 +78,7 @@ class BitacoraAPIController extends CommonController
             $paginate = isset($request->paginado) ? $request->paginado : null;
 
             if ($paginate) {
-                    $bitacoras = $this->bitacoraRepository->paginate($paginate);
+                $bitacoras = $this->bitacoraRepository->paginate($paginate);
             } else {
                 $bitacoras = $this->bitacoraRepository->all(
                     $request->except(['skip', 'limit']),
@@ -107,6 +107,7 @@ class BitacoraAPIController extends CommonController
         }
 
     }
+}
 
 //    /**
 //     * @param CreateBitacoraAPIRequest $request
@@ -318,4 +319,4 @@ class BitacoraAPIController extends CommonController
 //
 //        return $this->sendSuccess('Bitacora deleted successfully');
 //    }
-}
+
