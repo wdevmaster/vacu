@@ -10,3 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('bitacora')->group(function() {
+    Route::get('/', 'BitacoraController@index');
+});

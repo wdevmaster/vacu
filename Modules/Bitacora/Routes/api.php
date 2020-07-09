@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,8 @@
 
 Route::prefix('/v1/bitacora/')->middleware('auth:api')->group(function () {
 
-    Route::prefix('bitacora')->group(function () {
-        Route::get('/', 'BitacoraAPIController@index')->name('bitacoras.bitacora.index');
-
-    });
+    Route::prefix('bitacoras')->group(function () {
+        Route::get('/', 'BitacoraAPIController@index')->name('bitacora.bitacoras.index');
+      });
 
 });

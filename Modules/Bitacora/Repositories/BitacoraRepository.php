@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class BitacoraRepository
  * @package Modules\Bitacora\Repositories
- * @version July 8, 2020, 12:14 pm UTC
+ * @version July 9, 2020, 2:56 am UTC
 */
 
 class BitacoraRepository extends BaseRepository

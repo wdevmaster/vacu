@@ -29,5 +29,7 @@
     "Servicio": true,
     "TipoServicio": true,
     "CondicionCorporal": true,
-    "Evento": true
+    "Evento": true,
+    "Prueba": true,
+    "Bitacora": true
 }

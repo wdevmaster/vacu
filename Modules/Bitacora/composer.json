@@ -1,0 +1,25 @@
+{
+    "name": "finca/bitacora",
+    "description": "",
+    "authors": [
+        {
+            "name": "cyl-castillo",
+            "email": "admin@admin.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Bitacora\\Providers\\BitacoraServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Bitacora\\": ""
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Bitacora",
+    "alias": "bitacora",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Bitacora\\Providers\\BitacoraServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

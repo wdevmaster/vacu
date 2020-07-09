@@ -265,7 +265,7 @@
                 ]
             }
         },
-        "/api/v1/bitacoras/bitacora": {
+        "/api/v1/bitacora/bitacoras": {
             "get": {
                 "tags": [
                     "Bitacora"
@@ -8058,8 +8058,7 @@
                 "fecha_generacion": {
                     "description": "fecha_generacion",
                     "type": "string",
-                    "format": "date-time",
-                    "example": "2020-05-12 14:37:39"
+                    "format": "date-time"
                 },
                 "codigo_usuario": {
                     "description": "codigo_usuario",

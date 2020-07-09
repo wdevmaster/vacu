@@ -18,8 +18,7 @@ use App\Models\Eloquent as Model;
  *          property="fecha_generacion",
  *          description="fecha_generacion",
  *          type="string",
- *          format="date-time",
- *          example="2020-05-12 14:37:39"
+ *          format="date-time"
  *      ),
  *      @SWG\Property(
  *          property="codigo_usuario",
