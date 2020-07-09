@@ -64,7 +64,10 @@ class BitacoraAPIController extends CommonController
      *                  type="string"
      *              )
      *          )
-     *      )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
      * )
      */
     public function index(Request $request)

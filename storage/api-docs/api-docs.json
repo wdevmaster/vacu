@@ -312,7 +312,12 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/cliente/clientes": {
