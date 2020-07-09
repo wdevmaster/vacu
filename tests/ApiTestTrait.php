@@ -4,7 +4,7 @@ namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
 
-trait CreatesApplication
+trait ApiTestTrait
 {
     /**
      * Creates the application.
