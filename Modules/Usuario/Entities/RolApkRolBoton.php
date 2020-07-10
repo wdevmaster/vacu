@@ -46,11 +46,11 @@ class RolApkRolBoton extends Model
 
     public function rol_apk()
     {
-        $this->belongsTo(RolApk::class);
+        return $this->belongsTo(RolApk::class);
     }
 
     public function rol_boton()
     {
-        $this->belongsTo(RolBoton::class);
+       return $this->belongsTo(RolBoton::class);
     }
 }

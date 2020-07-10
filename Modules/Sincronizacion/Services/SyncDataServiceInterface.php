@@ -11,5 +11,5 @@ namespace Modules\Sincronizacion\Services;
 
 interface SyncDataServiceInterface
 {
-    public function executeService() :array ;
+    public function executeService($negocio_id) :array ;
 }

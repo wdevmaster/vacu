@@ -15,7 +15,7 @@ class BitacoraApiTest extends TestCase
      */
     public function test_list_bitacoras()
     {
-        $bitacora = factory(Bitacora::class,10)->create();
+        factory(Bitacora::class,10)->create();
 
         $this->response = $this->json(
             'GET',

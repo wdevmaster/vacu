@@ -19,7 +19,7 @@ Route::prefix('v1/sincronizacion')->middleware('auth:api')->group(function(){
 
     Route::prefix('sincronizaciones')->group(function () {
         Route::post('/', 'SyncronizacionAPIController@store')->name('sync.store');
-        Route::get('/start', 'SyncronizacionAPIController@startSync')->name('sync.data');
+        Route::get('/start/{negocio_id}', 'SyncronizacionAPIController@startSync')->name('sync.data');
 
     });
 

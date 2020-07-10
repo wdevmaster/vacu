@@ -107,12 +107,18 @@ class SyncronizacionAPIController extends AppBaseController
      * @return JsonResponse
      *
      * @SWG\Get(
-     *      path="/api/v1/sincronizacion/sincronizaciones/start",
+     *      path="/api/v1/sincronizacion/sincronizaciones/start/{negocio_id}",
      *      summary="Start syncronization ",
      *      tags={"Syncronizacion"},
      *      description="Store Syncronizacion",
      *      produces={"application/json"},
-     *
+     *     @SWG\Parameter(
+     *          name="negocio_id",
+     *          description="id of negocio",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -145,10 +151,10 @@ class SyncronizacionAPIController extends AppBaseController
      *    }
      * )
      */
-    public function startSync()
+    public function startSync($negocio_id)
     {
        // try {
-            $results = $this->syncDataService->executeService();
+            $results = $this->syncDataService->executeService($negocio_id);
 
             return response()->json([
                 'message' => __('comun::msgs.la_model_sync_successfully', [

@@ -2,6 +2,9 @@
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Modules\Negocio\Entities\Negocio;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
 use Modules\Animal\Entities\Animal;
@@ -19,25 +22,23 @@ class AnimalApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/animals', $animal
-        );
+            '/api/v1/animal/animales', $animal
+        )->assertStatus(201);
 
-        $this->assertApiResponse($animal);
     }
 
     /**
      * @test
      */
-    public function test_read_animal()
+    public function test_list_animales()
     {
-        $animal = factory(Animal::class)->create();
+        factory(Animal::class,10)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/animals/'.$animal->id
-        );
+            '/api/v1/animal/animales/'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($animal->toArray());
     }
 
     /**
@@ -50,11 +51,10 @@ class AnimalApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/animals/'.$animal->id,
+            '/api/v1/animal/animales/'.$animal->id,
             $editedAnimal
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedAnimal);
     }
 
     /**
@@ -66,15 +66,35 @@ class AnimalApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/animals/'.$animal->id
-         );
+             '/api/v1/animal/animales/'.$animal->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/animals/'.$animal->id
-        );
 
-        $this->response->assertStatus(404);
+        $id=$animal->id;
+        $datas=Animal::all();
+        $active_estado=null;
+        foreach ($datas as $data){
+            if ($data->id=$id)
+                $active_estado=$data->active;
+        }
+
+        $this->assertEquals(false,$active_estado);
     }
+
+//    /**
+//     * @test
+//     */
+//    public function test_importar_animales(){
+//        $negocio =factory(Negocio::class)->create();
+//        $negocio_id=$negocio->id;
+//
+//        Storage::fake('local');
+//
+//        $file = UploadedFile::fake()->create('finca.xls');
+//
+//        $this->response = $this->json(
+//            'POST',
+//            '/api/v1/animal/animales/import/'.$negocio_id
+//        );
+//    }
 }

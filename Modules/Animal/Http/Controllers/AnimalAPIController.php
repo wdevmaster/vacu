@@ -344,9 +344,8 @@ class AnimalAPIController extends CommonController
      * @param Request $request
      * @return JsonResponse
      *
-     * @throws \Illuminate\Validation\ValidationException
      * @SWG\Post(
-     *      path="/api/v1/animal/animales/{negocio_id}/import",
+     *      path="/api/v1/animal/animales/import/{negocio_id}",
      *      summary="Import Excel",
      *      tags={"Excel"},
      *      description="Import Excel",

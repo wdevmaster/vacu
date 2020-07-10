@@ -47,6 +47,6 @@ class UserApk extends Model
     }
 
     public function rol_apk(){
-        $this->hasOne(RolApk::class);
+        return $this->hasOne(RolApk::class);
     }
 }

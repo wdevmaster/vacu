@@ -20,7 +20,7 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
         Route::post('/', 'AnimalAPIController@store')->name('animal.animales.store');
         Route::put('/{id}', 'AnimalAPIController@update')->name('animal.animales.update');
         Route::delete('/{id}', 'AnimalAPIController@destroy')->name('animal.animales.destroy');
-        Route::post('/{negocio_id}/import', 'AnimalAPIController@importAnimales')->name('animal.animales.importAnimales');
+        Route::post('/import/{negocio_id}', 'AnimalAPIController@importAnimales')->name('animal.animales.importAnimales');
     });
 
 });

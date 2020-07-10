@@ -40,13 +40,12 @@ class BaseResolver
         $this->bitacoraRepository = $bitacoraRepository;
     }
 
-    public function handle(Syncronizacion $sincronizacion, BaseRepository $repository)
+    public function handle(Syncronizacion $sincronizacion, BaseRepository $repository,$negocio_id)
     {
 
 
         $user_id=$sincronizacion->user_id;
         $user = $this->userRepository->find($user_id)->first();
-        $negocio_id=$user->negocio_id;
         $accion = $sincronizacion->accion;
         $data = json_decode($sincronizacion->data, true);
         $code = $data['code'];
