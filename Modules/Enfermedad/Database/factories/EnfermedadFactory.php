@@ -12,7 +12,6 @@ $factory->define(Enfermedad::class, function (Faker $faker) {
         'nombre' => $faker->word,
         'descripcion' => $faker->word,
         'active' => $faker->word,
-        'negocio_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];
