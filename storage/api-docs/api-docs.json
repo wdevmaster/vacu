@@ -8271,8 +8271,10 @@
         },
         "Evento": {
             "required": [
+                "fecha",
                 "animal_id",
-                "tipo_evento"
+                "tipo_evento",
+                "active"
             ],
             "properties": {
                 "fecha": {
@@ -8284,6 +8286,10 @@
                     "description": "animal_id",
                     "type": "integer",
                     "format": "int32"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
                 },
                 "tipo_evento": {
                     "description": "tipo_evento",
@@ -8389,7 +8395,8 @@
                 "leche",
                 "concentrado",
                 "peso",
-                "animal_id"
+                "animal_id",
+                "active"
             ],
             "properties": {
                 "code": {
@@ -8413,6 +8420,10 @@
                 "peso": {
                     "description": "peso",
                     "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
                 },
                 "animal_id": {
                     "description": "animal_id",
@@ -8493,7 +8504,8 @@
                 "code",
                 "fecha",
                 "motivo_id",
-                "animal_id"
+                "animal_id",
+                "active"
             ],
             "properties": {
                 "code": {
@@ -8510,6 +8522,10 @@
                     "description": "motivo_id",
                     "type": "integer",
                     "format": "int32"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
                 },
                 "animal_id": {
                     "description": "animal_id",
@@ -8880,7 +8896,8 @@
             "required": [
                 "code",
                 "nombre",
-                "descripcion"
+                "descripcion",
+                "active"
             ],
             "properties": {
                 "code": {
@@ -8891,6 +8908,10 @@
                 "nombre": {
                     "description": "nombre",
                     "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
                 },
                 "descripcion": {
                     "description": "descripcion",
