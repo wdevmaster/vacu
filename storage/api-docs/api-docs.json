@@ -8205,8 +8205,7 @@
                 "code",
                 "nombre",
                 "descripcion",
-                "active",
-                "negocio_id"
+                "active"
             ],
             "properties": {
                 "code": {
@@ -8225,11 +8224,6 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
-                },
-                "negocio_id": {
-                    "description": "negocio_id",
-                    "type": "integer",
-                    "format": "int32"
                 }
             }
         },
@@ -8650,8 +8644,7 @@
             "required": [
                 "code",
                 "nombre",
-                "active",
-                "negocio_id"
+                "active"
             ],
             "properties": {
                 "code": {
