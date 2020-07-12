@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Lote::class, function (Faker $faker) {
 
     return [
-        'lote_id' => $faker->randomDigitNotNull,
+        'code' => $faker->randomDigitNotNull,
         'numero' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
         'active' => $faker->word,

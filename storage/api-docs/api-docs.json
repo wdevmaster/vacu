@@ -8177,9 +8177,10 @@
         },
         "Configuracion": {
             "required": [
-                "clave",
+                "code",
                 "descripcion",
-                "valor"
+                "valor",
+                "active"
             ],
             "properties": {
                 "code": {
@@ -8455,15 +8456,15 @@
         },
         "Lote": {
             "required": [
-                "lote_id",
+                "code",
                 "numero",
                 "nombre",
                 "active",
                 "finca_id"
             ],
             "properties": {
-                "lote_id": {
-                    "description": "lote_id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -8846,11 +8847,13 @@
                 },
                 "user_code": {
                     "description": "user_code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "generate_code": {
                     "description": "generate_code",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "tabla": {
                     "description": "tabla",
@@ -8875,13 +8878,13 @@
         },
         "TipoServicio": {
             "required": [
-                "tipo_servicio_id",
+                "code",
                 "nombre",
                 "descripcion"
             ],
             "properties": {
-                "tipo_servicio_id": {
-                    "description": "tipo_servicio_id",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },

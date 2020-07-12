@@ -7,11 +7,11 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="TipoServicio",
- *      required={"tipo_servicio_id", "nombre", "descripcion"},
+ *      required={"code", "nombre", "descripcion"},
  *
  *      @SWG\Property(
- *          property="tipo_servicio_id",
- *          description="tipo_servicio_id",
+ *          property="code",
+ *          description="code",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -37,7 +37,7 @@ class TipoServicio extends Model
 
 
     public $fillable = [
-        'tipo_servicio_id',
+        'code',
         'nombre',
         'descripcion'
     ];
@@ -49,7 +49,7 @@ class TipoServicio extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'tipo_servicio_id' => 'integer',
+        'code' => 'integer',
         'nombre' => 'string',
         'descripcion' => 'string'
     ];
@@ -60,7 +60,7 @@ class TipoServicio extends Model
      * @var array
      */
     public static $rules = [
-        'tipo_servicio_id' => 'required',
+        'code' => 'required',
         'nombre' => 'required',
         'descripcion' => 'required'
     ];

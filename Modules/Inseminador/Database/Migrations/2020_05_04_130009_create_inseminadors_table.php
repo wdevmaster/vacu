@@ -15,7 +15,7 @@ class CreateInseminadorsTable extends Migration
     {
         Schema::create('inseminadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('codigo');
+            $table->integer('codigo');
             $table->string('nombre');
             $table->boolean('active');
             $table->integer('negocio_id');

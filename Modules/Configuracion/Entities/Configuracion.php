@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Configuracion",
- *      required={ "clave", "descripcion", "valor"},
+ *      required={ "code", "descripcion", "valor","active"},
  *
  *      @SWG\Property(
  *          property="code",

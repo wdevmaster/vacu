@@ -15,7 +15,7 @@ class CreateRegistroEnfermedadsTable extends Migration
     {
         Schema::create('registros_enfermedades', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->integer('code');
             $table->dateTime('fecha_enfermedad');
             $table->dateTime('fecha');
             $table->boolean('active');

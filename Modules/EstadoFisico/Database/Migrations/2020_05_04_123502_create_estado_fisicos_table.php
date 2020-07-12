@@ -15,7 +15,7 @@ class CreateEstadoFisicosTable extends Migration
     {
         Schema::create('estados_fisicos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->integer('code');
             $table->datetime('fecha');
             $table->integer('animal_id');
             $table->boolean('active');

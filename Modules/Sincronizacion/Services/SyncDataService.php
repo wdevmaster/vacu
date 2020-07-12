@@ -347,7 +347,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['animales'] = $this->animalRepository->all();
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id','=',$negocio_id);
         $results['enfermedades'] = $this->enfermedadRepository->all();
-        $results['negocios'] = $this->negocioRepository->all();
+        $results['negocios'] = $this->negocioRepository->all()->where('id','=',$negocio_id);
         $results['estados_fisicos'] = $this->estadoFisicoRepository->all();
         $results['eventos'] = $this->eventoRepository->all();
         $results['fincas'] = $this->fincaRepository->all()->where('negocio_id','=',$negocio_id);

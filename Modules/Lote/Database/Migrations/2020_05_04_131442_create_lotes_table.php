@@ -15,7 +15,7 @@ class CreateLotesTable extends Migration
     {
         Schema::create('lotes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lote_id')->nullable();
+            $table->integer('code')->nullable();
             $table->integer('numero')->nullable();
             $table->string('nombre');
             $table->boolean('active');

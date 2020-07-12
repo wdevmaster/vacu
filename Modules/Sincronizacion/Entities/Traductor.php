@@ -23,12 +23,14 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="user_code",
  *          description="user_code",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="generate_code",
  *          description="generate_code",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="tabla",
@@ -80,8 +82,8 @@ class Traductor extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'user_code' => 'string',
-        'generate_code' => 'string',
+        'user_code' => 'integer',
+        'generate_code' => 'integer',
         'tabla' => 'string',
         'negocio_id' => 'integer'
     ];

@@ -7,11 +7,11 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Lote",
- *      required={"lote_id", "numero", "nombre", "active", "finca_id"},
+ *      required={"code", "numero", "nombre", "active", "finca_id"},
  *
  *      @SWG\Property(
- *          property="lote_id",
- *          description="lote_id",
+ *          property="code",
+ *          description="code",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -48,7 +48,7 @@ class Lote extends Model
 
 
     public $fillable = [
-        'lote_id',
+        'code',
         'numero',
         'nombre',
         'active',
@@ -62,7 +62,7 @@ class Lote extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'lote_id' => 'integer',
+        'code' => 'integer',
         'numero' => 'integer',
         'nombre' => 'string',
         'active' => 'boolean',
@@ -75,7 +75,7 @@ class Lote extends Model
      * @var array
      */
     public static $rules = [
-        'lote_id' => 'required',
+        'code' => 'required',
         'numero' => 'required',
         'nombre' => 'required',
         'active' => 'required',

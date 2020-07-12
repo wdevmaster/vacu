@@ -15,8 +15,8 @@ class CreateTraductorsTable extends Migration
     {
         Schema::create('traducciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_code');
-            $table->string('generate_code');
+            $table->integer('user_code');
+            $table->integer('generate_code');
             $table->string('tabla');
 
             $table->integer('user_id')->unsigned();

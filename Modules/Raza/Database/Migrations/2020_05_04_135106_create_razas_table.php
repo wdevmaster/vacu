@@ -15,7 +15,7 @@ class CreateRazasTable extends Migration
     {
         Schema::create('razas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->integer('code');
             $table->string('nombre');
             $table->boolean('active');
             $table->timestamps();
