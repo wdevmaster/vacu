@@ -45,7 +45,6 @@ class BaseResolver
 
 
         $user_id=$sincronizacion->user_id;
-        $user = $this->userRepository->find($user_id)->first();
         $accion = $sincronizacion->accion;
         $data = json_decode($sincronizacion->data, true);
         $code = $data['code'];

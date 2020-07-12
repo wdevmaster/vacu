@@ -226,14 +226,6 @@ class SyncDataService implements SyncDataServiceInterface
         $sincronizaciones = $this->syncronizacionRepository->all()->where('user_id', '=', $user->id);
         $results = array();
 
-        $user_apk=UserApk::all()->where('user_id','=',$user_id)->first();
-        $rol_botones=RolApk::all()->where('id','=',$user_apk->rol_apk_id)->first()->rol_apk_rol_boton;
-        $rol_botons=[];
-        foreach ($rol_botones as $rol_boton){
-            $rol_botons[]= $rol_boton->rol_boton;
-        }
-
-
 
         if ($sincronizaciones) {
 
@@ -339,6 +331,18 @@ class SyncDataService implements SyncDataServiceInterface
                 $this->syncronizacionRepository->delete($sincronizacion->id);
             }
         }
+
+        $rol_botons = [];
+        $user_apk=UserApk::all()->where('user_id','=',$user_id)->first();
+            if($user_apk) {
+               $rol_botones = RolApk::all()->where('id', '=', $user_apk->rol_apk_id)->first()->rol_apk_rol_boton;
+                   if($rol_botones){
+                   foreach ($rol_botones as $rol_boton) {
+                       $rol_botons[] = $rol_boton->rol_boton;
+                   }
+                     }
+       }
+
         $results['configuraciones'] = $this->configuracionRepository->all();
         $results['animales'] = $this->animalRepository->all();
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id','=',$negocio_id);
