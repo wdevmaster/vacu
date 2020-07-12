@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Raza",
- *      required={"code", "nombre", "active", "negocio_id"},
+ *      required={"code", "nombre", "active"},
  *
  *      @SWG\Property(
  *          property="code",

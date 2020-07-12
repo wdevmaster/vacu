@@ -346,7 +346,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['configuraciones'] = $this->configuracionRepository->all();
         $results['animales'] = $this->animalRepository->all();
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['enfermedades'] = $this->enfermedadRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['enfermedades'] = $this->enfermedadRepository->all();
         $results['negocios'] = $this->negocioRepository->all();
         $results['estados_fisicos'] = $this->estadoFisicoRepository->all();
         $results['eventos'] = $this->eventoRepository->all();
@@ -359,7 +359,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['muertes'] = $this->muerteRepository->all();
         $results['partos'] = $this->partoRepository->all();
         $results['producciones'] = $this->produccionRepository->all();
-        $results['razas'] = $this->razaRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['razas'] = $this->razaRepository->all();
         $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();
         $results['semens'] = $this->semenRepository->all();
         $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();

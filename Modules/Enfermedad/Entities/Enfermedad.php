@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Enfermedad",
- *      required={"code", "nombre", "descripcion", "active", "negocio_id"},
+ *      required={"code", "nombre", "descripcion", "active"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -29,13 +29,7 @@ use App\Models\Eloquent as Model;
  *          property="active",
  *          description="active",
  *          type="boolean"
- *      ),
- *      @SWG\Property(
- *          property="negocio_id",
- *          description="negocio_id",
- *          type="integer",
- *          format="int32"
- *      )
+ *      ) *
  * )
  */
 class Enfermedad extends Model
@@ -50,8 +44,8 @@ class Enfermedad extends Model
         'code',
         'nombre',
         'descripcion',
-        'active',
-        'negocio_id'
+        'active'
+
     ];
 
     /**
@@ -64,8 +58,8 @@ class Enfermedad extends Model
         'code' => 'integer',
         'nombre' => 'string',
         'descripcion' => 'string',
-        'active' => 'boolean',
-        'negocio_id' => 'integer'
+        'active' => 'boolean'
+
     ];
 
     /**
@@ -77,8 +71,8 @@ class Enfermedad extends Model
         'code' => 'required',
         'nombre' => 'required',
         'descripcion' => 'required',
-        'active' => 'required',
-        'negocio_id' => 'required'
+        'active' => 'required'
+
     ];
 
     public static $tableName = 'enfermedades';

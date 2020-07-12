@@ -19,7 +19,6 @@ class CreateEnfermedadsTable extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->boolean('active');
-            $table->integer('negocio_id');
             $table->timestamps();
         });
     }
