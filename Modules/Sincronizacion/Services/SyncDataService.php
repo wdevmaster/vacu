@@ -52,6 +52,7 @@ use Modules\Semen\Entities\Semen;
 use Modules\Semen\Repositories\SemenRepository;
 use Modules\Servicio\Entities\Servicio;
 use Modules\Servicio\Repositories\ServicioRepository;
+use Modules\Sincronizacion\Entities\Traductor;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 use Modules\TipoServicio\Entities\TipoServicio;
 use Modules\TipoServicio\Repositories\TipoServicioRepository;
@@ -319,17 +320,16 @@ class SyncDataService implements SyncDataServiceInterface
                         $this->baseResolver->handle($sincronizacion, $this->ventaRepository,$negocio_id);
                         break;
 
-                    case RolApk::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->rolApkRepository,$negocio_id);
-                        break;
-
-                    case RolBoton::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->rolBotonRepository,$negocio_id);
-                        break;
 
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
             }
+        }
+
+
+        $traducciones = Traductor::all();
+        foreach ($traducciones as $traduccion){
+            $traduccion->delete();
         }
 
         $rol_botons = [];
@@ -362,7 +362,6 @@ class SyncDataService implements SyncDataServiceInterface
         $results['razas'] = $this->razaRepository->all();
         $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();
         $results['semens'] = $this->semenRepository->all();
-        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();
         $results['servicios'] = $this->servicioRepository->all();
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
         $results['ventas'] = $this->ventaRepository->all();

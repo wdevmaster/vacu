@@ -20,6 +20,7 @@ class CreateLactanciasTable extends Migration
             $table->string('leche');
             $table->string('concentrado');
             $table->string('peso');
+            $table->boolean('active');
             $table->integer('animal_id');
             $table->timestamps();
         });

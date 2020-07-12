@@ -100,7 +100,7 @@ class BaseResolver
                     ->where('code', '=', $code)
                     ->first();
                 if ($model) {
-                    $repository->delete($model->id);
+                    $repository->delete_active_off($model->id);
                 }
 
                 break;

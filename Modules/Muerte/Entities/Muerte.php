@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Muerte",
- *      required={"code", "fecha", "motivo_id", "animal_id"},
+ *      required={"code", "fecha", "motivo_id", "animal_id","active"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -26,6 +26,11 @@ use App\Models\Eloquent as Model;
  *          description="motivo_id",
  *          type="integer",
  *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="active",
+ *          description="active",
+ *          type="boolean"
  *      ),
  *      @SWG\Property(
  *          property="animal_id",
@@ -47,7 +52,8 @@ class Muerte extends Model
         'code',
         'fecha',
         'motivo_id',
-        'animal_id'
+        'animal_id',
+        'active'
     ];
 
     /**
@@ -60,7 +66,8 @@ class Muerte extends Model
         'code' => 'integer',
         'fecha' => 'datetime',
         'motivo_id' => 'integer',
-        'animal_id' => 'integer'
+        'animal_id' => 'integer',
+        'active' => 'integer'
     ];
 
     /**
@@ -72,7 +79,8 @@ class Muerte extends Model
         'code' => 'required',
         'fecha' => 'required',
         'motivo_id' => 'required',
-        'animal_id' => 'required'
+        'animal_id' => 'required',
+        'active' => 'required'
     ];
 
     public static $tableName = 'muertes';

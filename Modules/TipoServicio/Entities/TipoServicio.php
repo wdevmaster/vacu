@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="TipoServicio",
- *      required={"code", "nombre", "descripcion"},
+ *      required={"code", "nombre", "descripcion","active"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -19,6 +19,11 @@ use App\Models\Eloquent as Model;
  *          property="nombre",
  *          description="nombre",
  *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="active",
+ *          description="active",
+ *          type="boolean"
  *      ),
  *      @SWG\Property(
  *          property="descripcion",
@@ -39,7 +44,8 @@ class TipoServicio extends Model
     public $fillable = [
         'code',
         'nombre',
-        'descripcion'
+        'descripcion',
+        'active'
     ];
 
     /**
@@ -51,7 +57,8 @@ class TipoServicio extends Model
         'id' => 'integer',
         'code' => 'integer',
         'nombre' => 'string',
-        'descripcion' => 'string'
+        'descripcion' => 'string',
+        'active' => 'boolean'
     ];
 
     /**
@@ -62,7 +69,8 @@ class TipoServicio extends Model
     public static $rules = [
         'code' => 'required',
         'nombre' => 'required',
-        'descripcion' => 'required'
+        'descripcion' => 'required',
+        'active' => 'required'
     ];
 
     public static $tableName = 'tipos_servicios';

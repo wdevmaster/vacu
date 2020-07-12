@@ -17,6 +17,7 @@ class CreateEventosTable extends Migration
             $table->increments('id');
             $table->datetime('fecha');
             $table->integer('animal_id');
+            $table->boolean('active');
             $table->string('tipo_evento');
             $table->timestamps();
         });

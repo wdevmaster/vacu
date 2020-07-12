@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Evento",
- *      required={"animal_id", "tipo_evento"},
+ *      required={"fecha","animal_id", "tipo_evento","active"},
  *
  *      @SWG\Property(
  *          property="fecha",
@@ -20,6 +20,11 @@ use App\Models\Eloquent as Model;
  *          description="animal_id",
  *          type="integer",
  *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="active",
+ *          description="active",
+ *          type="boolean"
  *      ),
  *      @SWG\Property(
  *          property="tipo_evento",
@@ -39,7 +44,8 @@ class Evento extends Model
     public $fillable = [
         'fecha',
         'animal_id',
-        'tipo_evento'
+        'tipo_evento',
+        'active'
     ];
 
     /**
@@ -51,7 +57,8 @@ class Evento extends Model
         'id' => 'integer',
         'fecha' => 'datetime',
         'animal_id' => 'integer',
-        'tipo_evento' => 'string'
+        'tipo_evento' => 'string',
+        'active' => 'boolean'
     ];
 
     /**
@@ -62,7 +69,8 @@ class Evento extends Model
     public static $rules = [
         'fecha' => 'required',
         'animal_id' => 'required',
-        'tipo_evento' => 'required'
+        'tipo_evento' => 'required',
+        'active' => 'required'
     ];
 
     public static $tableName = 'eventos';

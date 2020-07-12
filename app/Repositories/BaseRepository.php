@@ -179,6 +179,21 @@ abstract class BaseRepository
     /**
      * @param int $id
      *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model
+     */
+    public function delete_active_off($id)
+    {
+        $query = $this->model->newQuery();
+
+        $model = $query->findOrFail($id);
+        $model->active=false;
+        $model->save();
+        return $model;
+    }
+
+    /**
+     * @param int $id
+     *
      * @throws \Exception
      *
      * @return bool|mixed|null
@@ -191,6 +206,7 @@ abstract class BaseRepository
 
         return $model->delete();
     }
+
 
     /**
      * @param $code
