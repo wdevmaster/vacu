@@ -11,5 +11,5 @@ namespace Modules\Common\Resolvers;
 
 interface GenerateCodeResolverInterface
 {
-    public function handle($user_code, $tabla,$negocio_id);
+    public function handle($user_code, $tabla,$negocio_id,$user_id);
 }

@@ -26,7 +26,7 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
 
     }
 
-    public function handle($user_code, $tabla,$negocio_id)
+    public function handle($user_code, $tabla,$negocio_id,$user_id)
     {
         try {
 
@@ -48,6 +48,7 @@ class GenerateCodeResolver implements GenerateCodeResolverInterface
              * @var Traductor $traduccion
              */
             $traduccion = new Traductor();
+            $traduccion->user_id = $user_id;
             $traduccion->user_code = $user_code;
             $traduccion->generate_code = $generate_code;
             $traduccion->negocio_id = $negocio_id;

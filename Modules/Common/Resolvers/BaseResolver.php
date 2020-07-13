@@ -60,8 +60,8 @@ class BaseResolver
                 $validateCode = $repository->validateCode($code);
                  $fecha_actual=Carbon::now()->toDateTimeString();
                 if ($validateCode){
-                    $code = $this->generateCodeResolver->handle($code, $sincronizacion->tabla,$negocio_id);
-                    if ($sincronizacion->tabla = 'animales'){
+                    $code = $this->generateCodeResolver->handle($code, $sincronizacion->tabla,$negocio_id,$user_id);
+                    if ($sincronizacion->tabla == 'animales'){
                         $bitacora= new Bitacora();
                         $bitacora->fecha_generacion= $fecha_actual;
                         $bitacora->codigo_usuario=$code_old;

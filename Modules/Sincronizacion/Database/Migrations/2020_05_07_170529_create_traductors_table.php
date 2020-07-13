@@ -18,12 +18,9 @@ class CreateTraductorsTable extends Migration
             $table->integer('user_code');
             $table->integer('generate_code');
             $table->string('tabla');
+            $table->integer('user_id');
+            $table->integer('negocio_id');
 
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-
-            $table->integer('negocio_id')->unsigned();
-            $table->foreign('negocio_id')->references('id')->on('negocios');
             $table->timestamps();
         });
     }
