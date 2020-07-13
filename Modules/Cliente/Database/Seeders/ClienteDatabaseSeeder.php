@@ -21,7 +21,7 @@ class ClienteDatabaseSeeder extends Seeder
            'code' =>1,
            'nombre' => 'Cliente Media Luna',
            'descripcion' => 'Cliente Media Luna',
-           'telfono' => '1234567',
+           'telefono' => '1234567',
            'active' => true,
            'negocio_id' => 1
        ]);
