@@ -4,7 +4,7 @@ namespace Modules\Cliente\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Usuario\Entities\ClienteNegocio;
+use Modules\Cliente\Entities\Cliente;
 
 class ClienteDatabaseSeeder extends Seeder
 {
@@ -17,7 +17,7 @@ class ClienteDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-       $cliente = factory(ClienteNegocio::class)->create([
+       $cliente = factory(Cliente::class)->create([
            'code' =>1,
            'nombre' => 'Cliente Media Luna',
            'descripcion' => 'Cliente Media Luna',
