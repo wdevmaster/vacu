@@ -12,6 +12,7 @@ $factory->define(Configuracion::class, function (Faker $faker) {
         'descripcion' => $faker->word,
         'valor' => $faker->word,
         'active' => true,
+        'negocio_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

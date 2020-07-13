@@ -25,7 +25,6 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
                 'data' => $data->get(0)->toJson(),
                 'user_id' => $faker->numberBetween(1, 10),
-                'negocio_id' => $faker->numberBetween(1, 10),
                 'created_at' => $faker->date('Y-m-d H:i:s'),
                 'updated_at' => $faker->date('Y-m-d H:i:s')
             ];
@@ -38,7 +37,6 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
                 'data' => $data->get(0)->toJson(),
                 'user_id' => $faker->numberBetween(1, 10),
-                'negocio_id' => $faker->numberBetween(1, 10),
                 'created_at' => $faker->date('Y-m-d H:i:s'),
                 'updated_at' => $faker->date('Y-m-d H:i:s')
             ];
@@ -51,7 +49,6 @@ $factory->define(Syncronizacion::class, function (Faker $faker) {
                 'accion' => $faker->randomElement(['INSERT', 'UPDATE', 'DELETE']),
                 'data' => $data->get(0)->toJson(),
                 'user_id' => $faker->numberBetween(1, 2),
-                'negocio_id' => $faker->numberBetween(1, 10),
                 'created_at' => $faker->date('Y-m-d H:i:s'),
                 'updated_at' => $faker->date('Y-m-d H:i:s')
             ];
