@@ -127,6 +127,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             'locomocion_code' => 0,
             'inventario_id' => 0,
             'temporal_id' => 0,
+            'negocio_id' => $this->negocio_id,
             'active' => true,
 
         ]);
