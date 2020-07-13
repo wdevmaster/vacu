@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="RegistroEnfermedad",
- *      required={"code", "fecha_enfermedad", "fecha", "active", "id_animal", "id_enfermedad"},
+ *      required={"code", "fecha_enfermedad", "fecha", "active", "id_animal", "id_enfermedad","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -39,6 +39,12 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="id_enfermedad",
  *          description="id_enfermedad",
  *          type="integer",
@@ -60,7 +66,8 @@ class RegistroEnfermedad extends Model
         'fecha',
         'active',
         'id_animal',
-        'id_enfermedad'
+        'id_enfermedad',
+        'negocio_id'
     ];
 
     /**
@@ -75,7 +82,8 @@ class RegistroEnfermedad extends Model
         'fecha' => 'datetime',
         'active' => 'boolean',
         'id_animal' => 'integer',
-        'id_enfermedad' => 'integer'
+        'id_enfermedad' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -89,7 +97,8 @@ class RegistroEnfermedad extends Model
         'fecha' => 'required',
         'active' => 'required',
         'id_animal' => 'required',
-        'id_enfermedad' => 'required'
+        'id_enfermedad' => 'required',
+        'negocio_id' => 'required'
     ];
     public static $tableName = 'registros_enfermedades';
 

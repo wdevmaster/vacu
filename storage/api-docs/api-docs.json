@@ -7958,7 +7958,8 @@
                 "raza_codigo",
                 "lote_actual_id",
                 "locomocion_code",
-                "active"
+                "active",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8017,6 +8018,11 @@
                 "temporal_id": {
                     "description": "temporal_id",
                     "type": "integer"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "active": {
                     "description": "active",
@@ -8178,14 +8184,22 @@
         "Configuracion": {
             "required": [
                 "code",
+                "clave",
                 "descripcion",
                 "valor",
-                "active"
+                "active",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
                     "description": "code",
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "clave": {
+                    "description": "clave",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "descripcion": {
                     "description": "descripcion",
@@ -8193,7 +8207,13 @@
                 },
                 "valor": {
                     "description": "valor",
-                    "type": "string"
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "active": {
                     "description": "Active",
@@ -8235,7 +8255,8 @@
                 "animal_id",
                 "active",
                 "condicion_id",
-                "locomocion_id"
+                "locomocion_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8262,6 +8283,11 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "locomocion_id": {
                     "description": "locomocion_id",
                     "type": "integer",
@@ -8274,7 +8300,8 @@
                 "fecha",
                 "animal_id",
                 "tipo_evento",
-                "active"
+                "active",
+                "negocio_id"
             ],
             "properties": {
                 "fecha": {
@@ -8290,6 +8317,11 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "tipo_evento": {
                     "description": "tipo_evento",
@@ -8331,7 +8363,8 @@
                 "fecha",
                 "active",
                 "animal_id",
-                "lote_id"
+                "lote_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8350,6 +8383,11 @@
                 },
                 "animal_id": {
                     "description": "animal_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -8396,7 +8434,8 @@
                 "concentrado",
                 "peso",
                 "animal_id",
-                "active"
+                "active",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8424,6 +8463,11 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "animal_id": {
                     "description": "animal_id",
@@ -8471,7 +8515,8 @@
                 "numero",
                 "nombre",
                 "active",
-                "finca_id"
+                "finca_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8492,6 +8537,11 @@
                     "description": "active",
                     "type": "boolean"
                 },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "finca_id": {
                     "description": "finca_id",
                     "type": "integer",
@@ -8505,7 +8555,8 @@
                 "fecha",
                 "motivo_id",
                 "animal_id",
-                "active"
+                "active",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8526,6 +8577,11 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "animal_id": {
                     "description": "animal_id",
@@ -8583,7 +8639,8 @@
                 "madre_code",
                 "active",
                 "positivo",
-                "raza_id"
+                "raza_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8616,6 +8673,11 @@
                     "description": "positivo",
                     "type": "boolean"
                 },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "raza_id": {
                     "description": "raza_id",
                     "type": "integer",
@@ -8629,7 +8691,8 @@
                 "fecha",
                 "peso",
                 "active",
-                "animal_id"
+                "animal_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8649,6 +8712,11 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "animal_id": {
                     "description": "animal_id",
@@ -8686,7 +8754,8 @@
                 "fecha",
                 "active",
                 "id_animal",
-                "id_enfermedad"
+                "id_enfermedad",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8713,6 +8782,11 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "id_enfermedad": {
                     "description": "id_enfermedad",
                     "type": "integer",
@@ -8724,7 +8798,8 @@
             "required": [
                 "code",
                 "active",
-                "id_animal"
+                "id_animal",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8735,6 +8810,11 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "id_animal": {
                     "description": "id_animal",
@@ -8752,7 +8832,8 @@
                 "semen_id",
                 "personal_inseminador",
                 "active",
-                "tipo_servicio_id"
+                "tipo_servicio_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -8787,6 +8868,11 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "tipo_servicio_id": {
                     "description": "tipo_servicio_id",
@@ -9142,7 +9228,8 @@
                 "motivo",
                 "active",
                 "animal_id",
-                "cliente_id"
+                "cliente_id",
+                "negocio_id"
             ],
             "properties": {
                 "code": {
@@ -9165,6 +9252,11 @@
                 },
                 "animal_id": {
                     "description": "animal_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
                     "type": "integer",
                     "format": "int32"
                 },

@@ -20,6 +20,7 @@ class CreateIngresosTable extends Migration
             $table->boolean('active');
             $table->integer('animal_id');
             $table->integer('lote_id');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

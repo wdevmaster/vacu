@@ -16,8 +16,10 @@ class CreateConfiguracionsTable extends Migration
         Schema::create('configuraciones', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('code')->unique();
+            $table->integer('clave');
             $table->string('descripcion');
-            $table->string('valor');
+            $table->integer('valor');
+            $table->integer('negocio_id');
             $table->boolean('active');
 
             $table->timestamps();

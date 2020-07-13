@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Ingreso",
- *      required={"code","fecha", "active", "animal_id", "lote_id"},
+ *      required={"code","fecha", "active", "animal_id", "lote_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -33,6 +33,12 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="lote_id",
  *          description="lote_id",
  *          type="integer",
@@ -53,7 +59,8 @@ class Ingreso extends Model
         'fecha',
         'active',
         'animal_id',
-        'lote_id'
+        'lote_id',
+        'negocio_id'
     ];
 
     /**
@@ -67,7 +74,8 @@ class Ingreso extends Model
         'fecha' => 'datetime',
         'active' => 'boolean',
         'animal_id' => 'integer',
-        'lote_id' => 'integer'
+        'lote_id' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -80,7 +88,8 @@ class Ingreso extends Model
         'fecha' => 'required',
         'active' => 'required',
         'animal_id' => 'required',
-        'lote_id' => 'required'
+        'lote_id' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'ingresos';

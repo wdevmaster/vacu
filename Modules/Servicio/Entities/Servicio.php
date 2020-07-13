@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Servicio",
- *      required={"code", "fecha", "animal_inceminado", "animal_inseminador", "semen_id", "personal_inseminador", "active", "tipo_servicio_id"},
+ *      required={"code", "fecha", "animal_inceminado", "animal_inseminador", "semen_id", "personal_inseminador", "active", "tipo_servicio_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -50,6 +50,12 @@ use App\Models\Eloquent as Model;
  *          type="boolean"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="tipo_servicio_id",
  *          description="tipo_servicio_id",
  *          type="integer",
@@ -74,7 +80,8 @@ class Servicio extends Model
         'semen_id',
         'personal_inseminador',
         'active',
-        'tipo_servicio_id'
+        'tipo_servicio_id',
+        'negocio_id'
     ];
 
     /**
@@ -91,7 +98,8 @@ class Servicio extends Model
         'semen_id' => 'integer',
         'personal_inseminador' => 'string',
         'active' => 'boolean',
-        'tipo_servicio_id' => 'integer'
+        'tipo_servicio_id' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -107,7 +115,8 @@ class Servicio extends Model
         'semen_id' => 'required',
         'personal_inseminador' => 'required',
         'active' => 'required',
-        'tipo_servicio_id' => 'required'
+        'tipo_servicio_id' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'servicios';

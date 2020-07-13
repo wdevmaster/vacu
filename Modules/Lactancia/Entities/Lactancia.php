@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Lactancia",
- *      required={"code", "fecha", "leche", "concentrado", "peso", "animal_id","active"},
+ *      required={"code", "fecha", "leche", "concentrado", "peso", "animal_id","active","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -42,6 +42,12 @@ use App\Models\Eloquent as Model;
  *          type="boolean"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="animal_id",
  *          description="animal_id",
  *          type="integer",
@@ -64,7 +70,8 @@ class Lactancia extends Model
         'concentrado',
         'peso',
         'animal_id',
-         'active'
+         'active',
+        'negocio_id'
     ];
 
     /**
@@ -80,6 +87,7 @@ class Lactancia extends Model
         'concentrado' => 'string',
         'peso' => 'string',
         'animal_id' => 'integer',
+        'negocio_id' => 'integer',
         'active' => 'boolean'
     ];
 
@@ -95,6 +103,7 @@ class Lactancia extends Model
         'concentrado' => 'required',
         'peso' => 'required',
         'animal_id' => 'required',
+        'negocio_id' => 'required',
         'active' => 'required'
     ];
 

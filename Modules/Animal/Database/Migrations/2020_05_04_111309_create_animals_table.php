@@ -28,6 +28,7 @@ class CreateAnimalsTable extends Migration
             $table->integer('locomocion_code')->nullable();
             $table->integer('temporal_id')->nullable();
             $table->integer('inventario_id')->nullable();
+            $table->integer('negocio_id');
             $table->boolean('active')->default(true);
             $table->timestamps();
 

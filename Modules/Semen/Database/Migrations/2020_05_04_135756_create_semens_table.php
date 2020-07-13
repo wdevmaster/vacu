@@ -18,6 +18,7 @@ class CreateSemensTable extends Migration
             $table->integer('code');
             $table->boolean('active');
             $table->integer('id_animal');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

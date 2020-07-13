@@ -23,6 +23,7 @@ class CreatePartosTable extends Migration
             $table->boolean('active')->default(true);
             $table->boolean('positivo');
             $table->integer('raza_id')->nullable();
+            $table->integer('negocio_id')->nullable();
             $table->timestamps();
         });
     }

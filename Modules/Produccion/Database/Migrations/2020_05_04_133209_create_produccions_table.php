@@ -20,6 +20,7 @@ class CreateProduccionsTable extends Migration
             $table->string('peso');
             $table->boolean('active');
             $table->integer('animal_id');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

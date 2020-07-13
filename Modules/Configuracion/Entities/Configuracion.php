@@ -7,12 +7,19 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Configuracion",
- *      required={ "code", "descripcion", "valor","active"},
+ *      required={ "code","clave", "descripcion", "valor","active","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
  *          description="code",
- *          type="integer"
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="clave",
+ *          description="clave",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="descripcion",
@@ -22,7 +29,14 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="valor",
  *          description="valor",
- *          type="string"
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="active",
@@ -41,9 +55,11 @@ class Configuracion extends Model
 
     public $fillable = [
         'code',
+        'clave',
         'descripcion',
         'valor',
         'active',
+        'negocio_id'
     ];
 
     /**
@@ -54,9 +70,11 @@ class Configuracion extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'integer',
+        'clave' => 'integer',
         'descripcion' => 'string',
         'valor' => 'string',
         'active' => 'boolean',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -66,9 +84,11 @@ class Configuracion extends Model
      */
     public static $rules = [
         'code' => 'required',
+        'clave' => 'required',
         'descripcion' => 'required',
         'valor' => 'required',
         'active' => 'required',
+        'negocio_id' => 'required',
 
     ];
 

@@ -21,6 +21,7 @@ class CreateVentasTable extends Migration
             $table->boolean('active');
             $table->integer('animal_id');
             $table->integer('cliente_id');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

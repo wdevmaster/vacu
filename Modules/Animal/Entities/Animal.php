@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Animal",
- *      required={"code", "fecha_nacimiento", "sexo","edad", "lote_nacimiento_id", "madre_codigo", "padre_codigo", "raza_codigo", "lote_actual_id", "locomocion_code", "active"},
+ *      required={"code", "fecha_nacimiento", "sexo","edad", "lote_nacimiento_id", "madre_codigo", "padre_codigo", "raza_codigo", "lote_actual_id", "locomocion_code", "active","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -80,6 +80,12 @@ use App\Models\Eloquent as Model;
  *          type="integer"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="active",
  *          description="active",
  *          type="boolean"
@@ -108,7 +114,8 @@ class Animal extends Model
         'locomocion_code',
         'inventario_id',
         'temporal_id',
-        'active'
+        'active',
+        'negocio_id'
     ];
 
     /**
@@ -131,6 +138,7 @@ class Animal extends Model
         'locomocion_code' => 'integer',
         'inventario_id' => 'integer',
         'temporal_id' => 'integer',
+        'negocio_id' => 'integer',
         'active' => 'boolean'
     ];
 
@@ -150,6 +158,7 @@ class Animal extends Model
         'locomocion_code' => 'required',
         'inventario_id' => 'required',
         'temporal_id' => 'required',
+        'negocio_id' => 'required',
         'active' => 'required'
     ];
 

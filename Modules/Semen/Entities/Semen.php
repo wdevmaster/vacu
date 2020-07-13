@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Semen",
- *      required={"code", "active", "id_animal"},
+ *      required={"code", "active", "id_animal","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -19,6 +19,12 @@ use App\Models\Eloquent as Model;
  *          property="active",
  *          description="active",
  *          type="boolean"
+ *      ),
+ *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *      @SWG\Property(
  *          property="id_animal",
@@ -39,7 +45,8 @@ class Semen extends Model
     public $fillable = [
         'code',
         'active',
-        'id_animal'
+        'id_animal',
+        'negocio_id'
     ];
 
     /**
@@ -51,7 +58,8 @@ class Semen extends Model
         'id' => 'integer',
         'code' => 'integer',
         'active' => 'boolean',
-        'id_animal' => 'integer'
+        'id_animal' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -62,7 +70,8 @@ class Semen extends Model
     public static $rules = [
         'code' => 'required',
         'active' => 'required',
-        'id_animal' => 'required'
+        'id_animal' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'semens';

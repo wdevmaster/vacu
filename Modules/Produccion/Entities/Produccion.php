@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Produccion",
- *      required={"code", "fecha", "peso", "active", "animal_id"},
+ *      required={"code", "fecha", "peso", "active", "animal_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -32,6 +32,12 @@ use App\Models\Eloquent as Model;
  *          type="boolean"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="animal_id",
  *          description="animal_id",
  *          type="integer",
@@ -52,7 +58,8 @@ class Produccion extends Model
         'fecha',
         'peso',
         'active',
-        'animal_id'
+        'animal_id',
+        'negocio_id'
     ];
 
     /**
@@ -66,7 +73,8 @@ class Produccion extends Model
         'fecha' => 'datetime',
         'peso' => 'string',
         'active' => 'boolean',
-        'animal_id' => 'integer'
+        'animal_id' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -79,7 +87,8 @@ class Produccion extends Model
         'fecha' => 'required',
         'peso' => 'required',
         'active' => 'required',
-        'animal_id' => 'required'
+        'animal_id' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'producciones';

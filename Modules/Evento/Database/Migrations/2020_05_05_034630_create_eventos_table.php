@@ -19,6 +19,7 @@ class CreateEventosTable extends Migration
             $table->integer('animal_id');
             $table->boolean('active');
             $table->string('tipo_evento');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

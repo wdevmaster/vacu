@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Parto",
- *      required={"code", "fecha", "sexo", "animal_nacido", "madre_code", "active","positivo", "raza_id"},
+ *      required={"code", "fecha", "sexo", "animal_nacido", "madre_code", "active","positivo", "raza_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -47,6 +47,12 @@ use App\Models\Eloquent as Model;
  *          type="boolean"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="raza_id",
  *          description="raza_id",
  *          type="integer",
@@ -70,7 +76,8 @@ class Parto extends Model
         'madre_code',
         'active',
         'positivo',
-        'raza_id'
+        'raza_id',
+        'negocio_id'
     ];
 
     /**
@@ -87,7 +94,8 @@ class Parto extends Model
         'madre_code' => 'string',
         'active' => 'boolean',
         'positivo' => 'boolean',
-        'raza_id' => 'integer'
+        'raza_id' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -102,7 +110,8 @@ class Parto extends Model
         'animal_nacido' => 'required',
         'madre_code' => 'required',
         'active' => 'required',
-        'raza_id' => 'required'
+        'raza_id' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'partos';

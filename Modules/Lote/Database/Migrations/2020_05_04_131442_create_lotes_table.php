@@ -20,6 +20,7 @@ class CreateLotesTable extends Migration
             $table->string('nombre');
             $table->boolean('active');
             $table->integer('finca_id');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

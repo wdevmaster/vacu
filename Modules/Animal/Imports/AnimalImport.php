@@ -48,7 +48,8 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             $lote = [
                 'nombre' => $row['lote'],
                 'active' => true,
-                'finca_id' => $finca_id
+                'finca_id' => $finca_id,
+                'negocio_id' => $this->negocio_id
             ];
             $lotenuevo = Lote::create($lote);
             $lote_id = $lotenuevo->id;
@@ -61,7 +62,8 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             $lote = [
                 'nombre' => $row['lote'],
                 'active' => true,
-                'finca_id' => $finca_id
+                'finca_id' => $finca_id,
+                'negocio_id' => $this->negocio_id
             ];
             $lote = Lote::create($lote);
             $lote_id = $lote->id;
@@ -90,6 +92,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
                 'code' => Parto::generarCodigo(),
                 'fecha'=>$fecha_creacion,
                 'madre_code' => $row['animal'],
+                'negocio_id' => $this->negocio_id,
                 'positivo' => true,
             ];
             Parto::create($data);
@@ -102,6 +105,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
                 'code' => Parto::generarCodigo(),
                 'fecha'=>$fecha_creacion,
                 'madre_code' => $row['animal'],
+                'negocio_id' => $this->negocio_id,
                 'positivo' => false,
             ];
             Parto::create($data);

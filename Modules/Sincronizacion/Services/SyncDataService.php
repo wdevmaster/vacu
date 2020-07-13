@@ -343,28 +343,28 @@ class SyncDataService implements SyncDataServiceInterface
                      }
        }
 
-        $results['configuraciones'] = $this->configuracionRepository->all();
-        $results['animales'] = $this->animalRepository->all();
+        $results['configuraciones'] = $this->configuracionRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['animales'] = $this->animalRepository->all()->where('negocio_id','=',$negocio_id);
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id','=',$negocio_id);
         $results['enfermedades'] = $this->enfermedadRepository->all();
         $results['negocios'] = $this->negocioRepository->all()->where('id','=',$negocio_id);
-        $results['estados_fisicos'] = $this->estadoFisicoRepository->all();
-        $results['eventos'] = $this->eventoRepository->all();
+        $results['estados_fisicos'] = $this->estadoFisicoRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['eventos'] = $this->eventoRepository->all()->where('negocio_id','=',$negocio_id);
         $results['fincas'] = $this->fincaRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['ingresos'] = $this->ingresoRepository->all();
+        $results['ingresos'] = $this->ingresoRepository->all()->where('negocio_id','=',$negocio_id);
         $results['inseminadores'] = $this->inseminadorRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['lactancias'] = $this->lactanciaRepository->all();
+        $results['lactancias'] = $this->lactanciaRepository->all()->where('negocio_id','=',$negocio_id);
         $results['locomociones'] = $this->locomocionRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['lotes'] = $this->loteRepository->all();
-        $results['muertes'] = $this->muerteRepository->all();
-        $results['partos'] = $this->partoRepository->all();
-        $results['producciones'] = $this->produccionRepository->all();
+        $results['lotes'] = $this->loteRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['muertes'] = $this->muerteRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['partos'] = $this->partoRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['producciones'] = $this->produccionRepository->all()->where('negocio_id','=',$negocio_id);
         $results['razas'] = $this->razaRepository->all();
-        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all();
-        $results['semens'] = $this->semenRepository->all();
-        $results['servicios'] = $this->servicioRepository->all();
+        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['semens'] = $this->semenRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['servicios'] = $this->servicioRepository->all()->where('negocio_id','=',$negocio_id);
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
-        $results['ventas'] = $this->ventaRepository->all();
+        $results['ventas'] = $this->ventaRepository->all()->where('negocio_id','=',$negocio_id);
         $results['rol_apks'] = $this->rolApkRepository->all();
         $results['rol_botons'] = $rol_botons;
         $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id','=',$user->id);

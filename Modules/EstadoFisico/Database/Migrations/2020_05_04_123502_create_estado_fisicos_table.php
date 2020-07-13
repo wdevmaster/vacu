@@ -21,6 +21,7 @@ class CreateEstadoFisicosTable extends Migration
             $table->boolean('active');
             $table->integer('condicion_id');
             $table->integer('locomocion_id');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

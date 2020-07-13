@@ -21,6 +21,7 @@ class CreateRegistroEnfermedadsTable extends Migration
             $table->boolean('active');
             $table->integer('id_animal');
             $table->integer('id_enfermedad');
+            $table->integer('negocio_id');
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Venta",
- *      required={"code", "fecha", "motivo", "active", "animal_id", "cliente_id"},
+ *      required={"code", "fecha", "motivo", "active", "animal_id", "cliente_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -38,6 +38,12 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="cliente_id",
  *          description="cliente_id",
  *          type="integer",
@@ -59,7 +65,8 @@ class Venta extends Model
         'motivo',
         'active',
         'animal_id',
-        'cliente_id'
+        'cliente_id',
+        'negocio_id'
     ];
 
     /**
@@ -74,7 +81,8 @@ class Venta extends Model
         'motivo' => 'string',
         'active' => 'boolean',
         'animal_id' => 'integer',
-        'cliente_id' => 'integer'
+        'cliente_id' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -88,7 +96,8 @@ class Venta extends Model
         'motivo' => 'required',
         'active' => 'required',
         'animal_id' => 'required',
-        'cliente_id' => 'required'
+        'cliente_id' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'ventas';

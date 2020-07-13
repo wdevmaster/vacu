@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Lote",
- *      required={"code", "numero", "nombre", "active", "finca_id"},
+ *      required={"code", "numero", "nombre", "active", "finca_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -32,6 +32,12 @@ use App\Models\Eloquent as Model;
  *          type="boolean"
  *      ),
  *      @SWG\Property(
+ *          property="negocio_id",
+ *          description="negocio_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="finca_id",
  *          description="finca_id",
  *          type="integer",
@@ -52,7 +58,8 @@ class Lote extends Model
         'numero',
         'nombre',
         'active',
-        'finca_id'
+        'finca_id',
+        'negocio_id'
     ];
 
     /**
@@ -66,7 +73,8 @@ class Lote extends Model
         'numero' => 'integer',
         'nombre' => 'string',
         'active' => 'boolean',
-        'finca_id' => 'integer'
+        'finca_id' => 'integer',
+        'negocio_id' => 'integer'
     ];
 
     /**
@@ -79,7 +87,8 @@ class Lote extends Model
         'numero' => 'required',
         'nombre' => 'required',
         'active' => 'required',
-        'finca_id' => 'required'
+        'finca_id' => 'required',
+        'negocio_id' => 'required'
     ];
 
     public static $tableName = 'lotes';
