@@ -19,25 +19,24 @@ class ClienteApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/clientes', $cliente
-        );
+            '/api/v1/cliente/clientes', $cliente
+        )->assertStatus(200);
 
-        $this->assertApiResponse($cliente);
+
     }
 
     /**
      * @test
      */
-    public function test_read_cliente()
+    public function test_list_cliente()
     {
-        $cliente = factory(Cliente::class)->create();
+        $cliente = factory(Cliente::class,10)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/clientes/'.$cliente->id
-        );
+            '/api/v1/cliente/clientes/'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($cliente->toArray());
     }
 
     /**
@@ -50,11 +49,10 @@ class ClienteApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/clientes/'.$cliente->id,
+            '/api/v1/cliente/clientes/'.$cliente->id,
             $editedCliente
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedCliente);
     }
 
     /**
@@ -66,15 +64,12 @@ class ClienteApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/clientes/'.$cliente->id
-         );
+             '/api/v1/cliente/clientes/'.$cliente->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/clientes/'.$cliente->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$cliente->id;
+        $data=Cliente::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

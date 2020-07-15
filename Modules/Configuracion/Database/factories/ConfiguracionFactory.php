@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Configuracion::class, function (Faker $faker) {
 
     return [
-        'code' => 123,
+        'code' => $faker->randomDigitNotNull,
         'descripcion' => $faker->word,
         'valor' => $faker->randomDigitNotNull,
         'clave' => $faker->randomDigitNotNull,

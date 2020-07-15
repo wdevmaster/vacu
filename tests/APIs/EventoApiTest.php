@@ -19,25 +19,40 @@ class EventoApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/eventos', $evento
-        );
+            '/api/v1/evento/eventos', $evento
+        )->assertStatus(200);
 
-        $this->assertApiResponse($evento);
+
     }
 
     /**
      * @test
      */
-    public function test_read_evento()
+    public function test_list_evento()
     {
         $evento = factory(Evento::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/eventos/'.$evento->id
-        );
+            '/api/v1/evento/eventos'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($evento->toArray());
+
+    }
+
+    /**
+     * @test
+     */
+    public function test_show_evento()
+    {
+        $evento = factory(Evento::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/evento/eventos/'.$evento->id
+        )->assertStatus(200);
+
+
     }
 
     /**
@@ -50,11 +65,11 @@ class EventoApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/eventos/'.$evento->id,
+            '/api/v1/evento/eventos/'.$evento->id,
             $editedEvento
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedEvento);
+
     }
 
     /**
@@ -66,15 +81,14 @@ class EventoApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/eventos/'.$evento->id
-         );
+             '/api/v1/evento/eventos/'.$evento->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/eventos/'.$evento->id
-        );
+        $id=$evento->id;
+        $data=Evento::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

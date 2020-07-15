@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(CondicionCorporal::class, function (Faker $faker) {
 
     return [
-        'code' => 12,
+        'code' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
         'descripcion' => $faker->word,
         'active' => true,

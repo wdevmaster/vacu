@@ -11,8 +11,9 @@ $factory->define(Lote::class, function (Faker $faker) {
         'code' => $faker->randomDigitNotNull,
         'numero' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
-        'active' => $faker->word,
+        'active' => true,
         'finca_id' => $faker->randomDigitNotNull,
+        'negocio_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

@@ -19,26 +19,36 @@ class RegistroEnfermedadApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/registro_enfermedads', $registroEnfermedad
-        );
-
-        $this->assertApiResponse($registroEnfermedad);
+            '/api/v1/registro_enfermedad/registros_enfermedades', $registroEnfermedad
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_registro_enfermedad()
+    public function test_list_registro_enfermedad()
     {
         $registroEnfermedad = factory(RegistroEnfermedad::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/registro_enfermedads/'.$registroEnfermedad->id
-        );
-
-        $this->assertApiResponse($registroEnfermedad->toArray());
+            '/api/v1/registro_enfermedad/registros_enfermedades/'.$registroEnfermedad->id
+        )->assertStatus(200);
     }
+
+    /**
+     * @test
+     */
+    public function test_show_registro_enfermedad()
+    {
+        $registroEnfermedad = factory(RegistroEnfermedad::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/registro_enfermedad/registros_enfermedades/'.$registroEnfermedad->id
+        )->assertStatus(200);
+    }
+
 
     /**
      * @test
@@ -50,11 +60,9 @@ class RegistroEnfermedadApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/registro_enfermedads/'.$registroEnfermedad->id,
+            '/api/v1/registro_enfermedad/registros_enfermedades/'.$registroEnfermedad->id,
             $editedRegistroEnfermedad
-        );
-
-        $this->assertApiResponse($editedRegistroEnfermedad);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +74,12 @@ class RegistroEnfermedadApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/registro_enfermedads/'.$registroEnfermedad->id
-         );
+             '/api/v1/registro_enfermedad/registros_enfermedades/'.$registroEnfermedad->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/registro_enfermedads/'.$registroEnfermedad->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$registroEnfermedad->id;
+        $data=RegistroEnfermedad::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

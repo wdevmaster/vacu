@@ -19,25 +19,26 @@ class CondicionCorporalApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/condicion_corporals', $condicionCorporal
-        );
+            '/api/v1/condicion_corporal/condiciones_corporales', $condicionCorporal
+        )->assertStatus(200);
 
-        $this->assertApiResponse($condicionCorporal);
+
     }
 
     /**
      * @test
      */
-    public function test_read_condicion_corporal()
+    public function test_list_condicion_corporal()
     {
+
         $condicionCorporal = factory(CondicionCorporal::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/condicion_corporals/'.$condicionCorporal->id
-        );
+            '/api/v1/condicion_corporal/condiciones_corporales'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($condicionCorporal->toArray());
+
     }
 
     /**
@@ -50,11 +51,11 @@ class CondicionCorporalApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/condicion_corporals/'.$condicionCorporal->id,
+            '/api/v1/condicion_corporal/condiciones_corporales/'.$condicionCorporal->id,
             $editedCondicionCorporal
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedCondicionCorporal);
+
     }
 
     /**
@@ -66,15 +67,12 @@ class CondicionCorporalApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/condicion_corporals/'.$condicionCorporal->id
-         );
+             '/api/v1/condicion_corporal/condiciones_corporales/'.$condicionCorporal->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/condicion_corporals/'.$condicionCorporal->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$condicionCorporal->id;
+        $data=CondicionCorporal::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

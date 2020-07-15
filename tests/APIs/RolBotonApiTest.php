@@ -19,25 +19,34 @@ class RolBotonApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/rol_botons', $rolBoton
-        );
-
-        $this->assertApiResponse($rolBoton);
+            '/api/v1/rol_boton/roles_botones', $rolBoton
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_rol_boton()
+    public function test_list_rol_boton()
     {
         $rolBoton = factory(RolBoton::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/rol_botons/'.$rolBoton->id
-        );
+            '/api/v1/rol_boton/roles_botones'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($rolBoton->toArray());
+    /**
+     * @test
+     */
+    public function test_show_rol_boton()
+    {
+        $rolBoton = factory(RolBoton::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/rol_boton/roles_botones/'.$rolBoton->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +59,9 @@ class RolBotonApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/rol_botons/'.$rolBoton->id,
+            '/api/v1/rol_boton/roles_botones/'.$rolBoton->id,
             $editedRolBoton
-        );
-
-        $this->assertApiResponse($editedRolBoton);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +73,15 @@ class RolBotonApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/rol_botons/'.$rolBoton->id
-         );
+             '/api/v1/rol_boton/roles_botones/'.$rolBoton->id
+         )->assertStatus(200);
+        $id=$rolBoton->id;
+        $data=RolBoton::all()->where('id','=',$id)->first();
+        $estado=1;
+        if ($data==null){
+            $estado=0;
+        }
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/rol_botons/'.$rolBoton->id
-        );
-
-        $this->response->assertStatus(404);
+        $this->assertEquals(0,$estado);
     }
 }

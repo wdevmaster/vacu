@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Modules\Usuario\Entities\RolBoton;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
 use Modules\Usuario\Entities\RolApk;
@@ -19,25 +20,34 @@ class RolApkApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/rol_apks', $rolApk
-        );
-
-        $this->assertApiResponse($rolApk);
+            '/api/v1/rol_apk/roles_apks', $rolApk
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_rol_apk()
+    public function test_list_rol_apk()
     {
         $rolApk = factory(RolApk::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/rol_apks/'.$rolApk->id
-        );
+            '/api/v1/rol_apk/roles_apks'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($rolApk->toArray());
+    /**
+     * @test
+     */
+    public function test_show_rol_apk()
+    {
+        $rolApk = factory(RolApk::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/rol_apk/roles_apks/'.$rolApk->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +60,9 @@ class RolApkApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/rol_apks/'.$rolApk->id,
+            '/api/v1/rol_apk/roles_apks/'.$rolApk->id,
             $editedRolApk
-        );
-
-        $this->assertApiResponse($editedRolApk);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +74,32 @@ class RolApkApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/rol_apks/'.$rolApk->id
-         );
+             '/api/v1/rol_apk/roles_apks/'.$rolApk->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/rol_apks/'.$rolApk->id
-        );
+        $id=$rolApk->id;
+        $data=RolApk::all()->where('id','=',$id)->first();
+        $estado=1;
+        if ($data==null){
+            $estado=0;
+        }
 
-        $this->response->assertStatus(404);
+        $this->assertEquals(0,$estado);
     }
+
+//    /**
+//     * @test
+//     */
+//    public function test_giveRolBoton_to_rol_apk()
+//    {
+//        $rolBoton= factory(RolBoton::class)->create();
+//        $rolApk = factory(RolApk::class)->create();
+//        $giveRolBotonTo['id']=$rolBoton->id;
+//        $data['giveRolBotonTo']=$giveRolBotonTo;
+//
+//        $this->response = $this->json(
+//            'POST',
+//            '/api/v1/rol_apk/roles_apks/'.$rolApk->id.'/give/rol_boton"', $data
+//        )->assertStatus(200);
+//    }
 }

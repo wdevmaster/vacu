@@ -19,25 +19,25 @@ class EnfermedadApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/enfermedads', $enfermedad
-        );
+            '/api/v1/enfermedad/enfermedades', $enfermedad
+        )->assertStatus(200);
 
-        $this->assertApiResponse($enfermedad);
+
     }
 
     /**
      * @test
      */
-    public function test_read_enfermedad()
+    public function test_list_enfermedad()
     {
         $enfermedad = factory(Enfermedad::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/enfermedads/'.$enfermedad->id
-        );
+            '/api/v1/enfermedad/enfermedades'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($enfermedad->toArray());
+
     }
 
     /**
@@ -50,11 +50,9 @@ class EnfermedadApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/enfermedads/'.$enfermedad->id,
+            '/api/v1/enfermedad/enfermedades/'.$enfermedad->id,
             $editedEnfermedad
-        );
-
-        $this->assertApiResponse($editedEnfermedad);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +64,14 @@ class EnfermedadApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/enfermedads/'.$enfermedad->id
-         );
+             '/api/v1/enfermedad/enfermedades/'.$enfermedad->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/enfermedads/'.$enfermedad->id
-        );
+        $id=$enfermedad->id;
+        $data=Enfermedad::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }
