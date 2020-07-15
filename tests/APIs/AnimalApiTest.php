@@ -32,12 +32,13 @@ class AnimalApiTest extends TestCase
      */
     public function test_list_animales()
     {
-        factory(Animal::class,10)->create();
+        $animal=factory(Animal::class)->create();
 
         $this->response = $this->json(
             'GET',
             '/api/v1/animal/animales/'
         )->assertStatus(200);
+
 
     }
 
@@ -71,13 +72,8 @@ class AnimalApiTest extends TestCase
 
 
         $id=$animal->id;
-        $datas=Animal::all();
-        $active_estado=null;
-        foreach ($datas as $data){
-            if ($data->id=$id)
-                $active_estado=$data->active;
-        }
-
+        $data=Animal::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
         $this->assertEquals(false,$active_estado);
     }
 

@@ -8,10 +8,10 @@ use Faker\Generator as Faker;
 $factory->define(Enfermedad::class, function (Faker $faker) {
 
     return [
-        'code' => $faker->word,
+        'code' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
         'descripcion' => $faker->word,
-        'active' => $faker->word,
+        'active' => true,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')
     ];

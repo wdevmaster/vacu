@@ -19,25 +19,38 @@ class LactanciaApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/lactancias', $lactancia
-        );
+            '/api/v1/lactancia/lactancias', $lactancia
+        )->assertStatus(200);
 
-        $this->assertApiResponse($lactancia);
     }
 
     /**
      * @test
      */
-    public function test_read_lactancia()
+    public function test_list_lactancia()
     {
         $lactancia = factory(Lactancia::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/lactancias/'.$lactancia->id
-        );
+            '/api/v1/lactancia/lactancias'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($lactancia->toArray());
+    }
+
+
+    /**
+     * @test
+     */
+    public function test_show_lactancia()
+    {
+        $lactancia = factory(Lactancia::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/lactancia/lactancias/'.$lactancia->id
+        )->assertStatus(200);
+
     }
 
     /**
@@ -50,11 +63,11 @@ class LactanciaApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/lactancias/'.$lactancia->id,
+            '/api/v1/lactancia/lactancias/'.$lactancia->id,
             $editedLactancia
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedLactancia);
+
     }
 
     /**
@@ -66,15 +79,14 @@ class LactanciaApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/lactancias/'.$lactancia->id
-         );
+             '/api/v1/lactancia/lactancias/'.$lactancia->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/lactancias/'.$lactancia->id
-        );
+        $id=$lactancia->id;
+        $data=Lactancia::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

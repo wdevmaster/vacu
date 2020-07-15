@@ -19,25 +19,40 @@ class IngresoApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/ingresos', $ingreso
-        );
+            '/api/v1/ingreso/ingresos', $ingreso
+        )->assertStatus(200);
 
-        $this->assertApiResponse($ingreso);
+
     }
 
     /**
      * @test
      */
-    public function test_read_ingreso()
+    public function test_list_ingreso()
     {
         $ingreso = factory(Ingreso::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/ingresos/'.$ingreso->id
-        );
+            '/api/v1/ingreso/ingresos/'.$ingreso->id
+        )->assertStatus(200);
 
-        $this->assertApiResponse($ingreso->toArray());
+
+    }
+
+    /**
+     * @test
+     */
+    public function test_show_ingreso()
+    {
+        $ingreso = factory(Ingreso::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/ingreso/ingresos/'.$ingreso->id
+        )->assertStatus(200);
+
+
     }
 
     /**
@@ -50,11 +65,11 @@ class IngresoApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/ingresos/'.$ingreso->id,
+            '/api/v1/ingreso/ingresos/'.$ingreso->id,
             $editedIngreso
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedIngreso);
+
     }
 
     /**
@@ -66,15 +81,14 @@ class IngresoApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/ingresos/'.$ingreso->id
-         );
+             '/api/v1/ingreso/ingresos/'.$ingreso->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/ingresos/'.$ingreso->id
-        );
+        $id=$ingreso->id;
+        $data=Ingreso::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

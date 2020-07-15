@@ -8,8 +8,10 @@ use Faker\Generator as Faker;
 $factory->define(TipoServicio::class, function (Faker $faker) {
 
     return [
-        'tipo_servicio_id' => $faker->randomDigitNotNull,
+        'id' => $faker->randomDigitNotNull,
+        'code' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
+        'active' => true,
         'descripcion' => $faker->word,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')

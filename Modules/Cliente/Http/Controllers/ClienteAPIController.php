@@ -305,10 +305,10 @@ class ClienteAPIController extends CommonController
             /** @var Cliente $cliente */
             $cliente = $this->clienteRepository->find($id);
 
+            $cliente->active = false;
+            $result = $this->clienteRepository->update($cliente->toArray(), $cliente->id);
 
-            $cliente->delete();
-
-            return $this->sendResponse($cliente->toArray(),
+            return $this->sendResponse($result->toArray(),
                 'comun::msgs.la_model_desactivated_successfully',
                 true,
                 200);

@@ -19,25 +19,34 @@ class TipoServicioApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/tipo_servicios', $tipoServicio
-        );
-
-        $this->assertApiResponse($tipoServicio);
+            '/api/v1/tipo_servicio/tipos_servicios', $tipoServicio
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_tipo_servicio()
+    public function test_list_tipo_servicio()
     {
         $tipoServicio = factory(TipoServicio::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/tipo_servicios/'.$tipoServicio->id
-        );
+            '/api/v1/tipo_servicio/tipos_servicios'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($tipoServicio->toArray());
+    /**
+     * @test
+     */
+    public function test_show_tipo_servicio()
+    {
+        $tipoServicio = factory(TipoServicio::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/tipo_servicio/tipos_servicios/'.$tipoServicio->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +59,9 @@ class TipoServicioApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/tipo_servicios/'.$tipoServicio->id,
+            '/api/v1/tipo_servicio/tipos_servicios/'.$tipoServicio->id,
             $editedTipoServicio
-        );
-
-        $this->assertApiResponse($editedTipoServicio);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +73,12 @@ class TipoServicioApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/tipo_servicios/'.$tipoServicio->id
-         );
+             '/api/v1/tipo_servicio/tipos_servicios/'.$tipoServicio->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/tipo_servicios/'.$tipoServicio->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$tipoServicio->id;
+        $data=TipoServicio::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

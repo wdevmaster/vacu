@@ -19,25 +19,25 @@ class ConfiguracionApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/configuracions', $configuracion
-        );
+            '/api/v1/configuracion/configuraciones', $configuracion
+        )->assertStatus(200);
 
-        $this->assertApiResponse($configuracion);
+
     }
 
     /**
      * @test
      */
-    public function test_read_configuracion()
+    public function test_list_configuracion()
     {
         $configuracion = factory(Configuracion::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/configuracions/'.$configuracion->id
-        );
+            '/api/v1/configuracion/configuraciones'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($configuracion->toArray());
+
     }
 
     /**
@@ -50,11 +50,11 @@ class ConfiguracionApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/configuracions/'.$configuracion->id,
+            '/api/v1/configuracion/configuraciones/'.$configuracion->id,
             $editedConfiguracion
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedConfiguracion);
+
     }
 
     /**
@@ -66,15 +66,14 @@ class ConfiguracionApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/configuracions/'.$configuracion->id
-         );
+             '/api/v1/configuracion/configuraciones/'.$configuracion->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/configuracions/'.$configuracion->id
-        );
+        $id=$configuracion->id;
+        $data=Configuracion::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

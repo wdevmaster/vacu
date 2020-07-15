@@ -19,25 +19,34 @@ class RazaApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/razas', $raza
-        );
-
-        $this->assertApiResponse($raza);
+            '/api/v1/raza/razas', $raza
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_raza()
+    public function test_list_raza()
     {
         $raza = factory(Raza::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/razas/'.$raza->id
-        );
+            '/api/v1/raza/razas'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($raza->toArray());
+    /**
+     * @test
+     */
+    public function test_show_raza()
+    {
+        $raza = factory(Raza::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/raza/razas/'.$raza->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +59,9 @@ class RazaApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/razas/'.$raza->id,
+            '/api/v1/raza/razas/'.$raza->id,
             $editedRaza
-        );
-
-        $this->assertApiResponse($editedRaza);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +73,12 @@ class RazaApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/razas/'.$raza->id
-         );
+             '/api/v1/raza/razas/'.$raza->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/razas/'.$raza->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$raza->id;
+        $data=Raza::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

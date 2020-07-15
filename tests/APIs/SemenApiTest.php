@@ -19,26 +19,37 @@ class SemenApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/semens', $semen
-        );
+            '/api/v1/semen/semens', $semen
+        )->assertStatus(200);
 
-        $this->assertApiResponse($semen);
     }
 
     /**
      * @test
      */
-    public function test_read_semen()
+    public function test_list_semen()
     {
         $semen = factory(Semen::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/semens/'.$semen->id
-        );
-
-        $this->assertApiResponse($semen->toArray());
+            '/api/v1/semen/semens'
+        )->assertStatus(200);
     }
+
+    /**
+     * @test
+     */
+    public function test_show_semen()
+    {
+        $semen = factory(Semen::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/semen/semens/'.$semen->id
+        )->assertStatus(200);
+    }
+
 
     /**
      * @test
@@ -50,11 +61,9 @@ class SemenApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/semens/'.$semen->id,
+            '/api/v1/semen/semens/'.$semen->id,
             $editedSemen
-        );
-
-        $this->assertApiResponse($editedSemen);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +75,12 @@ class SemenApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/semens/'.$semen->id
-         );
+             '/api/v1/semen/semens/'.$semen->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/semens/'.$semen->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$semen->id;
+        $data=Semen::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

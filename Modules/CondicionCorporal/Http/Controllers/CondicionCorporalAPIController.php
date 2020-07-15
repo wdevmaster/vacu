@@ -305,12 +305,8 @@ class CondicionCorporalAPIController extends CommonController
         try {
             /** @var CondicionCorporal $condicionCorporal */
             $condicionCorporal = $this->condicionCorporalRepository->find($id);
-
-            if (empty($condicionCorporal)) {
-                return $this->sendError('Condicion Corporal not found', 404);
-            }
-
-            $condicionCorporal->delete();
+            $condicionCorporal->active = false;
+            $result = $this->condicionCorporalRepository->update($condicionCorporal->toArray(), $condicionCorporal->id);
 
             return $this->sendResponse($condicionCorporal->toArray(),
                 'comun::msgs.la_model_list_successfully',

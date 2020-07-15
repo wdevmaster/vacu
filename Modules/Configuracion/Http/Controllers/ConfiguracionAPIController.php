@@ -312,19 +312,13 @@ class ConfiguracionAPIController extends CommonController
             /** @var Configuracion $configuracion */
             $configuracion = $this->configuracionRepository->find($id);
 
-            if (empty($configuracion)) {
-                return $this->sendError('User not found', 404);
-            }
+            $configuracion->active = false;
+            $result = $this->configuracionRepository->update($configuracion->toArray(), $configuracion->id);
 
-            $configuracion->delete();
-
-            return response()->json([
-                'message' => __('comun::msgs.la_model_deleted_successfully', [
-                    'model' => trans_choice('usuario::msgs.label_configuracion', 1)
-                ]),
-                'success' => true,
-                'data' => $configuracion
-            ], 200);
+            return $this->sendResponse($result->toArray(),
+                'comun::msgs.la_model_desactivated_successfully',
+                true,
+                200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'message' => __('comun::msgs.la_model_not_found', [

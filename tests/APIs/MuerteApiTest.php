@@ -19,25 +19,34 @@ class MuerteApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/muertes', $muerte
-        );
-
-        $this->assertApiResponse($muerte);
+            '/api/v1/muerte/muertes', $muerte
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_muerte()
+    public function test_list_muerte()
     {
         $muerte = factory(Muerte::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/muertes/'.$muerte->id
-        );
+            '/api/v1/muerte/muertes'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($muerte->toArray());
+    /**
+     * @test
+     */
+    public function test_show_muerte()
+    {
+        $muerte = factory(Muerte::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/muerte/muertes/'.$muerte->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +59,9 @@ class MuerteApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/muertes/'.$muerte->id,
+            '/api/v1/muerte/muertes/'.$muerte->id,
             $editedMuerte
-        );
-
-        $this->assertApiResponse($editedMuerte);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +73,14 @@ class MuerteApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/muertes/'.$muerte->id
-         );
+             '/api/v1/muerte/muertes/'.$muerte->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/muertes/'.$muerte->id
-        );
+        $id=$muerte->id;
+        $data=Muerte::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

@@ -9,7 +9,7 @@ $factory->define(User::class, function (Faker $faker) {
 
     return [
         'name' => $faker->word,
-        'email' => $faker->word,
+        'email' => "roli@roli.com",
         'password' => $faker->word,
         'negocio_id' => $faker->randomDigitNotNull,
         'finca_id' => $faker->randomDigitNotNull,

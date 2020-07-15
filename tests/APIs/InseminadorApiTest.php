@@ -19,25 +19,36 @@ class InseminadorApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/inseminadors', $inseminador
-        );
+            '/api/v1/inseminador/inseminadores', $inseminador
+        )->assertStatus(200);
 
-        $this->assertApiResponse($inseminador);
     }
 
     /**
      * @test
      */
-    public function test_read_inseminador()
+    public function test_list_inseminador()
     {
         $inseminador = factory(Inseminador::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/inseminadors/'.$inseminador->id
-        );
+            '/api/v1/inseminador/inseminadores'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($inseminador->toArray());
+
+    /**
+     * @test
+     */
+    public function test_show_inseminador()
+    {
+        $inseminador = factory(Inseminador::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/inseminador/inseminadores/'.$inseminador->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +61,9 @@ class InseminadorApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/inseminadors/'.$inseminador->id,
+            '/api/v1/inseminador/inseminadores/'.$inseminador->id,
             $editedInseminador
-        );
-
-        $this->assertApiResponse($editedInseminador);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +75,14 @@ class InseminadorApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/inseminadors/'.$inseminador->id
-         );
+             '/api/v1/inseminador/inseminadores/'.$inseminador->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/inseminadors/'.$inseminador->id
-        );
+        $id=$inseminador->id;
+        $data=Inseminador::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

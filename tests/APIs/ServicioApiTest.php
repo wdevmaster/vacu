@@ -19,25 +19,34 @@ class ServicioApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/servicios', $servicio
-        );
-
-        $this->assertApiResponse($servicio);
+            '/api/v1/servicio/servicios', $servicio
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_servicio()
+    public function test_list_servicio()
     {
         $servicio = factory(Servicio::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/servicios/'.$servicio->id
-        );
+            '/api/v1/servicio/servicios'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($servicio->toArray());
+    /**
+     * @test
+     */
+    public function test_show_servicio()
+    {
+        $servicio = factory(Servicio::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/servicio/servicios/'.$servicio->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +59,9 @@ class ServicioApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/servicios/'.$servicio->id,
+            '/api/v1/servicio/servicios/'.$servicio->id,
             $editedServicio
-        );
-
-        $this->assertApiResponse($editedServicio);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +73,12 @@ class ServicioApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/servicios/'.$servicio->id
-         );
+             '/api/v1/servicio/servicios/'.$servicio->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/servicios/'.$servicio->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$servicio->id;
+        $data=Servicio::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

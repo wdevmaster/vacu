@@ -303,9 +303,13 @@ class EnfermedadAPIController extends CommonController
     {
         try {
             /** @var Enfermedad $enfermedad */
-            $enfermedad = $this->enfermedadRepository->delete($id);
 
-            return $this->sendResponse($enfermedad->toArray(),
+            $enfermedad = $this->enfermedadRepository->find($id);
+
+            $enfermedad->active = false;
+            $result = $this->enfermedadRepository->update($enfermedad->toArray(), $enfermedad->id);
+
+            return $this->sendResponse($result->toArray(),
                 'comun::msgs.la_model_disabled_successfully',
                 true,
                 200);

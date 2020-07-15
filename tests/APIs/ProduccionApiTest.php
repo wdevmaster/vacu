@@ -19,25 +19,34 @@ class ProduccionApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/produccions', $produccion
-        );
-
-        $this->assertApiResponse($produccion);
+            '/api/v1/produccion/producciones', $produccion
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_produccion()
+    public function test_list_produccion()
     {
         $produccion = factory(Produccion::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/produccions/'.$produccion->id
-        );
+            '/api/v1/produccion/producciones'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($produccion->toArray());
+    /**
+     * @test
+     */
+    public function test_show_produccion()
+    {
+        $produccion = factory(Produccion::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/produccion/producciones/'.$produccion->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +59,9 @@ class ProduccionApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/produccions/'.$produccion->id,
+            '/api/v1/produccion/producciones/'.$produccion->id,
             $editedProduccion
-        );
-
-        $this->assertApiResponse($editedProduccion);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +73,12 @@ class ProduccionApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/produccions/'.$produccion->id
-         );
+             '/api/v1/produccion/producciones/'.$produccion->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/produccions/'.$produccion->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$produccion->id;
+        $data=Produccion::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

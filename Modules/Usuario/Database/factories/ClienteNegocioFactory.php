@@ -12,7 +12,7 @@ $factory->define(ClienteNegocio::class, function (Faker $faker) {
         'nombre' => $faker->word,
         'descripcion' => $faker->word,
         'telefono' => $faker->word,
-        'active' => $faker->word,
+        'active' => true,
         'negocio_id' => $faker->randomDigitNotNull,
         'created_at' => $faker->date('Y-m-d H:i:s'),
         'updated_at' => $faker->date('Y-m-d H:i:s')

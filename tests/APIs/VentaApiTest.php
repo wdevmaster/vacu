@@ -19,26 +19,36 @@ class VentaApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/ventas', $venta
-        );
-
-        $this->assertApiResponse($venta);
+            '/api/v1/venta/ventas', $venta
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_venta()
+    public function test_list_venta()
     {
         $venta = factory(Venta::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/ventas/'.$venta->id
-        );
-
-        $this->assertApiResponse($venta->toArray());
+            '/api/v1/venta/ventas'
+        )->assertStatus(200);
     }
+
+    /**
+     * @test
+     */
+    public function test_show_venta()
+    {
+        $venta = factory(Venta::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/venta/ventas/'.$venta->id
+        )->assertStatus(200);
+    }
+
 
     /**
      * @test
@@ -50,11 +60,9 @@ class VentaApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/ventas/'.$venta->id,
+            '/api/v1/venta/ventas/'.$venta->id,
             $editedVenta
-        );
-
-        $this->assertApiResponse($editedVenta);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +74,12 @@ class VentaApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/ventas/'.$venta->id
-         );
+             '/api/v1/venta/ventas/'.$venta->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/ventas/'.$venta->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$venta->id;
+        $data=Venta::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

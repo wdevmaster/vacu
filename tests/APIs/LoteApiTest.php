@@ -19,25 +19,38 @@ class LoteApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/lotes', $lote
-        );
+            '/api/v1/lote/lotes', $lote
+        )->assertStatus(200);
 
-        $this->assertApiResponse($lote);
+
     }
 
     /**
      * @test
      */
-    public function test_read_lote()
+    public function test_list_lote()
     {
         $lote = factory(Lote::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/lotes/'.$lote->id
-        );
+            '/api/v1/lote/lotes'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($lote->toArray());
+
+    }
+
+    /**
+     * @test
+     */
+    public function test_show_lote()
+    {
+        $lote = factory(Lote::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/lote/lotes/'.$lote->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +63,9 @@ class LoteApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/lotes/'.$lote->id,
+            '/api/v1/lote/lotes/'.$lote->id,
             $editedLote
-        );
-
-        $this->assertApiResponse($editedLote);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +77,12 @@ class LoteApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/lotes/'.$lote->id
-         );
+             '/api/v1/lote/lotes/'.$lote->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/lotes/'.$lote->id
-        );
-
-        $this->response->assertStatus(404);
+        $id=$lote->id;
+        $data=Lote::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
     }
 }

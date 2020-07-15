@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Modules\Negocio\Entities\Negocio;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
 use Modules\Finca\Entities\Finca;
@@ -15,29 +16,60 @@ class FincaApiTest extends TestCase
      */
     public function test_create_finca()
     {
+
+
+        $negocio = factory(Negocio::class)->create();
+        $id_negocio=$negocio->id;
         $finca = factory(Finca::class)->make()->toArray();
+        $finca['negocio_id'] = $id_negocio;
+
 
         $this->response = $this->json(
             'POST',
-            '/api/fincas', $finca
-        );
+            '/api/v1/finca/fincas', $finca
+        )->assertStatus(200);
 
-        $this->assertApiResponse($finca);
+
     }
 
     /**
      * @test
      */
-    public function test_read_finca()
+    public function test_list_finca()
     {
-        $finca = factory(Finca::class)->create();
+
+        $negocio = factory(Negocio::class)->create();
+        $id_negocio=$negocio->id;
+        $finca = factory(Finca::class)->make()->toArray();
+        $finca['negocio_id'] = $id_negocio;
+        $result=factory(Finca::class)->create($finca);
+
 
         $this->response = $this->json(
             'GET',
-            '/api/fincas/'.$finca->id
-        );
+            '/api/v1/finca/fincas'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($finca->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function test_show_finca()
+    {
+
+        $negocio = factory(Negocio::class)->create();
+        $id_negocio=$negocio->id;
+        $finca = factory(Finca::class)->make()->toArray();
+        $finca['negocio_id'] = $id_negocio;
+        $result=factory(Finca::class)->create($finca);
+
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/finca/fincas/'.$result->id
+        )->assertStatus(200);
+
     }
 
     /**
@@ -45,16 +77,21 @@ class FincaApiTest extends TestCase
      */
     public function test_update_finca()
     {
-        $finca = factory(Finca::class)->create();
+        $negocio = factory(Negocio::class)->create();
+        $id_negocio=$negocio->id;
+        $finca = factory(Finca::class)->make()->toArray();
+        $finca['negocio_id'] = $id_negocio;
+        $result=factory(Finca::class)->create($finca);
         $editedFinca = factory(Finca::class)->make()->toArray();
+        $editedFinca['negocio_id'] = $id_negocio;
 
         $this->response = $this->json(
             'PUT',
-            '/api/fincas/'.$finca->id,
+            '/api/v1/finca/fincas/'.$result->id,
             $editedFinca
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedFinca);
+
     }
 
     /**
@@ -62,19 +99,23 @@ class FincaApiTest extends TestCase
      */
     public function test_delete_finca()
     {
-        $finca = factory(Finca::class)->create();
+        $negocio = factory(Negocio::class)->create();
+        $id_negocio=$negocio->id;
+        $finca = factory(Finca::class)->make()->toArray();
+        $finca['negocio_id'] = $id_negocio;
+        $result=factory(Finca::class)->create($finca);
+
 
         $this->response = $this->json(
             'DELETE',
-             '/api/fincas/'.$finca->id
-         );
+             '/api/v1/finca/fincas/'.$result->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/fincas/'.$finca->id
-        );
+        $id=$result->id;
+        $data=Finca::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }

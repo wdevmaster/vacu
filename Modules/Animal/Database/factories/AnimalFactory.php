@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Animal::class, function (Faker $faker) {
 
     return [
-        'code' => 1,
+        'code' => $faker->randomDigitNotNull,
         'fecha_nacimiento' => $faker->date('Y-m-d H:i:s'),
         'sexo' => $faker->word,
         'lote_nacimiento_id' => $faker->randomDigitNotNull,

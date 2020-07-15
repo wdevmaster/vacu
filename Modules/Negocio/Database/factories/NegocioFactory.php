@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Negocio::class, function (Faker $faker) {
 
     return [
-        'code' => 2345,
+        'code' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
         'jefe' => $faker->word,
         'telefono' => $faker->randomDigitNotNull,

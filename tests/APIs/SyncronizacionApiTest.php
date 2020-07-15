@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Modules\Negocio\Entities\Negocio;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
 use Modules\Sincronizacion\Entities\Syncronizacion;
@@ -19,62 +20,23 @@ class SyncronizacionApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/syncronizacions', $syncronizacion
-        );
-
-        $this->assertApiResponse($syncronizacion);
+            '/api/v1/sincronizacion/sincronizaciones', $syncronizacion
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_syncronizacion()
+    public function test_start_syncronizacion()
     {
+        $negocio=factory(Negocio::class)->create();
         $syncronizacion = factory(Syncronizacion::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/syncronizacions/'.$syncronizacion->id
-        );
-
-        $this->assertApiResponse($syncronizacion->toArray());
+            '/api/v1/sincronizacion/sincronizaciones/start/'.$negocio->id
+        )->assertStatus(200);
     }
 
-    /**
-     * @test
-     */
-    public function test_update_syncronizacion()
-    {
-        $syncronizacion = factory(Syncronizacion::class)->create();
-        $editedSyncronizacion = factory(Syncronizacion::class)->make()->toArray();
 
-        $this->response = $this->json(
-            'PUT',
-            '/api/syncronizacions/'.$syncronizacion->id,
-            $editedSyncronizacion
-        );
-
-        $this->assertApiResponse($editedSyncronizacion);
-    }
-
-    /**
-     * @test
-     */
-    public function test_delete_syncronizacion()
-    {
-        $syncronizacion = factory(Syncronizacion::class)->create();
-
-        $this->response = $this->json(
-            'DELETE',
-             '/api/syncronizacions/'.$syncronizacion->id
-         );
-
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/syncronizacions/'.$syncronizacion->id
-        );
-
-        $this->response->assertStatus(404);
-    }
 }

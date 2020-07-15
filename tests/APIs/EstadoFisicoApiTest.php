@@ -19,25 +19,38 @@ class EstadoFisicoApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/estado_fisicos', $estadoFisico
-        );
+            '/api/v1/estado_fisico/estados_fisicos', $estadoFisico
+        )->assertStatus(200);
 
-        $this->assertApiResponse($estadoFisico);
+
     }
 
     /**
      * @test
      */
-    public function test_read_estado_fisico()
+    public function test_list_estado_fisico()
     {
         $estadoFisico = factory(EstadoFisico::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/estado_fisicos/'.$estadoFisico->id
-        );
+            '/api/v1/estado_fisico/estados_fisicos'
+        )->assertStatus(200);
 
-        $this->assertApiResponse($estadoFisico->toArray());
+
+    }
+
+    /**
+     * @test
+     */
+    public function test_show_estado_fisico()
+    {
+        $estadoFisico = factory(EstadoFisico::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/estado_fisico/estados_fisicos/'.$estadoFisico->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +63,11 @@ class EstadoFisicoApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/estado_fisicos/'.$estadoFisico->id,
+            '/api/v1/estado_fisico/estados_fisicos/'.$estadoFisico->id,
             $editedEstadoFisico
-        );
+        )->assertStatus(200);
 
-        $this->assertApiResponse($editedEstadoFisico);
+
     }
 
     /**
@@ -66,15 +79,12 @@ class EstadoFisicoApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/estado_fisicos/'.$estadoFisico->id
+             '/api/v1/estado_fisico/estados_fisicos/'.$estadoFisico->id
          );
+        $id=$estadoFisico->id;
+        $data=EstadoFisico::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/estado_fisicos/'.$estadoFisico->id
-        );
-
-        $this->response->assertStatus(404);
     }
 }

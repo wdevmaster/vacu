@@ -19,25 +19,36 @@ class LocomocionApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/locomocions', $locomocion
-        );
+            '/api/v1/locomocion/locomociones', $locomocion
+        )->assertStatus(200);
 
-        $this->assertApiResponse($locomocion);
     }
 
     /**
      * @test
      */
-    public function test_read_locomocion()
+    public function test_list_locomocion()
     {
         $locomocion = factory(Locomocion::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/locomocions/'.$locomocion->id
-        );
+            '/api/v1/locomocion/locomociones'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($locomocion->toArray());
+    /**
+     * @test
+     */
+    public function test_show_locomocion()
+    {
+        $locomocion = factory(Locomocion::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/locomocion/locomociones/'.$locomocion->id
+        )->assertStatus(200);
+
     }
 
     /**
@@ -50,11 +61,9 @@ class LocomocionApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/locomocions/'.$locomocion->id,
+            '/api/v1/locomocion/locomociones/'.$locomocion->id,
             $editedLocomocion
-        );
-
-        $this->assertApiResponse($editedLocomocion);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +75,13 @@ class LocomocionApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/locomocions/'.$locomocion->id
-         );
+             '/api/v1/locomocion/locomociones/'.$locomocion->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/locomocions/'.$locomocion->id
-        );
+        $id=$locomocion->id;
+        $data=Locomocion::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
     }
 }

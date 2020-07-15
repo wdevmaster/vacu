@@ -19,25 +19,35 @@ class PartoApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/partos', $parto
-        );
-
-        $this->assertApiResponse($parto);
+            '/api/v1/parto/partos', $parto
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_parto()
+    public function test_list_parto()
     {
         $parto = factory(Parto::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/partos/'.$parto->id
-        );
+            '/api/v1/parto/partos'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($parto->toArray());
+
+    /**
+     * @test
+     */
+    public function test_Show_parto()
+    {
+        $parto = factory(Parto::class)->create();
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/parto/partos/'.$parto->id
+        )->assertStatus(200);
     }
 
     /**
@@ -50,11 +60,9 @@ class PartoApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/partos/'.$parto->id,
+            '/api/v1/parto/partos/'.$parto->id,
             $editedParto
-        );
-
-        $this->assertApiResponse($editedParto);
+        )->assertStatus(200);
     }
 
     /**
@@ -66,15 +74,14 @@ class PartoApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/partos/'.$parto->id
-         );
+             '/api/v1/parto/partos/'.$parto->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/partos/'.$parto->id
-        );
+        $id=$parto->id;
+        $data=Parto::all()->where('id','=',$id)->first();
+        $active_estado=$data->active;
+        $this->assertEquals(false,$active_estado);
 
-        $this->response->assertStatus(404);
+
     }
 }
