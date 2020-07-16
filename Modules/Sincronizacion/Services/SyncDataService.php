@@ -333,8 +333,10 @@ class SyncDataService implements SyncDataServiceInterface
         }
 
         $rol_botons = [];
+        $rol_apk=[];
         $user_apk=UserApk::all()->where('user_id','=',$user_id)->first();
             if($user_apk) {
+                $rol_apk=RolApk::all()->where('id', '=', $user_apk->rol_apk_id)->toArray();
                $rol_botones = RolApk::all()->where('id', '=', $user_apk->rol_apk_id)->first()->rol_apk_rol_boton;
                    if($rol_botones){
                    foreach ($rol_botones as $rol_boton) {
@@ -365,7 +367,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['servicios'] = $this->servicioRepository->all()->where('negocio_id','=',$negocio_id);
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
         $results['ventas'] = $this->ventaRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['rol_apks'] = $this->rolApkRepository->all();
+        $results['rol_apks'] = $rol_apk;
         $results['rol_botons'] = $rol_botons;
         $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id','=',$user->id);
 
