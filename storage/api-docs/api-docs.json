@@ -6274,9 +6274,8 @@
                                     "type": "array",
                                     "items": {
                                         "properties": {
-                                            "id": {
-                                                "type": "integer",
-                                                "example": "rol_boton_id"
+                                            "rol_boton_id": {
+                                                "type": "integer"
                                             }
                                         }
                                     }

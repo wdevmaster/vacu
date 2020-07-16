@@ -97,23 +97,23 @@ class UserApiTest extends TestCase
         $this->assertEquals(0,$estado);
     }
 
-//    /**
-//     * @test
-//     */
-//    public function test_assign_role_to_user()
-//    {
-//        $role= factory(Role::class)->create();
-//        $user = factory(User::class)->create();
-//
-//        $data['role_id']= $role->id;
-//
-//
-//        $this->response = $this->json(
-//            'POST',
-//            '/api/v1/usuario/usuarios/'.$user->id.'/assign/role',
-//            $data
-//
-//        )->assertStatus(200);
-//    }
+    /**
+     * @test
+     */
+    public function test_assign_role_to_user()
+    {
+        $role=  Role::create(['name' => 'Admin']);
+        $user = factory(User::class)->create();
+
+        $data['role_id']= $role->id;
+
+
+        $this->response = $this->json(
+            'POST',
+            '/api/v1/usuario/usuarios/'.$user->id.'/assign/role',
+            $data
+
+        )->assertStatus(200);
+    }
 
 }

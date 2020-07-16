@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Modules\Usuario\Entities\User;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
 use Modules\Usuario\Entities\UserApi;
@@ -15,29 +16,44 @@ class UserApiApiTest extends TestCase
      */
     public function test_create_user_api()
     {
-        $userApi = factory(UserApi::class)->make()->toArray();
+        $user = factory(User::class)->make()->toArray();
+        $user['password']= $this->faker->word;
 
         $this->response = $this->json(
             'POST',
-            '/api/user_apis', $userApi
-        );
-
-        $this->assertApiResponse($userApi);
+            '/api/v1/user_api/users_apis', $user
+        )->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function test_read_user_api()
+    public function test_list_user_api()
     {
-        $userApi = factory(UserApi::class)->create();
+        $user=factory(User::class)->create();
+        $user_id=$user->id;
+        $userApi = factory(UserApi::class)->create(['user_id'=>$user_id]);
 
         $this->response = $this->json(
             'GET',
-            '/api/user_apis/'.$userApi->id
-        );
+            '/api/v1/user_api/users_apis'
+        )->assertStatus(200);
+    }
 
-        $this->assertApiResponse($userApi->toArray());
+    /**
+     * @test
+     */
+    public function test_show_user_api()
+    {
+        $user=factory(User::class)->create();
+        $user_id=$user->id;
+        $userApi = factory(UserApi::class)->create(['user_id'=>$user_id]);
+
+
+        $this->response = $this->json(
+            'GET',
+            '/api/v1/user_api/users_apis/'.$userApi->id
+        )->assertStatus(200);
     }
 
     /**
@@ -45,16 +61,17 @@ class UserApiApiTest extends TestCase
      */
     public function test_update_user_api()
     {
-        $userApi = factory(UserApi::class)->create();
+        $user=factory(User::class)->create();
+        $user_id=$user->id;
+        $userApi = factory(UserApi::class)->create(['user_id'=>$user_id]);
+
         $editedUserApi = factory(UserApi::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
-            '/api/user_apis/'.$userApi->id,
+            '/api/v1/user_api/users_apis/'.$userApi->id,
             $editedUserApi
-        );
-
-        $this->assertApiResponse($editedUserApi);
+        )->assertStatus(200);
     }
 
     /**
@@ -62,19 +79,24 @@ class UserApiApiTest extends TestCase
      */
     public function test_delete_user_api()
     {
-        $userApi = factory(UserApi::class)->create();
+
+
+        $user=factory(User::class)->create();
+        $user_id=$user->id;
+        $userApi = factory(UserApi::class)->create(['user_id'=>$user_id]);
 
         $this->response = $this->json(
             'DELETE',
-             '/api/user_apis/'.$userApi->id
-         );
+             '/api/v1/user_api/users_apis/'.$userApi->id
+         )->assertStatus(200);
 
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/user_apis/'.$userApi->id
-        );
+        $id=$userApi->id;
+        $data=UserApi::all()->where('id','=',$id)->first();
+        $estado=1;
+        if ($data==null){
+            $estado=0;
+        }
 
-        $this->response->assertStatus(404);
+        $this->assertEquals(0,$estado);
     }
 }

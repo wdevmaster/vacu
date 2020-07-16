@@ -87,19 +87,23 @@ class RolApkApiTest extends TestCase
         $this->assertEquals(0,$estado);
     }
 
-//    /**
-//     * @test
-//     */
-//    public function test_giveRolBoton_to_rol_apk()
-//    {
-//        $rolBoton= factory(RolBoton::class)->create();
-//        $rolApk = factory(RolApk::class)->create();
-//        $giveRolBotonTo['id']=$rolBoton->id;
-//        $data['giveRolBotonTo']=$giveRolBotonTo;
-//
-//        $this->response = $this->json(
-//            'POST',
-//            '/api/v1/rol_apk/roles_apks/'.$rolApk->id.'/give/rol_boton"', $data
-//        )->assertStatus(200);
-//    }
+    /**
+     * @test
+     */
+    public function test_giveRolBoton_to_rol_apk()
+    {
+        $rolBoton= factory(RolBoton::class,5)->create();
+
+        $rolApk = factory(RolApk::class)->create();
+        foreach ($rolBoton as $item) {
+            $giveRolBotonTo[]=$item->id;
+        }
+
+        $data['giveRolBotonTo']=$giveRolBotonTo;
+
+        $this->response = $this->json(
+            'POST',
+            '/api/v1/rol_apk/roles_apks/'.$rolApk->id.'/give/rol_boton', $data
+        )->assertStatus(200);
+    }
 }

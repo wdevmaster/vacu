@@ -408,9 +408,9 @@ class RolApkAPIController extends CommonController
      *                  type="array",
      *                  @SWG\Items(
      *                      @SWG\Property(
-     *                          property="id",
-     *                          type="integer",
-     *                          example="rol_boton_id"
+     *                          property="rol_boton_id",
+     *                          type="integer"
+     *
      *                      ),
      *                  )
      *
@@ -453,12 +453,12 @@ class RolApkAPIController extends CommonController
             foreach ($input['giveRolBotonTo'] as $item) {
                $this->rolBotonRepository->find($item);
 
-               $rol_apk_rol_boton = $this->rolApkRolBotonRepository->all()->where('rol_apk_id', '=', $id_rol_apk)->where('rol_boton_id', '=', $item['id']);
+               $rol_apk_rol_boton = $this->rolApkRolBotonRepository->all()->where('rol_apk_id', '=', $id_rol_apk)->where('rol_boton_id', '=', $item);
                 if ($rol_apk_rol_boton->count()>0) {
                     return $this->sendError('This RolBoton is already assigned to this RolApk', 404);
                 }
 
-                $data = ['rol_apk_id' => $id_rol_apk, 'rol_boton_id' => $item['id']];
+                $data = ['rol_apk_id' => $id_rol_apk, 'rol_boton_id' => $item];
                 $this->rolApkRolBotonRepository->create($data);
 
             }
