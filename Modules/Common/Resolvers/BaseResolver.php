@@ -46,7 +46,8 @@ class BaseResolver
 
         $user_id=$sincronizacion->user_id;
         $accion = $sincronizacion->accion;
-        $data = json_decode($sincronizacion->data, true);
+        $data = json_decode(json_decode($sincronizacion->data, true));
+        $data = (array) $data;
         $code = $data['code'];
         $code_old=$data['code'];
         $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('user_id','=',$user_id)->where('negocio_id','=',$negocio_id)->first();
