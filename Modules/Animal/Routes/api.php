@@ -39,5 +39,14 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
 
     });
 
+    Route::prefix('leches')->group(function () {
+        Route::get('/', 'LecheAPIController@index')->name('animal.leches.index');
+        Route::post('/', 'LecheAPIController@store')->name('animal.leches.store');
+        Route::put('/{id}', 'LecheAPIController@update')->name('animal.leches.update');
+        Route::delete('/{id}', 'LecheAPIController@destroy')->name('animal.leches.destroy');
+
+    });
+
 });
+
 
