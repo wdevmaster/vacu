@@ -1,6 +1,6 @@
 <?php
 
-$module = 'Bitacora';
+$module = 'Venta';
 
 return [
 

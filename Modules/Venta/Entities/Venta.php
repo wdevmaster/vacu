@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Venta",
- *      required={"code", "fecha", "motivo", "active", "animal_id", "cliente_id","negocio_id"},
+ *      required={"code", "fecha", "motivo_venta_id", "active", "animal_id", "cliente_id","negocio_id"},
  *
  *      @SWG\Property(
  *          property="code",
@@ -22,9 +22,9 @@ use App\Models\Eloquent as Model;
  *          format="date-time"
  *      ),
  *      @SWG\Property(
- *          property="motivo",
- *          description="motivo",
- *          type="string"
+ *          property="motivo_venta_id",
+ *          description="motivo_venta_id",
+ *          type="int32"
  *      ),
  *      @SWG\Property(
  *          property="active",
@@ -62,7 +62,7 @@ class Venta extends Model
     public $fillable = [
         'code',
         'fecha',
-        'motivo',
+        'motivo_venta_id',
         'active',
         'animal_id',
         'cliente_id',
@@ -78,7 +78,7 @@ class Venta extends Model
         'id' => 'integer',
         'code' => 'integer',
         'fecha' => 'datetime',
-        'motivo' => 'string',
+        'motivo_venta_id' => 'string',
         'active' => 'boolean',
         'animal_id' => 'integer',
         'cliente_id' => 'integer',
@@ -93,7 +93,7 @@ class Venta extends Model
     public static $rules = [
         'code' => 'required',
         'fecha' => 'required',
-        'motivo' => 'required',
+        'motivo_venta_id' => 'required',
         'active' => 'required',
         'animal_id' => 'required',
         'cliente_id' => 'required',

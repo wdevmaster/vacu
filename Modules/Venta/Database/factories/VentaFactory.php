@@ -10,7 +10,7 @@ $factory->define(Venta::class, function (Faker $faker) {
     return [
         'code' => $faker->randomDigitNotNull,
         'fecha' => $faker->date('Y-m-d H:i:s'),
-        'motivo' => $faker->word,
+        'motivo_venta_id' => $faker->randomDigitNotNull,
         'active' => true,
         'animal_id' => $faker->randomDigitNotNull,
         'cliente_id' => $faker->randomDigitNotNull,

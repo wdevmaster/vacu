@@ -22,3 +22,13 @@ Route::prefix('v1/venta')->middleware('auth:api')->group(function () {
         Route::delete('/{id}', 'VentaAPIController@destroy')->name('venta.ventas.delete');
     });
 });
+
+
+Route::prefix('v1/venta')->middleware('auth:api')->group(function () {
+    Route::prefix('motivo_ventas')->group(function () {
+        Route::get('/', 'MotivoVentaAPIController@index')->name('venta.motivo_ventas.index');
+        Route::post('/', 'MotivoVentaAPIController@store')->name('venta.motivo_ventas.store');
+        Route::put('/{id}', 'MotivoVentaAPIController@update')->name('venta.motivo_ventas.update');
+        Route::delete('/{id}', 'MotivoVentaAPIController@destroy')->name('venta.motivo_ventas.delete');
+    });
+});

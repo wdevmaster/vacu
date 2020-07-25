@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateVentasTable extends Migration
+class CreateMotivoVentasTable extends Migration
 {
 
     /**
@@ -13,15 +13,11 @@ class CreateVentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('motivo_ventas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('code');
-            $table->dateTime('fecha');
-            $table->integer('motivo_venta_id');
+            $table->string('nombre');
+            $table->string('descripcion');
             $table->boolean('active')->default(true);
-            $table->integer('animal_id');
-            $table->integer('cliente_id');
-            $table->integer('negocio_id');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateVentasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ventas');
+        Schema::drop('motivo_ventas');
     }
 }
