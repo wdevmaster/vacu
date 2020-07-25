@@ -8950,8 +8950,8 @@
                     "type": "string",
                     "format": "date-time"
                 },
-                "motivo_id": {
-                    "description": "motivo_id",
+                "motivo_muerte_id": {
+                    "description": "motivo_muerte_id",
                     "type": "integer",
                     "format": "int32"
                 },

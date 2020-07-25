@@ -23,5 +23,13 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
         Route::post('/import/{negocio_id}', 'AnimalAPIController@importAnimales')->name('animal.animales.importAnimales');
     });
 
+    Route::prefix('celos')->group(function () {
+        Route::get('/', 'CeloAPIController@index')->name('animal.celos.index');
+        Route::post('/', 'CeloAPIController@store')->name('animal.celos.store');
+        Route::put('/{id}', 'CeloAPIController@update')->name('animal.celos.update');
+        Route::delete('/{id}', 'CeloAPIController@destroy')->name('animal.celos.destroy');
+
+    });
+
 });
 
