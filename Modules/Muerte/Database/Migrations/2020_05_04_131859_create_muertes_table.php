@@ -17,7 +17,7 @@ class CreateMuertesTable extends Migration
             $table->increments('id');
             $table->integer('code');
             $table->dateTime('fecha');
-            $table->integer('motivo_id');
+            $table->integer('motivo_muerte_id');
             $table->integer('animal_id');
             $table->integer('negocio_id');
             $table->boolean('active')->default(true);

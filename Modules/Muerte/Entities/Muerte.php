@@ -22,8 +22,8 @@ use App\Models\Eloquent as Model;
  *          format="date-time"
  *      ),
  *      @SWG\Property(
- *          property="motivo_id",
- *          description="motivo_id",
+ *          property="motivo_muerte_id",
+ *          description="motivo_muerte_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -57,7 +57,7 @@ class Muerte extends Model
     public $fillable = [
         'code',
         'fecha',
-        'motivo_id',
+        'motivo_muerte_id',
         'animal_id',
         'active',
         'negocio_id'
@@ -72,7 +72,7 @@ class Muerte extends Model
         'id' => 'integer',
         'code' => 'integer',
         'fecha' => 'datetime',
-        'motivo_id' => 'integer',
+        'motivo_muerte_id' => 'integer',
         'animal_id' => 'integer',
         'negocio_id' => 'integer',
         'active' => 'integer'
@@ -86,10 +86,10 @@ class Muerte extends Model
     public static $rules = [
         'code' => 'required',
         'fecha' => 'required',
-        'motivo_id' => 'required',
+        'motivo_muerte_id' => 'required',
         'animal_id' => 'required',
-        'negocio_id' => 'required',
-        'active' => 'required'
+        'negocio_id' => 'required'
+
     ];
 
     public static $tableName = 'muertes';

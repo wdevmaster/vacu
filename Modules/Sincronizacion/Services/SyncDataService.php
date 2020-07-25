@@ -36,7 +36,9 @@ use Modules\Locomocion\Entities\Locomocion;
 use Modules\Locomocion\Repositories\LocomocionRepository;
 use Modules\Lote\Entities\Lote;
 use Modules\Lote\Repositories\LoteRepository;
+use Modules\Muerte\Entities\MotivoMuerte;
 use Modules\Muerte\Entities\Muerte;
+use Modules\Muerte\Repositories\MotivoMuerteRepository;
 use Modules\Muerte\Repositories\MuerteRepository;
 use Modules\Negocio\Entities\Negocio;
 use Modules\Negocio\Repositories\NegocioRepository;
@@ -156,6 +158,8 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $motivoVentaRepository;
 
+    private $motivoMuerteRepository;
+
 
 
 
@@ -186,7 +190,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 RolBotonRepository $rolBotonRepository,
                                 BitacoraRepository $bitacoraRepository,
                                 BaseResolver $baseResolver,
-                                MotivoVentaRepository $motivoVentaRepository
+                                MotivoVentaRepository $motivoVentaRepository,
+                                MotivoMuerteRepository $motivoMuerteRepository
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
@@ -216,6 +221,7 @@ class SyncDataService implements SyncDataServiceInterface
         $this->rolBotonRepository = $rolBotonRepository;
         $this->bitacoraRepository = $bitacoraRepository;
         $this->motivoVentaRepository=$motivoVentaRepository;
+        $this->motivoMuerteRepository=$motivoMuerteRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -330,6 +336,10 @@ class SyncDataService implements SyncDataServiceInterface
                         $this->baseResolver->handle($sincronizacion, $this->motivoVentaRepository,$negocio_id);
                         break;
 
+                    case MotivoMuerte::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->motivoMuerteRepository,$negocio_id);
+                        break;
+
 
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
@@ -380,6 +390,8 @@ class SyncDataService implements SyncDataServiceInterface
         $results['rol_apks'] = $rol_apk;
         $results['rol_botons'] = $rol_botons;
         $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id','=',$user->id);
+        $results['motivo_ventas'] = $this->motivoVentaRepository->all();
+        $results['motivo_muertes'] = $this->motivoVentaRepository->all();
 
 
         return $results;
