@@ -14,10 +14,12 @@ use Modules\Animal\Entities\Animal;
 use Modules\Animal\Entities\Celo;
 use Modules\Animal\Entities\Leche;
 use Modules\Animal\Entities\Palpacion;
+use Modules\Animal\Entities\Tratamiento;
 use Modules\Animal\Repositories\AnimalRepository;
 use Modules\Animal\Repositories\CeloRepository;
 use Modules\Animal\Repositories\LecheRepository;
 use Modules\Animal\Repositories\PalpacionRepository;
+use Modules\Animal\Repositories\TratamientoRepository;
 use Modules\Bitacora\Repositories\BitacoraRepository;
 use Modules\Common\Resolvers\BaseResolver;
 use Modules\CondicionCorporal\Entities\CondicionCorporal;
@@ -172,6 +174,8 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $lecheRepository;
 
+    private $tratamientoRepository;
+
 
 
 
@@ -206,7 +210,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 MotivoMuerteRepository $motivoMuerteRepository,
                                 CeloRepository $celoRepository,
                                 PalpacionRepository $palpacionRepository,
-                                LecheRepository $lecheRepository
+                                LecheRepository $lecheRepository,
+                                TratamientoRepository $tratamientoRepository
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
@@ -240,6 +245,7 @@ class SyncDataService implements SyncDataServiceInterface
         $this->celoRepository=$celoRepository;
         $this->palpacionRepository=$palpacionRepository;
         $this->lecheRepository=$lecheRepository;
+        $this->tratamientoRepository=$tratamientoRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -370,6 +376,10 @@ class SyncDataService implements SyncDataServiceInterface
                         $this->baseResolver->handle($sincronizacion, $this->lecheRepository,$negocio_id);
                         break;
 
+                    case Tratamiento::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->tratamientoRepository,$negocio_id);
+                        break;
+
 
                 }
                 $this->syncronizacionRepository->delete($sincronizacion->id);
@@ -425,6 +435,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['celos'] = $this->celoRepository->all()->where('negocio_id','=',$negocio_id);
         $results['palpaciones'] = $this->palpacionRepository->all()->where('negocio_id','=',$negocio_id);
         $results['leches'] = $this->lecheRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['tratamientos'] = $this->tratamientoRepository->all()->where('negocio_id','=',$negocio_id);
 
 
         return $results;

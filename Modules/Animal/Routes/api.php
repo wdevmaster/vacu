@@ -47,6 +47,14 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
 
     });
 
+    Route::prefix('tratamientos')->group(function () {
+        Route::get('/', 'TratamientoAPIController@index')->name('animal.tratamientos.index');
+        Route::post('/', 'TratamientoAPIController@store')->name('animal.tratamientos.store');
+        Route::put('/{id}', 'TratamientoAPIController@update')->name('animal.tratamientos.update');
+        Route::delete('/{id}', 'TratamientoAPIController@destroy')->name('animal.tratamientos.destroy');
+
+    });
+
 });
 
 
