@@ -265,6 +265,187 @@
                 ]
             }
         },
+        "/api/v1/animal/celos": {
+            "get": {
+                "tags": [
+                    "Celo"
+                ],
+                "summary": "Get a listing of the Celos.",
+                "description": "Get all Celos",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Celo"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Celo"
+                ],
+                "summary": "Store a newly created Celo in storage",
+                "description": "Store Celo",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Celo that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Celo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Celo"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/animal/celos/{id}": {
+            "put": {
+                "tags": [
+                    "Celo"
+                ],
+                "summary": "Update the specified Celo in storage",
+                "description": "Update Celo",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Celo",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Celo that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Celo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Celo"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Celo"
+                ],
+                "summary": "Remove the specified Celo from storage",
+                "description": "Delete Celo",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Celo",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/bitacora/bitacoras": {
             "get": {
                 "tags": [
@@ -8391,6 +8572,40 @@
                 }
             }
         },
+        "Celo": {
+            "required": [
+                "code",
+                "animal_code",
+                "fecha",
+                "negocio_id"
+            ],
+            "properties": {
+                "code": {
+                    "description": "code",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "animal_code": {
+                    "description": "animal_code",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "fecha": {
+                    "description": "fecha",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "negocio_id": {
+                    "description": "negocio_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                }
+            }
+        },
         "Estado": {
             "required": [
                 "nombre",
@@ -8409,16 +8624,6 @@
                 "descripcion": {
                     "description": "descripcion",
                     "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },

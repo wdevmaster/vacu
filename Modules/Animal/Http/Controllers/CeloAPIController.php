@@ -152,7 +152,7 @@ class CeloAPIController extends CommonController
         return $this->sendResponse($celo->toArray(),
             'comun::msgs.la_model_saved_successfully',
             true,
-                    201);
+                    200);
 
             } catch (ModelNotFoundException $e) {
         return $this->sendResponse([],
