@@ -31,5 +31,13 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
 
     });
 
+    Route::prefix('palpaciones')->group(function () {
+        Route::get('/', 'PalpacionAPIController@index')->name('animal.palpaciones.index');
+        Route::post('/', 'PalpacionAPIController@store')->name('animal.palpaciones.store');
+        Route::put('/{id}', 'PalpacionAPIController@update')->name('animal.palpaciones.update');
+        Route::delete('/{id}', 'PalpacionAPIController@destroy')->name('animal.palpaciones.destroy');
+
+    });
+
 });
 

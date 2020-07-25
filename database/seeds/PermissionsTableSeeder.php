@@ -30,6 +30,16 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'animales.destroy']);
         Permission::create(['name' => 'animales.show']);
 
+        Permission::create(['name' => 'celos.index']);
+        Permission::create(['name' => 'celos.update']);
+        Permission::create(['name' => 'celos.create']);
+        Permission::create(['name' => 'celos.destroy']);
+
+        Permission::create(['name' => 'palpaciones.index']);
+        Permission::create(['name' => 'palpaciones.update']);
+        Permission::create(['name' => 'palpaciones.create']);
+        Permission::create(['name' => 'palpaciones.destroy']);
+
         Permission::create(['name' => 'clientes.index']);
         Permission::create(['name' => 'clientes.update']);
         Permission::create(['name' => 'clientes.create']);
@@ -108,6 +118,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'muertes.create']);
         Permission::create(['name' => 'muertes.destroy']);
         Permission::create(['name' => 'muertes.show']);
+
+        Permission::create(['name' => 'motivo_muertes.index']);
+        Permission::create(['name' => 'motivo_muertes.update']);
+        Permission::create(['name' => 'motivo_muertes.create']);
+        Permission::create(['name' => 'motivo_muertes.destroy']);
 
         Permission::create(['name' => 'negocios.index']);
         Permission::create(['name' => 'negocios.update']);
@@ -199,6 +214,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'ventas.create']);
         Permission::create(['name' => 'ventas.destroy']);
         Permission::create(['name' => 'ventas.show']);
+
+        Permission::create(['name' => 'motivo_ventas.index']);
+        Permission::create(['name' => 'motivo_ventas.update']);
+        Permission::create(['name' => 'motivo_ventas.create']);
+        Permission::create(['name' => 'motivo_ventas.destroy']);
 
         Permission::create(['name' => 'user_apks.index']);
         Permission::create(['name' => 'user_apks.update']);
