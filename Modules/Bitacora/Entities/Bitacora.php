@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Bitacora",
- *      required={"fecha_generacion", "codigo_usuario", "codigo_generado", "entidad", "usuario_id"},
+ *      required={"fecha_generacion", "code_usuario", "code_generado", "entidad", "usuario_id"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -21,14 +21,14 @@ use App\Models\Eloquent as Model;
  *          format="date-time"
  *      ),
  *      @SWG\Property(
- *          property="codigo_usuario",
- *          description="codigo_usuario",
+ *          property="code_usuario",
+ *          description="code_usuario",
  *          type="integer",
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="codigo_generado",
- *          description="codigo_generado",
+ *          property="code_generado",
+ *          description="code_generado",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -67,8 +67,8 @@ class Bitacora extends Model
 
     public $fillable = [
         'fecha_generacion',
-        'codigo_usuario',
-        'codigo_generado',
+        'code_usuario',
+        'code_generado',
         'entidad',
         'usuario_id'
     ];
@@ -81,8 +81,8 @@ class Bitacora extends Model
     protected $casts = [
         'id' => 'integer',
         'fecha_generacion' => 'datetime',
-        'codigo_usuario' => 'integer',
-        'codigo_generado' => 'integer',
+        'code_usuario' => 'integer',
+        'code_generado' => 'integer',
         'entidad' => 'string',
         'usuario_id' => 'integer'
     ];
@@ -94,8 +94,8 @@ class Bitacora extends Model
      */
     public static $rules = [
         'fecha_generacion' => 'required',
-        'codigo_usuario' => 'required',
-        'codigo_generado' => 'required',
+        'code_usuario' => 'required',
+        'code_generado' => 'required',
         'entidad' => 'required',
         'usuario_id' => 'required'
     ];

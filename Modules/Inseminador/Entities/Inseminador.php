@@ -7,11 +7,11 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Inseminador",
- *      required={"codigo", "nombre", "active", "negocio_id"},
+ *      required={"code", "nombre", "active", "negocio_id"},
  *
  *      @SWG\Property(
- *          property="codigo",
- *          description="codigo",
+ *          property="code",
+ *          description="code",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -42,7 +42,7 @@ class Inseminador extends Model
 
 
     public $fillable = [
-        'codigo',
+        'code',
         'nombre',
         'active',
         'negocio_id'
@@ -55,7 +55,7 @@ class Inseminador extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'codigo' => 'integer',
+        'code' => 'integer',
         'nombre' => 'string',
         'active' => 'boolean',
         'negocio_id' => 'integer'
@@ -67,7 +67,7 @@ class Inseminador extends Model
      * @var array
      */
     public static $rules = [
-        'codigo' => 'required',
+        'code' => 'required',
         'nombre' => 'required',
         'active' => 'required',
         'negocio_id' => 'required'

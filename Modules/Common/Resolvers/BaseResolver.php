@@ -65,8 +65,8 @@ class BaseResolver
                     if ($sincronizacion->tabla == 'animales'){
                         $bitacora= new Bitacora();
                         $bitacora->fecha_generacion= $fecha_actual;
-                        $bitacora->codigo_usuario=$code_old;
-                        $bitacora->codigo_generado= $code;
+                        $bitacora->code_usuario=$code_old;
+                        $bitacora->code_generado= $code;
                         $bitacora->entidad='animales';
                         $bitacora->usuario_id=$user_id;
 

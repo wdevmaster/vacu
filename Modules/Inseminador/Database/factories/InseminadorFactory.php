@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Inseminador::class, function (Faker $faker) {
 
     return [
-        'codigo' => $faker->randomDigitNotNull,
+        'code' => $faker->randomDigitNotNull,
         'nombre' => $faker->word,
         'active' => true,
         'negocio_id' => $faker->randomDigitNotNull,
