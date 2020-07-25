@@ -23,3 +23,12 @@ Route::prefix('v1/muerte')->middleware('auth:api')->group(function () {
     });
 });
 
+Route::prefix('v1/muerte')->middleware('auth:api')->group(function () {
+    Route::prefix('motivo_muertes')->group(function () {
+        Route::get('/', 'MotivoMuerteAPIController@index')->name('muerte.motivo_muertes.index');
+        Route::post('/', 'MotivoMuerteAPIController@store')->name('muerte.motivo_muertes.store');
+        Route::put('/{id}', 'MotivoMuerteAPIController@update')->name('muerte.motivo_muertes.update');
+        Route::delete('/{id}', 'MotivoMuerteAPIController@destroy')->name('muerte.motivo_muertes.delete');
+    });
+});
+
