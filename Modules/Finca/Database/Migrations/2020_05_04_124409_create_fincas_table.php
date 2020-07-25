@@ -18,7 +18,7 @@ class CreateFincasTable extends Migration
             $table->string('nombre');
             $table->integer('numero')->nullable();
             $table->integer('negocio_id')->unsigned();
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
 
             $table->foreign('negocio_id')->references('id')->on('negocios');

@@ -18,7 +18,7 @@ class CreateLocomocionsTable extends Migration
             $table->integer('code');
             $table->string('nombre');
             $table->string('descripcion');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('negocio_id');
             $table->timestamps();
         });

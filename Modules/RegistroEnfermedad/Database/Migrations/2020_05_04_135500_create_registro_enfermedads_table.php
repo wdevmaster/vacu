@@ -18,7 +18,7 @@ class CreateRegistroEnfermedadsTable extends Migration
             $table->integer('code');
             $table->dateTime('fecha_enfermedad');
             $table->dateTime('fecha');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('id_animal');
             $table->integer('id_enfermedad');
             $table->integer('negocio_id');

@@ -19,7 +19,7 @@ class CreateClientesTable extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->string('telefono');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('negocio_id');
             $table->timestamps();
         });

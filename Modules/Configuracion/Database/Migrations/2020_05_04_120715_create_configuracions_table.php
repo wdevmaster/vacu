@@ -20,7 +20,7 @@ class CreateConfiguracionsTable extends Migration
             $table->string('descripcion');
             $table->integer('valor');
             $table->integer('negocio_id');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
 
             $table->timestamps();
         });

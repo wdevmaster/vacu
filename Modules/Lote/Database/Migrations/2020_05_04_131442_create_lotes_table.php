@@ -18,7 +18,7 @@ class CreateLotesTable extends Migration
             $table->integer('code')->nullable();
             $table->integer('numero')->nullable();
             $table->string('nombre');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('finca_id');
             $table->integer('negocio_id');
             $table->timestamps();

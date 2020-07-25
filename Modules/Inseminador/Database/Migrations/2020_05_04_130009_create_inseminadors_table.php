@@ -17,7 +17,7 @@ class CreateInseminadorsTable extends Migration
             $table->increments('id');
             $table->integer('codigo');
             $table->string('nombre');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('negocio_id');
             $table->timestamps();
         });

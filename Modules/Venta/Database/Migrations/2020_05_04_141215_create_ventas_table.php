@@ -18,7 +18,7 @@ class CreateVentasTable extends Migration
             $table->integer('code');
             $table->dateTime('fecha');
             $table->string('motivo');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('animal_id');
             $table->integer('cliente_id');
             $table->integer('negocio_id');

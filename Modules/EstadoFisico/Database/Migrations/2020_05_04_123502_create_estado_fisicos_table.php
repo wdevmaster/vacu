@@ -18,7 +18,7 @@ class CreateEstadoFisicosTable extends Migration
             $table->integer('code');
             $table->datetime('fecha');
             $table->integer('animal_id');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('condicion_id');
             $table->integer('locomocion_id');
             $table->integer('negocio_id');

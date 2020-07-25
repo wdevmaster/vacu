@@ -21,7 +21,7 @@ class CreateServiciosTable extends Migration
             $table->integer('animal_inseminador');
             $table->integer('semen_id');
             $table->string('personal_inseminador');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('tipo_servicio_id');
             $table->integer('negocio_id');
             $table->timestamps();

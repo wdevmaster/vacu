@@ -18,7 +18,7 @@ class CreateProduccionsTable extends Migration
             $table->integer('code');
             $table->dateTime('fecha');
             $table->string('peso');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('animal_id');
             $table->integer('negocio_id');
             $table->timestamps();

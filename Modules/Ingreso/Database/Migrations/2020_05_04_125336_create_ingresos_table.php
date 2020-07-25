@@ -17,7 +17,7 @@ class CreateIngresosTable extends Migration
             $table->increments('id');
             $table->integer('code');
             $table->dateTime('fecha');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('animal_id');
             $table->integer('lote_id');
             $table->integer('negocio_id');

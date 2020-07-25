@@ -16,7 +16,7 @@ class CreateSemensTable extends Migration
         Schema::create('semens', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('code');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->integer('id_animal');
             $table->integer('negocio_id');
             $table->timestamps();

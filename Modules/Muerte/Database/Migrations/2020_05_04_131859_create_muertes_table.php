@@ -20,7 +20,7 @@ class CreateMuertesTable extends Migration
             $table->integer('motivo_id');
             $table->integer('animal_id');
             $table->integer('negocio_id');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

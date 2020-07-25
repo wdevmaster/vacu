@@ -20,7 +20,7 @@ class CreateNegociosTable extends Migration
             $table->string('jefe');
             $table->integer('telefono');
             $table->dateTime('fecha_creacion')->default(\Carbon\Carbon::now());
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
