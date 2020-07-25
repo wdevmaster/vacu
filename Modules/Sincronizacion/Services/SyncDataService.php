@@ -61,7 +61,9 @@ use Modules\Usuario\Entities\RolBoton;
 use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Repositories\RolApkRepository;
 use Modules\Usuario\Repositories\RolBotonRepository;
+use Modules\Venta\Entities\MotivoVenta;
 use Modules\Venta\Entities\Venta;
+use Modules\Venta\Repositories\MotivoVentaRepository;
 use Modules\Venta\Repositories\VentaRepository;
 
 class SyncDataService implements SyncDataServiceInterface
@@ -152,6 +154,8 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $baseResolver;
 
+    private $motivoVentaRepository;
+
 
 
 
@@ -181,7 +185,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 RolApkRepository $rolApkRepository,
                                 RolBotonRepository $rolBotonRepository,
                                 BitacoraRepository $bitacoraRepository,
-                                BaseResolver $baseResolver
+                                BaseResolver $baseResolver,
+                                MotivoVentaRepository $motivoVentaRepository
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
@@ -210,6 +215,7 @@ class SyncDataService implements SyncDataServiceInterface
         $this->rolApkRepository = $rolApkRepository;
         $this->rolBotonRepository = $rolBotonRepository;
         $this->bitacoraRepository = $bitacoraRepository;
+        $this->motivoVentaRepository=$motivoVentaRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -318,6 +324,10 @@ class SyncDataService implements SyncDataServiceInterface
 
                     case Venta::$tableName:
                         $this->baseResolver->handle($sincronizacion, $this->ventaRepository,$negocio_id);
+                        break;
+
+                    case MotivoVenta::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->motivoVentaRepository,$negocio_id);
                         break;
 
 

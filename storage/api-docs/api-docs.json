@@ -7703,6 +7703,187 @@
                 ]
             }
         },
+        "/api/v1/venta/motivo_ventas": {
+            "get": {
+                "tags": [
+                    "MotivoVenta"
+                ],
+                "summary": "Get a listing of the MotivoVentas.",
+                "description": "Get all MotivoVentas",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/MotivoVenta"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "MotivoVenta"
+                ],
+                "summary": "Store a newly created MotivoVenta in storage",
+                "description": "Store MotivoVenta",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "MotivoVenta that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MotivoVenta"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/MotivoVenta"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/venta/motivo_ventas/{id}": {
+            "put": {
+                "tags": [
+                    "MotivoVenta"
+                ],
+                "summary": "Update the specified MotivoVenta in storage",
+                "description": "Update MotivoVenta",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of MotivoVenta",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "MotivoVenta that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/MotivoVenta"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/MotivoVenta"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "MotivoVenta"
+                ],
+                "summary": "Remove the specified MotivoVenta from storage",
+                "description": "Delete MotivoVenta",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of MotivoVenta",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/venta/ventas": {
             "get": {
                 "tags": [
@@ -8063,8 +8244,8 @@
         "Bitacora": {
             "required": [
                 "fecha_generacion",
-                "codigo_usuario",
-                "codigo_generado",
+                "code_usuario",
+                "code_generado",
                 "entidad",
                 "usuario_id"
             ],
@@ -8079,13 +8260,13 @@
                     "type": "string",
                     "format": "date-time"
                 },
-                "codigo_usuario": {
-                    "description": "codigo_usuario",
+                "code_usuario": {
+                    "description": "code_usuario",
                     "type": "integer",
                     "format": "int32"
                 },
-                "codigo_generado": {
-                    "description": "codigo_generado",
+                "code_generado": {
+                    "description": "code_generado",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -8399,14 +8580,14 @@
         },
         "Inseminador": {
             "required": [
-                "codigo",
+                "code",
                 "nombre",
                 "active",
                 "negocio_id"
             ],
             "properties": {
-                "codigo": {
-                    "description": "codigo",
+                "code": {
+                    "description": "code",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -9220,11 +9401,32 @@
                 }
             }
         },
+        "MotivoVenta": {
+            "required": [
+                "nombre",
+                "descripcion",
+                "active"
+            ],
+            "properties": {
+                "nombre": {
+                    "description": "nombre",
+                    "type": "string"
+                },
+                "descripcion": {
+                    "description": "descripcion",
+                    "type": "string"
+                },
+                "active": {
+                    "description": "active",
+                    "type": "boolean"
+                }
+            }
+        },
         "Venta": {
             "required": [
                 "code",
                 "fecha",
-                "motivo",
+                "motivo_venta_id",
                 "active",
                 "animal_id",
                 "cliente_id",
@@ -9241,9 +9443,9 @@
                     "type": "string",
                     "format": "date-time"
                 },
-                "motivo": {
-                    "description": "motivo",
-                    "type": "string"
+                "motivo_venta_id": {
+                    "description": "motivo_venta_id",
+                    "type": "int32"
                 },
                 "active": {
                     "description": "active",

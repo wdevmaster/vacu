@@ -94,7 +94,6 @@ class Venta extends Model
         'code' => 'required',
         'fecha' => 'required',
         'motivo_venta_id' => 'required',
-        'active' => 'required',
         'animal_id' => 'required',
         'cliente_id' => 'required',
         'negocio_id' => 'required'
