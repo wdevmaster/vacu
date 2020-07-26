@@ -50,6 +50,7 @@ class BaseResolver
         $data = (array) $data;
         $code = $data['code'];
         $code_old=$data['code'];
+        $data['negocio_id'] = $negocio_id;
         $traductor_code = $this->traductorRepository->all()->where('user_code', '=', $data['code'])->where('user_id','=',$user_id)->where('negocio_id','=',$negocio_id)->first();
 
         if ($traductor_code)
