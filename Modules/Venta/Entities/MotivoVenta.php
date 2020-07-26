@@ -58,8 +58,7 @@ class MotivoVenta extends Model
      * @var array
      */
     public static $rules = [
-        'nombre' => 'required',
-        'descripcion' => 'required'
+        'nombre' => 'required'
 
     ];
 

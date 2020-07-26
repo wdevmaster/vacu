@@ -51,8 +51,7 @@ class RolBoton extends Model
      * @var array
      */
     public static $rules = [
-        'nombre' => 'required',
-        'descripcion' => 'required'
+        'nombre' => 'required'
     ];
 
     public function rol_apk_rol_boton(){

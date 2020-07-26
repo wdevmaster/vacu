@@ -85,7 +85,6 @@ class Configuracion extends Model
     public static $rules = [
         'code' => 'required',
         'clave' => 'required',
-        'descripcion' => 'required',
         'valor' => 'required',
         'active' => 'required',
         'negocio_id' => 'required',

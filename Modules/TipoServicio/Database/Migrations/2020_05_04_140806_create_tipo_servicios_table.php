@@ -18,7 +18,7 @@ class CreateTipoServiciosTable extends Migration
             $table->integer('code');
             $table->string('nombre');
             $table->boolean('active')->default(true);
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable(true);
             $table->timestamps();
         });
     }

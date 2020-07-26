@@ -16,7 +16,7 @@ class CreateRolBotonsTable extends Migration
         Schema::create('rol_botons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable(true);
             $table->timestamps();
         });
     }

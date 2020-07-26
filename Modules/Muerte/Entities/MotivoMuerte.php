@@ -58,8 +58,7 @@ class MotivoMuerte extends Model
      * @var array
      */
     public static $rules = [
-        'nombre' => 'required',
-        'descripcion' => 'required'
+        'nombre' => 'required'
     ];
 
     public static $tableName = 'motivo_muertes';

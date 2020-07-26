@@ -17,7 +17,7 @@ class CreateClientesTable extends Migration
             $table->increments('id');
             $table->integer('code');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable(true);
             $table->string('telefono');
             $table->boolean('active')->default(true);
             $table->integer('negocio_id');

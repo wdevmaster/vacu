@@ -17,7 +17,7 @@ class CreateCondicionCorporalsTable extends Migration
             $table->increments('id');
             $table->integer('code')->unique();
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable(true);
             $table->boolean('active')->default(true);
             $table->integer('negocio_id');
             $table->timestamps();

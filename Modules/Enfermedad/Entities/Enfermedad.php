@@ -70,7 +70,6 @@ class Enfermedad extends Model
     public static $rules = [
         'code' => 'required',
         'nombre' => 'required',
-        'descripcion' => 'required',
         'active' => 'required'
 
     ];

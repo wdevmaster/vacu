@@ -17,7 +17,7 @@ class CreateConfiguracionsTable extends Migration
             $table->increments('id');
             $table->integer('code')->unique();
             $table->integer('clave');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable(true);
             $table->integer('valor');
             $table->integer('negocio_id');
             $table->boolean('active')->default(true);
