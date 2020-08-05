@@ -7,7 +7,7 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Estado",
- *      required={"nombre", "descripcion"},
+ *      required={"nombre"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -17,11 +17,6 @@ use App\Models\Eloquent as Model;
  *      @SWG\Property(
  *          property="nombre",
  *          description="nombre",
- *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="descripcion",
- *          description="descripcion",
  *          type="string"
  *      )
  * )

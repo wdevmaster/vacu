@@ -9,9 +9,10 @@
 namespace Modules\Animal\Repositories;
 
 
+use App\Repositories\BaseRepository;
 use Modules\Animal\Entities\Estado;
 
-class EstadoRepository
+class EstadoRepository extends BaseRepository
 {
     /**
      * @var array

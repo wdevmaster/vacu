@@ -73,6 +73,8 @@ class SyncronizacionAPIController extends AppBaseController
      */
     public function store(CreateSyncronizacionAPIRequest $request)
     {
+        //"{\"code\":958,\"numero\":null,\"nombre\":\"dddf\",\"finca_id\":-1}"-Ejemplo del data
+
         try {
             $input = $request->all();
             $input['data'] = json_encode($input['data']);
