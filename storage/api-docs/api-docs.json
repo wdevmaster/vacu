@@ -9559,12 +9559,18 @@
         },
         "Finca": {
             "required": [
+                "code",
                 "nombre",
                 "numero",
                 "negocio_id",
                 "active"
             ],
             "properties": {
+                "code": {
+                    "description": "code",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "nombre": {
                     "description": "nombre",
                     "type": "string"

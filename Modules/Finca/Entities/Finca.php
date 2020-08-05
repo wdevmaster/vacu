@@ -7,8 +7,13 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Finca",
- *      required={"nombre", "numero", "negocio_id", "active"},
- *
+ *      required={"code","nombre", "numero", "negocio_id", "active"},
+ *       @SWG\Property(
+ *          property="code",
+ *          description="code",
+ *          type="integer",
+ *          format="int32"
+ *      ),
  *      @SWG\Property(
  *          property="nombre",
  *          description="nombre",
@@ -42,6 +47,7 @@ class Finca extends Model
 
 
     public $fillable = [
+        'code',
         'nombre',
         'numero',
         'negocio_id',
@@ -55,6 +61,7 @@ class Finca extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'code' => 'integer',
         'nombre' => 'string',
         'numero' => 'integer',
         'negocio_id' => 'integer',

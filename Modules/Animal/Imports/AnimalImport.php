@@ -38,7 +38,16 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
         $lote_id = null;
         $finca = Finca::all()->where('nombre', '=', $row['finca'])->where('negocio_id', '=', $this->negocio_id);
         if ($finca->count() == 0) {
+            $finca_all = Finca::all();
+            $mayor = 0;
+            foreach ($finca_all as $finc){
+                if ($finc->code > $mayor){
+                    $mayor = $finc->code;
+                }
+            }
+            $mayor = $mayor + 1;
             $finca_data = [
+                'code'=>$mayor,
                 'nombre' => $row['finca'],
                 'negocio_id' => $this->negocio_id,
                 'active' => true
