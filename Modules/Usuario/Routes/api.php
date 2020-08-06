@@ -34,13 +34,6 @@ Route::prefix('v1/usuario')->middleware('auth:api')->group(function () {
         Route::post('/{id}/assign/role', 'UserAPIController@assignRoleTo')->name('usuario.usuarios.assign.role');
     });
 
-    Route::prefix('clientes_negocios')->group(function () {
-        Route::get('/', 'ClienteNegocioAPIController@index')->name('usuario.clientes_negocios.index');
-        Route::get('/{id}', 'ClienteNegocioAPIController@show')->name('usuario.clientes_negocios.show');
-        Route::post('/', 'ClienteNegocioAPIController@store')->name('usuario.clientes_negocios.store');
-        Route::put('/{id}', 'ClienteNegocioAPIController@update')->name('usuario.clientes_negocios.update');
-        Route::delete('/{id}', 'ClienteNegocioAPIController@destroy')->name('usuario.clientes_negocios.delete');
-    });
 
 });
 
