@@ -2,16 +2,16 @@
 
 namespace Modules\Usuario\Repositories;
 
-use Modules\Usuario\Entities\RolApkRolBoton;
 use App\Repositories\BaseRepository;
+use Modules\Usuario\Entities\RolHasRolBoton;
 
 /**
- * Class RolApkRolBotonRepository
+ * Class RolHasRolBotonRepository
  * @package Modules\Usuario\Repositories
  * @version June 4, 2020, 7:26 pm UTC
 */
 
-class RolApkRolBotonRepository extends BaseRepository
+class RolHasRolBotonRepository extends BaseRepository
 {
     /**
      * @var array
@@ -35,6 +35,7 @@ class RolApkRolBotonRepository extends BaseRepository
      **/
     public function model()
     {
-        return RolApkRolBoton::class;
+        return RolHasRolBoton::class;
     }
+
 }

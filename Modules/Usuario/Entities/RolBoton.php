@@ -55,7 +55,7 @@ class RolBoton extends Model
     ];
 
     public function rol_apk_rol_boton(){
-        return $this->hasMany(RolApkRolBoton::class);
+        return $this->hasMany(RolHasRolBoton::class);
     }
 
     public static $tableName = 'rol_botons';

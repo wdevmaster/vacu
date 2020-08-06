@@ -2,10 +2,10 @@
 
 namespace Modules\Usuario\Http\Requests;
 
-use Modules\Usuario\Entities\UserApi;
 use InfyOm\Generator\Request\APIRequest;
+use Modules\Usuario\Entities\RolHasRolBoton;
 
-class UpdateUserApiAPIRequest extends APIRequest
+class CreateRolHasRolBotonAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class UpdateUserApiAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return RolHasRolBoton::$rules;
     }
 }
