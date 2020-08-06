@@ -88,5 +88,5 @@ class Cliente extends Model
         'negocio_id' => 'required'
     ];
 
-    
+    public static $tableName = 'clientes';
 }

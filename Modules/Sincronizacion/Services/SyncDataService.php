@@ -23,6 +23,8 @@ use Modules\Animal\Repositories\LecheRepository;
 use Modules\Animal\Repositories\PalpacionRepository;
 use Modules\Animal\Repositories\TratamientoRepository;
 use Modules\Bitacora\Repositories\BitacoraRepository;
+use Modules\Cliente\Entities\Cliente;
+use Modules\Cliente\Repositories\ClienteRepository;
 use Modules\Common\Resolvers\BaseResolver;
 use Modules\CondicionCorporal\Entities\CondicionCorporal;
 use Modules\CondicionCorporal\Repositories\CondicionCorporalRepository;
@@ -179,6 +181,8 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $estadoRepository;
 
+    private $clienteRepository;
+
 
 
 
@@ -214,7 +218,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 PalpacionRepository $palpacionRepository,
                                 LecheRepository $lecheRepository,
                                 TratamientoRepository $tratamientoRepository,
-                                EstadoRepository $estadoRepository
+                                EstadoRepository $estadoRepository,
+                                ClienteRepository $clienteRepository
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
@@ -249,6 +254,7 @@ class SyncDataService implements SyncDataServiceInterface
         $this->lecheRepository=$lecheRepository;
         $this->tratamientoRepository=$tratamientoRepository;
         $this->estadoRepository=$estadoRepository;
+        $this->clienteRepository= $clienteRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -278,6 +284,10 @@ class SyncDataService implements SyncDataServiceInterface
 
                     case Animal::$tableName:
                         $this->baseResolver->handle($sincronizacion, $this->animalRepository,$negocio_id );
+                        break;
+
+                    case Cliente::$tableName:
+                        $this->baseResolver->handle($sincronizacion, $this->clienteRepository,$negocio_id );
                         break;
 
                     case Estado::$tableName:
@@ -413,6 +423,7 @@ class SyncDataService implements SyncDataServiceInterface
 
         $results['configuraciones'] = $this->configuracionRepository->all()->where('negocio_id','=',$negocio_id);
         $results['animales'] = $this->animalRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['clientes'] = $this->clienteRepository->all()->where('negocio_id','=',$negocio_id);
         $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id','=',$negocio_id);
         $results['enfermedades'] = $this->enfermedadRepository->all();
         $results['negocios'] = $this->negocioRepository->all()->where('id','=',$negocio_id);
