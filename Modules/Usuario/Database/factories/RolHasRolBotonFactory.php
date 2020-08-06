@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use Modules\Usuario\Entities\UserApi;
+use \Modules\Usuario\Entities\RolHasRolBoton;
 use Faker\Generator as Faker;
 
-$factory->define(UserApi::class, function (Faker $faker) {
+$factory->define(RolHasRolBoton::class, function (Faker $faker) {
 
     return [
         'created_at' => $faker->date('Y-m-d H:i:s'),

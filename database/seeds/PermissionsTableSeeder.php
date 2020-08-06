@@ -230,33 +230,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'motivo_ventas.create']);
         Permission::create(['name' => 'motivo_ventas.destroy']);
 
-        Permission::create(['name' => 'user_apks.index']);
-        Permission::create(['name' => 'user_apks.update']);
-        Permission::create(['name' => 'user_apks.create']);
-        Permission::create(['name' => 'user_apks.destroy']);
-        Permission::create(['name' => 'user_apks.show']);
-        Permission::create(['name' => 'user_apks.giveRolApkToUserApk']);
 
-
-        Permission::create(['name' => 'user_apis.index']);
-        Permission::create(['name' => 'user_apis.update']);
-        Permission::create(['name' => 'user_apis.create']);
-        Permission::create(['name' => 'user_apis.destroy']);
-        Permission::create(['name' => 'user_apis.show']);
-
-        Permission::create(['name' => 'rol_apks.index']);
-        Permission::create(['name' => 'rol_apks.update']);
-        Permission::create(['name' => 'rol_apks.create']);
-        Permission::create(['name' => 'rol_apks.destroy']);
-        Permission::create(['name' => 'rol_apks.show']);
-        Permission::create(['name' => 'rol_apks.giveRolBotonToRolApk']);
-
-
-        Permission::create(['name' => 'rol_apk_rol_botons.index']);
-        Permission::create(['name' => 'rol_apk_rol_botons.update']);
-        Permission::create(['name' => 'rol_apk_rol_botons.create']);
-        Permission::create(['name' => 'rol_apk_rol_botons.destroy']);
-        Permission::create(['name' => 'rol_apk_rol_botons.show']);
 
         Permission::create(['name' => 'bitacoras.index']);
 

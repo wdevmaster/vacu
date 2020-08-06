@@ -7,7 +7,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Dtos\RolDto;
+use Modules\Usuario\Repositories\RolBotonRepository;
 use Modules\Usuario\Repositories\RoleRepository;
+use Modules\Usuario\Repositories\RolHasRolBotonRepository;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -19,9 +21,15 @@ class RoleAPIController extends CommonController
     /** @var  RoleRepository */
     private $roleRepository;
 
-    public function __construct(RoleRepository $roleRepo)
+    private $rolBotonRepository;
+
+    private $rolHasRolBotonRepository;
+
+    public function __construct(RoleRepository $roleRepo,RolBotonRepository $rolBotonRepository, RolHasRolBotonRepository $rolHasRolBotonRepository)
     {
         $this->roleRepository = $roleRepo;
+        $this->rolBotonRepository=$rolBotonRepository;
+        $this->rolHasRolBotonRepository=$rolHasRolBotonRepository;
     }
 
     /**
@@ -429,6 +437,18 @@ class RoleAPIController extends CommonController
      *
      *
      *              ),
+     *
+     *           @SWG\Property(
+     *                  property="giveRolBotonTo",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                      type="integer",
+     *                      example="id rol _boton"
+     *                  )
+     *
+     *
+     *              ),
+     *
      *          )
      *      ),
      *      @SWG\Response(
@@ -468,6 +488,25 @@ class RoleAPIController extends CommonController
 
        foreach ($input['givePermissionTo']  as $item){
            $role->givePermissionTo($item);
+       }
+
+       if (isset($input['giveRolBotonTo'])) {
+           foreach ($input['giveRolBotonTo'] as $rol_boton) {
+              $boton = $this->rolBotonRepository->find($rol_boton);
+
+               if (empty($boton)) {
+                   return $this->sendError('Role Boton not found', 404);
+               }
+
+               $rol_has_rol_boton = $this->rolHasRolBotonRepository->all()->where('rol_id', '=', $id)->where('rol_boton_id', '=', $rol_boton);
+               if ($rol_has_rol_boton->count() > 0) {
+                   return $this->sendError('This RolBoton is already assigned to this Role', 404);
+               }
+
+               $data = ['rol_id' => $id, 'rol_boton_id' => $rol_boton];
+               $this->rolHasRolBotonRepository->create($data);
+
+           }
        }
 
        return $this->sendSuccess('Permissions assigned successfully');

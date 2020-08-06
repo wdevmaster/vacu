@@ -70,6 +70,7 @@ use Modules\TipoServicio\Entities\TipoServicio;
 use Modules\TipoServicio\Repositories\TipoServicioRepository;
 use Modules\Usuario\Entities\RolApk;
 use Modules\Usuario\Entities\RolBoton;
+use Modules\Usuario\Entities\RolHasRolBoton;
 use Modules\Usuario\Entities\UserApk;
 use Modules\Usuario\Repositories\RolApkRepository;
 use Modules\Usuario\Repositories\RolBotonRepository;
@@ -158,8 +159,6 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $ventaRepository;
 
-    private $rolApkRepository;
-
     private $rolBotonRepository;
 
     private $bitacoraRepository;
@@ -206,7 +205,6 @@ class SyncDataService implements SyncDataServiceInterface
                                 ServicioRepository $servicioRepository,
                                 TipoServicioRepository $tipoServicioRepository,
                                 VentaRepository $ventaRepository,
-                                RolApkRepository $rolApkRepository,
                                 RolBotonRepository $rolBotonRepository,
                                 BitacoraRepository $bitacoraRepository,
                                 BaseResolver $baseResolver,
@@ -242,7 +240,6 @@ class SyncDataService implements SyncDataServiceInterface
         $this->servicioRepository = $servicioRepository;
         $this->tipoServicioRepository = $tipoServicioRepository;
         $this->ventaRepository = $ventaRepository;
-        $this->rolApkRepository = $rolApkRepository;
         $this->rolBotonRepository = $rolBotonRepository;
         $this->bitacoraRepository = $bitacoraRepository;
         $this->motivoVentaRepository=$motivoVentaRepository;
@@ -402,18 +399,17 @@ class SyncDataService implements SyncDataServiceInterface
             $traduccion->delete();
         }
 
+
         $rol_botons = [];
-        $rol_apk=[];
-        $user_apk=UserApk::all()->where('user_id','=',$user_id)->first();
-            if($user_apk) {
-                $rol_apk=RolApk::all()->where('id', '=', $user_apk->rol_apk_id)->toArray();
-               $rol_botones = RolApk::all()->where('id', '=', $user_apk->rol_apk_id)->first()->rol_apk_rol_boton;
-                   if($rol_botones){
-                   foreach ($rol_botones as $rol_boton) {
-                       $rol_botons[] = $rol_boton->rol_boton;
-                   }
-                     }
-       }
+        $roles=$user->roles()->get();
+        foreach ($roles as $role){
+        $rol_has=RolHasRolBoton::all()->where('rol_id', '=',$role->id)->toArray();
+        foreach ($rol_has as $rol)  {
+        $rol_botones =RolBoton::all()->where('id','=',$rol['rol_boton_id'])->first();
+        $rol_botons[] = $rol_botones;
+
+             }
+        }
 
         $results['configuraciones'] = $this->configuracionRepository->all()->where('negocio_id','=',$negocio_id);
         $results['animales'] = $this->animalRepository->all()->where('negocio_id','=',$negocio_id);
@@ -437,7 +433,6 @@ class SyncDataService implements SyncDataServiceInterface
         $results['servicios'] = $this->servicioRepository->all()->where('negocio_id','=',$negocio_id);
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
         $results['ventas'] = $this->ventaRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['rol_apks'] = $rol_apk;
         $results['rol_botons'] = $rol_botons;
         $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id','=',$user->id);
         $results['motivo_ventas'] = $this->motivoVentaRepository->all();

@@ -3,23 +3,24 @@
 namespace Modules\Usuario\Entities;
 
 use App\Models\Eloquent as Model;
+use App\Models\Role;
 
 /**
  * @SWG\Definition(
- *      definition="RolApkRolBoton",
+ *      definition="RolHasRolBoton",
  *      required={""}
  * )
  */
-class RolApkRolBoton extends Model
+class RolHasRolBoton extends Model
 {
 
-    public $table = 'rol_apk_rol_botons';
+    public $table = 'rol_has_rol_botons';
     
 
 
 
     public $fillable = [
-        'rol_apk_id',
+        'rol_id',
         'rol_boton_id'
     ];
 
@@ -29,8 +30,8 @@ class RolApkRolBoton extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'rol_apk_id' => 'integer',
+        'id' => 'bigInteger',
+        'rol_id' => 'integer',
         'rol_boton_id' => 'integer'
     ];
 
@@ -40,13 +41,13 @@ class RolApkRolBoton extends Model
      * @var array
      */
     public static $rules = [
-        'rol_apk_id' => 'required',
+        'rol_id' => 'required',
         'rol_boton_id' => 'required'
     ];
 
-    public function rol_apk()
+    public function role()
     {
-        return $this->belongsTo(RolApk::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function rol_boton()

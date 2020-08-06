@@ -29,6 +29,16 @@ use Modules\Usuario\Entities\User;
  *              )
  *         )
  *      ),
+ *      @SWG\Property(
+ *          property="roles_botones",
+ *          type="array",
+ *          @SWG\Items(
+ *           @SWG\Property(
+ *                  property="name",
+ *                  type="string"
+ *              )
+ *         )
+ *      ),
  *     @SWG\Property(
  *          property="permisos",
  *          type="array",
@@ -45,6 +55,7 @@ class UserDto
 {
     public $user;
     public $roles;
+    public $roles_botones;
     public $permisos;
 
     /**
@@ -55,6 +66,7 @@ class UserDto
     {
         $this->user = $user;
         $this->roles = $user->roles()->pluck('name');
+        $this->roles_botones = $user->roles_botones();
         $this->permisos = $user->getAllPermissions();
     }
 
