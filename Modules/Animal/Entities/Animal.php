@@ -157,7 +157,6 @@ class Animal extends Model
         'lote_actual_id' => 'required',
         'locomocion_code' => 'required',
         'inventario_id' => 'required',
-        'temporal_id' => 'required',
         'negocio_id' => 'required',
         'active' => 'required'
     ];
