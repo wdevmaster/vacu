@@ -18,7 +18,7 @@ class CreateAnimalsTable extends Migration
             $table->integer('code')->unique();
             $table->datetime('fecha_nacimiento')->nullable();
             $table->string('sexo');
-            $table->boolean('temporal')->default(false);
+            $table->boolean('temporal')->default(false)->nullable();
             $table->integer('estado_id')->unsigned()->nullable();
             $table->integer('lote_nacimiento_id')->nullable();
             $table->integer('madre_codigo')->nullable();
