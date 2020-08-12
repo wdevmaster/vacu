@@ -58,7 +58,7 @@ class UsuarioDatabaseSeeder extends Seeder
         $user1 = factory(User::class)->create([
             'name' => 'dueno',
             'email' => 'dueno@medialuna.com',
-            'password' => 'dueno123*',
+            'password' => Hash::make('dueno123*'),
             'negocio_id' => 1,
 
         ]);
@@ -90,7 +90,7 @@ class UsuarioDatabaseSeeder extends Seeder
         $user2 = factory(User::class)->create([
             'name' => 'Vaquero Reproductor',
             'email' => 'vr@medialuna.com',
-            'password' => 'vaqueroR123*',
+            'password' => Hash::make('vaqueroR123*'),
             'negocio_id' => 1,
 
         ]);
@@ -122,7 +122,7 @@ class UsuarioDatabaseSeeder extends Seeder
         $user3 = factory(User::class)->create([
             'name' => 'Vaquero Administrador',
             'email' => 'va@medialuna.com',
-            'password' => 'vaqueroA123*',
+            'password' => Hash::make('vaqueroA123*'),
             'negocio_id' => 1,
 
         ]);

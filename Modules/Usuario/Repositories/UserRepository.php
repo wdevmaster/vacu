@@ -5,6 +5,7 @@ namespace Modules\Usuario\Repositories;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Modules\Usuario\Entities\User;
+use phpseclib\Crypt\Hash;
 
 
 /**
@@ -65,5 +66,22 @@ class UserRepository extends BaseRepository
         $results = $query->paginate($paginate);
 
         return $results;
+    }
+
+
+    public function create($input)
+    {
+        $password = Hash::make($input['password']);
+        $input['password'] = $password;
+
+        return parent::create($input);
+    }
+
+
+    public function update($input, $id)
+    {
+        $password = Hash::make($input['password']);
+        $input['password'] = $password;
+        return parent::update($input, $id);
     }
 }
