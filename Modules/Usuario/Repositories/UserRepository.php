@@ -4,8 +4,8 @@ namespace Modules\Usuario\Repositories;
 
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
-use Modules\Usuario\Entities\User;
 use Illuminate\Support\Facades\Hash;
+use Modules\Usuario\Entities\User;
 
 
 /**
@@ -83,5 +83,23 @@ class UserRepository extends BaseRepository
         $password = Hash::make($input['password']);
         $input['password'] = $password;
         return parent::update($input, $id);
+    }
+
+    public function paginate($perPage, $columns = ['*'])
+    {
+
+        $query = $this->allQuery()->where('email', '!=', 'apk@test.com');
+
+        return $query->paginate($perPage, $columns);
+
+    }
+
+    public function all($search = [], $skip = null, $limit = null, $columns = ['*'])
+    {
+
+        $query = $this->allQuery($search, $skip, $limit)->where('email', '!=', 'apk@test.com');
+
+        return $query->get($columns);
+
     }
 }
