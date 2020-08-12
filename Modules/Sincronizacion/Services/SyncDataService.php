@@ -70,12 +70,10 @@ use Modules\Sincronizacion\Entities\Traductor;
 use Modules\Sincronizacion\Repositories\SyncronizacionRepository;
 use Modules\TipoServicio\Entities\TipoServicio;
 use Modules\TipoServicio\Repositories\TipoServicioRepository;
-use Modules\Usuario\Entities\RolApk;
 use Modules\Usuario\Entities\RolBoton;
 use Modules\Usuario\Entities\RolHasRolBoton;
-use Modules\Usuario\Entities\UserApk;
-use Modules\Usuario\Repositories\RolApkRepository;
 use Modules\Usuario\Repositories\RolBotonRepository;
+use Modules\Usuario\Repositories\UserRepository;
 use Modules\Venta\Entities\MotivoVenta;
 use Modules\Venta\Entities\Venta;
 use Modules\Venta\Repositories\MotivoVentaRepository;
@@ -183,7 +181,7 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $clienteRepository;
 
-
+    private $userRepository;
 
 
     public function __construct(SyncronizacionRepository $syncronizacionRepository,
@@ -219,7 +217,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 LecheRepository $lecheRepository,
                                 TratamientoRepository $tratamientoRepository,
                                 EstadoRepository $estadoRepository,
-                                ClienteRepository $clienteRepository
+                                ClienteRepository $clienteRepository,
+                                UserRepository $userRepository
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
@@ -247,14 +246,15 @@ class SyncDataService implements SyncDataServiceInterface
         $this->ventaRepository = $ventaRepository;
         $this->rolBotonRepository = $rolBotonRepository;
         $this->bitacoraRepository = $bitacoraRepository;
-        $this->motivoVentaRepository=$motivoVentaRepository;
-        $this->motivoMuerteRepository=$motivoMuerteRepository;
-        $this->celoRepository=$celoRepository;
-        $this->palpacionRepository=$palpacionRepository;
-        $this->lecheRepository=$lecheRepository;
-        $this->tratamientoRepository=$tratamientoRepository;
-        $this->estadoRepository=$estadoRepository;
-        $this->clienteRepository= $clienteRepository;
+        $this->motivoVentaRepository = $motivoVentaRepository;
+        $this->motivoMuerteRepository = $motivoMuerteRepository;
+        $this->celoRepository = $celoRepository;
+        $this->palpacionRepository = $palpacionRepository;
+        $this->lecheRepository = $lecheRepository;
+        $this->tratamientoRepository = $tratamientoRepository;
+        $this->estadoRepository = $estadoRepository;
+        $this->clienteRepository = $clienteRepository;
+        $this->userRepository = $userRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -268,7 +268,6 @@ class SyncDataService implements SyncDataServiceInterface
     {
 
         $user = Auth::user();
-        $user_id=$user->id;
         $sincronizaciones = $this->syncronizacionRepository->all()->where('user_id', '=', $user->id);
         $results = array();
 
@@ -279,122 +278,122 @@ class SyncDataService implements SyncDataServiceInterface
                 switch ($sincronizacion->tabla) {
 
                     case Configuracion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->configuracionRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->configuracionRepository, $negocio_id);
                         break;
 
                     case Animal::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->animalRepository,$negocio_id );
+                        $this->baseResolver->handle($sincronizacion, $this->animalRepository, $negocio_id);
                         break;
 
                     case Cliente::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->clienteRepository,$negocio_id );
+                        $this->baseResolver->handle($sincronizacion, $this->clienteRepository, $negocio_id);
                         break;
 
                     case Estado::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->estadoRepository,$negocio_id );
+                        $this->baseResolver->handle($sincronizacion, $this->estadoRepository, $negocio_id);
                         break;
 
                     case CondicionCorporal::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->condicionCorporalRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->condicionCorporalRepository, $negocio_id);
                         break;
 
                     case Enfermedad::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->enfermedadRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->enfermedadRepository, $negocio_id);
                         break;
 
                     case Negocio::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->negocioRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->negocioRepository, $negocio_id);
                         break;
 
                     case EstadoFisico::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->estadoFisicoRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->estadoFisicoRepository, $negocio_id);
                         break;
 
                     case Evento::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->eventoRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->eventoRepository, $negocio_id);
                         break;
 
                     case Finca::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->fincaRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->fincaRepository, $negocio_id);
                         break;
 
                     case Ingreso::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->ingresoRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->ingresoRepository, $negocio_id);
                         break;
                     case Inseminador::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->inseminadorRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->inseminadorRepository, $negocio_id);
                         break;
 
                     case Lactancia::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->lactanciaRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->lactanciaRepository, $negocio_id);
                         break;
 
                     case Locomocion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->locomocionRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->locomocionRepository, $negocio_id);
                         break;
 
                     case Lote::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->loteRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->loteRepository, $negocio_id);
                         break;
 
                     case Muerte::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->muerteRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->muerteRepository, $negocio_id);
                         break;
 
                     case Parto::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->partoRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->partoRepository, $negocio_id);
                         break;
 
                     case Produccion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->produccionRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->produccionRepository, $negocio_id);
                         break;
 
                     case Raza::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->razaRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->razaRepository, $negocio_id);
                         break;
 
                     case RegistroEnfermedad::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->registroEnfermedadRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->registroEnfermedadRepository, $negocio_id);
                         break;
 
                     case Semen::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->semenRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->semenRepository, $negocio_id);
                         break;
 
                     case Servicio::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->servicioRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->servicioRepository, $negocio_id);
                         break;
 
                     case TipoServicio::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->tipoServicioRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->tipoServicioRepository, $negocio_id);
                         break;
 
                     case Venta::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->ventaRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->ventaRepository, $negocio_id);
                         break;
 
                     case MotivoVenta::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->motivoVentaRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->motivoVentaRepository, $negocio_id);
                         break;
 
                     case MotivoMuerte::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->motivoMuerteRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->motivoMuerteRepository, $negocio_id);
                         break;
 
                     case Celo::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->celoRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->celoRepository, $negocio_id);
                         break;
 
                     case Palpacion::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->palpacionRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->palpacionRepository, $negocio_id);
                         break;
 
                     case Leche::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->lecheRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->lecheRepository, $negocio_id);
                         break;
 
                     case Tratamiento::$tableName:
-                        $this->baseResolver->handle($sincronizacion, $this->tratamientoRepository,$negocio_id);
+                        $this->baseResolver->handle($sincronizacion, $this->tratamientoRepository, $negocio_id);
                         break;
 
 
@@ -405,57 +404,61 @@ class SyncDataService implements SyncDataServiceInterface
 
 
         $traducciones = Traductor::all();
-        foreach ($traducciones as $traduccion){
+        foreach ($traducciones as $traduccion) {
             $traduccion->delete();
         }
 
 
         $rol_botons = [];
-        $roles=$user->roles()->get();
-        foreach ($roles as $role){
-        $rol_has=RolHasRolBoton::all()->where('rol_id', '=',$role->id)->toArray();
-        foreach ($rol_has as $rol)  {
-        $rol_botones =RolBoton::all()->where('id','=',$rol['rol_boton_id'])->first();
-        $rol_botons[] = $rol_botones;
+        $roles = $user->roles()->get();
+        foreach ($roles as $role) {
+            $rol_has = RolHasRolBoton::all()->where('rol_id', '=', $role->id)->toArray();
+            foreach ($rol_has as $rol) {
+                $rol_botones = RolBoton::all()->where('id', '=', $rol['rol_boton_id'])->first();
+                $rol_botons[] = $rol_botones;
 
-             }
+            }
         }
 
-        $results['configuraciones'] = $this->configuracionRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['animales'] = $this->animalRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['clientes'] = $this->clienteRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['configuraciones'] = $this->configuracionRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['animales'] = $this->animalRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['clientes'] = $this->clienteRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['enfermedades'] = $this->enfermedadRepository->all();
-        $results['negocios'] = $this->negocioRepository->all()->where('id','=',$negocio_id);
-        $results['estados_fisicos'] = $this->estadoFisicoRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['eventos'] = $this->eventoRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['fincas'] = $this->fincaRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['ingresos'] = $this->ingresoRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['inseminadores'] = $this->inseminadorRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['lactancias'] = $this->lactanciaRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['locomociones'] = $this->locomocionRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['lotes'] = $this->loteRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['muertes'] = $this->muerteRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['partos'] = $this->partoRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['producciones'] = $this->produccionRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['negocios'] = $this->negocioRepository->all()->where('id', '=', $negocio_id);
+        $results['estados_fisicos'] = $this->estadoFisicoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['eventos'] = $this->eventoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['fincas'] = $this->fincaRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['ingresos'] = $this->ingresoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['inseminadores'] = $this->inseminadorRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['lactancias'] = $this->lactanciaRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['locomociones'] = $this->locomocionRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['lotes'] = $this->loteRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['muertes'] = $this->muerteRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['partos'] = $this->partoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['producciones'] = $this->produccionRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['razas'] = $this->razaRepository->all();
-        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['semens'] = $this->semenRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['servicios'] = $this->servicioRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['semens'] = $this->semenRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['servicios'] = $this->servicioRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
-        $results['ventas'] = $this->ventaRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['ventas'] = $this->ventaRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['rol_botons'] = $rol_botons;
-        $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id','=',$user->id);
+        $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id', '=', $user->id);
         $results['motivo_ventas'] = $this->motivoVentaRepository->all();
         $results['motivo_muertes'] = $this->motivoVentaRepository->all();
-        $results['celos'] = $this->celoRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['palpaciones'] = $this->palpacionRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['leches'] = $this->lecheRepository->all()->where('negocio_id','=',$negocio_id);
-        $results['tratamientos'] = $this->tratamientoRepository->all()->where('negocio_id','=',$negocio_id);
+        $results['celos'] = $this->celoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['palpaciones'] = $this->palpacionRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['leches'] = $this->lecheRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['tratamientos'] = $this->tratamientoRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['estados'] = $this->estadoRepository->all();
 
-        return $results;
+        if ($user->email == 'apk@test.com') {
 
+            $results['usuarios'] = $this->userRepository->all()->where('negocio_id', '=', $negocio_id)->makeVisible(['password']);
+        }
+
+        return $results;
 
     }
 }
