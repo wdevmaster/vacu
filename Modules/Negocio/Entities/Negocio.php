@@ -86,17 +86,9 @@ class Negocio extends Model
         'nombre' => 'required',
         'jefe' => 'required',
         'telefono' => 'required',
-        'fecha_creacion' => 'required',
         'active' => 'required'
     ];
 
     public static $tableName = 'negocios';
-
-
-    public function clientes_negocios()
-    {
-        $this->hasMany(ClienteNegocio::class);
-    }
-
 
 }
