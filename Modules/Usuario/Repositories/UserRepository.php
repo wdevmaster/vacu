@@ -5,7 +5,7 @@ namespace Modules\Usuario\Repositories;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use Modules\Usuario\Entities\User;
-use phpseclib\Crypt\Hash;
+use Illuminate\Support\Facades\Hash;
 
 
 /**
