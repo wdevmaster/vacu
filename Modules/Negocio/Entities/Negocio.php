@@ -86,7 +86,6 @@ class Negocio extends Model
         'nombre' => 'required',
         'jefe' => 'required',
         'telefono' => 'required',
-        'fecha_creacion' => 'required',
         'active' => 'required'
     ];
 
