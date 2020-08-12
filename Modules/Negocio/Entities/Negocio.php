@@ -91,11 +91,4 @@ class Negocio extends Model
 
     public static $tableName = 'negocios';
 
-
-    public function clientes_negocios()
-    {
-        $this->hasMany(ClienteNegocio::class);
-    }
-
-
 }
