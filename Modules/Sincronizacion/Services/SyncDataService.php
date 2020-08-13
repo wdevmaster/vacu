@@ -455,7 +455,7 @@ class SyncDataService implements SyncDataServiceInterface
 
         if ($user->email == 'apk@test.com') {
 
-            $results['usuarios'] = $this->userRepository->all()->where('negocio_id', '=', $negocio_id)->makeVisible(['password']);
+            $results['usuarios'] = $this->userRepository->allUsersSync($negocio_id)->makeVisible(['password']);
         }
 
         return $results;

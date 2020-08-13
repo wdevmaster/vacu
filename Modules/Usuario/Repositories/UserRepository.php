@@ -102,4 +102,10 @@ class UserRepository extends BaseRepository
         return $query->get($columns);
 
     }
+
+    public function allUsersSync($negocio_id){
+        $query = $this->allQuery()->where('negocio_id', '=', $negocio_id);
+
+        return $query->get();
+    }
 }
