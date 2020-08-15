@@ -111,8 +111,6 @@ class Servicio extends Model
         'code' => 'required',
         'fecha' => 'required',
         'animal_inceminado' => 'required',
-        'animal_inseminador' => 'required',
-        'semen_id' => 'required',
         'personal_inseminador' => 'required',
         'active' => 'required',
         'tipo_servicio_id' => 'required',
