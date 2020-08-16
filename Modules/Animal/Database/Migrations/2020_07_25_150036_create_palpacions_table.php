@@ -17,7 +17,7 @@ class CreatePalpacionsTable extends Migration
             $table->increments('id');
             $table->integer('code');
             $table->integer('animal_code');
-            $table->integer('celo_id');
+            $table->integer('celo_id')->nullable();
             $table->integer('negocio_id');
             $table->datetime('fecha');
             $table->boolean('active')->default(true);

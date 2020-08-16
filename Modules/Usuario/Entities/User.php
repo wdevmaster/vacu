@@ -2,14 +2,10 @@
 
 namespace Modules\Usuario\Entities;
 
-use App\Models\Permission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Contracts\Role;
-use Spatie\Permission\Exceptions\PermissionDoesNotExist;
-use Spatie\Permission\Guard;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -53,8 +49,6 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable, HasRoles;
 
     public $table = 'users';
-    
-
 
 
     public $fillable = [
@@ -99,18 +93,19 @@ class User extends Authenticatable
         'finca_id' => 'required'
     ];
 
-    public function roles_botones(){
-      $user = Auth::user();
+    public function roles_botones()
+    {
+        $user = Auth::user();
         $rol_botons = [];
-        $roles=$user->roles()->get();
-        foreach ($roles as $role){
-            $rol_has=RolHasRolBoton::all()->where('rol_id', '=',$role->id)->toArray();
-            foreach ($rol_has as $rol)  {
-                $rol_botones =RolBoton::all()->where('id','=',$rol['rol_boton_id'])->first();
+        $roles = $user->roles()->get();
+        foreach ($roles as $role) {
+            $rol_has = RolHasRolBoton::all()->where('rol_id', '=', $role->id)->toArray();
+            foreach ($rol_has as $rol) {
+                $rol_botones = RolBoton::all()->where('id', '=', $rol['rol_boton_id'])->first();
                 $rol_botons[] = $rol_botones;
 
             }
         }
-      return $rol_botons;
+        return $rol_botons;
     }
 }

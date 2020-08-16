@@ -150,15 +150,10 @@ class Animal extends Model
     public static $rules = [
         'code' => 'required',
         'sexo' => 'required',
-        'lote_nacimiento_id' => 'required',
         'madre_codigo' => 'required',
         'padre_codigo' => 'required',
         'raza_codigo' => 'required',
-        'lote_actual_id' => 'required',
-        'locomocion_code' => 'required',
-        'inventario_id' => 'required',
         'negocio_id' => 'required',
-        'active' => 'required'
     ];
 
     public static $tableName = 'animales';

@@ -85,7 +85,6 @@ class Palpacion extends Model
     public static $rules = [
         'code' => 'required',
         'animal_code' => 'required',
-        'celo_id' => 'required',
         'negocio_id'=> 'required',
         'fecha' => 'required'
     ];
