@@ -73,7 +73,6 @@ class SyncronizacionAPIController extends AppBaseController
      */
     public function store(CreateSyncronizacionAPIRequest $request)
     {
-        //"{\"code\":958,\"numero\":null,\"nombre\":\"dddf\",\"finca_id\":-1}"-Ejemplo del data
 
         try {
             $input = $request->all();
@@ -167,6 +166,9 @@ class SyncronizacionAPIController extends AppBaseController
             ], 200);
         }
         catch (\Exception $e) {
+
+            $this->syncronizacionRepository->deleteAll();
+
             return response()->json([
                 'message' => $e->getMessage(),
                 'success' => false
