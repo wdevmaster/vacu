@@ -117,7 +117,7 @@ class BaseResolver
                             $repository->delete_active_off($model->id);
                         }else{
                             try {
-                                $repository->delete_active_off($model->id);
+                                $repository->delete($model->id);
                             } catch (\Exception $e) {
                             }
                         }
