@@ -108,7 +108,7 @@ class BaseResolver
 
             case 'DELETE':
 
-                if(isset($data['code'])){
+                if(isset($data['code']) && !is_null($data['code'])){
                     $model = $repository->all()
                         ->where('code', '=', $code)
                         ->first();
