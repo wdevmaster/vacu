@@ -446,7 +446,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['rol_botons'] = $rol_botons;
         $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id', '=', $user->id);
         $results['motivo_ventas'] = $this->motivoVentaRepository->all();
-        $results['motivo_muertes'] = $this->motivoVentaRepository->all();
+        $results['motivo_muertes'] = $this->motivoMuerteRepository->all();
         $results['celos'] = $this->celoRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['palpaciones'] = $this->palpacionRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['leches'] = $this->lecheRepository->all()->where('negocio_id', '=', $negocio_id);
