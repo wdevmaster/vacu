@@ -16,6 +16,7 @@ class CreateMotivoVentasTable extends Migration
         Schema::create('motivo_ventas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->integer('code');
             $table->string('descripcion')->nullable(true);
             $table->boolean('active')->default(true);
             $table->timestamps();

@@ -15,6 +15,7 @@ class CreateMotivoMuertesTable extends Migration
     {
         Schema::create('motivo_muertes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
             $table->string('nombre');
             $table->string('descripcion')->nullable(true);
             $table->boolean('active')->default(true);

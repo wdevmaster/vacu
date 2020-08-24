@@ -8,7 +8,11 @@ use App\Models\Eloquent as Model;
  * @SWG\Definition(
  *      definition="MotivoMuerte",
  *      required={"nombre", "descripcion"},
- *
+ *      @SWG\Property(
+ *          property="code",
+ *          description="code",
+ *          type="integer"
+ *      ),
  *      @SWG\Property(
  *          property="nombre",
  *          description="nombre",
@@ -35,6 +39,7 @@ class MotivoMuerte extends Model
 
 
     public $fillable = [
+        'code',
         'nombre',
         'descripcion',
         'active'
@@ -47,6 +52,7 @@ class MotivoMuerte extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'code' => 'integer',
         'nombre' => 'string',
         'descripcion' => 'string',
         'active' => 'boolean'
