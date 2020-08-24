@@ -186,8 +186,9 @@ abstract class BaseRepository
         $query = $this->model->newQuery();
 
         $model = $query->findOrFail($id);
+
         $model->active=false;
-        $model->save();
+        $model->update($model->toArray());
         return $model;
     }
 
