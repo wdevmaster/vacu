@@ -7,9 +7,15 @@ use App\Models\Eloquent as Model;
 /**
  * @SWG\Definition(
  *      definition="Evento",
- *      required={"fecha","animal_id", "tipo_evento","active","negocio_id"},
+ *      required={"code","fecha","animal_id", "tipo_evento","active","negocio_id"},
  *
  *      @SWG\Property(
+ *          property="code",
+ *          description="code",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
  *          property="fecha",
  *          description="fecha",
  *          type="string",
@@ -48,6 +54,7 @@ class Evento extends Model
 
 
     public $fillable = [
+        'code',
         'fecha',
         'animal_id',
         'tipo_evento',
@@ -62,6 +69,7 @@ class Evento extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'code' => 'integer',
         'fecha' => 'datetime',
         'animal_id' => 'integer',
         'tipo_evento' => 'string',
@@ -75,6 +83,7 @@ class Evento extends Model
      * @var array
      */
     public static $rules = [
+        'code' => 'required',
         'fecha' => 'required',
         'animal_id' => 'required',
         'tipo_evento' => 'required',

@@ -8459,6 +8459,7 @@
         },
         "Evento": {
             "required": [
+                "code",
                 "fecha",
                 "animal_id",
                 "tipo_evento",
@@ -8466,6 +8467,11 @@
                 "negocio_id"
             ],
             "properties": {
+                "code": {
+                    "description": "code",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "fecha": {
                     "description": "fecha",
                     "type": "string",
@@ -8723,6 +8729,10 @@
                 "descripcion"
             ],
             "properties": {
+                "code": {
+                    "description": "code",
+                    "type": "integer"
+                },
                 "nombre": {
                     "description": "nombre",
                     "type": "string"
@@ -9363,6 +9373,10 @@
                 "active"
             ],
             "properties": {
+                "code": {
+                    "description": "code",
+                    "type": "integer"
+                },
                 "nombre": {
                     "description": "nombre",
                     "type": "string"

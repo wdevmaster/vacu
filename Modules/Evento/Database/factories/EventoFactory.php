@@ -9,6 +9,7 @@ $factory->define(Evento::class, function (Faker $faker) {
 
     return [
         'fecha' => $faker->date('Y-m-d H:i:s'),
+        'code' => $faker->randomDigitNotNull,
         'animal_id' => $faker->randomDigitNotNull,
         'negocio_id' => $faker->randomDigitNotNull,
         'tipo_evento' => $faker->word,

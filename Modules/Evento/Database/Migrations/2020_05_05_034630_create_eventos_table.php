@@ -15,6 +15,7 @@ class CreateEventosTable extends Migration
     {
         Schema::create('eventos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
             $table->datetime('fecha');
             $table->integer('animal_id');
             $table->boolean('active')->default(true);
