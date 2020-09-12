@@ -453,6 +453,13 @@ class SyncDataService implements SyncDataServiceInterface
         $results['tratamientos'] = $this->tratamientoRepository->all()->where('negocio_id', '=', $negocio_id);
         $results['estados'] = $this->estadoRepository->all();
 
+
+        if (count($results['bitacoras']) > 0){
+            foreach ($results['bitacoras'] as $bitacora){
+                $this->bitacoraRepository->delete($bitacora->id);
+            }
+        }
+
         if ($user->email == 'apk@test.com') {
 
             $results['usuarios'] = $this->userRepository->allUsersSync($negocio_id)->makeVisible(['password']);
