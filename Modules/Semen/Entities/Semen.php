@@ -27,10 +27,10 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="id_animal",
- *          description="id_animal",
- *          type="integer",
- *          format="int32"
+ *          property="semen_code",
+ *          description="Semen Code",
+ *          type="string",
+ *          example="0001DPD"
  *      )
  * )
  */
@@ -45,7 +45,7 @@ class Semen extends Model
     public $fillable = [
         'code',
         'active',
-        'id_animal',
+        'semen_code',
         'negocio_id'
     ];
 
@@ -58,7 +58,7 @@ class Semen extends Model
         'id' => 'integer',
         'code' => 'integer',
         'active' => 'boolean',
-        'id_animal' => 'integer',
+        'semen_code' => 'string',
         'negocio_id' => 'integer'
     ];
 
@@ -70,7 +70,7 @@ class Semen extends Model
     public static $rules = [
         'code' => 'required',
         'active' => 'required',
-        'id_animal' => 'required',
+        'semen_code' => 'required',
         'negocio_id' => 'required'
     ];
 

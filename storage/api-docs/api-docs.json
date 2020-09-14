@@ -9014,10 +9014,10 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "id_animal": {
-                    "description": "id_animal",
-                    "type": "integer",
-                    "format": "int32"
+                "semen_code": {
+                    "description": "Semen Code",
+                    "type": "string",
+                    "example": "0001DPD"
                 }
             }
         },
