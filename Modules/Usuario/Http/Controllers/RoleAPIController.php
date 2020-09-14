@@ -509,7 +509,12 @@ class RoleAPIController extends CommonController
            }
        }
 
-       return $this->sendSuccess('Permissions assigned successfully');
+        return $this->sendResponse(new RolDto($role),
+            'Permission assigned',
+            true,
+            200);
+
+
 
     }
 }

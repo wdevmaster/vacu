@@ -9,12 +9,14 @@
 namespace Modules\Usuario\Dtos;
 
 
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
+use Modules\Usuario\Entities\RolHasRolBoton;
 
 class RolDto
 {
 public $rol;
 public $permisos;
+public $roles_botones;
     /**
      * RolDto constructor.
      */
@@ -22,5 +24,6 @@ public $permisos;
     {
         $this->rol = $role;
         $this->permisos = $role->permissions;
+        $this->roles_botones = $role->getRolesBotones($role->id);
     }
 }
