@@ -11,19 +11,20 @@ namespace Modules\Animal\Exports;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Entities\Estado;
 use Modules\Finca\Entities\Finca;
 use Modules\Lote\Entities\Lote;
-use Modules\Negocio\Entities\Negocio;
 use Modules\Parto\Entities\Parto;
 use Modules\Raza\Entities\Raza;
 
 class AnimalExport implements FromCollection,WithHeadings
 {
 
+    use Exportable;
 
     private $negocio_id;
 
@@ -37,18 +38,24 @@ class AnimalExport implements FromCollection,WithHeadings
      */
     public function collection()
     {
-        $negocio= Negocio::all()->where('id','=',$this->negocio_id)->first();
-        $animales=Animal::all()->where('id','=',$this->negocio_id);
+
+        $animales=Animal::all()->where('negocio_id','=',$this->negocio_id);
 
         $animalCollection=new Collection();
 
         foreach ($animales as $animal){
 
             $raza= Raza::all()->where('code','=',$animal->raza_codigo)->first()->nombre;
-            $prenne='N';
+            $prenne='';
             $estado= Estado::all()->where('id','=',$animal->estado_id)->first();
-            if($estado->nombre=='Palpada Positiva'){
-                $prenne='S';
+            if (!empty($estado)) {
+                if ($estado->nombre == 'Palpada Positiva') {
+                    $prenne = 'S';
+                }
+
+                if ($estado->nombre == 'Palpada Negativa') {
+                    $prenne = 'N';
+                }
             }
 
             $partos=Parto::all()->where('madre_code','=',$animal->code);
@@ -57,6 +64,8 @@ class AnimalExport implements FromCollection,WithHeadings
             $lote=Lote::all()->where('code','=',$animal->lote_actual_id)->first();
 
             $finca=Finca::all()->where('code','=',$lote->finca_id)->first();
+
+            $fechaNacimiento=$animal->fecha_nacimiento->toDateTimeString();
 
             $data=[];
             $data['FECHA REVISION']= Carbon::now()->format('Y-m-d');
@@ -67,7 +76,7 @@ class AnimalExport implements FromCollection,WithHeadings
             $data['PREÑEZ']=$prenne;
             $data['PARTOS']=count($partos->toArray());
             $data['MADRE']=$animal->madre_codigo;
-            $data['FECHA DE NACIMIENTO']=$animal->fecha_nacimiento;
+            $data['FECHA DE NACIMIENTO']=$fechaNacimiento;
             $data['PARTOS MUERTOS']=count($partosNegativos->toArray());
             $data['FINCA']=$finca->nombre;
             $data['LOTE']=$lote->nombre;

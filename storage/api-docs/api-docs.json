@@ -266,7 +266,7 @@
             }
         },
         "/api/v1/animal/animales/export/{negocio_id}": {
-            "post": {
+            "get": {
                 "tags": [
                     "Excel"
                 ],
@@ -276,7 +276,7 @@
                     "multipart/form-data"
                 ],
                 "produces": [
-                    "application/json"
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 ],
                 "parameters": [
                     {
@@ -302,7 +302,7 @@
                                     "type": "string"
                                 }
                             },
-                            "type": "object"
+                            "type": "file"
                         }
                     }
                 },

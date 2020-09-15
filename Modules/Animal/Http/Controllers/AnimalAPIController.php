@@ -435,15 +435,15 @@ class AnimalAPIController extends CommonController
     /**
      * @param $negocio_id
      * @param Request $request
-     * @return JsonResponse
+     * @return Excel
      *
-     * @SWG\Post(
+     * @SWG\Get(
      *      path="/api/v1/animal/animales/export/{negocio_id}",
      *      summary="Export Excel",
      *      tags={"Excel"},
      *      description="Export Excel",
      *      consumes={"multipart/form-data"},
-     *      produces={"application/json"},
+     *      produces={"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
      *    @SWG\Parameter(
      *          name="negocio_id",
      *          description="id of negocio",
@@ -455,7 +455,7 @@ class AnimalAPIController extends CommonController
      *          response=200,
      *          description="successful operation",
      *          @SWG\Schema(
-     *              type="object",
+     *              type="file",
      *              @SWG\Property(
      *                  property="success",
      *                  type="boolean"
@@ -482,17 +482,8 @@ class AnimalAPIController extends CommonController
              $fileName = 'Inventario.xlsx';
              $writerType = Excel::XLSX;
             $animalExport=new AnimalExport($negocio_id);
-            $data = $this->excel->download($animalExport->collection(),$fileName,$writerType,$animalExport->headings());
+            return $this->excel->download($animalExport,$fileName,$writerType,$animalExport->headings());
 
-            return $this->sendResponse($data,
-                'File exported successfully',
-                true,
-                200);
-        } catch (ModelNotFoundException $e) {
-            return $this->sendResponse([],
-                'comun::msgs.la_model_not_found',
-                false,
-                404);
         }
         catch (\Exception $exception) {
             return $this->sendResponse([],
