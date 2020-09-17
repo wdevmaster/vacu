@@ -25,7 +25,7 @@ class Role extends \Spatie\Permission\Models\Role
 
         if (count($role_has_role_botones) > 0) {
             foreach ($role_has_role_botones as $role_has_role_botone) {
-                $roles_botones[] = RolBoton::find($role_has_role_botone->id);
+                $roles_botones[] = RolBoton::find($role_has_role_botone->rol_boton_id);
             }
 
         }
