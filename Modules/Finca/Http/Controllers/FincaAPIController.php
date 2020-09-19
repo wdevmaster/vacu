@@ -156,7 +156,7 @@ class FincaAPIController extends CommonController
         try{
         $input = $request->all();
 
-        $finca = $this->fincaRepository->create($input);
+        $finca = $this->fincaRepository->createForWeb($input);
 
 
             return $this->sendResponse($finca->toArray(),

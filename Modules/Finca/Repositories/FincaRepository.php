@@ -44,12 +44,18 @@ class FincaRepository extends BaseRepository
         return Finca::class;
     }
 
-    public function create($input)
+    public function createForWeb($input)
     {
 
         $code = Finca::getNextCode();
-        $input['code'] = $code;
-        return parent::create($input);
+        $new_data = [
+            'code' => $code,
+            'nombre' => $input['nombre'],
+            'numero' => $input['numero'],
+            'negocio_id' => $input['negocio_id'],
+            'active' => $input['active'],
+        ];
+        return $this->create($new_data);
     }
 
     public function delete($id)
