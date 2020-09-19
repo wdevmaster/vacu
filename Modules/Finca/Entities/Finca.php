@@ -47,7 +47,6 @@ class Finca extends Model
 
 
     public $fillable = [
-        'code',
         'nombre',
         'numero',
         'negocio_id',
@@ -86,6 +85,18 @@ class Finca extends Model
     ];
 
     public static $tableName = 'fincas';
+
+    public function getNextCode(){
+        $fincas = $this::all();
+        $mayor = -1;
+        foreach ($fincas as $finca){
+            if ($mayor < $finca->code){
+                $mayor = $finca->code;
+            }
+        }
+
+        return $mayor + 1;
+    }
 
     
 }
