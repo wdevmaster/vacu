@@ -173,7 +173,7 @@ class FincaAPIController extends CommonController
         (\Exception $e) {
 
             return $this->sendResponse([],
-                'comun::msgs.msg_error_contact_the_administrator',
+                $e->getMessage(),
                 false,
                 500);
         }
