@@ -86,8 +86,8 @@ class Finca extends Model
 
     public static $tableName = 'fincas';
 
-    public function getNextCode(){
-        $fincas = $this::all();
+    public static function getNextCode(){
+        $fincas = Finca::all();
         $mayor = -1;
         foreach ($fincas as $finca){
             if ($mayor < $finca->code){

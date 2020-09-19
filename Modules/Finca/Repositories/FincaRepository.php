@@ -46,8 +46,9 @@ class FincaRepository extends BaseRepository
 
     public function create($input)
     {
-        if ($this->model instanceof Finca)
-        $input['code'] = $this->model->getNextCode();
+
+        $code = Finca::getNextCode();
+        $input['code'] = $code;
         return parent::create($input);
     }
 
