@@ -2,7 +2,6 @@
 
 namespace Modules\Animal\Imports;
 
-use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -53,29 +52,49 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
                 'active' => true
             ];
             $fincanueva = Finca::create($finca_data);
-            $finca_id = $fincanueva->id;
+            $finca_id = $fincanueva->code;
+            $lote_all = Lote::all();
+            $mayorLote = 0;
+            foreach ($lote_all as $lote){
+                if ($lote->code > $mayorLote){
+                    $mayorLote = $lote->code;
+                }
+            }
+            $mayorLote = $mayorLote + 1;
+
             $lote = [
+                'code'=>$mayorLote,
                 'nombre' => $row['lote'],
                 'active' => true,
                 'finca_id' => $finca_id,
                 'negocio_id' => $this->negocio_id
             ];
             $lotenuevo = Lote::create($lote);
-            $lote_id = $lotenuevo->id;
+            $lote_id = $lotenuevo->code;
         } else {
-            $finca_id = $finca->first()->id;
+            $finca_id = $finca->first()->code;
         }
+
+        $lote_all = Lote::all();
+        $mayorLote = 0;
+        foreach ($lote_all as $lote){
+            if ($lote->code > $mayorLote){
+                $mayorLote = $lote->code;
+            }
+        }
+        $mayorLote = $mayorLote + 1;
 
         $lote = Lote::all()->where('nombre', '=', $row['lote'])->where('finca_id', '=', $finca_id);
         if ($lote->count() == 0) {
             $lote = [
+                'code'=>$mayorLote,
                 'nombre' => $row['lote'],
                 'active' => true,
                 'finca_id' => $finca_id,
                 'negocio_id' => $this->negocio_id
             ];
             $lote = Lote::create($lote);
-            $lote_id = $lote->id;
+            $lote_id = $lote->code;
         } else {
             $lote_id = $lote->first()->id;
         }

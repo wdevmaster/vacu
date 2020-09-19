@@ -21,6 +21,7 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
         Route::put('/{id}', 'AnimalAPIController@update')->name('animal.animales.update');
         Route::delete('/{id}', 'AnimalAPIController@destroy')->name('animal.animales.destroy');
         Route::post('/import/{negocio_id}', 'AnimalAPIController@importAnimales')->name('animal.animales.importAnimales');
+        Route::get('/export/{negocio_id}', 'AnimalAPIController@exportAnimales')->name('animal.animales.exportAnimales');
     });
 
     Route::prefix('celos')->group(function () {

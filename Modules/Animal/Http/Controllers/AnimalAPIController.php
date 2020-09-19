@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Modules\Animal\Entities\Animal;
+use Modules\Animal\Exports\AnimalExport;
 use Modules\Animal\Http\Requests\CreateAnimalAPIRequest;
 use Modules\Animal\Http\Requests\UpdateAnimalAPIRequest;
 use Modules\Animal\Imports\AnimalImport;
@@ -425,6 +426,70 @@ class AnimalAPIController extends CommonController
                     $exception->getMessage(),
                     false,
                     500);
+        }
+
+    }
+
+
+
+    /**
+     * @param $negocio_id
+     * @param Request $request
+     * @return Excel
+     *
+     * @SWG\Get(
+     *      path="/api/v1/animal/animales/export/{negocio_id}",
+     *      summary="Export Excel",
+     *      tags={"Excel"},
+     *      description="Export Excel",
+     *      consumes={"multipart/form-data"},
+     *      produces={"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+     *    @SWG\Parameter(
+     *          name="negocio_id",
+     *          description="id of negocio",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="file",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
+     * )
+     */
+    public function exportAnimales($negocio_id)
+    {
+
+        try {
+             $fileName = 'Inventario.xlsx';
+             $writerType = Excel::XLSX;
+            $animalExport=new AnimalExport($negocio_id);
+            return $this->excel->download($animalExport,$fileName,$writerType,$animalExport->headings());
+
+        }
+        catch (\Exception $exception) {
+            return $this->sendResponse([],
+                $exception->getMessage(),
+                false,
+                500);
         }
 
     }

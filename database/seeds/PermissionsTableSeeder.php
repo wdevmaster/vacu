@@ -30,6 +30,9 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'animales.destroy']);
         Permission::create(['name' => 'animales.show']);
 
+        Permission::create(['name' => 'animales.importAnimales']);
+        Permission::create(['name' => 'animales.exportAnimales']);
+
         Permission::create(['name' => 'celos.index']);
         Permission::create(['name' => 'celos.update']);
         Permission::create(['name' => 'celos.create']);
