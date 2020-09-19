@@ -47,6 +47,7 @@ class Finca extends Model
 
 
     public $fillable = [
+        'code',
         'nombre',
         'numero',
         'negocio_id',
