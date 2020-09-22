@@ -15,7 +15,7 @@ class CreateConfiguracionsTable extends Migration
     {
         Schema::create('configuraciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('code')->unique();
+            $table->integer('code');
             $table->integer('clave');
             $table->string('descripcion')->nullable(true);
             $table->integer('valor');

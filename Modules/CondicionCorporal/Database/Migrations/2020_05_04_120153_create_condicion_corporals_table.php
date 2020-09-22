@@ -15,7 +15,7 @@ class CreateCondicionCorporalsTable extends Migration
     {
         Schema::create('condiciones_corporales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('code')->unique();
+            $table->integer('code');
             $table->string('nombre');
             $table->string('descripcion')->nullable(true);
             $table->boolean('active')->default(true);

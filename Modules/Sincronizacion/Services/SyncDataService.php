@@ -9,6 +9,7 @@
 namespace Modules\Sincronizacion\Services;
 
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Entities\Celo;
@@ -420,37 +421,38 @@ class SyncDataService implements SyncDataServiceInterface
             }
         }
 
-        $results['configuraciones'] = $this->configuracionRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['animales'] = $this->animalRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['clientes'] = $this->clienteRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['condiciones_corporales'] = $this->condicionCorporalRepository->all()->where('negocio_id', '=', $negocio_id);
+
+
+        $results['configuraciones'] = $this->configuracionRepository->all(['negocio_id' => $negocio_id]);
+        $results['animales'] = $this->animalRepository->all(['negocio_id' => $negocio_id]);
+        $results['clientes'] = $this->clienteRepository->all(['negocio_id' => $negocio_id]);
+        $results['condiciones_corporales'] = $this->condicionCorporalRepository->all(['negocio_id' => $negocio_id]);
         $results['enfermedades'] = $this->enfermedadRepository->all();
-        $results['negocios'] = $this->negocioRepository->all()->where('id', '=', $negocio_id);
-        $results['estados_fisicos'] = $this->estadoFisicoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['estados_fisicos'] = $this->estadoFisicoRepository->all(['negocio_id' => $negocio_id]);
         $results['eventos'] = $this->eventoRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['fincas'] = $this->fincaRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['ingresos'] = $this->ingresoRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['inseminadores'] = $this->inseminadorRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['lactancias'] = $this->lactanciaRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['locomociones'] = $this->locomocionRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['lotes'] = $this->loteRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['muertes'] = $this->muerteRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['partos'] = $this->partoRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['producciones'] = $this->produccionRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['fincas'] = $this->fincaRepository->all(['negocio_id' => $negocio_id]);
+        $results['ingresos'] = $this->ingresoRepository->all(['negocio_id' => $negocio_id]);
+        $results['inseminadores'] = $this->inseminadorRepository->all(['negocio_id' => $negocio_id]);
+        $results['lactancias'] = $this->lactanciaRepository->all(['negocio_id' => $negocio_id]);
+        $results['locomociones'] = $this->locomocionRepository->all(['negocio_id' => $negocio_id]);
+        $results['lotes'] = $this->loteRepository->all(['negocio_id' => $negocio_id]);
+        $results['muertes'] = $this->muerteRepository->all(['negocio_id' => $negocio_id]);
+        $results['partos'] = $this->partoRepository->all(['negocio_id' => $negocio_id]);
+        $results['producciones'] = $this->produccionRepository->all(['negocio_id' => $negocio_id]);
         $results['razas'] = $this->razaRepository->all();
-        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['semens'] = $this->semenRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['servicios'] = $this->servicioRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['registros_enfermedades'] = $this->registroEnfermedadRepository->all(['negocio_id' => $negocio_id]);
+        $results['semens'] = $this->semenRepository->all(['negocio_id' => $negocio_id]);
+        $results['servicios'] = $this->servicioRepository->all(['negocio_id' => $negocio_id]);
         $results['tipos_servicios'] = $this->tipoServicioRepository->all();
-        $results['ventas'] = $this->ventaRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['ventas'] = $this->ventaRepository->all(['negocio_id' => $negocio_id]);
         $results['rol_botons'] = $rol_botons;
-        $results['bitacoras'] = $this->bitacoraRepository->all()->where('usuario_id', '=', $user->id);
+        $results['bitacoras'] = $this->bitacoraRepository->all(['negocio_id' => $negocio_id]);
         $results['motivo_ventas'] = $this->motivoVentaRepository->all();
         $results['motivo_muertes'] = $this->motivoMuerteRepository->all();
-        $results['celos'] = $this->celoRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['palpaciones'] = $this->palpacionRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['leches'] = $this->lecheRepository->all()->where('negocio_id', '=', $negocio_id);
-        $results['tratamientos'] = $this->tratamientoRepository->all()->where('negocio_id', '=', $negocio_id);
+        $results['celos'] = $this->celoRepository->all(['negocio_id' => $negocio_id]);
+        $results['palpaciones'] = $this->palpacionRepository->all(['negocio_id' => $negocio_id]);
+        $results['leches'] = $this->lecheRepository->all(['negocio_id' => $negocio_id]);
+        $results['tratamientos'] = $this->tratamientoRepository->all(['negocio_id' => $negocio_id]);
         $results['estados'] = $this->estadoRepository->all();
 
 
@@ -463,6 +465,7 @@ class SyncDataService implements SyncDataServiceInterface
         if ($user->email == 'apk@test.com') {
 
             $results['usuarios'] = $this->userRepository->allUsersSync($negocio_id)->makeVisible(['password']);
+            $results['negocios'] = $this->negocioRepository->all();
         }
 
         return $results;
