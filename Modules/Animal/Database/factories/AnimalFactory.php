@@ -18,6 +18,7 @@ $factory->define(Animal::class, function (Faker $faker) {
         'lote_actual_id' => $faker->randomDigitNotNull,
         'locomocion_code' => $faker->randomDigitNotNull,
         'temporal_id' => $faker->randomDigitNotNull,
+        'codigo_trabajo' => $faker->word,
         'inventario_id' => $faker->randomDigitNotNull,
         'negocio_id' => $faker->randomDigitNotNull,
         'active' => true,

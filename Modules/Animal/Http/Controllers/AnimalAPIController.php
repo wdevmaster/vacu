@@ -169,6 +169,15 @@ class AnimalAPIController extends CommonController
     {
         try {
             $input = $request->all();
+            $codigo_trabajo=$input['codigo_trabajo'];
+            $animal_codigo_existe=$this->animalRepository->all()->where('codigo_trabajo','=',$codigo_trabajo)->first();
+
+            if($animal_codigo_existe){
+                return $this->sendResponse([],
+                    'Exist the Work Code',
+                    false,
+                    404);
+            }
 
             $animal = $this->animalRepository->create($input);
 
@@ -246,6 +255,15 @@ class AnimalAPIController extends CommonController
     {
         try {
             $input = $request->all();
+            $codigo_trabajo=$input['codigo_trabajo'];
+            $animal_codigo_existe=$this->animalRepository->all()->where('codigo_trabajo','=',$codigo_trabajo)->first();
+
+            if($animal_codigo_existe){
+                return $this->sendResponse([],
+                    'Exist the Work Code',
+                    false,
+                    404);
+            }
 
             $animal = $this->animalRepository->update($input, $id);
 

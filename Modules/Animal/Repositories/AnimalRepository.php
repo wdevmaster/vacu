@@ -25,7 +25,8 @@ class AnimalRepository extends BaseRepository
         'padre_codigo',
         'raza_codigo',
         'lote_actual_id',
-        'locomocion_code'
+        'locomocion_code',
+        'codigo_trabajo'
     ];
 
     /**

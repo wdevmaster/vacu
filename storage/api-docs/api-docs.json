@@ -8096,6 +8096,10 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "codigo_trabajo": {
+                    "description": "codigo de trabajo",
+                    "type": "string"
+                },
                 "active": {
                     "description": "active",
                     "type": "boolean"

@@ -86,6 +86,11 @@ use App\Models\Eloquent as Model;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="codigo_trabajo",
+ *          description="codigo de trabajo",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
  *          property="active",
  *          description="active",
  *          type="boolean"
@@ -115,7 +120,8 @@ class Animal extends Model
         'inventario_id',
         'temporal_id',
         'active',
-        'negocio_id'
+        'negocio_id',
+        'codigo_trabajo'
     ];
 
     /**
@@ -139,7 +145,8 @@ class Animal extends Model
         'inventario_id' => 'integer',
         'temporal_id' => 'integer',
         'negocio_id' => 'integer',
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'codigo_trabajo'=>'string'
     ];
 
     /**
