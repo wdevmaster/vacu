@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Modules\Animal\Entities\Animal;
 use Modules\Animal\Entities\Estado;
+use Modules\Animal\Entities\TipoProduccion;
 use Modules\Finca\Entities\Finca;
 use Modules\Lote\Entities\Lote;
 use Modules\Parto\Entities\Parto;
@@ -48,6 +49,12 @@ class AnimalExport implements FromCollection,WithHeadings
             $raza= Raza::all()->where('code','=',$animal->raza_codigo)->first()->nombre;
             $prenne='';
             $estado= Estado::all()->where('id','=',$animal->estado_id)->first();
+            $tipo_produccion=TipoProduccion::all()->where('id','=',$animal->tipo_produccion_id)->first();
+            $produccion='';
+            if ($tipo_produccion){
+                $produccion=$tipo_produccion->nombre;
+            }
+
             if (!empty($estado)) {
                 if ($estado->nombre == 'Palpada Positiva') {
                     $prenne = 'S';
@@ -80,6 +87,8 @@ class AnimalExport implements FromCollection,WithHeadings
             $data['PARTOS MUERTOS']=count($partosNegativos->toArray());
             $data['FINCA']=$finca->nombre;
             $data['LOTE']=$lote->nombre;
+            $data['TIPO PRODUCCION']=$produccion;
+
 
             $animalCollection->push($data);
 
@@ -110,6 +119,7 @@ class AnimalExport implements FromCollection,WithHeadings
            'PARTOS MUERTOS',
            'FINCA',
            'LOTE',
+           'TIPO PRODUCCION'
        ];
     }
 

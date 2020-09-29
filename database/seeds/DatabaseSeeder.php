@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(SincronizacionDatabaseSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(\Modules\Animal\Database\Seeders\EstadoSeederTableSeeder::class);
+        $this->call(\Modules\Animal\Database\Seeders\TipoProduccionSeederTableSeeder::class);
         $this->call(\Modules\Raza\Database\Seeders\RazaDatabaseSeeder::class);
         $this->call(\Modules\Cliente\Database\Seeders\ClienteDatabaseSeeder::class);
 

@@ -56,6 +56,14 @@ Route::prefix('/v1/animal/')->middleware('auth:api')->group(function () {
 
     });
 
+    Route::prefix('tipo_produccions')->group(function () {
+        Route::get('/', 'TipoProduccionAPIController@index')->name('animal.TipoProduccionAPIController.index');
+        Route::post('/', 'TipoProduccionAPIController@store')->name('animal.TipoProduccionAPIController.store');
+        Route::put('/{id}', 'TipoProduccionAPIController@update')->name('animal.TipoProduccionAPIController.update');
+        Route::delete('/{id}', 'TipoProduccionAPIController@destroy')->name('animal.TipoProduccionAPIController.destroy');
+
+    });
+
 });
 
 

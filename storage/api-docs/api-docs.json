@@ -8021,16 +8021,10 @@
         "Animal": {
             "required": [
                 "code",
-                "fecha_nacimiento",
                 "sexo",
-                "edad",
-                "lote_nacimiento_id",
                 "madre_codigo",
                 "padre_codigo",
                 "raza_codigo",
-                "lote_actual_id",
-                "locomocion_code",
-                "active",
                 "negocio_id"
             ],
             "properties": {
@@ -8099,6 +8093,10 @@
                 "codigo_trabajo": {
                     "description": "codigo de trabajo",
                     "type": "string"
+                },
+                "tipo_prodiccion_id": {
+                    "description": "tipo_prodiccion_id",
+                    "type": "integer"
                 },
                 "active": {
                     "description": "active",
@@ -8233,6 +8231,22 @@
                 "active": {
                     "description": "active",
                     "type": "boolean"
+                }
+            }
+        },
+        "TipoProduccion": {
+            "required": [
+                "nombre",
+                "descripcion"
+            ],
+            "properties": {
+                "nombre": {
+                    "description": "nombre",
+                    "type": "string"
+                },
+                "descripcion": {
+                    "description": "descripcion",
+                    "type": "string"
                 }
             }
         },

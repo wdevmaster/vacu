@@ -28,12 +28,14 @@ class CreateAnimalsTable extends Migration
             $table->integer('locomocion_code')->nullable();
             $table->integer('temporal_id')->nullable();
             $table->string('codigo_trabajo')->nullable();
+            $table->integer('tipo_produccion_id')->unsigned()->nullable();
             $table->integer('inventario_id')->nullable();
             $table->integer('negocio_id');
             $table->boolean('active')->default(true);
             $table->timestamps();
 
             $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
+
         });
     }
 

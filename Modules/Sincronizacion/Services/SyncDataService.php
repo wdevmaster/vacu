@@ -22,6 +22,7 @@ use Modules\Animal\Repositories\CeloRepository;
 use Modules\Animal\Repositories\EstadoRepository;
 use Modules\Animal\Repositories\LecheRepository;
 use Modules\Animal\Repositories\PalpacionRepository;
+use Modules\Animal\Repositories\TipoProduccionRepository;
 use Modules\Animal\Repositories\TratamientoRepository;
 use Modules\Bitacora\Repositories\BitacoraRepository;
 use Modules\Cliente\Entities\Cliente;
@@ -184,6 +185,8 @@ class SyncDataService implements SyncDataServiceInterface
 
     private $userRepository;
 
+    private $tipoProduccionRepository;
+
 
     public function __construct(SyncronizacionRepository $syncronizacionRepository,
                                 ConfiguracionRepository $configuracionRepository,
@@ -219,7 +222,8 @@ class SyncDataService implements SyncDataServiceInterface
                                 TratamientoRepository $tratamientoRepository,
                                 EstadoRepository $estadoRepository,
                                 ClienteRepository $clienteRepository,
-                                UserRepository $userRepository
+                                UserRepository $userRepository,
+                                TipoProduccionRepository $tipoProduccionRepository
     )
     {
         $this->syncronizacionRepository = $syncronizacionRepository;
@@ -256,6 +260,7 @@ class SyncDataService implements SyncDataServiceInterface
         $this->estadoRepository = $estadoRepository;
         $this->clienteRepository = $clienteRepository;
         $this->userRepository = $userRepository;
+        $this->tipoProduccionRepository=$tipoProduccionRepository;
 
         $this->baseResolver = $baseResolver;
 
@@ -454,6 +459,7 @@ class SyncDataService implements SyncDataServiceInterface
         $results['leches'] = $this->lecheRepository->all(['negocio_id' => $negocio_id]);
         $results['tratamientos'] = $this->tratamientoRepository->all(['negocio_id' => $negocio_id]);
         $results['estados'] = $this->estadoRepository->all();
+        $results['tipo_produccions'] = $this->tipoProduccionRepository->all();
 
 
         if (count($results['bitacoras']) > 0){

@@ -11,6 +11,8 @@ use Modules\Lote\Entities\Lote;
 use Modules\Negocio\Entities\Negocio;
 use Modules\Parto\Entities\Parto;
 use Modules\Raza\Entities\Raza;
+use Modules\Animal\Entities\TipoProduccion;
+
 
 
 class AnimalImport implements ToModel, WithHeadingRow, WithValidation
@@ -142,6 +144,10 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
         if ($row['fecha_de_nacimiento'])
         $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha_de_nacimiento']);
 
+        $tipo_produccion=null;
+        is_null($row['tipo_produccion']) ? $tipo_produccion = null : $tipo_produccion = TipoProduccion::where('nombre', $row['tipo_produccion'])->first()->id;
+
+
         return new Entities\Animal([
             'code' => $row['animal'],
             'sexo' => $row['sexo'],
@@ -155,6 +161,7 @@ class AnimalImport implements ToModel, WithHeadingRow, WithValidation
             'locomocion_code' => 0,
             'inventario_id' => 0,
             'codigo_trabajo'=>"",
+            'tipo_produccion_id'=>$tipo_produccion,
             'temporal_id' => 0,
             'negocio_id' => $this->negocio_id,
             'active' => true,
