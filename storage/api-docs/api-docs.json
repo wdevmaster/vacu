@@ -6455,7 +6455,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/User"
+                                    "$ref": "#/definitions/UserDto"
                                 },
                                 "message": {
                                     "type": "string"
