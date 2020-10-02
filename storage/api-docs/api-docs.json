@@ -7595,6 +7595,42 @@
                 ]
             }
         },
+        "/api/v1/usuario/usuarios/auth": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Display the specified Role",
+                "description": "Get User Auth",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/User"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/venta/motivo_ventas": {
             "get": {
                 "tags": [
@@ -8094,8 +8130,8 @@
                     "description": "codigo de trabajo",
                     "type": "string"
                 },
-                "tipo_prodiccion_id": {
-                    "description": "tipo_prodiccion_id",
+                "tipo_produccion_id": {
+                    "description": "tipo_produccion_id",
                     "type": "integer"
                 },
                 "active": {

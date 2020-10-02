@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\Common\Http\Controllers\CommonController;
 use Modules\Usuario\Dtos\UserDto;
 use Modules\Usuario\Entities\User;
@@ -551,6 +552,69 @@ class UserAPIController extends CommonController
             return $this->sendSuccess('Role assigned successfully');
         } catch (\Exception $e) {
             return $this->sendError('Error contact the administrator', 500);
+        }
+    }
+
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @SWG\Get(
+     *      path="/api/v1/usuario/usuarios/auth",
+     *      summary="Display the specified Role",
+     *      tags={"User"},
+     *      description="Get User Auth",
+     *      produces={"application/json"},
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/User"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      ),
+     *      security={
+     *      {"Bearer": {}}
+     *    }
+     * )
+     */
+    public function showAuthUser()
+    {
+        try{
+            /** @var Role $role */
+
+            $user = Auth::user();
+
+            return $this->sendResponse($user->toArray(),
+                'comun::msgs.la_model_retrieved_successfully',
+                true,
+                200);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->sendResponse([],
+                'comun::msgs.la_model_not_found',
+                false,
+                404);
+        } catch
+        (\Exception $e) {
+
+            return $this->sendResponse([],
+                'comun::msgs.msg_error_contact_the_administrator',
+                false,
+                500);
         }
     }
 }
