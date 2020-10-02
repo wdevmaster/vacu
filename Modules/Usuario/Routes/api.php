@@ -22,13 +22,14 @@ Route::prefix('v1/auth')->middleware('auth:api')->group(function () {
     Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
     Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 
+    Route::get('/user', 'Auth\UserAuthAPIController@showAuthUser')->name('user.showAuthUser');
+
 });
 
 Route::prefix('v1/usuario')->middleware('auth:api')->group(function () {
     Route::prefix('usuarios')->group(function () {
         Route::get('/', 'UserAPIController@index')->name('usuario.usuarios.index');
         Route::get('/filter/all', 'UserAPIController@filter')->name('usuario.usuarios.filter');
-        Route::get('/auth', 'UserAPIController@showAuthUser')->name('usuario.usuarios.showAuthUser');
         Route::post('/', 'UserAPIController@store')->name('usuario.usuarios.store');
         Route::put('/{id}', 'UserAPIController@update')->name('usuario.usuarios.update');
         Route::delete('/{id}', 'UserAPIController@destroy')->name('usuario.usuarios.delete');
